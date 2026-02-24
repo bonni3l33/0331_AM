@@ -58,4 +58,119 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  // Placement tabs switching
+  const placementTabs = document.querySelectorAll('.placement-tab');
+  const placementPanels = document.querySelectorAll('.placement-panel');
+
+  placementTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetPanel = this.getAttribute('data-tab');
+
+      // Remove active class from all tabs
+      placementTabs.forEach(t => t.classList.remove('placement-tab--active'));
+
+      // Add active class to clicked tab
+      this.classList.add('placement-tab--active');
+
+      // Hide all panels
+      placementPanels.forEach(p => p.classList.remove('placement-panel--active'));
+
+      // Show target panel
+      const panel = document.querySelector(`.placement-panel[data-panel="${targetPanel}"]`);
+      if (panel) {
+        panel.classList.add('placement-panel--active');
+      }
+    });
+  });
+
+  // Drag and drop for placement cards
+  function initPlacementDragDrop() {
+    const placementLists = document.querySelectorAll('.placement-list');
+
+    placementLists.forEach(list => {
+      let draggedElement = null;
+
+      const items = list.querySelectorAll('.placement-item');
+
+      items.forEach(item => {
+        // Make the entire card draggable when clicking the drag handle
+        const dragHandle = item.querySelector('.placement-item__drag');
+
+        if (dragHandle) {
+          dragHandle.addEventListener('mousedown', function() {
+            item.setAttribute('draggable', 'true');
+          });
+
+          item.addEventListener('dragstart', function(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+          });
+
+          item.addEventListener('dragend', function() {
+            this.classList.remove('dragging');
+            this.setAttribute('draggable', 'false');
+          });
+
+          item.addEventListener('dragover', function(e) {
+            e.preventDefault();
+
+            if (draggedElement !== this) {
+              const bounding = this.getBoundingClientRect();
+              const offset = e.clientY - bounding.top;
+
+              if (offset > bounding.height / 2) {
+                this.parentNode.insertBefore(draggedElement, this.nextSibling);
+              } else {
+                this.parentNode.insertBefore(draggedElement, this);
+              }
+            }
+          });
+        }
+      });
+    });
+  }
+
+  // Initialize drag and drop after DOM is loaded
+  initPlacementDragDrop();
+
+  // Chat action items - scroll to section on click
+  const chatActions = document.querySelectorAll('.chat-action');
+
+  chatActions.forEach(action => {
+    action.addEventListener('click', function() {
+      const sectionId = this.getAttribute('data-section');
+      const section = document.getElementById(sectionId);
+
+      if (section) {
+        // Remove highlight from any previously highlighted sections
+        document.querySelectorAll('.create-section--highlighted').forEach(s => {
+          s.classList.remove('create-section--highlighted');
+        });
+
+        // Expand the section if it's collapsed
+        if (section.classList.contains('create-section--collapsed')) {
+          const toggle = section.querySelector('.create-section__toggle');
+          if (toggle) {
+            toggle.click();
+          }
+        }
+
+        // Scroll to the section with smooth behavior
+        section.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+        // Add gradient highlight class
+        section.classList.add('create-section--highlighted');
+
+        // Remove highlight after animation
+        setTimeout(() => {
+          section.classList.remove('create-section--highlighted');
+        }, 2000);
+      }
+    });
+  });
 });

@@ -25,7 +25,7 @@
 
             // Trigger animation after a brief delay
             setTimeout(() => {
-              progressFill.style.width = '50%';
+              progressFill.style.width = '43%';
             }, 100);
           }
         }

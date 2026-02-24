@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         const progressFill = document.querySelector('.create-progress__fill');
         if (progressFill) {
-          progressFill.style.width = '50%';
+          progressFill.style.width = '43%';
         }
 
         // Clear transition flag after animation
