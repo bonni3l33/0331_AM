@@ -57,6 +57,11 @@
         <circle fill="currentColor" cx="6" cy="12" r="1.5"/>
         <circle fill="currentColor" cx="18" cy="12" r="1.5"/>
       </symbol>
+      <symbol id="icon-preview" viewBox="0 0 24 24">
+        <circle fill="currentColor" cx="12" cy="12" r="1.5"/>
+        <circle fill="currentColor" cx="6" cy="12" r="1.5"/>
+        <circle fill="currentColor" cx="18" cy="12" r="1.5"/>
+      </symbol>
     </svg>
   </div>
 
@@ -88,6 +93,9 @@
           <a href="#start" class="local-nav__item local-nav__item--active">
             <svg class="icon" width="24" height="24"><use href="#icon-flag"/></svg>
           </a>
+          <button class="local-nav__item" id="preview-nav-btn" style="display: none;" title="Preview Interaction Options">
+            <svg class="icon" width="24" height="24"><use href="#icon-preview"/></svg>
+          </button>
         </div>
       </nav>
 
@@ -238,9 +246,428 @@
                 </div>
               </div>
 
+              <!-- Inline Configuration Section (shown when multiple campaigns selected) -->
+              <div class="template-config-section" id="template-config-section" style="display: none;">
+                <div class="template-config-container">
+                  <h3 class="template-config__title">Configure your campaigns</h3>
+                  <p class="template-config__subtitle">Set up the structure for your multiple campaigns</p>
+
+                  <!-- Multiple Promotion Configuration -->
+                  <div class="template-config-content" id="config-promotion" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of campaigns</label>
+                      <input type="number" class="create-field__input" id="campaign-count" value="3" min="2" max="10" />
+                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2-10)</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Campaign structure</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="tiered" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Tiered offers</span>
+                            <span class="template-config-option__desc">Bronze, Silver, Gold tiers with increasing benefits</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="sequential" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Sequential timeline</span>
+                            <span class="template-config-option__desc">Week 1, Week 2, Week 3 rolling campaigns</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="ab-test" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">A/B test variants</span>
+                            <span class="template-config-option__desc">Test different approaches with similar audiences</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Multiple Action-Based Configuration -->
+                  <div class="template-config-content" id="config-action" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of action steps</label>
+                      <input type="number" class="create-field__input" id="action-steps-count" value="2" min="2" max="10" />
+                      <span class="create-field__hint">How many sequential actions in the customer journey (2-10)</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Journey type</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="signup" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Sign-up incentive flow</span>
+                            <span class="template-config-option__desc">Reward users for completing registration steps</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="milestone" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Milestone rewards</span>
+                            <span class="template-config-option__desc">Unlock benefits after reaching activity thresholds</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="custom" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Custom action sequence</span>
+                            <span class="template-config-option__desc">Define your own specific trigger and reward flow</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="template-selection-footer">
                 <button class="btn btn--primary template-selection__continue">Continue</button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Preview Options View -->
+        <div class="preview-options-view" id="preview-options-view" style="display: none;">
+          <div class="preview-options-container">
+            <div class="preview-options-header">
+              <h1 class="preview-options-title">Preview Interaction Options</h1>
+              <p class="preview-options-subtitle">Explore different approaches for Multiple Promotion and Action-Based campaigns</p>
+              <button class="btn btn--ghost preview-options-close">
+                <svg class="icon" width="24" height="24"><use href="#icon-close"/></svg>
+                Back to Templates
+              </button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="preview-tabs">
+              <button class="preview-tab preview-tab--active" data-preview="option-a">
+                <span class="preview-tab-label">Option A</span>
+                <span class="preview-tab-desc">Modal/Dialog</span>
+              </button>
+              <button class="preview-tab" data-preview="option-b">
+                <span class="preview-tab-label">Option B</span>
+                <span class="preview-tab-desc">Different Views</span>
+              </button>
+              <button class="preview-tab" data-preview="option-c">
+                <span class="preview-tab-label">Option C</span>
+                <span class="preview-tab-desc">Intermediate Step</span>
+              </button>
+              <button class="preview-tab" data-preview="option-d">
+                <span class="preview-tab-label">Option D</span>
+                <span class="preview-tab-desc">Dynamic View</span>
+              </button>
+            </div>
+
+            <!-- Preview Content Panels -->
+            <div class="preview-content">
+
+              <!-- Option A: Modal/Dialog -->
+              <div class="preview-panel preview-panel--active" id="option-a">
+                <div class="preview-demo">
+                  <h2 class="preview-panel-title">Option A: Modal/Dialog for Configuration</h2>
+                  <p class="preview-panel-description">
+                    When user selects Multiple Promotion or Action-Based campaigns, a modal appears to gather initial configuration before proceeding to the create view.
+                  </p>
+
+                  <div class="preview-mockup">
+                    <!-- Background (blurred create view) -->
+                    <div class="preview-mockup-bg">
+                      <div class="preview-mockup-bg-header"></div>
+                      <div class="preview-mockup-bg-content"></div>
+                    </div>
+
+                    <!-- Modal overlay -->
+                    <div class="preview-modal-overlay">
+                      <div class="preview-modal">
+                        <div class="preview-modal-header">
+                          <h3>Multiple Promotion Campaigns Setup</h3>
+                          <button class="btn--icon btn--ghost">
+                            <svg class="icon" width="20" height="20"><use href="#icon-close"/></svg>
+                          </button>
+                        </div>
+                        <div class="preview-modal-body">
+                          <div class="create-field">
+                            <label class="create-field__label">How many campaigns do you want to create?</label>
+                            <input type="number" class="create-field__input" value="3" min="2" max="10" />
+                            <span class="create-field__hint">Create 2-10 coordinated promotion campaigns</span>
+                          </div>
+                          <div class="create-field">
+                            <label class="create-field__label">Campaign naming pattern (optional)</label>
+                            <input type="text" class="create-field__input" placeholder="e.g., Summer Sale - Tier {n}" />
+                          </div>
+                        </div>
+                        <div class="preview-modal-footer">
+                          <button class="btn btn--ghost">Cancel</button>
+                          <button class="btn btn--primary">Create Campaigns</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="preview-pros-cons">
+                    <div class="preview-pros">
+                      <h4>Pros</h4>
+                      <ul>
+                        <li>Quick setup without leaving context</li>
+                        <li>Familiar pattern (common in web apps)</li>
+                        <li>Easy to dismiss and return</li>
+                        <li>Minimal navigation complexity</li>
+                      </ul>
+                    </div>
+                    <div class="preview-cons">
+                      <h4>Cons</h4>
+                      <ul>
+                        <li>Limited space for complex configuration</li>
+                        <li>May feel constraining for advanced options</li>
+                        <li>Overlay can obscure context</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option B: Different Create Views -->
+              <div class="preview-panel" id="option-b">
+                <div class="preview-demo">
+                  <h2 class="preview-panel-title">Option B: Different Create Views</h2>
+                  <p class="preview-panel-description">
+                    Each template type gets a specialized create view optimized for its workflow. Multiple campaigns get a tabbed or card-based interface.
+                  </p>
+
+                  <div class="preview-mockup">
+                    <div class="preview-mockup-multi-campaign">
+                      <div class="preview-header">
+                        <div class="preview-breadcrumbs">Campaigns / New Multi-Campaign</div>
+                        <div class="preview-actions">
+                          <button class="btn btn--ghost btn--sm">Cancel</button>
+                          <button class="btn btn--primary btn--sm">Publish All</button>
+                        </div>
+                      </div>
+
+                      <div class="preview-campaign-tabs">
+                        <div class="preview-campaign-tab preview-campaign-tab--active">
+                          Campaign 1: Tier 1 (20% off)
+                        </div>
+                        <div class="preview-campaign-tab">
+                          Campaign 2: Tier 2 (30% off)
+                        </div>
+                        <div class="preview-campaign-tab">
+                          Campaign 3: Tier 3 (40% off)
+                        </div>
+                        <button class="preview-campaign-tab-add">
+                          <svg class="icon" width="16" height="16"><use href="#icon-plus"/></svg>
+                          Add Campaign
+                        </button>
+                      </div>
+
+                      <div class="preview-form-sections">
+                        <div class="preview-form-section">Campaign Information</div>
+                        <div class="preview-form-section">Targeting</div>
+                        <div class="preview-form-section">Promotion Details</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="preview-pros-cons">
+                    <div class="preview-pros">
+                      <h4>Pros</h4>
+                      <ul>
+                        <li>Specialized UI for each workflow type</li>
+                        <li>Clear visual separation between campaigns</li>
+                        <li>Easy to switch between campaigns</li>
+                        <li>Can optimize form fields per template</li>
+                      </ul>
+                    </div>
+                    <div class="preview-cons">
+                      <h4>Cons</h4>
+                      <ul>
+                        <li>More code to maintain (multiple views)</li>
+                        <li>Steeper learning curve (different UIs)</li>
+                        <li>Takes longer to develop</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option C: Intermediate Step -->
+              <div class="preview-panel" id="option-c">
+                <div class="preview-demo">
+                  <h2 class="preview-panel-title">Option C: Intermediate Configuration Step</h2>
+                  <p class="preview-panel-description">
+                    After selecting a template, users go through a dedicated configuration screen before reaching the main create view.
+                  </p>
+
+                  <div class="preview-mockup">
+                    <div class="preview-mockup-intermediate">
+                      <div class="preview-header">
+                        <div class="preview-breadcrumbs">Campaigns / Configure Multi-Campaign</div>
+                      </div>
+
+                      <div class="preview-intermediate-content">
+                        <div class="preview-intermediate-icon">
+                          <svg class="icon" width="48" height="48" style="color: var(--color-primary)"><use href="#icon-flag"/></svg>
+                        </div>
+                        <h2>Configure Multiple Promotion Campaigns</h2>
+                        <p style="color: var(--color-text-secondary); margin-bottom: 32px;">
+                          Set up your campaign structure before filling in details
+                        </p>
+
+                        <div class="preview-config-form">
+                          <div class="create-field">
+                            <label class="create-field__label">Number of campaigns</label>
+                            <select class="create-field__input">
+                              <option>2 campaigns</option>
+                              <option selected>3 campaigns</option>
+                              <option>4 campaigns</option>
+                              <option>5 campaigns</option>
+                            </select>
+                          </div>
+
+                          <div class="create-field">
+                            <label class="create-field__label">Campaign structure</label>
+                            <div class="preview-radio-group">
+                              <label class="preview-radio-option">
+                                <input type="radio" name="structure" checked />
+                                <span>Tiered offers (Bronze, Silver, Gold)</span>
+                              </label>
+                              <label class="preview-radio-option">
+                                <input type="radio" name="structure" />
+                                <span>Sequential timeline (Week 1, 2, 3)</span>
+                              </label>
+                              <label class="preview-radio-option">
+                                <input type="radio" name="structure" />
+                                <span>A/B test variants</span>
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="preview-button-row">
+                            <button class="btn btn--ghost">Back</button>
+                            <button class="btn btn--primary">Continue to Campaigns</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="preview-pros-cons">
+                    <div class="preview-pros">
+                      <h4>Pros</h4>
+                      <ul>
+                        <li>Clear, focused configuration step</li>
+                        <li>Sets up structure before details</li>
+                        <li>Allows for template-specific questions</li>
+                        <li>Progressive disclosure of complexity</li>
+                      </ul>
+                    </div>
+                    <div class="preview-cons">
+                      <h4>Cons</h4>
+                      <ul>
+                        <li>Extra step in the flow</li>
+                        <li>May feel like extra work for simple cases</li>
+                        <li>Users can't skip ahead</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option D: Dynamic Create View -->
+              <div class="preview-panel" id="option-d">
+                <div class="preview-demo">
+                  <h2 class="preview-panel-title">Option D: Dynamic Create View</h2>
+                  <p class="preview-panel-description">
+                    The create view adapts based on template selection, showing additional sections or modifying existing ones dynamically.
+                  </p>
+
+                  <div class="preview-mockup">
+                    <div class="preview-mockup-dynamic">
+                      <div class="preview-header">
+                        <div class="preview-breadcrumbs">Campaigns / New Campaign</div>
+                        <div class="preview-badge" style="background: var(--color-accent-bg); color: var(--color-accent);">
+                          Multiple Promotions
+                        </div>
+                      </div>
+
+                      <div class="preview-dynamic-sections">
+                        <div class="preview-dynamic-section">
+                          <div class="preview-section-header">
+                            <span class="preview-section-number">1</span>
+                            <span>Shared Campaign Settings</span>
+                          </div>
+                        </div>
+
+                        <div class="preview-dynamic-section preview-dynamic-section--expandable">
+                          <div class="preview-section-header">
+                            <span class="preview-section-number">2</span>
+                            <span>Campaign 1: Bronze Tier</span>
+                            <button class="btn--icon btn--ghost">
+                              <svg class="icon" width="16" height="16"><use href="#icon-chevron-down"/></svg>
+                            </button>
+                          </div>
+                          <div class="preview-subsections">
+                            <div class="preview-subsection">Promotion Details</div>
+                            <div class="preview-subsection">Targeting</div>
+                          </div>
+                        </div>
+
+                        <div class="preview-dynamic-section">
+                          <div class="preview-section-header">
+                            <span class="preview-section-number">3</span>
+                            <span>Campaign 2: Silver Tier</span>
+                          </div>
+                        </div>
+
+                        <div class="preview-dynamic-section">
+                          <div class="preview-section-header">
+                            <span class="preview-section-number">4</span>
+                            <span>Campaign 3: Gold Tier</span>
+                          </div>
+                        </div>
+
+                        <button class="preview-add-campaign-btn">
+                          <svg class="icon" width="16" height="16"><use href="#icon-plus"/></svg>
+                          Add Another Campaign
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="preview-pros-cons">
+                    <div class="preview-pros">
+                      <h4>Pros</h4>
+                      <ul>
+                        <li>Familiar interface (reuses existing patterns)</li>
+                        <li>Single codebase for all template types</li>
+                        <li>Graceful scaling (add/remove campaigns)</li>
+                        <li>Quick to implement initially</li>
+                      </ul>
+                    </div>
+                    <div class="preview-cons">
+                      <h4>Cons</h4>
+                      <ul>
+                        <li>Can become cluttered with many campaigns</li>
+                        <li>Complex conditional logic in code</li>
+                        <li>May not feel optimized for each use case</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="preview-options-footer">
+              <button class="btn btn--ghost preview-options-close">Cancel</button>
+              <button class="btn btn--primary" id="preview-select-option" disabled>Select This Option</button>
             </div>
           </div>
         </div>

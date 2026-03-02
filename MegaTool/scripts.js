@@ -266,17 +266,88 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Template selection radio buttons
+  // Template selection radio buttons with inline config
   const templateRadios = document.querySelectorAll('.template-option__radio');
   const templateContinueBtn = document.querySelector('.template-selection__continue');
+  const templateConfigSection = document.getElementById('template-config-section');
+  const configPromotion = document.getElementById('config-promotion');
+  const configAction = document.getElementById('config-action');
+  const previewNavBtn = document.getElementById('preview-nav-btn');
 
   templateRadios.forEach(radio => {
     radio.addEventListener('change', function() {
+      const templateType = this.value;
+
       if (templateContinueBtn) {
         templateContinueBtn.disabled = false;
       }
+
+      // Show/hide inline configuration based on selection
+      if (templateType === 'promotion') {
+        // Show inline config for Multiple Promotion Campaigns
+        if (templateConfigSection && configPromotion && configAction) {
+          templateConfigSection.style.display = 'block';
+          configPromotion.style.display = 'flex';
+          configAction.style.display = 'none';
+
+          // Show preview nav button
+          if (previewNavBtn) {
+            previewNavBtn.style.display = 'flex';
+          }
+
+          // Gentle scroll to show config, but keep templates visible above
+          setTimeout(() => {
+            templateConfigSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'nearest'
+            });
+          }, 150);
+        }
+      } else if (templateType === 'action') {
+        // Show inline config for Multiple Action-Based Campaigns
+        if (templateConfigSection && configPromotion && configAction) {
+          templateConfigSection.style.display = 'block';
+          configPromotion.style.display = 'none';
+          configAction.style.display = 'flex';
+
+          // Show preview nav button
+          if (previewNavBtn) {
+            previewNavBtn.style.display = 'flex';
+          }
+
+          // Gentle scroll to show config, but keep templates visible above
+          setTimeout(() => {
+            templateConfigSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'nearest'
+            });
+          }, 150);
+        }
+      } else {
+        // Hide config for Single Campaign
+        if (templateConfigSection) {
+          templateConfigSection.style.display = 'none';
+        }
+        // Hide preview nav button
+        if (previewNavBtn) {
+          previewNavBtn.style.display = 'none';
+        }
+      }
     });
   });
+
+  // Preview Nav Button - Navigate to preview view
+  if (previewNavBtn) {
+    previewNavBtn.addEventListener('click', function() {
+      const previewView = document.getElementById('preview-options-view');
+      if (previewView && templateSelectionView) {
+        templateSelectionView.style.display = 'none';
+        previewView.style.display = 'block';
+      }
+    });
+  }
 
   // Template selection continue button
   if (templateContinueBtn) {
@@ -288,6 +359,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const templateType = selectedTemplate.value;
         console.log('Selected template:', templateType);
 
+        // Store configuration if multiple campaigns selected
+        if (templateType === 'promotion') {
+          const campaignCount = document.getElementById('campaign-count')?.value;
+          const structure = document.querySelector('input[name="campaign-structure"]:checked')?.value;
+          console.log('Promotion config:', { campaignCount, structure });
+          localStorage.setItem('campaignConfig', JSON.stringify({ type: 'promotion', count: campaignCount, structure }));
+        } else if (templateType === 'action') {
+          const stepCount = document.getElementById('action-steps-count')?.value;
+          const journeyType = document.querySelector('input[name="journey-type"]:checked')?.value;
+          console.log('Action config:', { stepCount, journeyType });
+          localStorage.setItem('campaignConfig', JSON.stringify({ type: 'action', steps: stepCount, journeyType }));
+        }
+
         // Navigate to create view using the transition function from view-transition.js
         if (typeof window.transitionToCreateView === 'function') {
           window.transitionToCreateView(templateSelectionView);
@@ -298,6 +382,70 @@ document.addEventListener('DOMContentLoaded', function() {
             createView.style.display = 'flex';
           }
         }
+      }
+    });
+  }
+
+  // Preview Options View - Tab Switching
+  const previewTabs = document.querySelectorAll('.preview-tab');
+  const previewPanels = document.querySelectorAll('.preview-panel');
+  const previewSelectBtn = document.getElementById('preview-select-option');
+  let selectedPreviewOption = 'option-a'; // Default
+
+  previewTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetPreview = this.getAttribute('data-preview');
+
+      // Update active tab
+      previewTabs.forEach(t => t.classList.remove('preview-tab--active'));
+      this.classList.add('preview-tab--active');
+
+      // Update active panel
+      previewPanels.forEach(panel => {
+        panel.classList.remove('preview-panel--active');
+        if (panel.id === targetPreview) {
+          panel.classList.add('preview-panel--active');
+        }
+      });
+
+      // Update selected option
+      selectedPreviewOption = targetPreview;
+
+      // Enable select button
+      if (previewSelectBtn) {
+        previewSelectBtn.disabled = false;
+      }
+    });
+  });
+
+  // Preview Options - Close/Back buttons
+  const previewCloseButtons = document.querySelectorAll('.preview-options-close');
+  const previewView = document.getElementById('preview-options-view');
+
+  previewCloseButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (previewView && templateSelectionView) {
+        previewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+      }
+    });
+  });
+
+  // Preview Options - Select Option button
+  if (previewSelectBtn) {
+    previewSelectBtn.addEventListener('click', function() {
+      console.log('Selected preview option:', selectedPreviewOption);
+
+      // Store the selected option for implementation
+      localStorage.setItem('selectedInteractionPattern', selectedPreviewOption);
+
+      // Show confirmation
+      alert(`You've selected ${selectedPreviewOption.replace('-', ' ').toUpperCase()}. This interaction pattern will be saved for implementation.`);
+
+      // Navigate back to template selection for now
+      if (previewView && templateSelectionView) {
+        previewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
       }
     });
   }
