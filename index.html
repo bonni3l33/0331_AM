@@ -150,6 +150,101 @@
           </div>
         </div>
 
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state" style="display: none;">
+          <div class="loading-state__content">
+            <div class="prism-loading">
+              <div class="prism-loading__spinner prism-loading__spinner--small">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19 2C19.5523 2 20 2.44772 20 3V8C20 8.55228 19.5523 9 19 9L14 9C13.4477 9 13 8.55229 13 8C13 7.44772 13.4477 7 14 7L16.8992 7C15.636 5.76201 13.9066 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C14.5897 19 16.8523 17.5942 18.0641 15.4993C18.3407 15.0212 18.9524 14.8579 19.4305 15.1344C19.9085 15.4109 20.0719 16.0227 19.7953 16.5007C18.2407 19.1882 15.3325 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C14.3057 3 16.4083 3.8673 18 5.29188V3C18 2.44772 18.4477 2 19 2Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="prism-loading__text">
+                <h2 class="loading-state__title">Analyzing your brief...</h2>
+                <p class="loading-state__message">Processing campaign requirements and preparing templates</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Selection View -->
+        <div class="template-selection-view" id="template-selection-view" style="display: none;">
+          <div class="template-selection-container">
+            <div class="template-selection-content">
+              <div class="template-selection__header">
+                <h1 class="template-selection__title">What type of campaign would you like to create?</h1>
+                <p class="template-selection__description">Based on your brief, we recommend starting with a single campaign structure.</p>
+              </div>
+
+              <!-- Suggested for you -->
+              <div class="template-section">
+                <h3 class="template-section__title">Suggested for you</h3>
+                <div class="template-options">
+                  <!-- Single Campaign Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="single" class="template-option__radio" checked />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5116 1.47409C12.5775 0.929209 11.4225 0.929208 10.4884 1.47409L3.48839 5.55743C2.56673 6.09506 2 7.08176 2 8.14876V15.8513C2 16.9183 2.56673 17.905 3.48839 18.4426L10.4884 22.526C11.4225 23.0708 12.5775 23.0708 13.5116 22.526L20.5116 18.4426C21.4333 17.905 22 16.9183 22 15.8513V8.14876C22 7.08176 21.4333 6.09506 20.5116 5.55743L13.5116 1.47409ZM11.4961 3.20165C11.8075 3.02002 12.1925 3.02002 12.5039 3.20165L18.8388 6.89701L16.3702 8.32222L9.50894 4.36085L11.4961 3.20165ZM7.51925 5.5215L14.3702 9.47692L12.5001 10.5566C12.1907 10.7353 11.8095 10.7353 11.5001 10.5566L5.16132 6.89695L7.51925 5.5215ZM4 8.53586V15.8513C4 16.207 4.18891 16.5359 4.49613 16.7151L11 20.509V12.5191C10.8284 12.4584 10.661 12.3816 10.5001 12.2887L4 8.53586ZM13 12.5192V20.509L19.5039 16.7151C19.8111 16.5359 20 16.2069 20 15.8513V8.53598L13.5001 12.2887C13.3391 12.3816 13.1717 12.4585 13 12.5192Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Single Campaign</h3>
+                        <p class="template-option__desc">Create one standalone campaign with unified targeting, promotions, and placements. Ideal for focused initiatives like holiday sales, new product launches, or seasonal offers.</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Other options -->
+              <div class="template-section">
+                <h3 class="template-section__title">Other options</h3>
+                <div class="template-options">
+                  <!-- Multiple Promotion Campaigns Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="promotion" class="template-option__radio" />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path d="M17 20C17.5523 20 18 20.4477 18 21C18 21.5523 17.5523 22 17 22H6.16146C5.63431 22 5.17955 22 4.80497 21.9694C4.40963 21.9371 4.01641 21.8658 3.63803 21.673C3.07354 21.3854 2.6146 20.9265 2.32698 20.362C2.13419 19.9836 2.06287 19.5904 2.03057 19.195C1.99997 18.8204 1.99998 18.3657 2 17.8385L2 7C2 6.44771 2.44772 6 3 6C3.55229 6 4 6.44771 4 7L4 17.8C4 18.3766 4.00078 18.7488 4.02393 19.0322C4.04612 19.3038 4.0838 19.4045 4.10899 19.454C4.20487 19.6422 4.35785 19.7951 4.54601 19.891C4.59545 19.9162 4.69617 19.9539 4.96784 19.9761C5.25117 19.9992 5.62345 20 6.2 20H17Z" fill="currentColor"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22 15.2L22 4.80005L22 4.77236C22.0001 4.66077 22.0003 4.47766 21.9865 4.30878C21.9696 4.10173 21.9224 3.74748 21.7275 3.36507C21.4878 2.89466 21.1054 2.51221 20.635 2.27253C20.2526 2.07768 19.8983 2.03042 19.6913 2.0135C19.5224 1.9997 19.3393 1.9999 19.2277 2.00003L19.2 2.00005L8.8 2.00005L8.77232 2.00002C8.66072 1.9999 8.47762 1.9997 8.30874 2.0135C8.10168 2.03042 7.74744 2.07768 7.36503 2.27253C6.89462 2.51221 6.51217 2.89466 6.27249 3.36507C6.07764 3.74748 6.03037 4.10173 6.01346 4.30878C5.99966 4.47766 5.99986 4.66077 5.99998 4.77236L6 4.80005L6 15.2L5.99998 15.2277C5.99986 15.3393 5.99966 15.5224 6.01346 15.6913C6.03037 15.8984 6.07763 16.2526 6.27248 16.635C6.51217 17.1054 6.89462 17.4879 7.36502 17.7276C7.74744 17.9224 8.10168 17.9697 8.30874 17.9866C8.47762 18.0004 8.66072 18.0002 8.77232 18.0001L8.8 18H19.2L19.2277 18.0001C19.3393 18.0002 19.5224 18.0004 19.6913 17.9866C19.8983 17.9697 20.2526 17.9224 20.635 17.7276C21.1054 17.4879 21.4878 17.1054 21.7275 16.635C21.9224 16.2526 21.9696 15.8984 21.9865 15.6913C22.0003 15.5224 22.0001 15.3393 22 15.2277L22 15.2ZM19.727 4.05454C19.62 4.00005 19.48 4.00005 19.2 4.00005L8.8 4.00005C8.51998 4.00005 8.37996 4.00005 8.27301 4.05454C8.17893 4.10248 8.10243 4.17897 8.0545 4.27305C8 4.38001 8 4.52002 8 4.80005L8 15.2C8 15.4801 8 15.6201 8.0545 15.727C8.10243 15.8211 8.17892 15.8976 8.27301 15.9455C8.37996 16 8.51997 16 8.8 16H19.2C19.48 16 19.62 16 19.727 15.9455C19.8211 15.8976 19.8976 15.8211 19.9455 15.727C20 15.6201 20 15.4801 20 15.2L20 4.80005C20 4.52002 20 4.38001 19.9455 4.27305C19.8976 4.17897 19.8211 4.10248 19.727 4.05454Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Multiple Promotion Campaigns</h3>
+                        <p class="template-option__desc">Create coordinated campaigns with different promotion strategies running simultaneously. Perfect for tiered offers or testing multiple discount structures across audience segments.</p>
+                      </div>
+                    </div>
+                  </label>
+
+                  <!-- Multiple Action-Based Campaigns Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="action" class="template-option__radio" />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path d="M14.5 17.2929C14.1095 17.6834 14.1095 18.3166 14.5 18.7071C14.8905 19.0976 15.5237 19.0976 15.9142 18.7071L21.3649 13.2564C21.4491 13.1722 21.5498 13.0717 21.6311 12.9758C21.7254 12.8648 21.851 12.6962 21.9266 12.4635C22.0245 12.1623 22.0245 11.8377 21.9266 11.5365C21.851 11.3038 21.7254 11.1352 21.6311 11.0242C21.5498 10.9283 21.4491 10.8278 21.3649 10.7436L15.9142 5.29289C15.5237 4.90237 14.8905 4.90237 14.5 5.29289C14.1095 5.68342 14.1095 6.31658 14.5 6.70711L19.7929 12L14.5 17.2929Z" fill="currentColor"/>
+                          <path d="M9.49999 18.7071C9.10946 18.3166 9.10946 17.6834 9.49999 17.2929L13.7929 13L3.20709 13C2.65481 13 2.20709 12.5523 2.20709 12C2.20709 11.4477 2.65481 11 3.20709 11L13.7929 11L9.49999 6.70711C9.10946 6.31658 9.10946 5.68342 9.49999 5.29289C9.89051 4.90237 10.5237 4.90237 10.9142 5.29289L16.3649 10.7436C16.4491 10.8278 16.5498 10.9283 16.6311 11.0242C16.7254 11.1352 16.851 11.3038 16.9266 11.5365C17.0245 11.8377 17.0245 12.1623 16.9266 12.4635C16.851 12.6962 16.7254 12.8648 16.6311 12.9758C16.5498 13.0717 16.4491 13.1722 16.3649 13.2564L10.9142 18.7071C10.5237 19.0976 9.89051 19.0976 9.49999 18.7071Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Multiple Action-Based Campaigns</h3>
+                        <p class="template-option__desc">Create sequential campaigns triggered by specific user actions. Best for multi-step customer journeys like DashPass pre-signup incentives or "Do X, Get Y" reward flows.</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="template-selection-footer">
+                <button class="btn btn--primary template-selection__continue">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Create View -->
         <div class="create-view" id="create-view" style="display: none;">
           <div class="create-view__header">
@@ -164,8 +259,7 @@
               <h1 class="create-view__title">Summer 2026 DashPass Campaign</h1>
               <div class="create-view__header-actions">
                 <button class="btn btn--ghost">Cancel</button>
-                <button class="btn btn--primary">
-                  <svg class="icon" width="16" height="16"><use href="#icon-check"/></svg>
+                <button class="btn btn--primary" id="publish-btn" disabled>
                   Publish
                 </button>
               </div>
@@ -187,7 +281,7 @@
                 <div class="create-section__header">
                   <div class="create-section__header-left">
                     <div class="create-section__status create-section__status--completed">
-                      <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
                     </div>
                     <div class="create-section__title-group">
                       <h2 class="create-section__title">Campaign Information</h2>
@@ -225,12 +319,16 @@
                     <div class="create-field-row">
                       <div class="create-field">
                         <label class="create-field__label">Start Date</label>
-                        <input type="date" class="create-field__input" value="2026-06-01" />
+                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="06/01/2026" />
                       </div>
                       <div class="create-field">
                         <label class="create-field__label">End Date</label>
-                        <input type="date" class="create-field__input" value="2026-08-31" />
+                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="08/31/2026" />
                       </div>
+                    </div>
+
+                    <div class="create-section__footer">
+                      <button class="btn btn--primary">Confirm</button>
                     </div>
                   </div>
                 </div>
@@ -266,6 +364,10 @@
                       Link to Segmentation Tool
                     </button>
                   </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
                 </div>
               </div>
 
@@ -274,7 +376,7 @@
                 <div class="create-section__header">
                   <div class="create-section__header-left">
                     <div class="create-section__status create-section__status--completed">
-                      <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
                     </div>
                     <div class="create-section__title-group">
                       <h2 class="create-section__title">Experiment Setup</h2>
@@ -308,6 +410,10 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
                 </div>
               </div>
 
@@ -316,7 +422,7 @@
                 <div class="create-section__header">
                   <div class="create-section__header-left">
                     <div class="create-section__status create-section__status--completed">
-                      <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
                     </div>
                     <div class="create-section__title-group">
                       <h2 class="create-section__title">Channel Selection</h2>
@@ -340,6 +446,10 @@
                         </label>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
                   </div>
                 </div>
               </div>
@@ -630,6 +740,10 @@
                       <label class="create-field__label">Error Message Reference</label>
                       <a href="#" class="create-field__link">error message list</a>
                     </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
                   </div>
                 </div>
               </div>
@@ -1349,6 +1463,10 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
                 </div>
               </div>
 
@@ -1378,6 +1496,10 @@
                       <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
                       Create Content
                     </button>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
                   </div>
                 </div>
               </div>
@@ -1475,5 +1597,6 @@
   <script src="router.js"></script>
   <script src="view-transition.js"></script>
   <script src="section-toggle.js"></script>
+  <script src="dropdown.js"></script>
 </body>
 </html>

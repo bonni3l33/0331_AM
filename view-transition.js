@@ -11,56 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const submitBtn = document.querySelector('.start-input-submit');
   const inputField = document.getElementById('start-input-field');
 
-  // Handle file upload button click
-  if (uploadBtn && fileInput) {
-    uploadBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+  // NOTE: File upload and submit button handling is now in scripts.js
+  // This file only handles the final transition from template selection to create view
 
-      // Reset file input to allow re-uploading the same file
-      fileInput.value = '';
-
-      // Small delay to ensure event propagation is complete
-      setTimeout(() => {
-        fileInput.click();
-      }, 0);
-    }, { capture: true });
-  }
-
-  // Handle file selection
-  if (fileInput) {
-    fileInput.addEventListener('change', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const file = e.target.files[0];
-      if (file) {
-        handleFileUpload(file);
-      }
-    });
-  }
-
-  // Handle submit button (for text input)
-  if (submitBtn && inputField) {
-    submitBtn.addEventListener('click', function() {
-      const value = inputField.value.trim();
-      if (value) {
-        transitionToCreateView();
-      }
-    });
-
-    // Handle enter key
-    inputField.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const value = inputField.value.trim();
-        if (value) {
-          transitionToCreateView();
-        }
-      }
-    });
-  }
-
-  // Handle quick start chips
+  // Handle quick start chips - transition directly to create view
   const quickChips = document.querySelectorAll('.start-quick-chip');
   quickChips.forEach(chip => {
     chip.addEventListener('click', function() {
@@ -68,65 +22,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  function handleFileUpload(file) {
-    // Show loading state
-    showUploadingState(file.name);
-
-    // Simulate processing time
-    setTimeout(() => {
-      transitionToCreateView(file.name);
-    }, 1500);
-  }
-
-  function showUploadingState(fileName) {
-    const uploadBtn = document.getElementById('upload-brief-btn');
-    const inputField = document.getElementById('start-input-field');
-
-    if (inputField) {
-      inputField.value = `📄 ${fileName}`;
-      inputField.disabled = true;
-    }
-
-    if (uploadBtn) {
-      const originalHTML = uploadBtn.innerHTML;
-      uploadBtn.innerHTML = `
-        <svg class="icon" width="20" height="20" style="animation: spin 1s linear infinite;"><use href="#icon-spinner"/></svg>
-        Processing...
-      `;
-      uploadBtn.disabled = true;
-
-      // Add spin animation if not exists
-      if (!document.querySelector('#spin-animation')) {
-        const style = document.createElement('style');
-        style.id = 'spin-animation';
-        style.textContent = `
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    }
-  }
-
-  function transitionToCreateView(fileName) {
+  function transitionToCreateView(fromView) {
     // Set flag to prevent router from animating
     window.isTransitioning = true;
 
     // Update URL to reflect view change
     window.location.hash = 'create';
 
-    // Fade out start state
-    if (startState) {
-      startState.style.opacity = '0';
-      startState.style.transition = 'opacity 0.3s ease-out';
+    // Get the view to fade out (start, loading, or template-selection)
+    const viewToHide = fromView || startState;
+
+    // Fade out current view
+    if (viewToHide) {
+      viewToHide.style.opacity = '0';
+      viewToHide.style.transition = 'opacity 0.3s ease-out';
     }
 
     setTimeout(() => {
-      // Hide start state
-      if (startState) {
-        startState.style.display = 'none';
+      // Hide current view
+      if (viewToHide) {
+        viewToHide.style.display = 'none';
       }
 
       // Show create view
@@ -182,4 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }, 300);
   }
+
+  // Expose transition function globally so scripts.js can call it
+  window.transitionToCreateView = transitionToCreateView;
 });

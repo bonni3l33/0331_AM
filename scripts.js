@@ -141,4 +141,164 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  // Confirm button - hide after click to indicate acceptance
+  const confirmButtons = document.querySelectorAll('.create-section__footer .btn');
+  const publishBtn = document.getElementById('publish-btn');
+  let confirmedSections = 0;
+  const totalSections = confirmButtons.length;
+
+  function checkAllSectionsConfirmed() {
+    if (confirmedSections === totalSections && publishBtn) {
+      // Enable publish button
+      publishBtn.disabled = false;
+
+      // Add checkmark icon to publish button (Prism 16px check icon)
+      const checkmark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      checkmark.setAttribute('class', 'icon');
+      checkmark.setAttribute('width', '16');
+      checkmark.setAttribute('height', '16');
+      checkmark.setAttribute('viewBox', '0 0 16 16');
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('fill-rule', 'evenodd');
+      path.setAttribute('clip-rule', 'evenodd');
+      path.setAttribute('d', 'M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z');
+      path.setAttribute('fill', 'currentColor');
+
+      checkmark.appendChild(path);
+      publishBtn.insertBefore(checkmark, publishBtn.firstChild);
+
+      // Add animation
+      publishBtn.classList.add('btn--enabled-animation');
+      setTimeout(() => {
+        publishBtn.classList.remove('btn--enabled-animation');
+      }, 400);
+    }
+  }
+
+  confirmButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      // Add confirmed state with checkmark briefly
+      this.classList.add('btn--confirmed');
+
+      // Add checkmark icon (Prism 16px check icon)
+      const checkmark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      checkmark.setAttribute('class', 'btn__checkmark');
+      checkmark.setAttribute('width', '16');
+      checkmark.setAttribute('height', '16');
+      checkmark.setAttribute('viewBox', '0 0 16 16');
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('fill-rule', 'evenodd');
+      path.setAttribute('clip-rule', 'evenodd');
+      path.setAttribute('d', 'M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z');
+      path.setAttribute('fill', 'currentColor');
+
+      checkmark.appendChild(path);
+      this.insertBefore(checkmark, this.firstChild);
+
+      // Increment confirmed sections counter
+      confirmedSections++;
+      checkAllSectionsConfirmed();
+
+      // Fade out and hide after brief confirmation
+      setTimeout(() => {
+        this.classList.add('btn--fade-out');
+
+        setTimeout(() => {
+          const footer = this.closest('.create-section__footer');
+          if (footer) {
+            footer.style.display = 'none';
+          }
+        }, 300);
+      }, 600);
+    });
+  });
+
+  // Template Selection View Navigation
+  const startState = document.getElementById('start-state');
+  const loadingState = document.getElementById('loading-state');
+  const templateSelectionView = document.getElementById('template-selection-view');
+  const createView = document.getElementById('create-view');
+  const startSubmitBtn = document.querySelector('.start-input-submit');
+  const uploadBriefBtn = document.getElementById('upload-brief-btn');
+  const briefFileInput = document.getElementById('brief-file-input');
+
+  // Show loading animation, then template selection
+  function showLoadingThenTemplates() {
+    if (startState && loadingState && templateSelectionView) {
+      // Hide start, show loading
+      startState.style.display = 'none';
+      loadingState.style.display = 'flex';
+
+      // After 2 seconds, hide loading and show templates
+      setTimeout(() => {
+        loadingState.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+        // Update URL to #select
+        window.location.hash = 'select';
+      }, 2000);
+    }
+  }
+
+  // Handle file upload
+  if (uploadBriefBtn && briefFileInput) {
+    uploadBriefBtn.addEventListener('click', function() {
+      briefFileInput.click();
+    });
+
+    briefFileInput.addEventListener('change', function() {
+      if (this.files && this.files.length > 0) {
+        // File uploaded, show loading then template selection
+        showLoadingThenTemplates();
+      }
+    });
+  }
+
+  // Handle submit button (for pasted text)
+  if (startSubmitBtn) {
+    startSubmitBtn.addEventListener('click', function() {
+      const inputValue = inputField?.value.trim();
+      if (inputValue) {
+        showLoadingThenTemplates();
+      }
+    });
+  }
+
+  // Template selection radio buttons
+  const templateRadios = document.querySelectorAll('.template-option__radio');
+  const templateContinueBtn = document.querySelector('.template-selection__continue');
+
+  templateRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (templateContinueBtn) {
+        templateContinueBtn.disabled = false;
+      }
+    });
+  });
+
+  // Template selection continue button
+  if (templateContinueBtn) {
+    templateContinueBtn.addEventListener('click', function() {
+      const selectedTemplate = document.querySelector('.template-option__radio:checked');
+
+      if (selectedTemplate && templateSelectionView) {
+        // Store selected template type for future use
+        const templateType = selectedTemplate.value;
+        console.log('Selected template:', templateType);
+
+        // Navigate to create view using the transition function from view-transition.js
+        if (typeof window.transitionToCreateView === 'function') {
+          window.transitionToCreateView(templateSelectionView);
+        } else {
+          // Fallback if view-transition.js hasn't loaded
+          templateSelectionView.style.display = 'none';
+          if (createView) {
+            createView.style.display = 'flex';
+          }
+        }
+      }
+    });
+  }
 });
