@@ -31,18 +31,22 @@ This prototype provides a streamlined interface for managing promotional campaig
 
 ```
 bonnie-prototype/
-├── index.html              # Main application entry point
-├── styles.css              # Global styles and component styling
-├── scripts.js              # Core application logic
-├── router.js               # Client-side routing
-├── dropdown.js             # Dropdown component functionality
-├── section-toggle.js       # Section state management
-├── view-transition.js      # Page transition effects
+├── MegaTool/               # Main project folder
+│   ├── index.html          # Main application entry point
+│   ├── styles.css          # Global styles and component styling
+│   ├── scripts.js          # Core application logic
+│   ├── router.js           # Client-side routing
+│   ├── dropdown.js         # Dropdown component functionality
+│   ├── section-toggle.js   # Section state management
+│   ├── view-transition.js  # Page transition effects
+│   ├── README.md           # This file
+│   ├── .gitignore          # Git ignore rules
+│   └── .cursor/
+│       └── rules/
+│           └── github-pages-deploy.mdc  # Deployment workflow
 ├── docs/                   # GitHub Pages deployment (auto-generated)
-│   └── ...                 # Mirror of source files
-└── .cursor/
-    └── rules/
-        └── github-pages-deploy.mdc  # Deployment workflow documentation
+│   └── ...                 # Mirror of MegaTool source files
+└── .git/                   # Git repository
 ```
 
 ## Local Development
@@ -57,7 +61,7 @@ bonnie-prototype/
 1. Clone the repository:
 ```bash
 git clone https://github.com/doordash/bonnie-prototype.git
-cd bonnie-prototype
+cd bonnie-prototype/MegaTool
 ```
 
 2. Open directly in browser:
@@ -85,14 +89,14 @@ This project uses **GitHub Pages** with legacy mode (`/docs` directory on `main`
 
 ### Automatic Deployment
 
-A pre-commit hook automatically syncs changes from source files to the `docs/` directory:
+A pre-commit hook automatically syncs changes from `MegaTool/` source files to the root `docs/` directory:
 
 ```bash
-# Make changes to source files
-vim index.html
+# Make changes to source files in MegaTool/
+vim MegaTool/index.html
 
 # Commit changes - hook automatically updates docs/
-git add index.html
+git add MegaTool/index.html
 git commit -m "Update homepage"
 
 # Push to deploy
@@ -103,19 +107,20 @@ The site updates within 1-2 minutes after pushing to `main`.
 
 ### Manual Deployment
 
-If the pre-commit hook is missing, reinstall it:
+If the pre-commit hook is missing, reinstall it from the repository root:
 
 ```bash
 cat > .git/hooks/pre-commit << 'HOOK'
 #!/bin/sh
-STAGED=$(git diff --cached --name-only --diff-filter=d | grep -E '\.(html|js|css)$' | grep -v '^docs/')
+STAGED=$(git diff --cached --name-only --diff-filter=d | grep -E '^MegaTool/.*\.(html|js|css)$')
 if [ -z "$STAGED" ]; then exit 0; fi
-echo "Updating docs/ for GitHub Pages..."
+echo "Updating docs/ for GitHub Pages from MegaTool/..."
 mkdir -p docs
-cp *.html *.js *.css docs/ 2>/dev/null
+cp MegaTool/*.html MegaTool/*.js MegaTool/*.css docs/ 2>/dev/null
+cp MegaTool/README.md docs/ 2>/dev/null
 touch docs/.nojekyll
 git add docs/
-echo "docs/ updated."
+echo "docs/ updated from MegaTool/."
 HOOK
 chmod +x .git/hooks/pre-commit
 ```

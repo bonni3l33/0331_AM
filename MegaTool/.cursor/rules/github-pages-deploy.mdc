@@ -12,15 +12,15 @@ The project files are committed to the `docs/` directory on `main`, and GitHub s
 
 ## How It Works
 
-source files → copy to docs/ → push to main → GitHub Pages serves docs/
+MegaTool/ source files → copy to docs/ → push to main → GitHub Pages serves docs/
 
-- Source `.html`, `.js`, `.css` files are in the project root
-- `docs/` is committed (GitHub Pages source)
+- Source `.html`, `.js`, `.css` files are in the `MegaTool/` directory
+- Root-level `docs/` is committed (GitHub Pages source)
 - `.nojekyll` in `docs/` disables Jekyll processing
 
 ## Agent Instructions
 
-A **pre-commit hook** automatically copies updated files to `docs/` whenever HTML/JS/CSS files are staged.
+A **pre-commit hook** automatically copies updated files from `MegaTool/` to root `docs/` whenever HTML/JS/CSS files in MegaTool are staged.
 Do NOT manually copy files to `docs/` — the hook handles it during `git commit`.
 
 ### Shell permissions
@@ -30,19 +30,20 @@ Use standard git commands. The pre-commit hook will automatically sync changes t
 ### If the hook is missing
 
 Git hooks are not tracked by git and can be lost after a re-clone. If `git commit`
-does not produce "Updating docs/ for GitHub Pages..." output, reinstall the hook:
+does not produce "Updating docs/ for GitHub Pages from MegaTool/..." output, reinstall the hook from the repository root:
 
 ```bash
 cat > .git/hooks/pre-commit << 'HOOK'
 #!/bin/sh
-STAGED=$(git diff --cached --name-only --diff-filter=d | grep -E '\.(html|js|css)$' | grep -v '^docs/')
+STAGED=$(git diff --cached --name-only --diff-filter=d | grep -E '^MegaTool/.*\.(html|js|css)$')
 if [ -z "$STAGED" ]; then exit 0; fi
-echo "Updating docs/ for GitHub Pages..."
+echo "Updating docs/ for GitHub Pages from MegaTool/..."
 mkdir -p docs
-cp *.html *.js *.css docs/ 2>/dev/null
+cp MegaTool/*.html MegaTool/*.js MegaTool/*.css docs/ 2>/dev/null
+cp MegaTool/README.md docs/ 2>/dev/null
 touch docs/.nojekyll
 git add docs/
-echo "docs/ updated."
+echo "docs/ updated from MegaTool/."
 HOOK
 chmod +x .git/hooks/pre-commit
 ```
