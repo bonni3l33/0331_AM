@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo and Merch Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <div style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-logo" viewBox="0 0 20 12">
+        <path fill="#00838A" d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z"/>
+      </symbol>
+      <symbol id="icon-sparkle" viewBox="0 0 16 16">
+        <path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 16 16">
+        <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4 6l4 4 4-4"/>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12"/>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+      </symbol>
+      <symbol id="icon-share" viewBox="0 0 16 16">
+        <path d="M1 12.0024V9.00244C1 8.45015 1.44772 8.00244 2 8.00244C2.55228 8.00244 3 8.45015 3 9.00244V12.0024C3.00001 12.5547 3.44772 13.0024 4 13.0024H12C12.5523 13.0024 13 12.5547 13 12.0024V9.00244C13 8.45015 13.4477 8.00244 14 8.00244C14.5523 8.00244 15 8.45015 15 9.00244V12.0024C15 13.6593 13.6568 15.0024 12 15.0024H4C2.34315 15.0024 1.00001 13.6593 1 12.0024ZM7 10.0024V3.4165L5.20703 5.20947C4.81652 5.59985 4.18346 5.59989 3.79297 5.20947C3.40248 4.81898 3.40256 4.18594 3.79297 3.79541L6.81934 0.769039L6.94629 0.653805C7.60219 0.119166 8.56937 0.157812 9.18066 0.769039L12.207 3.79541C12.5975 4.18594 12.5975 4.81896 12.207 5.20947C11.8165 5.59985 11.1835 5.59989 10.793 5.20947L9 3.4165V10.0024C8.99991 10.5546 8.55213 11.0023 8 11.0024C7.44777 11.0024 7.00009 10.5546 7 10.0024Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 16 16">
+        <path fill="currentColor" d="M10.0928 1.69256C11.2565 0.528877 13.1429 0.528945 14.3066 1.69256C15.4704 2.85629 15.4704 4.74271 14.3066 5.90643L4.71191 15.5012C4.3931 15.82 3.96064 15.9992 3.50977 15.9992H1.7002C0.761312 15.9992 0 15.2379 0 14.299V12.4894C0 12.0386 0.179233 11.6061 0.498047 11.2873L10.0928 1.69256ZM2 12.6135V13.9992H3.38574L10.7852 6.59881L9.39941 5.21307L2 12.6135ZM12.8926 3.10663C12.5099 2.72406 11.8895 2.72399 11.5068 3.10663L10.8135 3.79901L12.1992 5.18475L12.8926 4.49237C13.2753 4.10969 13.2753 3.4893 12.8926 3.10663Z"/>
+      </symbol>
+      <symbol id="icon-flag" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 19C6 19.5523 6.44772 20 7 20C7.55228 20 8 19.5523 8 19L8 12.9565H8.25665C9.49323 12.9565 10.6957 13.362 11.6798 14.1107C13.3097 15.3509 15.3688 15.886 17.3963 15.5964L18.1414 15.4899C18.6341 15.4196 19 14.9977 19 14.5V7.5C19 7.21011 18.8742 6.93448 18.6552 6.74455C18.4362 6.55461 18.1456 6.46905 17.8586 6.51005L17.1012 6.61824C15.6077 6.83161 14.0906 6.44293 12.8836 5.53771C11.5528 4.53957 9.93406 4 8.27049 4H7C6.96548 4 6.93137 4.00175 6.89776 4.00516C6.3935 4.05637 6 4.48223 6 5V19ZM8 6V10.9565H8.25665C9.9307 10.9565 11.5586 11.5054 12.8908 12.5191C14.0644 13.412 15.5392 13.8102 17 13.6315V8.6432C15.1072 8.81713 13.2115 8.28365 11.6836 7.13771C10.6989 6.39921 9.50132 6 8.27049 6H8Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-target" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="2" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-link" viewBox="0 0 16 16">
+        <path d="M12.4697 3.5301C11.1359 2.19635 8.86408 2.19635 7.53033 3.5301L7.03033 4.0301C6.73744 4.32299 6.26256 4.32299 5.96967 4.0301C5.67678 3.73721 5.67678 3.26233 5.96967 2.96944L6.46967 2.46944C8.3892 0.549901 11.6108 0.549901 13.5303 2.46944C15.4499 4.38898 15.4499 7.61056 13.5303 9.5301L13.0303 10.0301C12.7374 10.323 12.2626 10.323 11.9697 10.0301C11.6768 9.73721 11.6768 9.26233 11.9697 8.96944L12.4697 8.46944C13.8034 7.13569 13.8034 4.86385 12.4697 3.5301ZM2.96971 5.96944C3.2626 5.67655 3.73747 5.67655 4.03037 5.96944C4.32326 6.26233 4.32326 6.73721 4.03037 7.0301L3.53037 7.5301C2.19661 8.86386 2.19658 11.1357 3.53031 12.4695C4.86406 13.8032 7.1359 13.8032 8.46965 12.4695L8.96965 11.9695C9.26254 11.6766 9.73742 11.6766 10.0303 11.9695C10.3232 12.2624 10.3232 12.7372 10.0303 13.0301L9.53031 13.5301C7.61078 15.4497 4.38918 15.4497 2.46965 13.5301C0.550107 11.6106 0.550187 8.38896 2.4697 6.46944L2.96971 5.96944ZM8.96971 5.96944C9.2626 5.67655 9.73747 5.67655 10.0304 5.96944C10.3233 6.26233 10.3233 6.73721 10.0304 7.0301L7.03037 10.0301C6.73747 10.323 6.2626 10.323 5.96971 10.0301C5.67681 9.73721 5.67681 9.26233 5.96971 8.96944L8.96971 5.96944Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/>
+      </symbol>
+      <symbol id="icon-help" viewBox="0 0 24 24">
+        <circle fill="none" stroke="currentColor" stroke-width="1.5" cx="12" cy="12" r="10"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <circle fill="currentColor" cx="12" cy="17" r="1"/>
+      </symbol>
+      <symbol id="icon-more" viewBox="0 0 24 24">
+        <circle fill="currentColor" cx="12" cy="12" r="1.5"/>
+        <circle fill="currentColor" cx="6" cy="12" r="1.5"/>
+        <circle fill="currentColor" cx="18" cy="12" r="1.5"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <div class="app-container" id="app">
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="global-nav__brand">
+        <div class="global-nav__logo">
+          <svg width="24" height="14" viewBox="0 0 20 12" fill="none">
+            <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
+          </svg>
+        </div>
+        <span class="global-nav__title">Promo and Merch Manager</span>
+      </div>
+      <div class="global-nav__actions">
+        <button class="btn--icon btn--ghost">
+          <svg class="icon" width="24" height="24"><use href="#icon-more"/></svg>
+        </button>
+        <button class="btn--icon btn--ghost">
+          <svg class="icon" width="24" height="24"><use href="#icon-help"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- Local Navigation -->
+      <nav class="local-nav">
+        <div class="local-nav__items">
+          <a href="#start" class="local-nav__item local-nav__item--active">
+            <svg class="icon" width="24" height="24"><use href="#icon-flag"/></svg>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content" id="main-content">
+        <!-- Starting State -->
+        <div class="start-state" id="start-state">
+          <div class="start-state__header">
+            <h1 class="start-state__title">Hi Bonnie,<br/>where should we start?</h1>
+          </div>
+
+          <div class="start-input-card">
+            <div class="start-input-tabs">
+              <button class="start-input-tab start-input-tab--active" data-tab="brief">
+                <svg class="icon" width="18" height="18"><use href="#icon-share"/></svg>
+                I have a brief
+              </button>
+              <button class="start-input-tab" data-tab="scratch">
+                <svg class="icon" width="18" height="18"><use href="#icon-edit"/></svg>
+                Start from scratch
+              </button>
+            </div>
+
+            <div class="start-input-row">
+              <input
+                type="text"
+                class="start-input-field"
+                id="start-input-field"
+                placeholder="Paste your brief text or upload a file below"
+              />
+            </div>
+            <div class="start-input-footer">
+              <div class="start-input-actions-left">
+                <input type="file" id="brief-file-input" class="visually-hidden" accept=".pdf,.doc,.docx" />
+                <button class="start-input-btn" id="upload-brief-btn">
+                  <svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg>
+                  Upload
+                </button>
+              </div>
+              <button class="start-input-submit">
+                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 19V5M5 12l7-7 7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="start-quick-chips">
+            <button class="start-quick-chip">
+              <svg class="icon" width="16" height="16"><use href="#icon-flag"/></svg>
+              Create campaign
+            </button>
+            <button class="start-quick-chip">
+              <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z"/></svg>
+              Create promo
+            </button>
+            <button class="start-quick-chip">Define objective & KPIs</button>
+            <button class="start-quick-chip">Build target audience</button>
+            <button class="start-quick-chip">Create placement</button>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state" style="display: none;">
+          <div class="loading-state__content">
+            <div class="prism-loading">
+              <div class="prism-loading__spinner prism-loading__spinner--small">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19 2C19.5523 2 20 2.44772 20 3V8C20 8.55228 19.5523 9 19 9L14 9C13.4477 9 13 8.55229 13 8C13 7.44772 13.4477 7 14 7L16.8992 7C15.636 5.76201 13.9066 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19C14.5897 19 16.8523 17.5942 18.0641 15.4993C18.3407 15.0212 18.9524 14.8579 19.4305 15.1344C19.9085 15.4109 20.0719 16.0227 19.7953 16.5007C18.2407 19.1882 15.3325 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C14.3057 3 16.4083 3.8673 18 5.29188V3C18 2.44772 18.4477 2 19 2Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="prism-loading__text">
+                <h2 class="loading-state__title">Analyzing your brief...</h2>
+                <p class="loading-state__message">Processing campaign requirements and preparing templates</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Selection View -->
+        <div class="template-selection-view" id="template-selection-view" style="display: none;">
+          <div class="template-selection-container">
+            <div class="template-selection-content">
+              <div class="template-selection__header">
+                <h1 class="template-selection__title">What type of campaign would you like to create?</h1>
+                <p class="template-selection__description">Based on your brief, we recommend starting with a single campaign structure.</p>
+              </div>
+
+              <!-- Suggested for you -->
+              <div class="template-section">
+                <h3 class="template-section__title">Suggested for you</h3>
+                <div class="template-options">
+                  <!-- Single Campaign Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="single" class="template-option__radio" checked />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5116 1.47409C12.5775 0.929209 11.4225 0.929208 10.4884 1.47409L3.48839 5.55743C2.56673 6.09506 2 7.08176 2 8.14876V15.8513C2 16.9183 2.56673 17.905 3.48839 18.4426L10.4884 22.526C11.4225 23.0708 12.5775 23.0708 13.5116 22.526L20.5116 18.4426C21.4333 17.905 22 16.9183 22 15.8513V8.14876C22 7.08176 21.4333 6.09506 20.5116 5.55743L13.5116 1.47409ZM11.4961 3.20165C11.8075 3.02002 12.1925 3.02002 12.5039 3.20165L18.8388 6.89701L16.3702 8.32222L9.50894 4.36085L11.4961 3.20165ZM7.51925 5.5215L14.3702 9.47692L12.5001 10.5566C12.1907 10.7353 11.8095 10.7353 11.5001 10.5566L5.16132 6.89695L7.51925 5.5215ZM4 8.53586V15.8513C4 16.207 4.18891 16.5359 4.49613 16.7151L11 20.509V12.5191C10.8284 12.4584 10.661 12.3816 10.5001 12.2887L4 8.53586ZM13 12.5192V20.509L19.5039 16.7151C19.8111 16.5359 20 16.2069 20 15.8513V8.53598L13.5001 12.2887C13.3391 12.3816 13.1717 12.4585 13 12.5192Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Single Campaign</h3>
+                        <p class="template-option__desc">Create one standalone campaign with unified targeting, promotions, and placements. Ideal for focused initiatives like holiday sales, new product launches, or seasonal offers.</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Other options -->
+              <div class="template-section">
+                <h3 class="template-section__title">Other options</h3>
+                <div class="template-options">
+                  <!-- Multiple Promotion Campaigns Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="promotion" class="template-option__radio" />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path d="M17 20C17.5523 20 18 20.4477 18 21C18 21.5523 17.5523 22 17 22H6.16146C5.63431 22 5.17955 22 4.80497 21.9694C4.40963 21.9371 4.01641 21.8658 3.63803 21.673C3.07354 21.3854 2.6146 20.9265 2.32698 20.362C2.13419 19.9836 2.06287 19.5904 2.03057 19.195C1.99997 18.8204 1.99998 18.3657 2 17.8385L2 7C2 6.44771 2.44772 6 3 6C3.55229 6 4 6.44771 4 7L4 17.8C4 18.3766 4.00078 18.7488 4.02393 19.0322C4.04612 19.3038 4.0838 19.4045 4.10899 19.454C4.20487 19.6422 4.35785 19.7951 4.54601 19.891C4.59545 19.9162 4.69617 19.9539 4.96784 19.9761C5.25117 19.9992 5.62345 20 6.2 20H17Z" fill="currentColor"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22 15.2L22 4.80005L22 4.77236C22.0001 4.66077 22.0003 4.47766 21.9865 4.30878C21.9696 4.10173 21.9224 3.74748 21.7275 3.36507C21.4878 2.89466 21.1054 2.51221 20.635 2.27253C20.2526 2.07768 19.8983 2.03042 19.6913 2.0135C19.5224 1.9997 19.3393 1.9999 19.2277 2.00003L19.2 2.00005L8.8 2.00005L8.77232 2.00002C8.66072 1.9999 8.47762 1.9997 8.30874 2.0135C8.10168 2.03042 7.74744 2.07768 7.36503 2.27253C6.89462 2.51221 6.51217 2.89466 6.27249 3.36507C6.07764 3.74748 6.03037 4.10173 6.01346 4.30878C5.99966 4.47766 5.99986 4.66077 5.99998 4.77236L6 4.80005L6 15.2L5.99998 15.2277C5.99986 15.3393 5.99966 15.5224 6.01346 15.6913C6.03037 15.8984 6.07763 16.2526 6.27248 16.635C6.51217 17.1054 6.89462 17.4879 7.36502 17.7276C7.74744 17.9224 8.10168 17.9697 8.30874 17.9866C8.47762 18.0004 8.66072 18.0002 8.77232 18.0001L8.8 18H19.2L19.2277 18.0001C19.3393 18.0002 19.5224 18.0004 19.6913 17.9866C19.8983 17.9697 20.2526 17.9224 20.635 17.7276C21.1054 17.4879 21.4878 17.1054 21.7275 16.635C21.9224 16.2526 21.9696 15.8984 21.9865 15.6913C22.0003 15.5224 22.0001 15.3393 22 15.2277L22 15.2ZM19.727 4.05454C19.62 4.00005 19.48 4.00005 19.2 4.00005L8.8 4.00005C8.51998 4.00005 8.37996 4.00005 8.27301 4.05454C8.17893 4.10248 8.10243 4.17897 8.0545 4.27305C8 4.38001 8 4.52002 8 4.80005L8 15.2C8 15.4801 8 15.6201 8.0545 15.727C8.10243 15.8211 8.17892 15.8976 8.27301 15.9455C8.37996 16 8.51997 16 8.8 16H19.2C19.48 16 19.62 16 19.727 15.9455C19.8211 15.8976 19.8976 15.8211 19.9455 15.727C20 15.6201 20 15.4801 20 15.2L20 4.80005C20 4.52002 20 4.38001 19.9455 4.27305C19.8976 4.17897 19.8211 4.10248 19.727 4.05454Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Multiple Promotion Campaigns</h3>
+                        <p class="template-option__desc">Create coordinated campaigns with different promotion strategies running simultaneously. Perfect for tiered offers or testing multiple discount structures across audience segments.</p>
+                      </div>
+                    </div>
+                  </label>
+
+                  <!-- Multiple Action-Based Campaigns Option -->
+                  <label class="template-option">
+                    <input type="radio" name="template" value="action" class="template-option__radio" />
+                    <div class="template-option__card">
+                      <div class="template-option__icon">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path d="M14.5 17.2929C14.1095 17.6834 14.1095 18.3166 14.5 18.7071C14.8905 19.0976 15.5237 19.0976 15.9142 18.7071L21.3649 13.2564C21.4491 13.1722 21.5498 13.0717 21.6311 12.9758C21.7254 12.8648 21.851 12.6962 21.9266 12.4635C22.0245 12.1623 22.0245 11.8377 21.9266 11.5365C21.851 11.3038 21.7254 11.1352 21.6311 11.0242C21.5498 10.9283 21.4491 10.8278 21.3649 10.7436L15.9142 5.29289C15.5237 4.90237 14.8905 4.90237 14.5 5.29289C14.1095 5.68342 14.1095 6.31658 14.5 6.70711L19.7929 12L14.5 17.2929Z" fill="currentColor"/>
+                          <path d="M9.49999 18.7071C9.10946 18.3166 9.10946 17.6834 9.49999 17.2929L13.7929 13L3.20709 13C2.65481 13 2.20709 12.5523 2.20709 12C2.20709 11.4477 2.65481 11 3.20709 11L13.7929 11L9.49999 6.70711C9.10946 6.31658 9.10946 5.68342 9.49999 5.29289C9.89051 4.90237 10.5237 4.90237 10.9142 5.29289L16.3649 10.7436C16.4491 10.8278 16.5498 10.9283 16.6311 11.0242C16.7254 11.1352 16.851 11.3038 16.9266 11.5365C17.0245 11.8377 17.0245 12.1623 16.9266 12.4635C16.851 12.6962 16.7254 12.8648 16.6311 12.9758C16.5498 13.0717 16.4491 13.1722 16.3649 13.2564L10.9142 18.7071C10.5237 19.0976 9.89051 19.0976 9.49999 18.7071Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <div class="template-option__content">
+                        <h3 class="template-option__title">Multiple Action-Based Campaigns</h3>
+                        <p class="template-option__desc">Create sequential campaigns triggered by specific user actions. Best for multi-step customer journeys like DashPass pre-signup incentives or "Do X, Get Y" reward flows.</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="template-selection-footer">
+                <button class="btn btn--primary template-selection__continue">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create View -->
+        <div class="create-view" id="create-view" style="display: none;">
+          <div class="create-view__header">
+            <div class="create-view__header-top">
+              <div class="create-view__breadcrumbs">
+                <a href="#start" class="breadcrumb-link">Campaigns</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">New Campaign</span>
+              </div>
+            </div>
+            <div class="create-view__title-row">
+              <h1 class="create-view__title">Summer 2026 DashPass Campaign</h1>
+              <div class="create-view__header-actions">
+                <button class="btn btn--ghost">Cancel</button>
+                <button class="btn btn--primary" id="publish-btn" disabled>
+                  Publish
+                </button>
+              </div>
+            </div>
+
+            <div class="create-progress">
+              <div class="create-progress__bar">
+                <div class="create-progress__fill" style="width: 0%;"></div>
+              </div>
+              <span class="create-progress__label">43% complete • 3 of 7 sections filled</span>
+            </div>
+          </div>
+
+          <div class="create-view__body">
+            <div class="create-sections">
+
+              <!-- Campaign Information (Completed) -->
+              <div id="section-campaign-info" class="create-section create-section--completed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--completed">
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Campaign Information</h2>
+                      <span class="create-section__badge create-section__badge--completed">Completed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content">
+                  <div class="create-field-group">
+                    <div class="create-field">
+                      <label class="create-field__label">Campaign Name</label>
+                      <input type="text" class="create-field__input" value="Summer 2026 DashPass Campaign" />
+                    </div>
+                    <div class="create-field">
+                      <label class="create-field__label">Description</label>
+                      <textarea class="create-field__textarea" rows="3">Promote DashPass subscriptions during summer season with targeted offers for new and lapsed users.</textarea>
+                    </div>
+                    <div class="create-field-row">
+                      <div class="create-field">
+                        <label class="create-field__label">Owner Group</label>
+                        <input type="text" class="create-field__input" value="Growth Marketing Team" />
+                      </div>
+                      <div class="create-field">
+                        <label class="create-field__label">Campaign Type</label>
+                        <select class="create-field__input">
+                          <option>Acquisition</option>
+                          <option selected>Retention</option>
+                          <option>Reactivation</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="create-field-row">
+                      <div class="create-field">
+                        <label class="create-field__label">Start Date</label>
+                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="06/01/2026" />
+                      </div>
+                      <div class="create-field">
+                        <label class="create-field__label">End Date</label>
+                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="08/31/2026" />
+                      </div>
+                    </div>
+
+                    <div class="create-section__footer">
+                      <button class="btn btn--primary">Confirm</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Targeting (Incomplete) -->
+              <div id="section-targeting" class="create-section create-section--incomplete">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--incomplete">
+                      <span class="create-section__status-ring" style="background: conic-gradient(var(--color-primary) 0deg 86.4deg, var(--color-border) 86.4deg 360deg);"></span>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Targeting</h2>
+                      <span class="create-section__badge create-section__badge--action">Action needed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content">
+                  <div class="create-empty-state">
+                    <div class="create-empty-state__icon">
+                      <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                    </div>
+                    <p class="create-empty-state__title">Define your target audience</p>
+                    <p class="create-empty-state__description">
+                      Configure Consumer (Cx) Targeting and Location/Merchant Targeting.
+                    </p>
+                    <button class="btn btn--secondary create-empty-state__action">
+                      <svg class="icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M12.4697 3.5301C11.1359 2.19635 8.86408 2.19635 7.53033 3.5301L7.03033 4.0301C6.73744 4.32299 6.26256 4.32299 5.96967 4.0301C5.67678 3.73721 5.67678 3.26233 5.96967 2.96944L6.46967 2.46944C8.3892 0.549901 11.6108 0.549901 13.5303 2.46944C15.4499 4.38898 15.4499 7.61056 13.5303 9.5301L13.0303 10.0301C12.7374 10.323 12.2626 10.323 11.9697 10.0301C11.6768 9.73721 11.6768 9.26233 11.9697 8.96944L12.4697 8.46944C13.8034 7.13569 13.8034 4.86385 12.4697 3.5301ZM2.96971 5.96944C3.2626 5.67655 3.73747 5.67655 4.03037 5.96944C4.32326 6.26233 4.32326 6.73721 4.03037 7.0301L3.53037 7.5301C2.19661 8.86386 2.19658 11.1357 3.53031 12.4695C4.86406 13.8032 7.1359 13.8032 8.46965 12.4695L8.96965 11.9695C9.26254 11.6766 9.73742 11.6766 10.0303 11.9695C10.3232 12.2624 10.3232 12.7372 10.0303 13.0301L9.53031 13.5301C7.61078 15.4497 4.38918 15.4497 2.46965 13.5301C0.550107 11.6106 0.550187 8.38896 2.4697 6.46944L2.96971 5.96944ZM8.96971 5.96944C9.2626 5.67655 9.73747 5.67655 10.0304 5.96944C10.3233 6.26233 10.3233 6.73721 10.0304 7.0301L7.03037 10.0301C6.73747 10.323 6.2626 10.323 5.96971 10.0301C5.67681 9.73721 5.67681 9.26233 5.96971 8.96944L8.96971 5.96944Z"/></svg>
+                      Link to Segmentation Tool
+                    </button>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experiment Setup (Completed) -->
+              <div id="section-experiment" class="create-section create-section--completed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--completed">
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Experiment Setup</h2>
+                      <span class="create-section__badge create-section__badge--completed">Completed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content">
+                  <div class="create-field-group">
+                    <div class="create-field">
+                      <label class="create-field__label">
+                        <input type="checkbox" checked style="margin-right: 8px;" /> Enable A/B Testing
+                      </label>
+                    </div>
+                    <div class="create-field-row">
+                      <div class="create-field">
+                        <label class="create-field__label">Control Group Size</label>
+                        <select class="create-field__input">
+                          <option>5%</option>
+                          <option selected>10%</option>
+                          <option>15%</option>
+                          <option>20%</option>
+                        </select>
+                      </div>
+                      <div class="create-field">
+                        <label class="create-field__label">Treatment Variants</label>
+                        <input type="number" class="create-field__input" value="2" min="1" max="5" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Channel Selection (Completed) -->
+              <div id="section-channel" class="create-section create-section--completed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--completed">
+                      <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Channel Selection</h2>
+                      <span class="create-section__badge create-section__badge--completed">Completed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content">
+                  <div class="create-field-group">
+                    <div class="create-field">
+                      <label class="create-field__label">Selected Channels</label>
+                      <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                          <input type="checkbox" checked /> Promotion
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                          <input type="checkbox" checked /> Merch Placement
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Promotion Creation (Incomplete) -->
+              <div id="section-promotion" class="create-section create-section--incomplete create-section--collapsed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--incomplete">
+                      <span class="create-section__status-ring" style="background: conic-gradient(var(--color-primary) 0deg 54deg, var(--color-border) 54deg 360deg);"></span>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Promotion Creation</h2>
+                      <span class="create-section__badge create-section__badge--action">Action needed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content" style="display: none;">
+                  <div class="create-field-group">
+                    <!-- General Info -->
+                    <h3 class="create-field-group__heading">General Info</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Does it require promo code?</label>
+                      <p class="create-field__help">When selecting 'Yes', users will see this promotion in their wallet, and any other selected placements after entering the promo code.</p>
+                      <div class="create-field__radio-group">
+                        <label class="create-field__radio">
+                          <input type="radio" name="promo-code" value="yes" />
+                          <span>Yes</span>
+                        </label>
+                        <label class="create-field__radio">
+                          <input type="radio" name="promo-code" value="no" checked />
+                          <span>No</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Enable auto-redeem to order cart</span>
+                      </label>
+                    </div>
+
+                    <!-- Promotion Incentives -->
+                    <h3 class="create-field-group__heading">Promotion Incentives</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Cash Discount</span>
+                      </label>
+
+                      <div class="create-field__indent">
+                        <div class="create-field__radio-group">
+                          <label class="create-field__radio">
+                            <input type="radio" name="discount-type" value="flat" />
+                            <span>Flat Amount Off</span>
+                          </label>
+                          <label class="create-field__radio">
+                            <input type="radio" name="discount-type" value="percentage" checked />
+                            <span>Percentage Discount</span>
+                          </label>
+                        </div>
+
+                        <div class="create-field-row">
+                          <div class="create-field">
+                            <label class="create-field__label">Percentage</label>
+                            <input type="number" class="create-field__input" value="50" />
+                          </div>
+                          <div class="create-field">
+                            <label class="create-field__label">Max Value Amount</label>
+                            <input type="text" class="create-field__input" value="$15.00" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Delivery Fee Discount</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Waive Service Fee</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Waive Small Order Fee</span>
+                      </label>
+                    </div>
+
+                    <!-- Promo Details Visible to Consumers -->
+                    <h3 class="create-field-group__heading">Promo Details Visible to Consumers</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Auto-generated Promo Title</label>
+                      <input type="text" class="create-field__input" value="50% off, up to $15" disabled />
+                      <label class="create-field__label create-field__label--toggle" style="margin-top: 8px;">
+                        <input type="checkbox" checked />
+                        <span>Override</span>
+                      </label>
+                      <input type="text" class="create-field__input" value="Order ahead: 20% off, up to $5" style="margin-top: 8px;" />
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Auto-generated Promo Description</label>
+                      <textarea class="create-field__textarea" rows="2" disabled>50% off orders over $10, up to $15.</textarea>
+                      <label class="create-field__label create-field__label--toggle" style="margin-top: 8px;">
+                        <input type="checkbox" checked />
+                        <span>Override</span>
+                      </label>
+                    </div>
+
+                    <!-- Order Cart Conditions -->
+                    <h3 class="create-field-group__heading">Order Cart Conditions</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>DashParty</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Drone-only Delivery</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Minimum Subtotal</span>
+                      </label>
+                      <input type="text" class="create-field__input" value="$10.00" style="margin-top: 8px;" />
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Maximum Subtotal</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Items In Cart</span>
+                      </label>
+                    </div>
+
+                    <!-- Cart Types -->
+                    <h3 class="create-field-group__heading">Cx Cart Types</h3>
+
+                    <div class="create-field__radio-group">
+                      <label class="create-field__radio">
+                        <input type="radio" name="cart-type" value="all" checked />
+                        <span>All Cart Types</span>
+                      </label>
+                      <label class="create-field__radio">
+                        <input type="radio" name="cart-type" value="individual" />
+                        <span>Individual Orders</span>
+                      </label>
+                      <label class="create-field__radio">
+                        <input type="radio" name="cart-type" value="group" />
+                        <span>Group Order</span>
+                      </label>
+                    </div>
+
+                    <!-- Order Types -->
+                    <h3 class="create-field-group__heading">Order Types</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Delivery</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Pickup</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" checked />
+                        <span>Gift</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Virtual (For Native Gift Cards)</span>
+                      </label>
+                    </div>
+
+                    <!-- DoubleDash Promotions -->
+                    <h3 class="create-field-group__heading">DoubleDash Promotions</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Applicable for Post-Checkout DoubleDash</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Extend DoubleDash Promotion to Core Marketplace</span>
+                      </label>
+                    </div>
+
+                    <!-- Alcohol Promotions -->
+                    <h3 class="create-field-group__heading">Alcohol Promotions</h3>
+
+                    <div class="create-field__radio-group">
+                      <label class="create-field__radio">
+                        <input type="radio" name="alcohol" value="all" />
+                        <span>Applicable to All Carts</span>
+                      </label>
+                      <label class="create-field__radio">
+                        <input type="radio" name="alcohol" value="with" />
+                        <span>Only Applicable to Carts With Alcohol</span>
+                      </label>
+                      <label class="create-field__radio">
+                        <input type="radio" name="alcohol" value="without" checked />
+                        <span>Only Applicable to Carts Without Alcohol</span>
+                      </label>
+                    </div>
+
+                    <!-- Device & Payment -->
+                    <h3 class="create-field-group__heading">Device & Payment</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Device Targeting</span>
+                      </label>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label create-field__label--toggle">
+                        <input type="checkbox" />
+                        <span>Payment Method</span>
+                      </label>
+                    </div>
+
+                    <!-- Stop Conditions -->
+                    <h3 class="create-field-group__heading">Stop Conditions</h3>
+
+                    <div class="create-field-row">
+                      <div class="create-field">
+                        <label class="create-field__label">Max Redemption Count</label>
+                        <input type="number" class="create-field__input" value="3" />
+                      </div>
+                      <div class="create-field">
+                        <label class="create-field__label">Max Redemptions Per Customer</label>
+                        <input type="number" class="create-field__input" value="3" />
+                      </div>
+                    </div>
+
+                    <!-- Override Error Messages -->
+                    <h3 class="create-field-group__heading">Override Error Messages</h3>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Override String</label>
+                      <textarea class="create-field__textarea" rows="3" placeholder='{"error_name": "Error string"}'></textarea>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Error Message Reference</label>
+                      <a href="#" class="create-field__link">error message list</a>
+                    </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Placement Creation (Incomplete) -->
+              <div id="section-placement" class="create-section create-section--incomplete create-section--collapsed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--incomplete">
+                      <span class="create-section__status-ring" style="background: conic-gradient(var(--color-primary) 0deg 115.2deg, var(--color-border) 115.2deg 360deg);"></span>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Placement Creation</h2>
+                      <span class="create-section__badge create-section__badge--action">Action needed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content" style="display: none;">
+                  <div class="placement-tabs-container">
+                    <!-- Placement Tabs -->
+                    <div class="placement-tabs">
+                      <button class="placement-tab placement-tab--active" data-tab="home">
+                        Home
+                      </button>
+                      <button class="placement-tab" data-tab="store">
+                        Store
+                      </button>
+                      <button class="placement-tab" data-tab="home-announcement">
+                        Home Page Announcement
+                      </button>
+                      <button class="placement-tab" data-tab="home-benefit">
+                        Home Page Benefit Reminder
+                      </button>
+                    </div>
+
+                    <!-- Placement Content -->
+                    <div class="placement-content">
+                      <!-- Home Tab -->
+                      <div class="placement-panel placement-panel--active" data-panel="home">
+                        <div class="placement-panel__header">
+                          <h4 class="placement-panel__title">Home</h4>
+                          <button class="btn btn--secondary btn--small">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                            Add Placement
+                          </button>
+                        </div>
+
+                        <div class="placement-list">
+                          <!-- Placement Card 1 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Home Page Announcement</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_HP_ANN
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" checked />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Placement Card 2 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Home Page Benefit Reminder</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_HP_BEN
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" checked />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Store Tab -->
+                      <div class="placement-panel" data-panel="store">
+                        <div class="placement-panel__header">
+                          <h4 class="placement-panel__title">Store</h4>
+                          <button class="btn btn--secondary btn--small">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                            Add Placement
+                          </button>
+                        </div>
+
+                        <div class="placement-list">
+                          <!-- Placement Card 1 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Store Hero Banner</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_STORE_HERO
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" checked />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Placement Card 2 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Store Page Banner</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_STORE_BANNER
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Home Page Announcement Tab -->
+                      <div class="placement-panel" data-panel="home-announcement">
+                        <div class="placement-panel__header">
+                          <h4 class="placement-panel__title">Home Page Announcement</h4>
+                          <button class="btn btn--secondary btn--small">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                            Add Placement
+                          </button>
+                        </div>
+
+                        <div class="placement-list">
+                          <!-- Placement Card 1 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Announcement Banner</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_HP_ANN_01
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" checked />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Home Page Benefit Reminder Tab -->
+                      <div class="placement-panel" data-panel="home-benefit">
+                        <div class="placement-panel__header">
+                          <h4 class="placement-panel__title">Home Page Benefit Reminder</h4>
+                          <button class="btn btn--secondary btn--small">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                            Add Placement
+                          </button>
+                        </div>
+
+                        <div class="placement-list">
+                          <!-- Placement Card 1 -->
+                          <div class="placement-item">
+                            <div class="placement-item__header">
+                              <div class="placement-item__drag">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <circle cx="4" cy="3" r="1.5"/>
+                                  <circle cx="4" cy="8" r="1.5"/>
+                                  <circle cx="4" cy="13" r="1.5"/>
+                                  <circle cx="12" cy="3" r="1.5"/>
+                                  <circle cx="12" cy="8" r="1.5"/>
+                                  <circle cx="12" cy="13" r="1.5"/>
+                                </svg>
+                              </div>
+                              <div class="placement-item__content">
+                                <div class="placement-item__title-row">
+                                  <h5 class="placement-item__name">Benefit Reminder</h5>
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </div>
+                                <p class="placement-item__id">
+                                  CX_WEB_HP_BENEFIT_01
+                                  <svg class="placement-item__edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                </p>
+                                <div class="placement-item__toolbar">
+                                  <button class="placement-item__toolbar-btn" title="Preview">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Copy">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                  </button>
+                                  <button class="placement-item__toolbar-btn" title="Link">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                  </button>
+                                  <div class="placement-item__stats">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                    0 clicks
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="placement-item__actions">
+                                <button class="placement-item__toolbar-btn" title="Share">
+                                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                  </svg>
+                                </button>
+                                <label class="placement-item__toggle">
+                                  <input type="checkbox" />
+                                </label>
+                                <button class="btn-icon btn-icon--ghost" title="Delete">
+                                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Universal Placement Settings -->
+                    <div class="placement-universal-settings">
+                      <div class="create-field-group">
+                        <!-- Wallet Settings -->
+                        <div class="create-field">
+                          <div class="create-field__toggle-row">
+                            <label class="create-field__label">Show in Wallet</label>
+                            <label class="placement-item__toggle">
+                              <input type="checkbox" checked />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="create-field">
+                          <div class="create-field__toggle-row">
+                            <label class="create-field__label">Show in Post-Checkout DoorDash/In Wallet</label>
+                            <label class="placement-item__toggle">
+                              <input type="checkbox" />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="create-field">
+                          <div class="create-field__toggle-row">
+                            <label class="create-field__label">Show in Post-Checkout DoorDash/In For-you-Feed</label>
+                            <label class="placement-item__toggle">
+                              <input type="checkbox" />
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Notification Hub -->
+                        <div class="create-field">
+                          <div class="create-field__toggle-row">
+                            <label class="create-field__label">
+                              Notification Hub
+                              <svg class="create-field__info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                              </svg>
+                            </label>
+                            <label class="placement-item__toggle">
+                              <input type="checkbox" />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="create-field">
+                          <label class="create-field__label">Notification Hub Template ID</label>
+                          <input type="text" class="create-field__input" />
+                        </div>
+
+                        <div class="create-field">
+                          <label class="create-field__label">
+                            Notification Hub Resurfacing Period (Days)
+                            <svg class="create-field__info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"/>
+                              <line x1="12" y1="16" x2="12" y2="12"/>
+                              <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                          </label>
+                          <input type="number" class="create-field__input" />
+                        </div>
+
+                        <div class="create-field">
+                          <label class="create-field__label">Notification Hub Image Override</label>
+                          <input type="text" class="create-field__input" />
+                        </div>
+
+                        <div class="create-field">
+                          <label class="create-field__label">Notification Hub DV Name</label>
+                          <input type="text" class="create-field__input" />
+                        </div>
+
+                        <!-- Stop Conditions -->
+                        <div class="create-field-section">
+                          <h4 class="create-field__section-title">Stop Conditions for announcements</h4>
+
+                          <div class="create-field">
+                            <label class="create-field__label">Maximum frequency (this will apply to only announcements)</label>
+                            <select class="create-field__input">
+                              <option>Select show behavior</option>
+                              <option>Show once per session</option>
+                              <option>Show once per day</option>
+                              <option>Show always</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- Store Carousels -->
+                        <div class="create-field-section">
+                          <h4 class="create-field__section-title">
+                            Store Carousels
+                            <svg class="create-field__info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"/>
+                              <line x1="12" y1="16" x2="12" y2="12"/>
+                              <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                          </h4>
+
+                          <div class="create-field">
+                            <label class="create-field__label">Carousel Id</label>
+                            <input type="text" class="create-field__input" />
+                          </div>
+
+                          <div class="create-field">
+                            <label class="create-field__label">Store Sort Order</label>
+                            <input type="text" class="create-field__input" />
+                          </div>
+
+                          <div class="create-field">
+                            <div class="create-field__toggle-row">
+                              <label class="placement-item__toggle">
+                                <input type="checkbox" />
+                              </label>
+                              <span class="create-field__toggle-status">Inactive</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Item Offers Carousels -->
+                        <div class="create-field-section">
+                          <h4 class="create-field__section-title">
+                            Item Offers Carousels
+                            <svg class="create-field__info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"/>
+                              <line x1="12" y1="16" x2="12" y2="12"/>
+                              <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                          </h4>
+
+                          <div class="create-field">
+                            <div class="create-field__toggle-row">
+                              <label class="placement-item__toggle">
+                                <input type="checkbox" />
+                              </label>
+                              <span class="create-field__toggle-status">Inactive</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Offers -->
+                        <div class="create-field-section">
+                          <h4 class="create-field__section-title">Offers</h4>
+
+                          <div class="create-field">
+                            <div class="create-field__toggle-row">
+                              <label class="create-field__label">Show in Offers Hub</label>
+                              <label class="placement-item__toggle">
+                                <input type="checkbox" />
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content Creation (Incomplete) -->
+              <div id="section-content" class="create-section create-section--incomplete create-section--collapsed">
+                <div class="create-section__header">
+                  <div class="create-section__header-left">
+                    <div class="create-section__status create-section__status--incomplete">
+                      <span class="create-section__status-ring" style="background: conic-gradient(var(--color-primary) 0deg 64.8deg, var(--color-border) 64.8deg 360deg);"></span>
+                    </div>
+                    <div class="create-section__title-group">
+                      <h2 class="create-section__title">Content Creation</h2>
+                      <span class="create-section__badge create-section__badge--action">Action needed</span>
+                    </div>
+                  </div>
+                  <button class="create-section__toggle">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </button>
+                </div>
+                <div class="create-section__content" style="display: none;">
+                  <div class="create-empty-state">
+                    <div class="create-empty-state__icon">
+                      <svg class="icon" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z"/></svg>
+                    </div>
+                    <p class="create-empty-state__title">Create campaign content</p>
+                    <button class="btn btn--secondary create-empty-state__action">
+                      <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                      Create Content
+                    </button>
+                  </div>
+
+                  <div class="create-section__footer">
+                    <button class="btn btn--primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- AI Chat Panel -->
+  <div class="chat-scrim" id="chat-scrim"></div>
+  <aside class="chat-panel" id="chat-panel">
+    <header class="chat-panel__header">
+      <div class="chat-panel__header-left">
+        <div class="chat-panel__header-icon">
+          <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z"/></svg>
+        </div>
+        <h2 class="chat-panel__title">AI Assistant</h2>
+      </div>
+      <button class="chat-panel__close" id="chat-close">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <div class="chat-panel__messages" id="chat-messages">
+      <div class="chat-message chat-message--assistant">
+        <div class="chat-message__content">
+          <p style="margin-bottom: 15px;">I've set up the foundation for your Summer 2026 DashPass Campaign based on your brief.</p>
+          <p style="margin-bottom: 15px;"><strong>Completed:</strong> Campaign Information • Experiment Setup • Channel Selection</p>
+          <p style="margin-bottom: 15px;"><strong>Next steps:</strong></p>
+        </div>
+
+        <!-- Interactive action items -->
+        <div class="chat-actions">
+          <button class="chat-action chat-action--completed" data-section="section-campaign-info">
+            <span class="chat-action__label">1. Campaign Information</span>
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+
+          <button class="chat-action chat-action--active" data-section="section-targeting">
+            <span class="chat-action__label">2. Targeting</span>
+            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+          </button>
+
+          <button class="chat-action chat-action--completed" data-section="section-experiment">
+            <span class="chat-action__label">3. Experiment Setup</span>
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+
+          <button class="chat-action chat-action--completed" data-section="section-channel">
+            <span class="chat-action__label">4. Channel Selection</span>
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+
+          <button class="chat-action chat-action--pending" data-section="section-promotion">
+            <span class="chat-action__label">5. Promotion Creation</span>
+          </button>
+
+          <button class="chat-action chat-action--pending" data-section="section-placement">
+            <span class="chat-action__label">6. Placement Creation</span>
+          </button>
+
+          <button class="chat-action chat-action--pending" data-section="section-content">
+            <span class="chat-action__label">7. Content Creation</span>
+          </button>
+        </div>
+
+        <div class="chat-message__content" style="margin-top: 12px;">
+          <p>Need help with any section? Just ask.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-panel__input-area">
+      <div class="chat-panel__input-wrapper">
+        <input
+          type="text"
+          class="chat-panel__input"
+          id="chat-input"
+          placeholder="Ask me anything..."
+        />
+        <div class="chat-panel__input-footer">
+          <div class="chat-panel__input-hints"></div>
+          <div class="chat-panel__input-actions">
+            <button class="chat-panel__send" id="chat-send"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <script src="scripts.js"></script>
+  <script src="router.js"></script>
+  <script src="view-transition.js"></script>
+  <script src="section-toggle.js"></script>
+  <script src="dropdown.js"></script>
+</body>
+</html>
