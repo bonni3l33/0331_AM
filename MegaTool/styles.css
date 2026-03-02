@@ -4632,16 +4632,16 @@ img, svg {
   max-width: 840px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 60px var(--space-6);
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .template-selection-content {
   display: flex;
   flex-direction: column;
-  margin-top: -80px;
+  width: 100%;
 }
 
 .template-selection__header {
