@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const templateConfigSection = document.getElementById('template-config-section');
   const configPromotion = document.getElementById('config-promotion');
   const configAction = document.getElementById('config-action');
-  const previewOptionsLink = document.getElementById('preview-options-link');
+  const previewNavBtn = document.getElementById('preview-nav-btn');
 
   templateRadios.forEach(radio => {
     radio.addEventListener('change', function() {
@@ -290,9 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
           configPromotion.style.display = 'flex';
           configAction.style.display = 'none';
 
-          // Show preview options link
-          if (previewOptionsLink) {
-            previewOptionsLink.style.display = 'inline-flex';
+          // Show preview nav button
+          if (previewNavBtn) {
+            previewNavBtn.style.display = 'flex';
           }
 
           // Gentle scroll to show config, but keep templates visible above
@@ -311,9 +311,9 @@ document.addEventListener('DOMContentLoaded', function() {
           configPromotion.style.display = 'none';
           configAction.style.display = 'flex';
 
-          // Show preview options link
-          if (previewOptionsLink) {
-            previewOptionsLink.style.display = 'inline-flex';
+          // Show preview nav button
+          if (previewNavBtn) {
+            previewNavBtn.style.display = 'flex';
           }
 
           // Gentle scroll to show config, but keep templates visible above
@@ -330,17 +330,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (templateConfigSection) {
           templateConfigSection.style.display = 'none';
         }
-        // Hide preview options link
-        if (previewOptionsLink) {
-          previewOptionsLink.style.display = 'none';
+        // Hide preview nav button
+        if (previewNavBtn) {
+          previewNavBtn.style.display = 'none';
         }
       }
     });
   });
 
-  // Preview Options Link - Navigate to preview view
-  if (previewOptionsLink) {
-    previewOptionsLink.addEventListener('click', function() {
+  // Preview Nav Button - Navigate to preview view
+  if (previewNavBtn) {
+    previewNavBtn.addEventListener('click', function() {
       const previewView = document.getElementById('preview-options-view');
       if (previewView && templateSelectionView) {
         templateSelectionView.style.display = 'none';

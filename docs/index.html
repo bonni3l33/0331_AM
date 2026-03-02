@@ -57,6 +57,10 @@
         <circle fill="currentColor" cx="6" cy="12" r="1.5"/>
         <circle fill="currentColor" cx="18" cy="12" r="1.5"/>
       </symbol>
+      <symbol id="icon-preview" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle fill="none" stroke="currentColor" stroke-width="2" cx="12" cy="12" r="3"/>
+      </symbol>
     </svg>
   </div>
 
@@ -88,6 +92,9 @@
           <a href="#start" class="local-nav__item local-nav__item--active">
             <svg class="icon" width="24" height="24"><use href="#icon-flag"/></svg>
           </a>
+          <button class="local-nav__item" id="preview-nav-btn" style="display: none;" title="Preview Interaction Options">
+            <svg class="icon" width="24" height="24"><use href="#icon-preview"/></svg>
+          </button>
         </div>
       </nav>
 
@@ -319,9 +326,6 @@
               </div>
 
               <div class="template-selection-footer">
-                <button class="btn btn--ghost" id="preview-options-link" style="display: none;">
-                  Preview Interaction Options
-                </button>
                 <button class="btn btn--primary template-selection__continue">Continue</button>
               </div>
             </div>
