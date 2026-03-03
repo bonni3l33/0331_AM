@@ -265,13 +265,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Handle submit button (for pasted text)
+  // Handle submit button (navigate to template selection)
   if (startSubmitBtn) {
     startSubmitBtn.addEventListener('click', function() {
-      const inputValue = inputField?.value.trim();
-      if (inputValue) {
-        showLoadingThenTemplates();
-      }
+      showLoadingThenTemplates();
     });
   }
 
