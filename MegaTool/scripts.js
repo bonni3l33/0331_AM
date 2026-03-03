@@ -236,6 +236,15 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         loadingState.style.display = 'none';
         templateSelectionView.style.display = 'flex';
+        // Show progress bar and step text (hidden for now)
+        // const progressBarContainer = document.getElementById('progress-bar-container');
+        // const progressStepText = document.getElementById('progress-step-text');
+        // if (progressBarContainer) {
+        //   progressBarContainer.style.display = 'block';
+        // }
+        // if (progressStepText) {
+        //   progressStepText.style.display = 'inline';
+        // }
         // Update URL to #select
         window.location.hash = 'select';
       }, 2000);
@@ -381,6 +390,16 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
         } else {
           window.location.hash = 'create';
+        }
+
+        // Hide progress bar and step text when navigating to create view
+        const progressBarContainer = document.getElementById('progress-bar-container');
+        const progressStepText = document.getElementById('progress-step-text');
+        if (progressBarContainer) {
+          progressBarContainer.style.display = 'none';
+        }
+        if (progressStepText) {
+          progressStepText.style.display = 'none';
         }
 
         // Navigate to create view using the transition function from view-transition.js

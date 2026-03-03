@@ -82,12 +82,17 @@
         <span class="global-nav__title">Promo and Merch Manager</span>
       </div>
       <div class="global-nav__actions">
+        <span class="global-nav__step-text" id="progress-step-text" style="display: none;">Step 1 of 2</span>
         <button class="btn--icon btn--ghost">
           <svg class="icon" width="24" height="24"><use href="#icon-more"/></svg>
         </button>
         <button class="btn--icon btn--ghost">
           <svg class="icon" width="24" height="24"><use href="#icon-help"/></svg>
         </button>
+      </div>
+      <!-- Progress Bar attached to header bottom -->
+      <div class="progress-bar" id="progress-bar-container" style="display: none;">
+        <div class="progress-bar__fill" id="progress-bar-fill" style="width: 50%;"></div>
       </div>
     </header>
 
@@ -192,9 +197,8 @@
                 <p class="template-selection__description">Based on your brief, we recommend starting with a single campaign structure.</p>
               </div>
 
-              <!-- Suggested for you -->
+              <!-- Campaign Options -->
               <div class="template-section">
-                <h3 class="template-section__title">Suggested for you</h3>
                 <div class="template-options">
                   <!-- Single Campaign Option -->
                   <label class="template-option">
@@ -207,17 +211,16 @@
                       </div>
                       <div class="template-option__content">
                         <h3 class="template-option__title">Single Campaign</h3>
-                        <p class="template-option__desc">Create one standalone campaign with unified targeting, promotions, and placements. Ideal for focused initiatives like holiday sales, new product launches, or seasonal offers.</p>
+                        <p class="template-option__desc">Create one campaign with a single set of targeting, offers, and placements.</p>
+                        <div class="template-option__tags">
+                          <span class="tag">One-time Promo</span>
+                          <span class="tag">Time-bound Offer</span>
+                          <span class="tag">Featured Deal</span>
+                        </div>
                       </div>
                     </div>
                   </label>
-                </div>
-              </div>
 
-              <!-- Other options -->
-              <div class="template-section">
-                <h3 class="template-section__title">Other options</h3>
-                <div class="template-options">
                   <!-- Multiple Promotion Campaigns Option -->
                   <label class="template-option">
                     <input type="radio" name="template" value="promotion" class="template-option__radio" />
@@ -230,7 +233,14 @@
                       </div>
                       <div class="template-option__content">
                         <h3 class="template-option__title">Multiple Promotion Campaigns</h3>
-                        <p class="template-option__desc">Create coordinated campaigns with different promotion strategies running simultaneously. Perfect for tiered offers or testing multiple discount structures across audience segments.</p>
+                        <p class="template-option__desc">Create variations of the same campaign across different placements, stores, audiences, time periods, or carousel configurations.</p>
+                        <div class="template-option__tags">
+                          <span class="tag">Multi-Placement</span>
+                          <span class="tag">Multi-Store</span>
+                          <span class="tag">Multi-Audience</span>
+                          <span class="tag">Day-Parting</span>
+                          <span class="tag">Regional</span>
+                        </div>
                       </div>
                     </div>
                   </label>
@@ -247,7 +257,13 @@
                       </div>
                       <div class="template-option__content">
                         <h3 class="template-option__title">Multiple Action-Based Campaigns</h3>
-                        <p class="template-option__desc">Create sequential campaigns triggered by specific user actions. Best for multi-step customer journeys like DashPass pre-signup incentives or "Do X, Get Y" reward flows.</p>
+                        <p class="template-option__desc">Create sequential campaigns triggered by user actions like sign-ups, milestones, or events.</p>
+                        <div class="template-option__tags">
+                          <span class="tag">Sign-up Triggered</span>
+                          <span class="tag">Milestone Reward</span>
+                          <span class="tag">Churn Prevention</span>
+                          <span class="tag">Event-Based</span>
+                        </div>
                       </div>
                     </div>
                   </label>

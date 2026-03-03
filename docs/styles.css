@@ -381,6 +381,8 @@ img, svg {
   background: var(--color-bg);
   border-bottom: 1px solid #f1f1f1;
   flex-shrink: 0;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .global-nav__brand {
@@ -406,6 +408,29 @@ img, svg {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+}
+
+.global-nav__step-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #606060;
+}
+
+/* Progress Bar (attached to header) */
+.global-nav .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: #E0E0E0;
+}
+
+.global-nav .progress-bar__fill {
+  height: 100%;
+  background: #191919;
+  transition: width 0.3s ease;
 }
 
 /* Local Navigation - Icon Rail */
@@ -4640,7 +4665,7 @@ img, svg {
 .template-options {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .template-option {
@@ -4658,57 +4683,92 @@ img, svg {
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
-  background: #F7F7F7;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
   padding: var(--space-4) var(--space-5);
+  padding-right: 56px;
+  position: relative;
   transition: all var(--transition-fast);
 }
 
+/* Custom radio button indicator */
+.template-option__card::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D0D0D0;
+  border-radius: 50%;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.template-option__radio:checked + .template-option__card::after {
+  border-color: #191919;
+  box-shadow: inset 0 0 0 4px white, inset 0 0 0 10px #191919;
+}
+
 .template-option:hover .template-option__card {
-  background: #EEEEEE;
+  border-color: #C0C0C0;
 }
 
 .template-option__radio:checked + .template-option__card {
-  border-color: var(--color-primary);
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-text);
+  border-width: 2px;
+  padding: calc(var(--space-4) - 1px) calc(var(--space-5) - 1px);
+  padding-right: 55px;
 }
 
 .template-option__icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.template-option__icon .icon {
-  width: 24px;
-  height: 24px;
-  color: var(--color-text-tertiary);
-  transition: color var(--transition-fast);
-}
-
-.template-option__radio:checked ~ .template-option__card .template-option__icon .icon {
-  color: var(--color-primary);
+  display: none;
 }
 
 .template-option__content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .template-option__title {
   font-family: var(--font-primary);
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
+  font-size: 16px;
+  font-weight: var(--font-medium);
   color: var(--color-text);
-  margin: 0 0 var(--space-1) 0;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .template-option__desc {
-  font-size: var(--text-sm);
+  font-size: 14px;
+  font-weight: var(--font-regular);
   color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0;
+}
+
+.template-option__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: #F5F5F5;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  line-height: 1.3;
 }
 
 /* Template Inline Configuration Section */
@@ -4769,44 +4829,69 @@ img, svg {
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: #ffffff;
-  border: 1px solid var(--color-border);
+  padding-right: 56px;
+  background: white;
+  border: 1px solid #E0E0E0;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
+  position: relative;
 }
 
 .template-config-option:hover {
-  border-color: var(--color-primary);
-  background: #fafbfc;
+  border-color: #C0C0C0;
 }
 
 .template-config-option input[type="radio"] {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Custom radio button indicator for inline config */
+.template-config-option::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D0D0D0;
+  border-radius: 50%;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.template-config-option:has(input[type="radio"]:checked)::after {
+  border-color: #191919;
+  box-shadow: inset 0 0 0 4px white, inset 0 0 0 10px #191919;
 }
 
 .template-config-option:has(input[type="radio"]:checked) {
-  border-color: var(--color-primary);
-  background: var(--color-primary-bg);
-  border-width: 1px;
+  border-color: var(--color-text);
+  border-width: 2px;
+  padding: 15px 19px;
+  padding-right: 55px;
 }
 
 .template-config-option__content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-2);
   flex: 1;
 }
 
 .template-config-option__title {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: var(--font-medium);
   color: var(--color-text);
   line-height: 1.4;
 }
 
 .template-config-option__desc {
   font-size: 13px;
+  font-weight: var(--font-regular);
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
