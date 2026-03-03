@@ -2251,11 +2251,11 @@ img, svg {
 .chat-panel {
   position: fixed;
   top: 242px; /* Below global nav + create header, aligned with sections */
+  bottom: 16px; /* Anchor to bottom with margin */
   right: 16px;
   width: 25vw;
   min-width: 380px;
   max-width: 480px;
-  max-height: 450px;
   height: auto;
   background: #fafafa;
   border: 1px solid var(--color-border-strong);
