@@ -4600,7 +4600,7 @@ img, svg {
 .template-selection-view {
   flex-direction: column;
   flex: 1;
-  background: var(--color-bg-primary);
+  background: #F7F7F7;
   overflow: auto;
 }
 
