@@ -69,6 +69,20 @@ document.addEventListener('DOMContentLoaded', function() {
         createView.style.opacity = '1';
       }
 
+      // Apply chat panel height class BEFORE opening (to avoid animation flash)
+      if (chatPanel) {
+        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+        console.log('Chat panel opening with config:', config);
+
+        if (config.type === 'promotion' || config.type === 'action') {
+          console.log('Applying multiple-campaigns class');
+          chatPanel.classList.add('chat-panel--multiple-campaigns');
+        } else {
+          console.log('Removing multiple-campaigns class');
+          chatPanel.classList.remove('chat-panel--multiple-campaigns');
+        }
+      }
+
       // Animate progress bar after view is visible
       setTimeout(() => {
         const progressFill = document.querySelector('.create-progress__fill');

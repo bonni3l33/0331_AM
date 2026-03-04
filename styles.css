@@ -2271,6 +2271,12 @@ img, svg {
               visibility var(--chat-transition-duration) var(--chat-transition-easing);
 }
 
+/* Shorter height for multiple campaign templates */
+.chat-panel--multiple-campaigns {
+  top: 265px;
+  bottom: 16px;
+}
+
 .chat-panel--open {
   transform: translateX(0);
   opacity: 1;
@@ -2334,6 +2340,11 @@ img, svg {
     min-width: 320px;
     max-width: none;
     height: auto;
+  }
+
+  .chat-panel--multiple-campaigns {
+    top: 120px;
+    bottom: 16px;
   }
 
   .chat-panel__messages {
