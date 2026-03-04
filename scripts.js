@@ -236,6 +236,10 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         loadingState.style.display = 'none';
         templateSelectionView.style.display = 'flex';
+
+        // Force reflow to ensure content is rendered
+        templateSelectionView.offsetHeight;
+
         // Show progress bar and step text (hidden for now)
         // const progressBarContainer = document.getElementById('progress-bar-container');
         // const progressStepText = document.getElementById('progress-step-text');

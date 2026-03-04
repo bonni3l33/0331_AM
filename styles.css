@@ -4598,15 +4598,11 @@ img, svg {
    ========================================== */
 
 .template-selection-view {
+  display: flex;
   flex-direction: column;
   flex: 1;
   background: #F7F7F7;
   overflow: auto;
-}
-
-.template-selection-view[style*="display: flex"],
-.template-selection-view[style*="display:flex"] {
-  display: flex;
 }
 
 .template-selection-container {
