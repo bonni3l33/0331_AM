@@ -7809,9 +7809,36 @@ img, svg {
 
 .summary-field--multiline {
   min-height: 95px;
-  align-items: center;
+  align-items: flex-start;
   padding: 8px 12px;
   line-height: 20px;
+}
+
+.summary-field--multiline p {
+  margin: 0 0 8px 0;
+}
+
+.summary-field--multiline p:last-child {
+  margin-bottom: 0;
+}
+
+.summary-field--multiline ul {
+  margin: 0 0 12px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.summary-field--multiline ul:last-child {
+  margin-bottom: 0;
+}
+
+.summary-field--multiline li {
+  margin-bottom: 8px;
+  line-height: 20px;
+}
+
+.summary-field--multiline li:last-child {
+  margin-bottom: 0;
 }
 
 .summary-field--tags {
