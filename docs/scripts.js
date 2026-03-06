@@ -385,39 +385,120 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('campaignConfig', JSON.stringify({ type: 'single' }));
         }
 
-        // Set up campaign tabs (will hide for single campaign)
-        setupCampaignTabs(templateType);
-
-        // Update URL hash for direct access
-        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
-        if (config.type && config.count) {
-          window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
-        } else {
-          window.location.hash = 'create';
-        }
-
-        // Hide progress bar and step text when navigating to create view
-        const progressBarContainer = document.getElementById('progress-bar-container');
-        const progressStepText = document.getElementById('progress-step-text');
-        if (progressBarContainer) {
-          progressBarContainer.style.display = 'none';
-        }
-        if (progressStepText) {
-          progressStepText.style.display = 'none';
-        }
-
-        // Navigate to create view using the transition function from view-transition.js
-        if (typeof window.transitionToCreateView === 'function') {
-          window.transitionToCreateView(templateSelectionView);
-        } else {
-          // Fallback if view-transition.js hasn't loaded
-          templateSelectionView.style.display = 'none';
-          if (createView) {
-            createView.style.display = 'flex';
-          }
-        }
+        // Navigate to summary view instead of create view
+        transitionToSummaryView();
       }
     });
+  }
+
+  // Function to transition to summary view
+  function transitionToSummaryView() {
+    const summaryView = document.getElementById('summary-view');
+
+    if (!summaryView || !templateSelectionView) return;
+
+    // Update URL
+    window.location.hash = 'summary';
+
+    // Fade out template selection view
+    templateSelectionView.style.opacity = '0';
+    templateSelectionView.style.transition = 'opacity 0.3s ease-out';
+
+    setTimeout(() => {
+      templateSelectionView.style.display = 'none';
+
+      // Show summary view
+      summaryView.style.display = 'flex';
+      summaryView.style.opacity = '0';
+
+      // Generate summary text AFTER view is shown
+      setTimeout(() => {
+        generateSummaryText();
+        summaryView.style.transition = 'opacity 0.4s ease-in';
+        summaryView.style.opacity = '1';
+      }, 50);
+    }, 300);
+  }
+
+  // Function to generate summary text
+  function generateSummaryText() {
+    const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+
+    // Get field elements
+    const campaignTypeEl = document.getElementById('summary-campaign-type');
+    const promotionEl = document.getElementById('summary-promotion');
+    const placementsEl = document.getElementById('summary-placements');
+    const targetingEl = document.getElementById('summary-targeting');
+
+    console.log('generateSummaryText called', config);
+
+    if (!campaignTypeEl || !promotionEl || !placementsEl || !targetingEl) {
+      console.error('Summary field elements not found!');
+      return;
+    }
+
+    // Populate based on campaign type
+    if (config.type === 'promotion') {
+      // Campaign Type
+      campaignTypeEl.textContent = `Multiple Promotion Campaign (${config.count || 3} campaigns)`;
+
+      // Promotion
+      promotionEl.innerHTML = '30% off orders with $12 minimum subtotal, max $10 discount<br>Duration: 30 days, auto-applied at checkout';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email (16)</span>
+        <span class="summary-tag">Push (16)</span>
+        <span class="summary-tag">SMS (2)</span>
+        <span class="summary-tag">Homepage Banner (8)</span>
+        <span class="summary-tag">Store Page Banner (8)</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'Active Customers with 1-3 lifetime orders, excluding fraud and customers in other programs';
+
+    } else if (config.type === 'action') {
+      // Campaign Type
+      campaignTypeEl.textContent = `Multiple Action-Based Campaign (${config.steps || 4} phases)`;
+
+      // Promotion
+      promotionEl.innerHTML = '30% off with $12 min subtotal, max $10 discount per order<br>Auto-applied at checkout, valid for 30 days from signup';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email (30)</span>
+        <span class="summary-tag">Push (30)</span>
+        <span class="summary-tag">SMS (2)</span>
+        <span class="summary-tag">Homepage Banner (8)</span>
+        <span class="summary-tag">Store Page Banner (8)</span>
+        <span class="summary-tag">Spotlight Banner (8)</span>
+        <span class="summary-tag">Immersive Header (8)</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'New Customers (signed up within 30 days, non-DashPass, <20 duplicate accounts), excluding fraud';
+
+    } else {
+      // Single Campaign (default)
+      // Campaign Type
+      campaignTypeEl.textContent = 'NPWS Promotion. Single Campaign';
+
+      // Promotion
+      promotionEl.innerHTML = '40% off 1 order with $15 min subtotal, max $10 discount<br>Code: NEW40OFF<br>Duration: 30 days';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email (16)</span>
+        <span class="summary-tag">Push (8)</span>
+        <span class="summary-tag">SMS (2)</span>
+        <span class="summary-tag">Homepage Banner (4)</span>
+        <span class="summary-tag">Immersive Header (8)</span>
+        <span class="summary-tag">Spotlight Banner (8)</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'Non-purchasers within 45 days of signup, excluding fraud and SUMA customers';
+    }
   }
 
   // Setup Campaign Tabs for Multiple Campaigns
@@ -755,6 +836,211 @@ document.addEventListener('DOMContentLoaded', function() {
       // Navigate back to template selection
       if (createPreviewView && templateSelectionView) {
         createPreviewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+      }
+    });
+  }
+
+  // Summary View Handlers
+  const summaryView = document.getElementById('summary-view');
+  const summaryContinueBtn = document.getElementById('summary-continue-btn');
+  const summaryModifyBtn = document.getElementById('summary-modify-btn');
+  const summaryInputField = document.getElementById('summary-input-field');
+
+  // Continue button - navigate to create view
+  if (summaryContinueBtn) {
+    summaryContinueBtn.addEventListener('click', function() {
+      if (!summaryView || !createView) return;
+
+      // Set up campaign tabs (will hide for single campaign)
+      const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+      setupCampaignTabs(config.type);
+
+      // Update URL hash for direct access
+      if (config.type && config.count) {
+        window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
+      } else {
+        window.location.hash = 'create';
+      }
+
+      // Hide progress bar and step text when navigating to create view
+      const progressBarContainer = document.getElementById('progress-bar-container');
+      const progressStepText = document.getElementById('progress-step-text');
+      if (progressBarContainer) {
+        progressBarContainer.style.display = 'none';
+      }
+      if (progressStepText) {
+        progressStepText.style.display = 'none';
+      }
+
+      // Navigate to create view using the transition function from view-transition.js
+      if (typeof window.transitionToCreateView === 'function') {
+        window.transitionToCreateView(summaryView);
+      } else {
+        // Fallback if view-transition.js hasn't loaded
+        summaryView.style.display = 'none';
+        if (createView) {
+          createView.style.display = 'flex';
+        }
+      }
+    });
+  }
+
+  // Modify button - go back to template selection
+  if (summaryModifyBtn) {
+    summaryModifyBtn.addEventListener('click', function() {
+      if (!summaryView || !templateSelectionView) return;
+
+      // Update URL
+      window.location.hash = 'select';
+
+      // Fade out summary view
+      summaryView.style.opacity = '0';
+      summaryView.style.transition = 'opacity 0.3s ease-out';
+
+      setTimeout(() => {
+        summaryView.style.display = 'none';
+
+        // Show template selection view
+        templateSelectionView.style.display = 'flex';
+        templateSelectionView.style.opacity = '0';
+
+        setTimeout(() => {
+          templateSelectionView.style.transition = 'opacity 0.4s ease-in';
+          templateSelectionView.style.opacity = '1';
+        }, 50);
+      }, 300);
+    });
+  }
+
+  // Auto-resize textarea
+  if (summaryInputField) {
+    summaryInputField.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+  }
+
+  // Typing animation function
+  function typeText(element, text, speed = 30) {
+    if (!element) return Promise.resolve();
+
+    element.textContent = '';
+    element.classList.add('typing');
+
+    return new Promise((resolve) => {
+      let index = 0;
+
+      function type() {
+        if (index < text.length) {
+          element.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, speed);
+        } else {
+          element.classList.remove('typing');
+          resolve();
+        }
+      }
+
+      type();
+    });
+  }
+
+  // Chat panel question buttons
+  const chatLooksGoodBtn = document.getElementById('summary-chat-looks-good-btn');
+  const chatModifyBtn = document.getElementById('summary-chat-modify-btn');
+
+  if (chatLooksGoodBtn) {
+    chatLooksGoodBtn.addEventListener('click', function() {
+      // Hide only the button group, keep the dialog text visible
+      const questionEl = document.getElementById('summary-chat-question');
+      const actionsEl = questionEl ? questionEl.querySelector('.summary-chat-question__actions') : null;
+
+      if (actionsEl) {
+        actionsEl.style.display = 'none';
+      }
+
+      // Find the currently active step
+      const activeCircle = document.querySelector('.summary-chat-step__circle--active');
+      if (!activeCircle) return;
+
+      const activeStep = activeCircle.closest('.summary-chat-step');
+      const allSteps = document.querySelectorAll('.summary-chat-step');
+      let currentStepIndex = -1;
+
+      allSteps.forEach((step, index) => {
+        if (step === activeStep) {
+          currentStepIndex = index;
+        }
+      });
+
+      if (currentStepIndex === -1) return;
+
+      // Get current and next step elements
+      const currentCircle = allSteps[currentStepIndex].querySelector('.summary-chat-step__circle');
+      const currentLine = allSteps[currentStepIndex].querySelector('.summary-chat-step__line');
+      const nextStep = allSteps[currentStepIndex + 1];
+      const nextCircle = nextStep ? nextStep.querySelector('.summary-chat-step__circle') : null;
+
+      // Mark current step as completed
+      if (currentCircle) {
+        currentCircle.classList.remove('summary-chat-step__circle--active');
+        currentCircle.classList.add('summary-chat-step__circle--completed');
+        currentCircle.textContent = String(currentStepIndex + 1);
+      }
+
+      // Fill the line to next step
+      if (currentLine) {
+        currentLine.classList.add('summary-chat-step__line--completed');
+      }
+
+      // Step titles for questions
+      const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
+
+      // Activate next step if it exists
+      if (nextCircle && currentStepIndex < 3) {
+        nextCircle.classList.add('summary-chat-step__circle--active');
+        nextCircle.textContent = String(currentStepIndex + 2);
+
+        // Remove disabled state from the next section in the left panel
+        const nextSectionNumber = currentStepIndex + 2;
+        const nextSection = document.querySelector(`.summary-section[data-section="${nextSectionNumber}"]`);
+        if (nextSection) {
+          nextSection.classList.remove('summary-section--disabled');
+        }
+
+        // Update question text with typing animation and show buttons again for next step
+        setTimeout(() => {
+          if (questionEl) {
+            const questionText = questionEl.querySelector('.summary-chat-question__text');
+            if (questionText) {
+              const newQuestion = `Does the ${stepTitles[currentStepIndex + 1]} look good?`;
+              typeText(questionText, newQuestion).then(() => {
+                // Show buttons after typing completes
+                if (actionsEl) {
+                  actionsEl.style.display = 'flex';
+                }
+              });
+            }
+          }
+        }, 300);
+      } else {
+        // All steps completed - hide the question dialog
+        setTimeout(() => {
+          if (questionEl) {
+            questionEl.style.display = 'none';
+          }
+        }, 500);
+      }
+    });
+  }
+
+  if (chatModifyBtn) {
+    chatModifyBtn.addEventListener('click', function() {
+      // Go back to modify (template selection)
+      if (summaryView && templateSelectionView) {
+        window.location.hash = 'select';
+        summaryView.style.display = 'none';
         templateSelectionView.style.display = 'flex';
       }
     });

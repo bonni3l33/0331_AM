@@ -5,11 +5,70 @@
   const startState = document.getElementById('start-state');
   const loadingState = document.getElementById('loading-state');
   const templateSelectionView = document.getElementById('template-selection-view');
+  const summaryView = document.getElementById('summary-view');
   const createView = document.getElementById('create-view');
   const chatPanel = document.getElementById('chat-panel');
   const chatScrim = document.getElementById('chat-scrim');
 
+  // Track highest step reached (1 = select, 2 = summary, 3 = create)
+  let highestStepReached = parseInt(localStorage.getItem('highestStepReached')) || 1;
+
+  function updateProgressBar(viewName) {
+    const progressContainer = document.getElementById('progress-bar-container');
+    const progressSteps = document.querySelectorAll('.progress-bar-step');
+    const progressText = document.getElementById('progress-bar-text');
+
+    if (!progressContainer || !progressSteps.length || !progressText) return;
+
+    // Hide progress bar for start and create views
+    if (viewName === 'start' || viewName === 'create') {
+      progressContainer.style.display = 'none';
+      return;
+    } else {
+      progressContainer.style.display = 'block';
+    }
+
+    // Determine step based on view (only 2 steps now)
+    let currentStep = 1;
+    if (viewName === 'select') {
+      currentStep = 1;
+    } else if (viewName === 'summary') {
+      currentStep = 2;
+    }
+
+    // Update highest step reached
+    if (currentStep > highestStepReached) {
+      highestStepReached = currentStep;
+      localStorage.setItem('highestStepReached', highestStepReached);
+    }
+
+    // Update step indicators and enable/disable links
+    progressSteps.forEach((step, index) => {
+      const stepNumber = index + 1;
+
+      // Mark active step
+      if (index < currentStep) {
+        step.classList.add('progress-bar-step--active');
+      } else {
+        step.classList.remove('progress-bar-step--active');
+      }
+
+      // Enable/disable based on whether step has been reached
+      if (stepNumber <= highestStepReached) {
+        step.classList.remove('progress-bar-step--disabled');
+      } else {
+        step.classList.add('progress-bar-step--disabled');
+      }
+    });
+
+    // Update text
+    progressText.textContent = `Step ${currentStep} of 2`;
+  }
+
   function showView(viewName, params) {
+    // Update progress bar
+    updateProgressBar(viewName);
+
     if (viewName === 'create') {
       // Show create view
       if (startState) {
@@ -94,6 +153,36 @@
       if (templateSelectionView) {
         templateSelectionView.style.display = 'flex';
       }
+      if (summaryView) {
+        summaryView.style.display = 'none';
+      }
+      if (createView) {
+        createView.style.display = 'none';
+      }
+      if (chatPanel) {
+        chatPanel.classList.remove('chat-panel--open');
+        chatPanel.setAttribute('aria-hidden', 'true');
+      }
+      if (chatScrim) {
+        chatScrim.setAttribute('aria-hidden', 'true');
+        chatScrim.style.opacity = '0';
+        chatScrim.style.pointerEvents = 'none';
+      }
+    } else if (viewName === 'summary') {
+      // Show summary view
+      if (startState) {
+        startState.style.display = 'none';
+      }
+      if (loadingState) {
+        loadingState.style.display = 'none';
+      }
+      if (templateSelectionView) {
+        templateSelectionView.style.display = 'none';
+      }
+      if (summaryView) {
+        summaryView.style.display = 'flex';
+        summaryView.style.opacity = '1';
+      }
       if (createView) {
         createView.style.display = 'none';
       }
@@ -118,6 +207,9 @@
       }
       if (templateSelectionView) {
         templateSelectionView.style.display = 'none';
+      }
+      if (summaryView) {
+        summaryView.style.display = 'none';
       }
       if (createView) {
         createView.style.display = 'none';
@@ -156,8 +248,8 @@
     const viewName = hash.split('&')[0] || 'start';
     const params = parseHashParams(hash);
 
-    // Handle routing for start, select, and create views
-    if (viewName === 'start' || viewName === 'select' || viewName === 'create') {
+    // Handle routing for start, select, summary, and create views
+    if (viewName === 'start' || viewName === 'select' || viewName === 'summary' || viewName === 'create') {
       showView(viewName, params);
     }
   }
@@ -168,8 +260,14 @@
   // Handle initial page load - only for explicit hashes
   document.addEventListener('DOMContentLoaded', function() {
     const hash = window.location.hash.slice(1);
-    if (hash === 'select' || hash === 'create') {
+    const viewName = hash.split('&')[0] || 'start';
+
+    // Initialize progress bar state
+    if (viewName === 'select' || viewName === 'summary' || viewName === 'create') {
       handleHashChange();
+    } else {
+      // Update progress bar on initial load to set disabled states
+      updateProgressBar(viewName);
     }
   });
 })();

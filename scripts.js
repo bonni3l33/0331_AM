@@ -5,22 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // Chat panel controls
   const chatPanel = document.getElementById('chat-panel');
   const chatScrim = document.getElementById('chat-scrim');
-  const chatClose = document.getElementById('chat-close');
+  // Close button removed to match summary view
+  // const chatClose = document.getElementById('chat-close');
 
-  // Close chat panel
-  if (chatClose) {
-    chatClose.addEventListener('click', function() {
-      if (chatPanel) {
-        chatPanel.classList.remove('chat-panel--open');
-        chatPanel.setAttribute('aria-hidden', 'true');
-      }
-      if (chatScrim) {
-        chatScrim.setAttribute('aria-hidden', 'true');
-        chatScrim.style.opacity = '0';
-        chatScrim.style.pointerEvents = 'none';
-      }
-    });
-  }
+  // Close chat panel - DISABLED (matching summary view, panel is always open)
+  // if (chatClose) {
+  //   chatClose.addEventListener('click', function() {
+  //     if (chatPanel) {
+  //       chatPanel.classList.remove('chat-panel--open');
+  //       chatPanel.setAttribute('aria-hidden', 'true');
+  //     }
+  //     if (chatScrim) {
+  //       chatScrim.setAttribute('aria-hidden', 'true');
+  //       chatScrim.style.opacity = '0';
+  //       chatScrim.style.pointerEvents = 'none';
+  //     }
+  //   });
+  // }
 
   // Close on scrim click
   if (chatScrim) {
@@ -300,6 +301,11 @@ document.addEventListener('DOMContentLoaded', function() {
           configPromotion.style.display = 'flex';
           configAction.style.display = 'none';
 
+          // Enable scrolling for expanded content
+          if (templateSelectionView) {
+            templateSelectionView.classList.add('template-selection-view--scrollable');
+          }
+
           // Show preview nav button
           if (previewNavBtn) {
             previewNavBtn.style.display = 'flex';
@@ -321,6 +327,11 @@ document.addEventListener('DOMContentLoaded', function() {
           configPromotion.style.display = 'none';
           configAction.style.display = 'flex';
 
+          // Enable scrolling for expanded content
+          if (templateSelectionView) {
+            templateSelectionView.classList.add('template-selection-view--scrollable');
+          }
+
           // Show preview nav button
           if (previewNavBtn) {
             previewNavBtn.style.display = 'flex';
@@ -339,6 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide config for Single Campaign
         if (templateConfigSection) {
           templateConfigSection.style.display = 'none';
+        }
+        // Disable scrolling for single campaign
+        if (templateSelectionView) {
+          templateSelectionView.classList.remove('template-selection-view--scrollable');
         }
         // Hide preview nav button
         if (previewNavBtn) {
@@ -385,39 +400,119 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('campaignConfig', JSON.stringify({ type: 'single' }));
         }
 
-        // Set up campaign tabs (will hide for single campaign)
-        setupCampaignTabs(templateType);
-
-        // Update URL hash for direct access
-        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
-        if (config.type && config.count) {
-          window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
-        } else {
-          window.location.hash = 'create';
-        }
-
-        // Hide progress bar and step text when navigating to create view
-        const progressBarContainer = document.getElementById('progress-bar-container');
-        const progressStepText = document.getElementById('progress-step-text');
-        if (progressBarContainer) {
-          progressBarContainer.style.display = 'none';
-        }
-        if (progressStepText) {
-          progressStepText.style.display = 'none';
-        }
-
-        // Navigate to create view using the transition function from view-transition.js
-        if (typeof window.transitionToCreateView === 'function') {
-          window.transitionToCreateView(templateSelectionView);
-        } else {
-          // Fallback if view-transition.js hasn't loaded
-          templateSelectionView.style.display = 'none';
-          if (createView) {
-            createView.style.display = 'flex';
-          }
-        }
+        // Navigate to summary view instead of create view
+        transitionToSummaryView();
       }
     });
+  }
+
+  // Function to transition to summary view
+  function transitionToSummaryView() {
+    const summaryView = document.getElementById('summary-view');
+
+    if (!summaryView || !templateSelectionView) return;
+
+    // Update URL
+    window.location.hash = 'summary';
+
+    // Fade out template selection view
+    templateSelectionView.style.opacity = '0';
+    templateSelectionView.style.transition = 'opacity 0.3s ease-out';
+
+    setTimeout(() => {
+      templateSelectionView.style.display = 'none';
+
+      // Show summary view
+      summaryView.style.display = 'flex';
+      summaryView.style.opacity = '0';
+
+      // Generate summary text AFTER view is shown
+      setTimeout(() => {
+        generateSummaryText();
+        summaryView.style.transition = 'opacity 0.4s ease-in';
+        summaryView.style.opacity = '1';
+      }, 50);
+    }, 300);
+  }
+
+  // Function to generate summary text
+  function generateSummaryText() {
+    const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+
+    // Get field elements
+    const campaignTypeEl = document.getElementById('summary-campaign-type');
+    const promotionEl = document.getElementById('summary-promotion');
+    const placementsEl = document.getElementById('summary-placements');
+    const targetingEl = document.getElementById('summary-targeting');
+
+    console.log('generateSummaryText called', config);
+
+    if (!campaignTypeEl || !promotionEl || !placementsEl || !targetingEl) {
+      console.error('Summary field elements not found!');
+      return;
+    }
+
+    // Populate based on campaign type
+    if (config.type === 'promotion') {
+      // Campaign Type
+      campaignTypeEl.textContent = `Multiple Promotion Campaign (${config.count || 3} campaigns)`;
+
+      // Promotion
+      promotionEl.innerHTML = '30% off orders with $12 minimum subtotal, max $10 discount<br>Duration: 30 days, auto-applied at checkout';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email</span>
+        <span class="summary-tag">Push</span>
+        <span class="summary-tag">SMS</span>
+        <span class="summary-tag">Homepage Banner</span>
+        <span class="summary-tag">Store Page Banner</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'Active Customers with 1-3 lifetime orders, excluding fraud and customers in other programs';
+
+    } else if (config.type === 'action') {
+      // Campaign Type
+      campaignTypeEl.textContent = `Multiple Action-Based Campaign (${config.steps || 4} phases)`;
+
+      // Promotion
+      promotionEl.innerHTML = '30% off with $12 min subtotal, max $10 discount per order<br>Auto-applied at checkout, valid for 30 days from signup';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email</span>
+        <span class="summary-tag">Push</span>
+        <span class="summary-tag">SMS</span>
+        <span class="summary-tag">Homepage Banner</span>
+        <span class="summary-tag">Store Page Banner</span>
+        <span class="summary-tag">Spotlight Banner</span>
+        <span class="summary-tag">Immersive Header</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'New Customers (signed up within 30 days, non-DashPass, <20 duplicate accounts), excluding fraud';
+
+    } else {
+      // Single Campaign (default)
+      // Campaign Type
+      campaignTypeEl.textContent = 'NPWS Promotion. Single Campaign';
+
+      // Promotion
+      promotionEl.innerHTML = '40% off 1 order with $15 min subtotal, max $10 discount<br>Code: NEW40OFF<br>Duration: 30 days';
+
+      // Placements
+      placementsEl.innerHTML = `
+        <span class="summary-tag">Email</span>
+        <span class="summary-tag">Push</span>
+        <span class="summary-tag">SMS</span>
+        <span class="summary-tag">Homepage Banner</span>
+        <span class="summary-tag">Spotlight Banner</span>
+      `;
+
+      // Targeting
+      targetingEl.textContent = 'Non-purchasers within 45 days of signup, excluding fraud and SUMA customers';
+    }
   }
 
   // Setup Campaign Tabs for Multiple Campaigns
@@ -759,4 +854,662 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Summary View Handlers
+  const summaryView = document.getElementById('summary-view');
+  const summaryContinueBtn = document.getElementById('summary-continue-btn');
+  const summaryModifyBtn = document.getElementById('summary-modify-btn');
+  const summaryInputField = document.getElementById('summary-input-field');
+
+  // Continue button - navigate to create view
+  if (summaryContinueBtn) {
+    summaryContinueBtn.addEventListener('click', function() {
+      if (!summaryView || !createView) return;
+
+      // Set up campaign tabs (will hide for single campaign)
+      const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+      setupCampaignTabs(config.type);
+
+      // Update URL hash for direct access
+      if (config.type && config.count) {
+        window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
+      } else {
+        window.location.hash = 'create';
+      }
+
+      // Hide progress bar and step text when navigating to create view
+      const progressBarContainer = document.getElementById('progress-bar-container');
+      const progressStepText = document.getElementById('progress-step-text');
+      if (progressBarContainer) {
+        progressBarContainer.style.display = 'none';
+      }
+      if (progressStepText) {
+        progressStepText.style.display = 'none';
+      }
+
+      // Navigate to create view using the transition function from view-transition.js
+      if (typeof window.transitionToCreateView === 'function') {
+        window.transitionToCreateView(summaryView);
+      } else {
+        // Fallback if view-transition.js hasn't loaded
+        summaryView.style.display = 'none';
+        if (createView) {
+          createView.style.display = 'flex';
+        }
+      }
+    });
+  }
+
+  // Modify button - go back to template selection
+  if (summaryModifyBtn) {
+    summaryModifyBtn.addEventListener('click', function() {
+      if (!summaryView || !templateSelectionView) return;
+
+      // Update URL
+      window.location.hash = 'select';
+
+      // Fade out summary view
+      summaryView.style.opacity = '0';
+      summaryView.style.transition = 'opacity 0.3s ease-out';
+
+      setTimeout(() => {
+        summaryView.style.display = 'none';
+
+        // Show template selection view
+        templateSelectionView.style.display = 'flex';
+        templateSelectionView.style.opacity = '0';
+
+        setTimeout(() => {
+          templateSelectionView.style.transition = 'opacity 0.4s ease-in';
+          templateSelectionView.style.opacity = '1';
+        }, 50);
+      }, 300);
+    });
+  }
+
+  // Auto-resize textarea
+  if (summaryInputField) {
+    summaryInputField.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+  }
+
+  // Typing animation function
+  // Shared function to progress to next step
+  function progressToNextStep(currentQuestionEl) {
+    // Find the currently active step FIRST
+    const activeCircle = document.querySelector('.summary-chat-step__circle--active');
+    if (!activeCircle) return;
+
+    const activeStep = activeCircle.closest('.summary-chat-step');
+    const allSteps = document.querySelectorAll('.summary-chat-step');
+    let currentStepIndex = -1;
+
+    allSteps.forEach((step, index) => {
+      if (step === activeStep) {
+        currentStepIndex = index;
+      }
+    });
+
+    if (currentStepIndex === -1) return;
+
+    // Update left section number badge to checkmark IMMEDIATELY
+    const currentSectionNumber = currentStepIndex + 1;
+    const currentSection = document.querySelector(`.summary-section[data-section="${currentSectionNumber}"]`);
+    if (currentSection) {
+      const numberBadge = currentSection.querySelector('.summary-section__number');
+      if (numberBadge) {
+        numberBadge.classList.add('summary-section__number--confirmed');
+        numberBadge.textContent = ''; // Clear number text immediately
+      }
+
+      // Show Edit button for confirmed section
+      const editBtn = currentSection.querySelector('.summary-section__edit-btn');
+      if (editBtn) {
+        editBtn.style.display = 'block';
+      }
+    }
+
+    // Hide the current question bubble
+    if (currentQuestionEl) {
+      currentQuestionEl.style.display = 'none';
+    }
+
+    // Get current and next step elements
+    const currentCircle = allSteps[currentStepIndex].querySelector('.summary-chat-step__circle');
+    const currentLine = allSteps[currentStepIndex].querySelector('.summary-chat-step__line');
+    const nextStep = allSteps[currentStepIndex + 1];
+    const nextCircle = nextStep ? nextStep.querySelector('.summary-chat-step__circle') : null;
+
+    // Mark current step as completed
+    if (currentCircle) {
+      currentCircle.classList.remove('summary-chat-step__circle--active');
+      currentCircle.classList.add('summary-chat-step__circle--completed');
+      currentCircle.textContent = String(currentStepIndex + 1);
+    }
+
+    // Fill the line to next step
+    if (currentLine) {
+      currentLine.classList.add('summary-chat-step__line--completed');
+    }
+
+    // Step titles for questions
+    const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
+
+    // Activate next step if it exists
+    if (nextCircle && currentStepIndex < 3) {
+      nextCircle.classList.add('summary-chat-step__circle--active');
+      nextCircle.textContent = String(currentStepIndex + 2);
+
+      // Remove disabled state from the next section in the left panel
+      const nextSectionNumber = currentStepIndex + 2;
+      const nextSection = document.querySelector(`.summary-section[data-section="${nextSectionNumber}"]`);
+      if (nextSection) {
+        nextSection.classList.remove('summary-section--disabled');
+      }
+
+      // Show loading dots first, then question after delay
+      setTimeout(() => {
+        const chatConversation = document.querySelector('.summary-chat-conversation');
+        if (chatConversation) {
+          // Create and show loading dots
+          const loadingEl = document.createElement('div');
+          loadingEl.className = 'summary-chat-loading';
+          loadingEl.innerHTML = `
+            <div class="summary-chat-loading__dot"></div>
+            <div class="summary-chat-loading__dot"></div>
+            <div class="summary-chat-loading__dot"></div>
+          `;
+          chatConversation.appendChild(loadingEl);
+
+          // Scroll to bottom to show loading
+          const chatPanel = document.querySelector('.summary-chat-panel__content');
+          if (chatPanel) {
+            chatPanel.scrollTop = chatPanel.scrollHeight;
+          }
+
+          // After loading animation, replace with actual question
+          setTimeout(() => {
+            // Remove loading dots
+            loadingEl.remove();
+
+            // Create and show question
+            const newQuestionEl = document.createElement('div');
+            newQuestionEl.className = 'summary-chat-question';
+            const newQuestion = `Does the ${stepTitles[currentStepIndex + 1]} look good?`;
+            newQuestionEl.innerHTML = `
+              <div class="summary-chat-question__text">${newQuestion}</div>
+              <div class="summary-chat-question__actions">
+                <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
+                <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
+              </div>
+            `;
+            chatConversation.appendChild(newQuestionEl);
+
+            // Scroll to bottom again
+            if (chatPanel) {
+              chatPanel.scrollTop = chatPanel.scrollHeight;
+            }
+
+            const questionText = newQuestionEl.querySelector('.summary-chat-question__text');
+            const actionsEl = newQuestionEl.querySelector('.summary-chat-question__actions');
+
+          // Attach event listeners to the new buttons
+          const modifyBtn = newQuestionEl.querySelector('.summary-chat-modify-btn-dynamic');
+          const looksGoodBtn = newQuestionEl.querySelector('.summary-chat-looks-good-btn-dynamic');
+
+          if (looksGoodBtn) {
+            looksGoodBtn.addEventListener('click', function() {
+              progressToNextStep(newQuestionEl);
+            });
+          }
+
+          if (modifyBtn) {
+            modifyBtn.addEventListener('click', function() {
+              if (questionText) {
+                questionText.textContent = 'What do you want to modify?';
+              }
+              if (actionsEl) {
+                actionsEl.style.display = 'none';
+              }
+              const chatInputField = document.querySelector('.summary-chat-input__field');
+              if (chatInputField) {
+                chatInputField.focus();
+              }
+            });
+          }
+          }, 800); // Delay after loading dots before showing question
+        }
+      }, 300); // Initial delay before showing loading dots
+    } else {
+      // All steps completed - show the action buttons
+      setTimeout(() => {
+        const summaryActions = document.getElementById('summary-actions');
+        if (summaryActions) {
+          summaryActions.style.display = 'flex';
+
+          // Auto scroll left section to bring buttons into view
+          setTimeout(() => {
+            const summaryContainer = document.querySelector('.summary-container');
+            if (summaryContainer) {
+              const actionsTop = summaryActions.offsetTop;
+              const containerHeight = summaryContainer.clientHeight;
+              const scrollTarget = actionsTop - containerHeight + summaryActions.offsetHeight + 100;
+
+              summaryContainer.scrollTo({
+                top: scrollTarget,
+                behavior: 'smooth'
+              });
+            }
+          }, 100);
+        }
+      }, 300);
+    }
+  }
+
+  // Chat panel question buttons
+  const chatLooksGoodBtn = document.getElementById('summary-chat-looks-good-btn');
+  const chatModifyBtn = document.getElementById('summary-chat-modify-btn');
+
+  if (chatLooksGoodBtn) {
+    chatLooksGoodBtn.addEventListener('click', function() {
+      const questionEl = document.getElementById('summary-chat-question');
+      progressToNextStep(questionEl);
+    });
+  }
+
+  if (chatModifyBtn) {
+    chatModifyBtn.addEventListener('click', function() {
+      // Check which step we're on
+      const activeCircle = document.querySelector('.summary-chat-step__circle--active');
+      if (!activeCircle) return;
+
+      const activeStep = activeCircle.closest('.summary-chat-step');
+      const allSteps = document.querySelectorAll('.summary-chat-step');
+      let currentStepIndex = -1;
+
+      allSteps.forEach((step, index) => {
+        if (step === activeStep) {
+          currentStepIndex = index;
+        }
+      });
+
+      // If on Placements step (index 2), show modification dialog
+      if (currentStepIndex === 2) {
+        const questionEl = document.getElementById('summary-chat-question');
+        const actionsEl = questionEl ? questionEl.querySelector('.summary-chat-question__actions') : null;
+        const questionText = questionEl ? questionEl.querySelector('.summary-chat-question__text') : null;
+
+        // Update question to ask what to modify
+        if (questionText) {
+          questionText.textContent = 'What do you want to modify?';
+        }
+
+        // Hide the action buttons
+        if (actionsEl) {
+          actionsEl.style.display = 'none';
+        }
+
+        // Show and focus the chat input
+        const chatInput = document.querySelector('.summary-chat-input__field');
+        if (chatInput) {
+          chatInput.focus();
+        }
+      } else {
+        // For other steps, go back to template selection
+        if (summaryView && templateSelectionView) {
+          window.location.hash = 'select';
+          summaryView.style.display = 'none';
+          templateSelectionView.style.display = 'flex';
+        }
+      }
+    });
+  }
+
+  // Handle chat input submit
+  const chatInputField = document.querySelector('.summary-chat-input__field');
+  const chatInputSubmit = document.querySelector('.summary-chat-input__submit');
+
+  if (chatInputSubmit && chatInputField) {
+    chatInputSubmit.addEventListener('click', function() {
+      handleChatInputSubmit();
+    });
+
+    chatInputField.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        handleChatInputSubmit();
+      }
+    });
+  }
+
+  function handleChatInputSubmit() {
+    const chatInputField = document.querySelector('.summary-chat-input__field');
+    const chatConversation = document.querySelector('.summary-chat-conversation');
+
+    if (!chatInputField || !chatConversation) return;
+
+    const userMessage = chatInputField.value.trim();
+    if (!userMessage) return;
+
+    // Add user message bubble
+    const userMessageEl = document.createElement('div');
+    userMessageEl.className = 'summary-chat-message summary-chat-message--user';
+    userMessageEl.innerHTML = `
+      <div class="summary-chat-message__bubble">${userMessage}</div>
+    `;
+    chatConversation.appendChild(userMessageEl);
+
+    // Clear input
+    chatInputField.value = '';
+
+    // Check if user wants to add USI
+    if (userMessage.toLowerCase().includes('add usi') || userMessage.toLowerCase().includes('usi')) {
+      // Add USI to placements
+      const placementsField = document.getElementById('summary-placements');
+      if (placementsField) {
+        const usiTag = document.createElement('span');
+        usiTag.className = 'summary-tag';
+        usiTag.textContent = 'USI';
+        placementsField.appendChild(usiTag);
+      }
+
+      // Show loading dots first, then AI response
+      setTimeout(() => {
+        // Create and show loading dots
+        const loadingEl = document.createElement('div');
+        loadingEl.className = 'summary-chat-loading';
+        loadingEl.innerHTML = `
+          <div class="summary-chat-loading__dot"></div>
+          <div class="summary-chat-loading__dot"></div>
+          <div class="summary-chat-loading__dot"></div>
+        `;
+        chatConversation.appendChild(loadingEl);
+
+        // Scroll to bottom to show loading
+        const chatPanel = document.querySelector('.summary-chat-panel__content');
+        if (chatPanel) {
+          chatPanel.scrollTop = chatPanel.scrollHeight;
+        }
+
+        // After loading animation, replace with actual question
+        setTimeout(() => {
+          // Remove loading dots
+          loadingEl.remove();
+
+          // Create and show question
+          const aiResponseEl = document.createElement('div');
+          aiResponseEl.className = 'summary-chat-question';
+          aiResponseEl.innerHTML = `
+            <div class="summary-chat-question__text">Does the Placements look good?</div>
+            <div class="summary-chat-question__actions">
+              <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
+              <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
+            </div>
+          `;
+          chatConversation.appendChild(aiResponseEl);
+
+          // Scroll to bottom again
+          if (chatPanel) {
+            chatPanel.scrollTop = chatPanel.scrollHeight;
+          }
+
+          // Attach event listeners to the new buttons
+          const modifyBtn = aiResponseEl.querySelector('.summary-chat-modify-btn-dynamic');
+          const looksGoodBtn = aiResponseEl.querySelector('.summary-chat-looks-good-btn-dynamic');
+
+          if (looksGoodBtn) {
+            looksGoodBtn.addEventListener('click', function() {
+              // Continue with progression logic - will hide the question bubble
+              progressToNextStep(aiResponseEl);
+            });
+          }
+
+          if (modifyBtn) {
+            modifyBtn.addEventListener('click', function() {
+              // Handle modify click
+              const questionText = aiResponseEl.querySelector('.summary-chat-question__text');
+              const actionsEl = aiResponseEl.querySelector('.summary-chat-question__actions');
+
+              if (questionText) {
+                questionText.textContent = 'What do you want to modify?';
+              }
+
+              if (actionsEl) {
+                actionsEl.style.display = 'none';
+              }
+
+              // Focus input
+              chatInputField.focus();
+            });
+          }
+        }, 800); // Delay after loading dots before showing question
+      }, 300); // Initial delay before showing loading dots
+    }
+  }
+
+  // Summary action buttons
+  const summaryConfirmBtn = document.getElementById('summary-confirm-btn');
+  if (summaryConfirmBtn) {
+    summaryConfirmBtn.addEventListener('click', function() {
+      // Navigate to create view
+      window.location.hash = 'create';
+    });
+  }
+
+  // Handle Edit/Save buttons for confirmed sections
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('summary-section__edit-btn')) {
+      const editBtn = e.target;
+      const section = editBtn.closest('.summary-section');
+
+      if (!section) return;
+
+      const textFields = section.querySelectorAll('.summary-field:not(.summary-field--tags)');
+      const tagsField = section.querySelector('.summary-field--tags');
+      const isEditing = editBtn.textContent === 'Edit';
+
+      if (isEditing) {
+        // Switch to edit mode
+        editBtn.textContent = 'Save';
+
+        // Handle text fields
+        textFields.forEach(field => {
+          field.setAttribute('contenteditable', 'true');
+        });
+        if (textFields.length > 0) {
+          textFields[0].focus();
+        }
+
+        // Handle tags field
+        if (tagsField) {
+          tagsField.classList.add('editing');
+
+          // Add remove buttons to existing tags
+          const tags = tagsField.querySelectorAll('.summary-tag');
+          tags.forEach(tag => {
+            if (!tag.querySelector('.summary-tag__remove')) {
+              const removeBtn = document.createElement('span');
+              removeBtn.className = 'summary-tag__remove';
+              removeBtn.textContent = '×';
+              removeBtn.addEventListener('click', function() {
+                tag.remove();
+              });
+              tag.appendChild(removeBtn);
+            }
+          });
+
+          // Add input field for new tags
+          if (!tagsField.querySelector('.summary-tag-input')) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'summary-tag-input';
+            input.addEventListener('keypress', function(e) {
+              if (e.key === 'Enter' && input.value.trim()) {
+                const newTag = document.createElement('span');
+                newTag.className = 'summary-tag';
+                newTag.textContent = input.value.trim();
+
+                const removeBtn = document.createElement('span');
+                removeBtn.className = 'summary-tag__remove';
+                removeBtn.textContent = '×';
+                removeBtn.addEventListener('click', function() {
+                  newTag.remove();
+                });
+                newTag.appendChild(removeBtn);
+
+                tagsField.insertBefore(newTag, input);
+                input.value = '';
+              }
+            });
+            tagsField.appendChild(input);
+
+            // Focus the input
+            setTimeout(() => input.focus(), 0);
+          }
+        }
+      } else {
+        // Switch to view mode (save)
+        editBtn.textContent = 'Edit';
+
+        // Handle text fields
+        textFields.forEach(field => {
+          field.setAttribute('contenteditable', 'false');
+          field.blur();
+        });
+
+        // Handle tags field
+        if (tagsField) {
+          tagsField.classList.remove('editing');
+
+          // Convert any text in input to a tag before removing
+          const input = tagsField.querySelector('.summary-tag-input');
+          if (input && input.value.trim()) {
+            const newTag = document.createElement('span');
+            newTag.className = 'summary-tag';
+            newTag.textContent = input.value.trim();
+            tagsField.insertBefore(newTag, input);
+          }
+
+          // Remove X buttons from tags
+          const removeBtns = tagsField.querySelectorAll('.summary-tag__remove');
+          removeBtns.forEach(btn => btn.remove());
+
+          // Remove input field
+          if (input) {
+            input.remove();
+          }
+        }
+      }
+    }
+  });
+
+  // Create section Confirm/Edit button interaction
+  document.addEventListener('click', function(e) {
+    // Handle Confirm button click
+    if (e.target && e.target.classList.contains('create-section__confirm-btn')) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const section = e.target.closest('.create-section');
+      if (section) {
+        const confirmBtn = section.querySelector('.create-section__confirm-btn');
+        const editBtn = section.querySelector('.create-section__edit-btn');
+        const statusBadge = section.querySelector('.create-section__status');
+
+        // Change number badge to checkmark and remove active state
+        if (statusBadge) {
+          statusBadge.classList.remove('create-section__status--active');
+          statusBadge.classList.add('create-section__status--confirmed');
+          statusBadge.textContent = '';
+        }
+
+        // Disable all form inputs in this section
+        const inputs = section.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+          input.disabled = true;
+          input.setAttribute('disabled', 'disabled');
+
+          // Also disable custom dropdowns
+          const customDropdown = input.nextElementSibling;
+          if (customDropdown && customDropdown.classList.contains('custom-dropdown')) {
+            customDropdown.classList.add('custom-dropdown--disabled');
+            customDropdown.style.pointerEvents = 'none';
+            customDropdown.style.opacity = '1';
+          }
+        });
+
+        if (confirmBtn && editBtn) {
+          confirmBtn.style.display = 'none';
+          editBtn.style.display = 'block';
+        }
+
+        // Auto scroll to next section and make it active
+        const nextSection = section.nextElementSibling;
+        if (nextSection && nextSection.classList.contains('create-section')) {
+          const nextStatusBadge = nextSection.querySelector('.create-section__status');
+          if (nextStatusBadge && !nextStatusBadge.classList.contains('create-section__status--confirmed')) {
+            nextStatusBadge.classList.remove('create-section__status--incomplete');
+            nextStatusBadge.classList.add('create-section__status--active');
+          }
+
+          setTimeout(() => {
+            nextSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }, 300);
+        }
+      }
+    }
+
+    // Handle Edit button click
+    if (e.target && e.target.classList.contains('create-section__edit-btn')) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const section = e.target.closest('.create-section');
+      if (section) {
+        const confirmBtn = section.querySelector('.create-section__confirm-btn');
+        const editBtn = section.querySelector('.create-section__edit-btn');
+        const statusBadge = section.querySelector('.create-section__status');
+
+        // Change checkmark back to number badge and make it active
+        if (statusBadge && statusBadge.classList.contains('create-section__status--confirmed')) {
+          statusBadge.classList.remove('create-section__status--confirmed');
+          statusBadge.classList.add('create-section__status--active');
+          // Get the section number from the section ID
+          const sectionId = section.getAttribute('id');
+          let sectionNumber = '';
+          if (sectionId === 'section-campaign-info') sectionNumber = '1';
+          else if (sectionId === 'section-targeting') sectionNumber = '2';
+          else if (sectionId === 'section-experiment') sectionNumber = '3';
+          else if (sectionId === 'section-channel') sectionNumber = '4';
+          else if (sectionId === 'section-promotion') sectionNumber = '5';
+          else if (sectionId === 'section-placement') sectionNumber = '6';
+          else if (sectionId === 'section-content') sectionNumber = '7';
+          statusBadge.textContent = sectionNumber;
+        }
+
+        // Enable all form inputs in this section
+        const inputs = section.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+          input.disabled = false;
+          input.removeAttribute('disabled');
+
+          // Also enable custom dropdowns
+          const customDropdown = input.nextElementSibling;
+          if (customDropdown && customDropdown.classList.contains('custom-dropdown')) {
+            customDropdown.classList.remove('custom-dropdown--disabled');
+            customDropdown.style.pointerEvents = 'auto';
+          }
+        });
+
+        if (confirmBtn && editBtn) {
+          confirmBtn.style.display = 'block';
+          editBtn.style.display = 'none';
+        }
+      }
+    }
+  });
 });

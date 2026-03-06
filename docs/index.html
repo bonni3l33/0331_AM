@@ -808,6 +808,154 @@
           </div>
         </div>
 
+        <!-- AI Summary View -->
+        <div class="summary-view" id="summary-view" style="display: none;">
+          <div class="summary-layout">
+            <div class="summary-container">
+              <div class="summary-content">
+                <div class="summary-header">
+                  <h1 class="summary-title">Campaign setup</h1>
+                </div>
+
+                <!-- Section 1: Campaign Info -->
+                <div class="summary-section" data-section="1">
+                  <div class="summary-section__header">
+                    <div class="summary-section__number">1</div>
+                    <h3 class="summary-section__title">Campaign Info</h3>
+                  </div>
+                  <div class="summary-section__content">
+                    <div class="summary-field" id="summary-campaign-type">
+                      NPWS Promotion. Single Campaign
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2: Promotion -->
+                <div class="summary-section summary-section--disabled" data-section="2">
+                  <div class="summary-section__header">
+                    <div class="summary-section__number">2</div>
+                    <h3 class="summary-section__title">Promotion</h3>
+                  </div>
+                  <div class="summary-section__content">
+                    <div class="summary-field summary-field--multiline" id="summary-promotion">
+                      40% off 1 order with $15 min subtotal, max $10 discount<br>
+                      Code: NEW40OFF<br>
+                      Duration: 30 days
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 3: Placements -->
+                <div class="summary-section summary-section--disabled" data-section="3">
+                  <div class="summary-section__header">
+                    <div class="summary-section__number">3</div>
+                    <h3 class="summary-section__title">Placements</h3>
+                  </div>
+                  <div class="summary-section__content">
+                    <div class="summary-field summary-field--tags" id="summary-placements">
+                      <span class="summary-tag">Email (16)</span>
+                      <span class="summary-tag">Push (8)</span>
+                      <span class="summary-tag">SMS (2)</span>
+                      <span class="summary-tag">Homepage Banner (4)</span>
+                      <span class="summary-tag">Immersive Header (8)</span>
+                      <span class="summary-tag">Spotlight Banner (8)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 4: Targeting -->
+                <div class="summary-section summary-section--disabled" data-section="4">
+                  <div class="summary-section__header">
+                    <div class="summary-section__number">4</div>
+                    <h3 class="summary-section__title">Targeting</h3>
+                  </div>
+                  <div class="summary-section__content">
+                    <div class="summary-field" id="summary-targeting">
+                      Non-purchasers within 45 days of signup, excluding fraud and SUMA customers
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Panel -->
+            <div class="summary-chat-panel">
+              <div class="summary-chat-panel__content">
+                <div class="summary-chat-conversation">
+                  <div class="summary-chat-message">
+                    <p class="summary-chat-message__text">Let's review the campaign setup from your brief. I'll walk you through the following steps:</p>
+                    <div class="summary-chat-timeline">
+                      <!-- Step 1 -->
+                      <div class="summary-chat-step summary-chat-step--active">
+                        <div class="summary-chat-step__track">
+                          <div class="summary-chat-step__circle summary-chat-step__circle--active">1</div>
+                          <div class="summary-chat-step__line"></div>
+                        </div>
+                        <div class="summary-chat-step__content">
+                          <div class="summary-chat-step__title">Campaign type</div>
+                          <div class="summary-chat-step__subtitle">General setup for this campaign</div>
+                        </div>
+                      </div>
+                      <!-- Step 2 -->
+                      <div class="summary-chat-step">
+                        <div class="summary-chat-step__track">
+                          <div class="summary-chat-step__circle"></div>
+                          <div class="summary-chat-step__line"></div>
+                        </div>
+                        <div class="summary-chat-step__content">
+                          <div class="summary-chat-step__title">Promotion</div>
+                          <div class="summary-chat-step__subtitle">Details of the promotion you're running</div>
+                        </div>
+                      </div>
+                      <!-- Step 3 -->
+                      <div class="summary-chat-step">
+                        <div class="summary-chat-step__track">
+                          <div class="summary-chat-step__circle"></div>
+                          <div class="summary-chat-step__line"></div>
+                        </div>
+                        <div class="summary-chat-step__content">
+                          <div class="summary-chat-step__title">Placements</div>
+                          <div class="summary-chat-step__subtitle">The placements that will be launched</div>
+                        </div>
+                      </div>
+                      <!-- Step 4 -->
+                      <div class="summary-chat-step summary-chat-step--last">
+                        <div class="summary-chat-step__track">
+                          <div class="summary-chat-step__circle"></div>
+                        </div>
+                        <div class="summary-chat-step__content">
+                          <div class="summary-chat-step__title">Targeting</div>
+                          <div class="summary-chat-step__subtitle">The audience criteria</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Question Dialog -->
+                  <div class="summary-chat-question" id="summary-chat-question">
+                    <div class="summary-chat-question__text">Does the Campaign info look good?</div>
+                    <div class="summary-chat-question__actions">
+                      <button class="btn btn--sm btn--outlined" id="summary-chat-modify-btn">Modify</button>
+                      <button class="btn btn--sm btn--outlined" id="summary-chat-looks-good-btn">Looks good</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Chat Input -->
+              <div class="summary-chat-input">
+                <div class="summary-chat-input__wrapper">
+                  <input type="text" class="summary-chat-input__field" placeholder="How can i help">
+                  <button class="summary-chat-input__submit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Create View -->
         <div class="create-view" id="create-view" style="display: none;">
           <div class="create-view__header">

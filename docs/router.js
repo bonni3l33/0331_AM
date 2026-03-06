@@ -5,6 +5,7 @@
   const startState = document.getElementById('start-state');
   const loadingState = document.getElementById('loading-state');
   const templateSelectionView = document.getElementById('template-selection-view');
+  const summaryView = document.getElementById('summary-view');
   const createView = document.getElementById('create-view');
   const chatPanel = document.getElementById('chat-panel');
   const chatScrim = document.getElementById('chat-scrim');
@@ -94,6 +95,36 @@
       if (templateSelectionView) {
         templateSelectionView.style.display = 'flex';
       }
+      if (summaryView) {
+        summaryView.style.display = 'none';
+      }
+      if (createView) {
+        createView.style.display = 'none';
+      }
+      if (chatPanel) {
+        chatPanel.classList.remove('chat-panel--open');
+        chatPanel.setAttribute('aria-hidden', 'true');
+      }
+      if (chatScrim) {
+        chatScrim.setAttribute('aria-hidden', 'true');
+        chatScrim.style.opacity = '0';
+        chatScrim.style.pointerEvents = 'none';
+      }
+    } else if (viewName === 'summary') {
+      // Show summary view
+      if (startState) {
+        startState.style.display = 'none';
+      }
+      if (loadingState) {
+        loadingState.style.display = 'none';
+      }
+      if (templateSelectionView) {
+        templateSelectionView.style.display = 'none';
+      }
+      if (summaryView) {
+        summaryView.style.display = 'flex';
+        summaryView.style.opacity = '1';
+      }
       if (createView) {
         createView.style.display = 'none';
       }
@@ -118,6 +149,9 @@
       }
       if (templateSelectionView) {
         templateSelectionView.style.display = 'none';
+      }
+      if (summaryView) {
+        summaryView.style.display = 'none';
       }
       if (createView) {
         createView.style.display = 'none';
@@ -156,8 +190,8 @@
     const viewName = hash.split('&')[0] || 'start';
     const params = parseHashParams(hash);
 
-    // Handle routing for start, select, and create views
-    if (viewName === 'start' || viewName === 'select' || viewName === 'create') {
+    // Handle routing for start, select, summary, and create views
+    if (viewName === 'start' || viewName === 'select' || viewName === 'summary' || viewName === 'create') {
       showView(viewName, params);
     }
   }
@@ -168,7 +202,7 @@
   // Handle initial page load - only for explicit hashes
   document.addEventListener('DOMContentLoaded', function() {
     const hash = window.location.hash.slice(1);
-    if (hash === 'select' || hash === 'create') {
+    if (hash === 'select' || hash === 'summary' || hash === 'create') {
       handleHashChange();
     }
   });
