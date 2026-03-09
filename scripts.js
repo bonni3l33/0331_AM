@@ -520,6 +520,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  // Expose generateSummaryText globally for router access
+  window.generateSummaryText = generateSummaryText;
+
   // Setup Campaign Tabs for Multiple Campaigns
   function setupCampaignTabs(templateType, skipHashUpdate) {
     const campaignTabsContainer = document.getElementById('campaign-tabs-container');

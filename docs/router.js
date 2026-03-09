@@ -182,6 +182,11 @@
       if (summaryView) {
         summaryView.style.display = 'flex';
         summaryView.style.opacity = '1';
+
+        // Regenerate summary content when showing the view
+        if (typeof window.generateSummaryText === 'function') {
+          window.generateSummaryText();
+        }
       }
       if (createView) {
         createView.style.display = 'none';
