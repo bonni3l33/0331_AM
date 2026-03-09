@@ -1046,6 +1046,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Remove loading dots
             loadingEl.remove();
 
+            // Hide all previous question bubbles
+            const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
+            allQuestions.forEach(q => q.style.display = 'none');
+
             // Create and show question
             const newQuestionEl = document.createElement('div');
             newQuestionEl.className = 'summary-chat-question';
@@ -1467,6 +1471,10 @@ document.addEventListener('DOMContentLoaded', function() {
               setTimeout(() => {
                 // Remove loading dots
                 loadingEl.remove();
+
+                // Hide all previous question bubbles
+                const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
+                allQuestions.forEach(q => q.style.display = 'none');
 
                 // Step titles mapping
                 const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
