@@ -470,7 +470,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Targeting
       targetingEl.innerHTML = `
-        <strong>Lifecycle status = Dormant</strong>
         <ul>
           <li>No order within defined dormant window (e.g., past X days since last order)</li>
           <li>Not yet classified as "Churned" (longer inactivity threshold)</li>
