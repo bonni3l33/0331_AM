@@ -1051,11 +1051,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Hide the current question bubble
-    if (currentQuestionEl) {
-      currentQuestionEl.style.display = 'none';
-    }
-
     // Get current and next step elements
     const currentCircle = allSteps[currentStepIndex].querySelector('.summary-chat-step__circle');
     const currentLine = allSteps[currentStepIndex].querySelector('.summary-chat-step__line');
@@ -1087,88 +1082,70 @@ document.addEventListener('DOMContentLoaded', function() {
         nextSection.classList.remove('summary-section--disabled');
       }
 
-      // Show loading dots first, then question after delay
-      setTimeout(() => {
-        const chatConversation = document.querySelector('.summary-chat-conversation');
-        if (chatConversation) {
-          // Create and show loading dots
-          const loadingEl = document.createElement('div');
-          loadingEl.className = 'summary-chat-loading';
-          loadingEl.innerHTML = `
-            <div class="summary-chat-loading__dot"></div>
-            <div class="summary-chat-loading__dot"></div>
-            <div class="summary-chat-loading__dot"></div>
+      // Replace current question with loading dots at the same position
+      if (currentQuestionEl) {
+        setTimeout(() => {
+          // Replace question content with loading dots
+          currentQuestionEl.innerHTML = `
+            <div class="summary-chat-loading">
+              <div class="summary-chat-loading__dot"></div>
+              <div class="summary-chat-loading__dot"></div>
+              <div class="summary-chat-loading__dot"></div>
+            </div>
           `;
-          chatConversation.appendChild(loadingEl);
 
-          // Scroll to bottom to show loading
-          const chatPanel = document.querySelector('.summary-chat-panel__content');
-          if (chatPanel) {
-            chatPanel.scrollTop = chatPanel.scrollHeight;
-          }
-
-          // After loading animation, replace with actual question
+          // After loading animation, replace with new question
           setTimeout(() => {
-            // Remove loading dots
-            loadingEl.remove();
-
-            // Hide all previous question bubbles
-            const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
-            allQuestions.forEach(q => q.style.display = 'none');
-
-            // Create and show question
-            const newQuestionEl = document.createElement('div');
-            newQuestionEl.className = 'summary-chat-question';
             const newQuestion = `Does the ${stepTitles[currentStepIndex + 1]} look good?`;
-            newQuestionEl.innerHTML = `
+            currentQuestionEl.className = 'summary-chat-question';
+            currentQuestionEl.innerHTML = `
               <div class="summary-chat-question__text">${newQuestion}</div>
               <div class="summary-chat-question__actions">
                 <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
                 <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
               </div>
             `;
-            chatConversation.appendChild(newQuestionEl);
 
-            // Scroll to bottom again
+            // Scroll to ensure question is visible
+            const chatPanel = document.querySelector('.summary-chat-panel__content');
             if (chatPanel) {
               chatPanel.scrollTop = chatPanel.scrollHeight;
             }
 
-            const questionText = newQuestionEl.querySelector('.summary-chat-question__text');
-            const actionsEl = newQuestionEl.querySelector('.summary-chat-question__actions');
+            const actionsEl = currentQuestionEl.querySelector('.summary-chat-question__actions');
 
-          // Attach event listeners to the new buttons
-          const modifyBtn = newQuestionEl.querySelector('.summary-chat-modify-btn-dynamic');
-          const looksGoodBtn = newQuestionEl.querySelector('.summary-chat-looks-good-btn-dynamic');
+            // Attach event listeners to the new buttons
+            const modifyBtn = currentQuestionEl.querySelector('.summary-chat-modify-btn-dynamic');
+            const looksGoodBtn = currentQuestionEl.querySelector('.summary-chat-looks-good-btn-dynamic');
 
-          if (looksGoodBtn) {
-            looksGoodBtn.addEventListener('click', function() {
-              progressToNextStep(newQuestionEl);
-            });
-          }
+            if (looksGoodBtn) {
+              looksGoodBtn.addEventListener('click', function() {
+                progressToNextStep(currentQuestionEl);
+              });
+            }
 
-          if (modifyBtn) {
-            modifyBtn.addEventListener('click', function() {
-              // Hide the action buttons
-              if (actionsEl) {
-                actionsEl.style.display = 'none';
-              }
-
-              // The section to edit corresponds to currentStepIndex + 2
-              const sectionNumber = currentStepIndex + 2;
-              const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
-
-              if (section) {
-                // Remove disabled state
-                section.classList.remove('summary-section--disabled');
-
-                // Find and click the Edit button
-                const editBtn = section.querySelector('.summary-section__edit-btn');
-                if (editBtn) {
-                  editBtn.click();
+            if (modifyBtn) {
+              modifyBtn.addEventListener('click', function() {
+                // Hide the action buttons
+                if (actionsEl) {
+                  actionsEl.style.display = 'none';
                 }
-              }
-            });
+
+                // The section to edit corresponds to currentStepIndex + 2
+                const sectionNumber = currentStepIndex + 2;
+                const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
+
+                if (section) {
+                  // Remove disabled state
+                  section.classList.remove('summary-section--disabled');
+
+                  // Find and click the Edit button
+                  const editBtn = section.querySelector('.summary-section__edit-btn');
+                  if (editBtn) {
+                    editBtn.click();
+                  }
+                }
+              });
           }
           }, 800); // Delay after loading dots before showing question
         }
@@ -1517,88 +1494,84 @@ document.addEventListener('DOMContentLoaded', function() {
           const chatPanel = document.querySelector('.summary-chat-panel__content');
 
           if (chatConversation) {
-            setTimeout(() => {
-              // Create and show loading dots
-              const loadingEl = document.createElement('div');
-              loadingEl.className = 'summary-chat-loading';
-              loadingEl.innerHTML = `
-                <div class="summary-chat-loading__dot"></div>
-                <div class="summary-chat-loading__dot"></div>
-                <div class="summary-chat-loading__dot"></div>
-              `;
-              chatConversation.appendChild(loadingEl);
-
-              // Scroll to bottom to show loading
-              if (chatPanel) {
-                chatPanel.scrollTop = chatPanel.scrollHeight;
+            // Find the last visible question to replace
+            const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
+            let lastVisibleQuestion = null;
+            allQuestions.forEach(q => {
+              if (q.style.display !== 'none') {
+                lastVisibleQuestion = q;
               }
+            });
 
-              // After loading animation, replace with actual question
+            if (lastVisibleQuestion) {
               setTimeout(() => {
-                // Remove loading dots
-                loadingEl.remove();
-
-                // Hide all previous question bubbles
-                const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
-                allQuestions.forEach(q => q.style.display = 'none');
-
-                // Step titles mapping
-                const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
-                const nextStepTitle = stepTitles[nextSectionNumber - 1];
-
-                // Create and show question
-                const newQuestionEl = document.createElement('div');
-                newQuestionEl.className = 'summary-chat-question';
-                newQuestionEl.innerHTML = `
-                  <div class="summary-chat-question__text">Does the ${nextStepTitle} look good?</div>
-                  <div class="summary-chat-question__actions">
-                    <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
-                    <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
+                // Replace current question content with loading dots
+                lastVisibleQuestion.innerHTML = `
+                  <div class="summary-chat-loading">
+                    <div class="summary-chat-loading__dot"></div>
+                    <div class="summary-chat-loading__dot"></div>
+                    <div class="summary-chat-loading__dot"></div>
                   </div>
                 `;
-                chatConversation.appendChild(newQuestionEl);
 
-                // Scroll to bottom again
-                if (chatPanel) {
-                  chatPanel.scrollTop = chatPanel.scrollHeight;
-                }
+                // After loading animation, replace with new question
+                setTimeout(() => {
+                  // Step titles mapping
+                  const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
+                  const nextStepTitle = stepTitles[nextSectionNumber - 1];
 
-                // Enable the next section
-                const nextSection = document.querySelector(`.summary-section[data-section="${nextSectionNumber}"]`);
-                if (nextSection) {
-                  nextSection.classList.remove('summary-section--disabled');
-                }
+                  // Replace loading with new question content
+                  lastVisibleQuestion.className = 'summary-chat-question';
+                  lastVisibleQuestion.innerHTML = `
+                    <div class="summary-chat-question__text">Does the ${nextStepTitle} look good?</div>
+                    <div class="summary-chat-question__actions">
+                      <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
+                      <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
+                    </div>
+                  `;
 
-                // Attach event listeners to the new buttons
-                const modifyBtn = newQuestionEl.querySelector('.summary-chat-modify-btn-dynamic');
-                const looksGoodBtn = newQuestionEl.querySelector('.summary-chat-looks-good-btn-dynamic');
+                  // Scroll to ensure question is visible
+                  if (chatPanel) {
+                    chatPanel.scrollTop = chatPanel.scrollHeight;
+                  }
 
-                if (looksGoodBtn) {
-                  looksGoodBtn.addEventListener('click', function() {
-                    progressToNextStep(newQuestionEl);
-                  });
-                }
+                  // Enable the next section
+                  const nextSection = document.querySelector(`.summary-section[data-section="${nextSectionNumber}"]`);
+                  if (nextSection) {
+                    nextSection.classList.remove('summary-section--disabled');
+                  }
 
-                if (modifyBtn) {
-                  modifyBtn.addEventListener('click', function() {
-                    // Hide the action buttons
-                    const actionsEl = newQuestionEl.querySelector('.summary-chat-question__actions');
-                    if (actionsEl) {
-                      actionsEl.style.display = 'none';
-                    }
+                  // Attach event listeners to the new buttons
+                  const modifyBtn = lastVisibleQuestion.querySelector('.summary-chat-modify-btn-dynamic');
+                  const looksGoodBtn = lastVisibleQuestion.querySelector('.summary-chat-looks-good-btn-dynamic');
 
-                    // Enable editing for the next section
-                    if (nextSection) {
-                      nextSection.classList.remove('summary-section--disabled');
-                      const editBtn = nextSection.querySelector('.summary-section__edit-btn');
-                      if (editBtn) {
-                        editBtn.click();
+                  if (looksGoodBtn) {
+                    looksGoodBtn.addEventListener('click', function() {
+                      progressToNextStep(lastVisibleQuestion);
+                    });
+                  }
+
+                  if (modifyBtn) {
+                    modifyBtn.addEventListener('click', function() {
+                      // Hide the action buttons
+                      const actionsEl = lastVisibleQuestion.querySelector('.summary-chat-question__actions');
+                      if (actionsEl) {
+                        actionsEl.style.display = 'none';
                       }
-                    }
-                  });
-                }
-              }, 800); // Delay after loading dots before showing question
-            }, 300); // Initial delay before showing loading dots
+
+                      // Enable editing for the next section
+                      if (nextSection) {
+                        nextSection.classList.remove('summary-section--disabled');
+                        const editBtn = nextSection.querySelector('.summary-section__edit-btn');
+                        if (editBtn) {
+                          editBtn.click();
+                        }
+                      }
+                    });
+                  }
+                }, 800); // Delay after loading dots before showing question
+              }, 300); // Initial delay before showing loading dots
+            }
           }
         } else {
           // All sections completed - show final confirmation message
