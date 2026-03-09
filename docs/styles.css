@@ -7777,6 +7777,15 @@ img, svg {
   line-height: 18px;
 }
 
+.summary-section__number--confirmed {
+  background: transparent;
+  background-image: url('https://www.figma.com/api/mcp/asset/77f20c19-a3d7-4ace-a836-9bec8a95bb6a');
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+
 .summary-section__title {
   font-size: 16px;
   font-weight: 600;

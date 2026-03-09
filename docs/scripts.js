@@ -1429,6 +1429,112 @@ document.addEventListener('DOMContentLoaded', function() {
             input.remove();
           }
         }
+
+        // Mark section as confirmed with checkmark
+        const sectionNumber = section.querySelector('.summary-section__number');
+        if (sectionNumber) {
+          sectionNumber.classList.add('summary-section__number--confirmed');
+        }
+
+        // Progress to next step in AI panel
+        const currentSectionNumber = parseInt(section.getAttribute('data-section'));
+        const nextSectionNumber = currentSectionNumber + 1;
+
+        // Only show next question if there's a next section (1-4)
+        if (nextSectionNumber <= 4) {
+          // Show loading dots first, then question
+          const chatConversation = document.querySelector('.summary-chat-conversation');
+          const chatPanel = document.querySelector('.summary-chat-panel__content');
+
+          if (chatConversation) {
+            setTimeout(() => {
+              // Create and show loading dots
+              const loadingEl = document.createElement('div');
+              loadingEl.className = 'summary-chat-loading';
+              loadingEl.innerHTML = `
+                <div class="summary-chat-loading__dot"></div>
+                <div class="summary-chat-loading__dot"></div>
+                <div class="summary-chat-loading__dot"></div>
+              `;
+              chatConversation.appendChild(loadingEl);
+
+              // Scroll to bottom to show loading
+              if (chatPanel) {
+                chatPanel.scrollTop = chatPanel.scrollHeight;
+              }
+
+              // After loading animation, replace with actual question
+              setTimeout(() => {
+                // Remove loading dots
+                loadingEl.remove();
+
+                // Step titles mapping
+                const stepTitles = ['Campaign info', 'Promotion', 'Placements', 'Targeting'];
+                const nextStepTitle = stepTitles[nextSectionNumber - 1];
+
+                // Create and show question
+                const newQuestionEl = document.createElement('div');
+                newQuestionEl.className = 'summary-chat-question';
+                newQuestionEl.innerHTML = `
+                  <div class="summary-chat-question__text">Does the ${nextStepTitle} look good?</div>
+                  <div class="summary-chat-question__actions">
+                    <button class="btn btn--sm btn--tertiary summary-chat-modify-btn-dynamic">Modify</button>
+                    <button class="btn btn--sm btn--tertiary summary-chat-looks-good-btn-dynamic">Looks good</button>
+                  </div>
+                `;
+                chatConversation.appendChild(newQuestionEl);
+
+                // Scroll to bottom again
+                if (chatPanel) {
+                  chatPanel.scrollTop = chatPanel.scrollHeight;
+                }
+
+                // Enable the next section
+                const nextSection = document.querySelector(`.summary-section[data-section="${nextSectionNumber}"]`);
+                if (nextSection) {
+                  nextSection.classList.remove('summary-section--disabled');
+                }
+
+                // Attach event listeners to the new buttons
+                const modifyBtn = newQuestionEl.querySelector('.summary-chat-modify-btn-dynamic');
+                const looksGoodBtn = newQuestionEl.querySelector('.summary-chat-looks-good-btn-dynamic');
+
+                if (looksGoodBtn) {
+                  looksGoodBtn.addEventListener('click', function() {
+                    progressToNextStep(newQuestionEl);
+                  });
+                }
+
+                if (modifyBtn) {
+                  modifyBtn.addEventListener('click', function() {
+                    // Hide the action buttons
+                    const actionsEl = newQuestionEl.querySelector('.summary-chat-question__actions');
+                    if (actionsEl) {
+                      actionsEl.style.display = 'none';
+                    }
+
+                    // Enable editing for the next section
+                    if (nextSection) {
+                      nextSection.classList.remove('summary-section--disabled');
+                      const editBtn = nextSection.querySelector('.summary-section__edit-btn');
+                      if (editBtn) {
+                        editBtn.click();
+                      }
+                    }
+                  });
+                }
+              }, 800); // Delay after loading dots before showing question
+            }, 300); // Initial delay before showing loading dots
+          }
+        } else {
+          // All sections completed - show final action buttons
+          setTimeout(() => {
+            const summaryActions = document.getElementById('summary-actions');
+            if (summaryActions) {
+              summaryActions.style.display = 'flex';
+            }
+          }, 500);
+        }
       }
     }
   });
