@@ -460,10 +460,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Promotion
       promotionEl.innerHTML = `
         <ul>
-          <li>
-            Promo Type: Phased multi-order discounts (habit restoration)<br>
-            Structure: 25% off 3 → 35% off 3 → 40% off 2
-          </li>
+          <li>Promo Type: Phased multi-order discounts (habit restoration)</li>
+          <li>Structure: 25% off 3 → 35% off 3 → 40% off 2</li>
         </ul>
       `;
 
