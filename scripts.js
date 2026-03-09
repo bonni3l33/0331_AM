@@ -997,6 +997,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (summaryActions) {
           summaryActions.style.display = 'flex';
 
+          // Change "Modify" button to "Back"
+          const modifyBtn = document.getElementById('summary-modify-btn');
+          if (modifyBtn) {
+            modifyBtn.textContent = 'Back';
+          }
+
           // Auto scroll left section to bring buttons into view
           setTimeout(() => {
             const summaryContainer = document.querySelector('.summary-container');
