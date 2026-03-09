@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
       campaignTypeEl.textContent = `Multiple Promotion Campaign (${config.count || 3} campaigns)`;
 
       // Promotion
-      promotionEl.innerHTML = '30% off orders with $12 minimum subtotal, max $10 discount<br>Duration: 30 days, auto-applied at checkout';
+      promotionEl.innerHTML = 'Promo Type: Phased multi-order discounts (habit restoration)<br>Structure: 25% off 3 → 35% off 3 → 40% off 2';
 
       // Placements
       placementsEl.innerHTML = `
