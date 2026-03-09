@@ -259,6 +259,21 @@
 
   // Handle initial page load - only for explicit hashes
   document.addEventListener('DOMContentLoaded', function() {
+    // Check if this is a hard refresh (Cmd+Shift+R / Ctrl+Shift+R)
+    const perfEntries = performance.getEntriesByType('navigation');
+    const isHardRefresh = perfEntries.length > 0 && perfEntries[0].type === 'reload';
+
+    // DEV MODE: Reset to start on hard refresh
+    if (isHardRefresh && window.location.hostname === 'localhost') {
+      console.log('Hard refresh detected in dev mode - resetting to start');
+      localStorage.removeItem('campaignConfig');
+      localStorage.removeItem('currentCampaignIndex');
+      localStorage.removeItem('highestStepReached');
+      window.location.hash = '';
+      showView('start', {});
+      return;
+    }
+
     const hash = window.location.hash.slice(1);
     const viewName = hash.split('&')[0] || 'start';
 

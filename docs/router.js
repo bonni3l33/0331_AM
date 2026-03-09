@@ -10,7 +10,65 @@
   const chatPanel = document.getElementById('chat-panel');
   const chatScrim = document.getElementById('chat-scrim');
 
+  // Track highest step reached (1 = select, 2 = summary, 3 = create)
+  let highestStepReached = parseInt(localStorage.getItem('highestStepReached')) || 1;
+
+  function updateProgressBar(viewName) {
+    const progressContainer = document.getElementById('progress-bar-container');
+    const progressSteps = document.querySelectorAll('.progress-bar-step');
+    const progressText = document.getElementById('progress-bar-text');
+
+    if (!progressContainer || !progressSteps.length || !progressText) return;
+
+    // Hide progress bar for start and create views
+    if (viewName === 'start' || viewName === 'create') {
+      progressContainer.style.display = 'none';
+      return;
+    } else {
+      progressContainer.style.display = 'block';
+    }
+
+    // Determine step based on view (only 2 steps now)
+    let currentStep = 1;
+    if (viewName === 'select') {
+      currentStep = 1;
+    } else if (viewName === 'summary') {
+      currentStep = 2;
+    }
+
+    // Update highest step reached
+    if (currentStep > highestStepReached) {
+      highestStepReached = currentStep;
+      localStorage.setItem('highestStepReached', highestStepReached);
+    }
+
+    // Update step indicators and enable/disable links
+    progressSteps.forEach((step, index) => {
+      const stepNumber = index + 1;
+
+      // Mark active step
+      if (index < currentStep) {
+        step.classList.add('progress-bar-step--active');
+      } else {
+        step.classList.remove('progress-bar-step--active');
+      }
+
+      // Enable/disable based on whether step has been reached
+      if (stepNumber <= highestStepReached) {
+        step.classList.remove('progress-bar-step--disabled');
+      } else {
+        step.classList.add('progress-bar-step--disabled');
+      }
+    });
+
+    // Update text
+    progressText.textContent = `Step ${currentStep} of 2`;
+  }
+
   function showView(viewName, params) {
+    // Update progress bar
+    updateProgressBar(viewName);
+
     if (viewName === 'create') {
       // Show create view
       if (startState) {
@@ -201,9 +259,30 @@
 
   // Handle initial page load - only for explicit hashes
   document.addEventListener('DOMContentLoaded', function() {
+    // Check if this is a hard refresh (Cmd+Shift+R / Ctrl+Shift+R)
+    const perfEntries = performance.getEntriesByType('navigation');
+    const isHardRefresh = perfEntries.length > 0 && perfEntries[0].type === 'reload';
+
+    // DEV MODE: Reset to start on hard refresh
+    if (isHardRefresh && window.location.hostname === 'localhost') {
+      console.log('Hard refresh detected in dev mode - resetting to start');
+      localStorage.removeItem('campaignConfig');
+      localStorage.removeItem('currentCampaignIndex');
+      localStorage.removeItem('highestStepReached');
+      window.location.hash = '';
+      showView('start', {});
+      return;
+    }
+
     const hash = window.location.hash.slice(1);
-    if (hash === 'select' || hash === 'summary' || hash === 'create') {
+    const viewName = hash.split('&')[0] || 'start';
+
+    // Initialize progress bar state
+    if (viewName === 'select' || viewName === 'summary' || viewName === 'create') {
       handleHashChange();
+    } else {
+      // Update progress bar on initial load to set disabled states
+      updateProgressBar(viewName);
     }
   });
 })();
