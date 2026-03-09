@@ -1146,10 +1146,10 @@ document.addEventListener('DOMContentLoaded', function() {
                   }
                 }
               });
-          }
+            }
           }, 800); // Delay after loading dots before showing question
-        }
-      }, 300); // Initial delay before showing loading dots
+        }, 300); // Initial delay before showing loading dots
+      }
     } else {
       // All steps completed - show final confirmation message
       showFinalConfirmationMessage();
