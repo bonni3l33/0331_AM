@@ -464,9 +464,8 @@ document.addEventListener('DOMContentLoaded', function() {
       placementsEl.innerHTML = `
         <span class="summary-tag">Email</span>
         <span class="summary-tag">Push</span>
-        <span class="summary-tag">SMS</span>
         <span class="summary-tag">Homepage Banner</span>
-        <span class="summary-tag">Store Page Banner</span>
+        <span class="summary-tag">USI</span>
       `;
 
       // Targeting
