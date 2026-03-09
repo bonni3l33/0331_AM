@@ -458,7 +458,14 @@ document.addEventListener('DOMContentLoaded', function() {
       campaignTypeEl.textContent = `Multiple Promotion Campaign (${config.count || 3} campaigns)`;
 
       // Promotion
-      promotionEl.innerHTML = 'Promo Type: Phased multi-order discounts (habit restoration)<br>Structure: 25% off 3 → 35% off 3 → 40% off 2';
+      promotionEl.innerHTML = `
+        <ul>
+          <li>
+            Promo Type: Phased multi-order discounts (habit restoration)<br>
+            Structure: 25% off 3 → 35% off 3 → 40% off 2
+          </li>
+        </ul>
+      `;
 
       // Placements
       placementsEl.innerHTML = `
