@@ -1079,15 +1079,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (modifyBtn) {
             modifyBtn.addEventListener('click', function() {
-              if (questionText) {
-                questionText.textContent = 'What do you want to modify?';
-              }
-              if (actionsEl) {
-                actionsEl.style.display = 'none';
-              }
-              const chatInputField = document.querySelector('.summary-chat-input__field');
-              if (chatInputField) {
-                chatInputField.focus();
+              // The section to edit corresponds to currentStepIndex + 2
+              const sectionNumber = currentStepIndex + 2;
+              const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
+
+              if (section) {
+                // Remove disabled state
+                section.classList.remove('summary-section--disabled');
+
+                // Find and click the Edit button
+                const editBtn = section.querySelector('.summary-section__edit-btn');
+                if (editBtn) {
+                  editBtn.click();
+                }
               }
             });
           }
@@ -1147,33 +1151,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
 
-      // If on Placements step (index 2), show modification dialog
-      if (currentStepIndex === 2) {
-        const questionEl = document.getElementById('summary-chat-question');
-        const actionsEl = questionEl ? questionEl.querySelector('.summary-chat-question__actions') : null;
-        const questionText = questionEl ? questionEl.querySelector('.summary-chat-question__text') : null;
+      // Map step index to section number (0->1, 1->2, 2->3, 3->4)
+      const sectionNumber = currentStepIndex + 1;
+      const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
 
-        // Update question to ask what to modify
-        if (questionText) {
-          questionText.textContent = 'What do you want to modify?';
-        }
+      if (section) {
+        // Remove disabled state
+        section.classList.remove('summary-section--disabled');
 
-        // Hide the action buttons
-        if (actionsEl) {
-          actionsEl.style.display = 'none';
-        }
-
-        // Show and focus the chat input
-        const chatInput = document.querySelector('.summary-chat-input__field');
-        if (chatInput) {
-          chatInput.focus();
-        }
-      } else {
-        // For other steps, go back to template selection
-        if (summaryView && templateSelectionView) {
-          window.location.hash = 'select';
-          summaryView.style.display = 'none';
-          templateSelectionView.style.display = 'flex';
+        // Find and click the Edit button
+        const editBtn = section.querySelector('.summary-section__edit-btn');
+        if (editBtn) {
+          editBtn.click();
         }
       }
     });
@@ -1279,20 +1268,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (modifyBtn) {
             modifyBtn.addEventListener('click', function() {
-              // Handle modify click
-              const questionText = aiResponseEl.querySelector('.summary-chat-question__text');
-              const actionsEl = aiResponseEl.querySelector('.summary-chat-question__actions');
+              // This is for Placements (section 3)
+              const sectionNumber = 3;
+              const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
 
-              if (questionText) {
-                questionText.textContent = 'What do you want to modify?';
+              if (section) {
+                // Remove disabled state
+                section.classList.remove('summary-section--disabled');
+
+                // Find and click the Edit button
+                const editBtn = section.querySelector('.summary-section__edit-btn');
+                if (editBtn) {
+                  editBtn.click();
+                }
               }
-
-              if (actionsEl) {
-                actionsEl.style.display = 'none';
-              }
-
-              // Focus input
-              chatInputField.focus();
             });
           }
         }, 800); // Delay after loading dots before showing question
