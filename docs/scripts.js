@@ -574,7 +574,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
           const text = document.createElement('span');
           text.className = 'campaign-tab__text';
-          text.textContent = `Campaign ${i}`;
+
+          // Use offer descriptions for promotion campaigns
+          if (config.type === 'promotion') {
+            const offerLabels = ['25% off 3 orders', '35% off 3 orders', '40% off 2 orders'];
+            text.textContent = offerLabels[i - 1] || `Campaign ${i}`;
+          } else {
+            text.textContent = `Campaign ${i}`;
+          }
 
           tab.appendChild(text);
           campaignTabsContainer.appendChild(tab);
@@ -614,7 +621,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set initial Campaign Name placeholder
         const campaignNameInput = document.getElementById('campaign-name-input');
         if (campaignNameInput) {
-          campaignNameInput.placeholder = 'Campaign 1';
+          // Use offer description for promotion campaigns
+          if (config.type === 'promotion') {
+            campaignNameInput.placeholder = '25% off 3 orders';
+          } else {
+            campaignNameInput.placeholder = 'Campaign 1';
+          }
           campaignNameInput.value = '';
         }
       }
@@ -665,7 +677,14 @@ document.addEventListener('DOMContentLoaded', function() {
       // Update Campaign Name input placeholder
       const campaignNameInput = document.getElementById('campaign-name-input');
       if (campaignNameInput) {
-        campaignNameInput.placeholder = `Campaign ${campaignIndex}`;
+        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+        // Use offer descriptions for promotion campaigns
+        if (config.type === 'promotion') {
+          const offerLabels = ['25% off 3 orders', '35% off 3 orders', '40% off 2 orders'];
+          campaignNameInput.placeholder = offerLabels[parseInt(campaignIndex) - 1] || `Campaign ${campaignIndex}`;
+        } else {
+          campaignNameInput.placeholder = `Campaign ${campaignIndex}`;
+        }
         // Clear value for demo purposes to show different campaigns
         // In real app, this would load saved campaign name from storage
         campaignNameInput.value = '';
