@@ -5,6 +5,17 @@
   overflow: auto !important;
 }
 
+/* Fixed header */
+.global-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: white;
+  border-bottom: 1px solid #e7e7e7;
+}
+
 /* Button Icon Styles */
 .btn-icon {
   display: inline-flex;
@@ -49,13 +60,14 @@
   min-height: calc(100vh - 64px);
   display: flex;
   position: relative;
+  margin-top: 64px;
 }
 
 /* Icon-Only Sidebar Navigation with Hover Expand */
 .side-nav--icon-only {
-  position: absolute;
+  position: fixed;
   left: 0;
-  top: 0;
+  top: 64px;
   bottom: 0;
   width: 56px;
   min-width: 56px;
