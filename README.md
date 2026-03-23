@@ -4,7 +4,19 @@ A campaign management prototype for managing promotional campaigns and merchandi
 
 ## Live Demo
 
-**GitHub Pages**: https://bookish-memory-p3er739.pages.github.io/
+**GitHub Pages**: https://bonni3l33.github.io/bonnie-prototype-live/
+
+### Program Management Views
+
+**Programs Overview**
+- https://bonni3l33.github.io/bonnie-prototype-live/programs.html
+
+**Program Detail Pages**
+- **NPWS (National Program)**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-v2.html
+- **Ulta Partnership**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-ulta.html
+- **Lifecycle Resurrection**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-lifecycle.html
+- **Signup AI Evergreen**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-signup-ai.html
+- **Summer of Dashpass**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-sodp.html
 
 Access requires DoorDash GitHub organization membership (Engineering, Product Design, or Design Infrastructure teams).
 
@@ -12,8 +24,9 @@ Access requires DoorDash GitHub organization membership (Engineering, Product De
 
 This prototype provides a streamlined interface for managing promotional campaigns with features including:
 
+- **Program Management** - Grid-based program overview with detail pages
+- **AI Chat Panel** - Contextual AI suggestions with slide-in panel
 - Campaign overview and management dashboard
-- AI-powered chat assistant for campaign insights
 - Universal placement settings configuration
 - Responsive card-based layout
 - Multi-tab navigation system
@@ -165,15 +178,27 @@ gh api orgs/doordash/teams/{TEAM_SLUG}/repos/doordash/bonnie-prototype -X PUT -f
 
 ## Features
 
+### Program Management
+- **Programs Overview** - Grid-based view of all marketing programs
+- **Program Detail Pages** - 5 comprehensive program templates:
+  - NPWS (National Program) - Multi-city campaign management
+  - Ulta Partnership - Partner engagement tracking
+  - Lifecycle Resurrection - User re-engagement campaigns
+  - Signup AI Evergreen - Tier-based performance tracking with alerts
+  - Summer of Dashpass - Multi-program seasonal campaign with sub-campaigns
+- **Parent/Child Structure** - Hierarchical campaign organization
+- **Status Indicators** - Color-coded tags (running/planned/completed)
+
+### AI Chat Panel
+- **Contextual Suggestions** - 3 tailored prompts per page
+- **Slide-in Interface** - 400px panel that pushes content left
+- **Prism Integration** - Sparkle icon from Prism design system
+- **Auto-responsive** - Reduces page padding when panel opens
+
 ### Campaign Dashboard
 - Overview of active campaigns
 - Quick access to campaign settings
 - Status indicators and metrics
-
-### AI Chat Assistant
-- Conversational interface for campaign insights
-- Smart suggestions and recommendations
-- Context-aware responses
 
 ### Placement Management
 - Universal placement settings
