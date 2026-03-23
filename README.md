@@ -1,10 +1,10 @@
-# Promo and Merch Manager
+# MegaTool
 
 A campaign management prototype for managing promotional campaigns and merchandise placement settings at DoorDash.
 
 ## Live Demo
 
-**GitHub Pages**: https://bonni3l33.github.io/bonnie-prototype-live/
+**AI Campaign Creation Views**: https://bonni3l33.github.io/bonnie-prototype-live/
 
 ### Program Management Views
 
