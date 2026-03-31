@@ -4,21 +4,21 @@ A campaign management prototype for managing promotional campaigns and merchandi
 
 ## Live Demo
 
-**AI Campaign Creation Views**: https://bonni3l33.github.io/bonnie-prototype-live/
+Your GitHub Page is now live at: https://bonni3l33.github.io/0330_PM/
+
+**AI Campaign Creation Views**: https://bonni3l33.github.io/0330_PM/
 
 ### Program Management Views
 
 **Programs Overview**
-- https://bonni3l33.github.io/bonnie-prototype-live/programs.html
+- https://bonni3l33.github.io/0330_PM/programs.html
 
 **Program Detail Pages**
-- **NPWS (National Program)**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-v2.html
-- **Ulta Partnership**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-ulta.html
-- **Lifecycle Resurrection**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-lifecycle.html
-- **Signup AI Evergreen**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-signup-ai.html
-- **Summer of Dashpass**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-sodp.html
-
-Access requires DoorDash GitHub organization membership (Engineering, Product Design, or Design Infrastructure teams).
+- **NPWS (National Program)**: https://bonni3l33.github.io/0330_PM/program-detail-v2.html
+- **Ulta Partnership**: https://bonni3l33.github.io/0330_PM/program-detail-ulta.html
+- **Lifecycle Resurrection**: https://bonni3l33.github.io/0330_PM/program-detail-lifecycle.html
+- **Signup AI Evergreen**: https://bonni3l33.github.io/0330_PM/program-detail-signup-ai.html
+- **Summer of Dashpass**: https://bonni3l33.github.io/0330_PM/program-detail-sodp.html
 
 ## Overview
 
@@ -73,8 +73,8 @@ bonnie-prototype/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/doordash/bonnie-prototype.git
-cd bonnie-prototype/MegaTool
+git clone https://github.com/bonni3l33/0330_PM.git
+cd 0330_PM
 ```
 
 2. Open directly in browser:
@@ -141,7 +141,7 @@ chmod +x .git/hooks/pre-commit
 ### Trigger Manual Build
 
 ```bash
-gh api repos/doordash/bonnie-prototype/pages/builds -X POST
+gh api repos/bonni3l33/0330_PM/pages/builds -X POST
 ```
 
 ## Branching Strategy
@@ -161,19 +161,6 @@ Merge to main when ready:
 git checkout main
 git merge feature-name
 git push origin main
-```
-
-## Access Control
-
-The GitHub Pages site is accessible to:
-- **Engineering** team (~4,300 members)
-- **product-design-contributors** team (~180 members)
-- **Design Infrastructure** team (~20 members)
-- All repo collaborators
-
-To add additional teams:
-```bash
-gh api orgs/doordash/teams/{TEAM_SLUG}/repos/doordash/bonnie-prototype -X PUT -f permission=pull
 ```
 
 ## Features
@@ -229,12 +216,8 @@ Note: View Transitions API requires modern browser support or graceful fallback 
 
 ## Repository
 
-**GitHub**: https://github.com/doordash/bonnie-prototype
-
-## License
-
-Internal DoorDash prototype - not for external distribution.
+**GitHub**: https://github.com/bonni3l33/0330_PM
 
 ---
 
-Built with ❤️ by the DoorDash Design Infrastructure team
+Personal prototype project
