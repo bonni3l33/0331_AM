@@ -39,7 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Tab switcher on start page
   const tabs = document.querySelectorAll('.start-input-tab');
   const inputField = document.getElementById('start-input-field');
-  const uploadSection = document.querySelector('.start-input-actions-left');
+  const panelBrief = document.getElementById('tab-panel-brief');
+  const panelScratch = document.getElementById('tab-panel-scratch');
+
+  // Auto-resize textarea as user types
+  if (inputField) {
+    inputField.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+  }
 
   tabs.forEach(tab => {
     tab.addEventListener('click', function() {
@@ -47,15 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.add('start-input-tab--active');
 
       const tabType = this.getAttribute('data-tab');
-
       if (tabType === 'brief') {
-        // Show upload button and update placeholder
-        if (uploadSection) uploadSection.style.visibility = 'visible';
-        if (inputField) inputField.placeholder = 'Paste your brief text or upload a file below';
+        if (panelBrief) panelBrief.style.display = '';
+        if (panelScratch) panelScratch.style.display = 'none';
       } else if (tabType === 'scratch') {
-        // Hide upload button and update placeholder
-        if (uploadSection) uploadSection.style.visibility = 'hidden';
-        if (inputField) inputField.placeholder = 'Tell me what campaign you want to create...';
+        if (panelBrief) panelBrief.style.display = 'none';
+        if (panelScratch) panelScratch.style.display = '';
+        if (inputField) inputField.focus();
       }
     });
   });
@@ -256,15 +263,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Handle file upload
-  if (uploadBriefBtn && briefFileInput) {
-    uploadBriefBtn.addEventListener('click', function() {
+  // Upload menu toggle
+  const uploadMenu = document.getElementById('upload-menu');
+  const uploadMenuWrapper = document.getElementById('upload-menu-wrapper');
+  const uploadFromDrive = document.getElementById('upload-from-drive');
+  const uploadFromFile = document.getElementById('upload-from-file');
+
+  if (uploadBriefBtn && uploadMenu) {
+    uploadBriefBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const rect = uploadBriefBtn.getBoundingClientRect();
+      uploadMenu.style.left = rect.left + 'px';
+      uploadMenu.style.top = (rect.top - uploadMenu.offsetHeight - 6) + 'px';
+      uploadMenu.classList.toggle('upload-menu--open');
+      // Recalculate after toggle so height is known
+      if (uploadMenu.classList.contains('upload-menu--open')) {
+        uploadMenu.style.top = (rect.top - uploadMenu.offsetHeight - 6) + 'px';
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (uploadMenuWrapper && !uploadMenuWrapper.contains(e.target)) {
+        uploadMenu.classList.remove('upload-menu--open');
+      }
+    });
+  }
+
+  // "Add from Google Drive" — placeholder action
+  if (uploadFromDrive) {
+    uploadFromDrive.addEventListener('click', function() {
+      uploadMenu.classList.remove('upload-menu--open');
+      // Placeholder: treat as if a file was selected and proceed
+      showLoadingThenTemplates();
+    });
+  }
+
+  // "Add a file" — trigger file picker
+  if (uploadFromFile && briefFileInput) {
+    uploadFromFile.addEventListener('click', function() {
+      uploadMenu.classList.remove('upload-menu--open');
       briefFileInput.click();
     });
 
     briefFileInput.addEventListener('change', function() {
       if (this.files && this.files.length > 0) {
-        // File uploaded, show loading then template selection
         showLoadingThenTemplates();
       }
     });
@@ -408,30 +451,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to transition to summary view
   function transitionToSummaryView() {
-    const summaryView = document.getElementById('summary-view');
+    if (!templateSelectionView) return;
 
-    if (!summaryView || !templateSelectionView) return;
+    // Skip summary — go straight to create view
+    const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+    setupCampaignTabs(config.type);
 
-    // Update URL
-    window.location.hash = 'summary';
+    if (config.type && config.count) {
+      window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
+    } else {
+      window.location.hash = 'create';
+    }
 
-    // Fade out template selection view
+    const progressBarContainer = document.getElementById('progress-bar-container');
+    const progressStepText = document.getElementById('progress-step-text');
+    if (progressBarContainer) progressBarContainer.style.display = 'none';
+    if (progressStepText) progressStepText.style.display = 'none';
+
     templateSelectionView.style.opacity = '0';
     templateSelectionView.style.transition = 'opacity 0.3s ease-out';
 
     setTimeout(() => {
       templateSelectionView.style.display = 'none';
-
-      // Show summary view
-      summaryView.style.display = 'flex';
-      summaryView.style.opacity = '0';
-
-      // Generate summary text AFTER view is shown
-      setTimeout(() => {
-        generateSummaryText();
-        summaryView.style.transition = 'opacity 0.4s ease-in';
-        summaryView.style.opacity = '1';
-      }, 50);
+      if (typeof window.transitionToCreateView === 'function') {
+        const summaryView = document.getElementById('summary-view');
+        window.transitionToCreateView(summaryView || templateSelectionView);
+      } else if (createView) {
+        createView.style.display = 'flex';
+      }
     }, 300);
   }
 
@@ -1765,3 +1812,561 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// ==========================================
+// Correction Section — Template Selection
+// ==========================================
+(function() {
+  const CHIP_PRESETS = {
+    single:   'Change to a single campaign targeting new sign-ups in the past 45 days.',
+    multiple: 'Keep multiple campaigns but adjust the audience split.',
+    action:   'Change this to sequential action-based campaigns instead.',
+  };
+
+  function initCorrectionSection() {
+    const textarea = document.querySelector('.correction-textarea');
+    const chips    = document.querySelectorAll('.correction-chip');
+    const submit   = document.querySelector('.correction-submit');
+
+    if (!textarea || !chips.length || !submit) return;
+
+    // Auto-resize textarea
+    textarea.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+      updateSubmitState();
+    });
+
+    // Chip click → pre-fill textarea + toggle active
+    chips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        chips.forEach(c => c.classList.remove('correction-chip--active'));
+        this.classList.add('correction-chip--active');
+        const preset = CHIP_PRESETS[this.getAttribute('data-preset')] || '';
+        textarea.value = preset;
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+        updateSubmitState();
+      });
+    });
+
+    function updateSubmitState() {
+      const hasText    = textarea.value.trim().length > 0;
+      const hasChip    = document.querySelector('.correction-chip--active') !== null;
+      submit.disabled  = !(hasText || hasChip);
+    }
+
+    // Submit → "Updating..." animation (prototype only)
+    submit.addEventListener('click', function() {
+      if (this.disabled) return;
+      const original = this.textContent;
+      this.textContent = 'Updating...';
+      this.disabled = true;
+      setTimeout(() => {
+        this.textContent = original;
+        chips.forEach(c => c.classList.remove('correction-chip--active'));
+        textarea.value = '';
+        textarea.style.height = 'auto';
+        updateSubmitState();
+      }, 1500);
+    });
+  }
+
+  // (correction section init - no-op now since elements removed, kept for safety)
+})();
+
+// ==========================================
+// Confirmation Panel + Chat + Manual Setup
+// ==========================================
+(function() {
+  var initialized = false;
+
+  function showView(id) {
+    ['template-selection-view', 'campaign-updated-view', 'manual-setup-view'].forEach(function(vid) {
+      var el = document.getElementById(vid);
+      if (el) el.style.display = 'none';
+    });
+    var target = document.getElementById(id);
+    if (target) {
+      target.style.display = 'block';
+      target.style.opacity = '0';
+      setTimeout(function() { target.style.transition = 'opacity 0.2s'; target.style.opacity = '1'; }, 10);
+    }
+  }
+
+  // Track which edits have been applied so the diagram stays up to date
+  var appliedEdits = [];
+
+  function applyDiagramEdits() {
+    appliedEdits.forEach(function(edit) {
+      if (edit === 'child1-remove-spotlight-hub') {
+        var pills = document.getElementById('ts-child1-channels');
+        if (pills) {
+          pills.innerHTML =
+            '<span class="placement-tag">USI</span>' +
+            '<span class="placement-tag">Email</span>' +
+            '<span class="placement-tag">Push</span>';
+        }
+        var desc = document.getElementById('ts-header-desc');
+        if (desc) desc.innerHTML = 'Showing updated structure — <strong>Spotlight &amp; Hub removed from Child 1</strong>. Select another change below.';
+      }
+    });
+  }
+
+  // Show only the Chat/Update options panel (no yes/no, used from "Make more changes")
+  function showChangeOptions() {
+    applyDiagramEdits();
+    showView('template-selection-view');
+    hideAllConfirmPanels();
+    var panel = document.getElementById('change-options-panel');
+    if (panel) panel.style.display = 'block';
+  }
+
+  // Update manually → show structure check panel
+  function showUpdateManually() {
+    hideAllConfirmPanels();
+    var panel = document.getElementById('update-manually-panel');
+    if (panel) panel.style.display = 'block';
+  }
+
+  function hideAllConfirmPanels() {
+    ['confirmation-panel', 'change-options-panel', 'update-manually-panel', 'chat-panel', 'structure-select-panel'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+
+  function addMessage(role, html) {
+    var msgs = document.getElementById('chat-messages');
+    if (!msgs) return;
+    var div = document.createElement('div');
+    div.className = 'ts-chat-message ts-chat-message--' + role;
+    div.innerHTML = html;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    var msgs = document.getElementById('chat-messages');
+    if (!msgs) return null;
+    var div = document.createElement('div');
+    div.className = 'ts-chat-typing';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function addEditProposal() {
+    var html = [
+      '<div class="ts-chat-edit-proposal">',
+        '<div class="ts-chat-edit-proposal__title">✦ Proposed edit</div>',
+        '<div class="ts-chat-edit-section">',
+          '<div class="ts-chat-edit-label">Child 1 — Channels</div>',
+          '<div class="ts-chat-edit-pills">',
+            '<span class="placement-tag placement-tag--removed">Spotlight</span>',
+            '<span class="placement-tag">USI</span>',
+            '<span class="placement-tag">Email</span>',
+            '<span class="placement-tag">Push</span>',
+            '<span class="placement-tag placement-tag--removed">Hub</span>',
+          '</div>',
+          '<div style="font-size:11px;color:#8A9099;margin-top:5px;">Spotlight and Hub removed from Child 1 only</div>',
+        '</div>',
+        '<div class="ts-chat-edit-section">',
+          '<div class="ts-chat-edit-label">Child 2 &amp; Parent — Channels unchanged</div>',
+          '<div class="ts-chat-edit-pills">',
+            '<span class="placement-tag">Spotlight</span>',
+            '<span class="placement-tag">USI</span>',
+            '<span class="placement-tag">Email</span>',
+            '<span class="placement-tag">Push</span>',
+            '<span class="placement-tag">Hub</span>',
+          '</div>',
+        '</div>',
+        '<button class="ts-chat-apply-btn" id="ts-apply-btn">Apply this change</button>',
+      '</div>'
+    ].join('');
+    var wrapper = addMessage('ai', 'Here\'s what I\'d change:');
+    wrapper.innerHTML += html;
+    var msgs = document.getElementById('chat-messages');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+
+    document.getElementById('ts-apply-btn').addEventListener('click', function() {
+      if (appliedEdits.indexOf('child1-remove-spotlight-hub') === -1) {
+        appliedEdits.push('child1-remove-spotlight-hub');
+      }
+      showView('campaign-updated-view');
+    });
+  }
+
+  function initConfirmationPanel() {
+    if (initialized) return;
+    initialized = true;
+
+    var yesBtn      = document.querySelector('.confirm-yes-btn');
+    var noBtn       = document.querySelector('.confirm-no-btn');
+    var noOpts      = document.getElementById('confirmation-no-options');
+    var confirmPanel = document.getElementById('confirmation-panel');
+    var chatPanel   = document.getElementById('chat-panel');
+    var confirmCol  = document.getElementById('ts-confirm-col');
+    var continueBtn = document.querySelector('.template-selection__continue');
+    var backBtn     = document.getElementById('chat-back-btn');
+    var sendBtn     = document.getElementById('chat-send-btn');
+    var chatInput   = document.getElementById('ts-chat-input');
+
+    if (!yesBtn || !noBtn) return;
+
+    // Yes → proceed to summary
+    yesBtn.addEventListener('click', function() {
+      if (continueBtn) continueBtn.click();
+    });
+
+    // No → reveal options
+    noBtn.addEventListener('click', function() {
+      if (noOpts) {
+        var isHidden = noOpts.style.display === 'none' || !noOpts.style.display;
+        noOpts.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden) noOpts.style.flexDirection = 'column';
+        noBtn.textContent = isHidden ? 'Never mind' : 'No, change it';
+      }
+    });
+
+    // Helper: open chat panel (resets history each time)
+    function openChat() {
+      hideAllConfirmPanels();
+      var msgs = document.getElementById('chat-messages');
+      if (msgs) msgs.innerHTML = '<div class="ts-chat-message ts-chat-message--ai"><p>What would you like to change about this campaign structure?</p></div>';
+      var input = document.getElementById('ts-chat-input');
+      if (input) { input.value = ''; input.style.height = 'auto'; }
+      var send = document.getElementById('chat-send-btn');
+      if (send) send.disabled = true;
+      if (chatPanel) chatPanel.style.display = 'flex';
+    }
+
+    // No-option buttons (from initial confirmation panel)
+    var noOptBtns = document.querySelectorAll('.no-opt-btn[data-no-action]');
+    noOptBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var action = this.getAttribute('data-no-action');
+        if (action === 'chat') {
+          openChat();
+        } else if (action === 'manual') {
+          showUpdateManually();
+        }
+      });
+    });
+
+    // "Make more changes" options panel buttons
+    var changeOptBtns = document.querySelectorAll('.no-opt-btn[data-change-action]');
+    changeOptBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var action = this.getAttribute('data-change-action');
+        if (action === 'chat') {
+          openChat();
+        } else if (action === 'manual') {
+          showUpdateManually();
+        }
+      });
+    });
+
+    // Update-manually: "Yes, keep it" → proceed to create-program
+    var structureYesBtn = document.getElementById('structure-yes-btn');
+    if (structureYesBtn) {
+      structureYesBtn.addEventListener('click', function() {
+        window.location.href = 'create-program.html';
+      });
+    }
+
+    // Update-manually: "No, change it" → show structure select panel
+    var structureNoBtn = document.getElementById('structure-no-btn');
+    if (structureNoBtn) {
+      structureNoBtn.addEventListener('click', function() {
+        hideAllConfirmPanels();
+        var panel = document.getElementById('structure-select-panel');
+        if (panel) panel.style.display = 'block';
+        // Show the pre-active card's expanded section + config
+        var activeCard = panel && panel.querySelector('.structure-card--active');
+        if (activeCard) {
+          var exp = activeCard.querySelector('.structure-card__expanded');
+          if (exp) exp.style.display = 'block';
+          var type = activeCard.getAttribute('data-type');
+          if (type === 'promotion') {
+            var cfg = document.getElementById('ssp-config-promotion');
+            if (cfg) cfg.style.display = 'block';
+          } else if (type === 'action') {
+            var cfg = document.getElementById('ssp-config-action');
+            if (cfg) cfg.style.display = 'block';
+          }
+        }
+      });
+    }
+
+    // Update-manually back button
+    var updateBackBtn = document.getElementById('update-back-btn');
+    if (updateBackBtn) {
+      updateBackBtn.addEventListener('click', function() {
+        hideAllConfirmPanels();
+        var changePanel = document.getElementById('change-options-panel');
+        var confirmPanel2 = document.getElementById('confirmation-panel');
+        if (changePanel && changePanel._wasShown) {
+          changePanel.style.display = 'block';
+        } else if (confirmPanel2) {
+          confirmPanel2.style.display = 'block';
+        }
+      });
+    }
+
+    // Structure select: Back → update-manually panel
+    var structureSelectBackBtn = document.getElementById('structure-select-back-btn');
+    if (structureSelectBackBtn) {
+      structureSelectBackBtn.addEventListener('click', function() {
+        hideAllConfirmPanels();
+        var panel = document.getElementById('update-manually-panel');
+        if (panel) panel.style.display = 'block';
+      });
+    }
+
+    // Structure cards: click to expand/collapse + show config
+    var structureCards = document.querySelectorAll('.structure-card');
+    structureCards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        // Don't collapse card when interacting with inputs/labels inside config or expanded
+        if (e.target.closest('.structure-config') || e.target.closest('.structure-card__expanded')) return;
+
+        var isAlreadyActive = card.classList.contains('structure-card--active');
+
+        // Collapse all cards and hide all configs
+        structureCards.forEach(function(c) {
+          c.classList.remove('structure-card--active');
+          var exp = c.querySelector('.structure-card__expanded');
+          if (exp) exp.style.display = 'none';
+        });
+        document.querySelectorAll('.structure-config').forEach(function(cfg) {
+          cfg.style.display = 'none';
+        });
+
+        if (!isAlreadyActive) {
+          card.classList.add('structure-card--active');
+          var expanded = card.querySelector('.structure-card__expanded');
+          if (expanded) expanded.style.display = 'block';
+
+          var type = card.getAttribute('data-type');
+          if (type === 'promotion') {
+            var cfg = document.getElementById('ssp-config-promotion');
+            if (cfg) cfg.style.display = 'block';
+          } else if (type === 'action') {
+            var cfg = document.getElementById('ssp-config-action');
+            if (cfg) cfg.style.display = 'block';
+          }
+        }
+      });
+    });
+
+    // Confirm button: update diagram with new child count
+    // For parent-child structure: N campaigns = 1 parent + (N-1) children
+    var confirmPromoBtn = document.getElementById('ssp-confirm-promotion');
+    if (confirmPromoBtn) {
+      confirmPromoBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var countInput = document.getElementById('ssp-campaign-count');
+        var totalCampaigns = countInput ? parseInt(countInput.value, 10) : 3;
+        var targetChildren = totalCampaigns - 1; // subtract 1 for the parent
+        var childrenRow = document.querySelector('#template-selection-view .hierarchy-children-row');
+        if (!childrenRow) return;
+
+        var currentChildren = childrenRow.querySelectorAll('.hierarchy-child').length;
+
+        // Add children if count increased
+        for (var i = currentChildren + 1; i <= targetChildren; i++) {
+          var newChild = document.createElement('div');
+          newChild.className = 'hierarchy-child hierarchy-child--empty';
+          newChild.innerHTML =
+            '<div class="hierarchy-child__header">' +
+              '<span class="hierarchy-node-label hierarchy-node-label--child">Child ' + i + '</span>' +
+              '<span class="hierarchy-child__title hierarchy-child__title--empty">Untitled segment</span>' +
+            '</div>' +
+            '<div class="campaign-meta-col">' +
+              '<p class="hierarchy-child__nudge">⚠ Add targeting details to complete this child campaign.</p>' +
+            '</div>';
+          childrenRow.appendChild(newChild);
+        }
+
+        // Remove children if count decreased
+        var allChildren = childrenRow.querySelectorAll('.hierarchy-child');
+        for (var j = allChildren.length; j > targetChildren; j--) {
+          childrenRow.removeChild(allChildren[j - 1]);
+        }
+
+        // Visual feedback
+        confirmPromoBtn.textContent = 'Confirmed ✓';
+        confirmPromoBtn.disabled = true;
+        setTimeout(function() {
+          confirmPromoBtn.textContent = 'Confirm';
+          confirmPromoBtn.disabled = false;
+        }, 2000);
+      });
+    }
+
+    // Apply structure → show incentive config panel (stay on page)
+    var structureApplyBtn = document.getElementById('structure-apply-btn');
+    if (structureApplyBtn) {
+      structureApplyBtn.addEventListener('click', function() {
+        hideAllConfirmPanels();
+        var panel = document.getElementById('incentive-config-panel');
+        if (panel) panel.style.display = 'block';
+      });
+    }
+
+    // Incentive back buttons → back to structure-select-panel
+    ['incentive-back-btn', 'incentive-back-btn2'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener('click', function() {
+          hideAllConfirmPanels();
+          var panel = document.getElementById('structure-select-panel');
+          if (panel) panel.style.display = 'block';
+          // Re-show the active card's expanded/config
+          var activeCard = panel && panel.querySelector('.structure-card--active');
+          if (activeCard) {
+            var exp = activeCard.querySelector('.structure-card__expanded');
+            if (exp) exp.style.display = 'block';
+            var type = activeCard.getAttribute('data-type');
+            if (type === 'promotion') {
+              var cfg = document.getElementById('ssp-config-promotion');
+              if (cfg) cfg.style.display = 'block';
+            } else if (type === 'action') {
+              var cfg = document.getElementById('ssp-config-action');
+              if (cfg) cfg.style.display = 'block';
+            }
+          }
+        });
+      }
+    });
+
+    // Incentive save → go to create-program
+    var incentiveSaveBtn = document.getElementById('incentive-save-btn');
+    if (incentiveSaveBtn) {
+      incentiveSaveBtn.addEventListener('click', function() {
+        window.location.href = 'create-program.html';
+      });
+    }
+
+    // Back from chat → confirmation panel
+    if (backBtn) {
+      backBtn.addEventListener('click', function() {
+        if (chatPanel) chatPanel.style.display = 'none';
+        if (confirmPanel) confirmPanel.style.display = 'block';
+        if (confirmCol) confirmCol.classList.remove('ts-confirm-col--chat');
+      });
+    }
+
+    // Chat input auto-resize
+    if (chatInput) {
+      chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 90) + 'px';
+        if (sendBtn) sendBtn.disabled = !this.value.trim();
+      });
+      chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (sendBtn && !sendBtn.disabled) sendBtn.click();
+        }
+      });
+    }
+
+    // Send message
+    if (sendBtn) {
+      sendBtn.disabled = true;
+      sendBtn.addEventListener('click', function() {
+        if (!chatInput || !chatInput.value.trim()) return;
+        var msg = chatInput.value.trim();
+        chatInput.value = '';
+        chatInput.style.height = 'auto';
+        sendBtn.disabled = true;
+
+        addMessage('user', msg);
+
+        // Show typing indicator, then respond
+        var typing = showTyping();
+        setTimeout(function() {
+          if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+          addMessage('ai', 'Got it. I\'ll remove Spotlight and Notification Hub from both child campaigns.');
+          setTimeout(function() {
+            addEditProposal();
+          }, 400);
+        }, 1400);
+      });
+    }
+
+    // Updated view — continue
+    var updatedContinue = document.getElementById('updated-continue-btn');
+    if (updatedContinue) {
+      updatedContinue.addEventListener('click', function() {
+        ['manual-setup-view', 'campaign-updated-view'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+        if (continueBtn) continueBtn.click();
+      });
+    }
+
+    // Updated view — make more changes → back to confirmation with options expanded
+    var updatedMakeChanges = document.getElementById('updated-make-changes-btn');
+    if (updatedMakeChanges) {
+      updatedMakeChanges.addEventListener('click', function() {
+        showChangeOptions();
+      });
+    }
+
+    // Manual setup radio handlers
+    var manualRadios = document.querySelectorAll('.manual-template-radio');
+    var manualConfigSection = document.getElementById('manual-config-section');
+    var manualConfigPromo = document.getElementById('manual-config-promotion');
+    var manualConfigAction = document.getElementById('manual-config-action');
+
+    function updateManualConfig() {
+      var selected = document.querySelector('.manual-template-radio:checked');
+      if (!selected || !manualConfigSection) return;
+      var val = selected.value;
+      manualConfigSection.style.display = val === 'single' ? 'none' : 'block';
+      if (manualConfigPromo) manualConfigPromo.style.display = val === 'promotion' ? 'block' : 'none';
+      if (manualConfigAction) manualConfigAction.style.display = val === 'action' ? 'block' : 'none';
+    }
+
+    manualRadios.forEach(function(r) {
+      r.addEventListener('change', updateManualConfig);
+    });
+    updateManualConfig();
+
+    // Manual continue button
+    var manualContinueBtns = document.querySelectorAll('.manual-continue-btn');
+    manualContinueBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var selected = document.querySelector('.manual-template-radio:checked');
+        if (selected) localStorage.setItem('selectedTemplate', selected.value);
+        // Hide all custom views so transitionToSummaryView only sees template-selection-view
+        ['manual-setup-view', 'campaign-updated-view'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+        if (continueBtn) continueBtn.click();
+      });
+    });
+  }
+
+  // Init once the template-selection view becomes visible
+  var view = document.getElementById('template-selection-view');
+  if (!view) return;
+  if (view.style.display !== 'none') {
+    initConfirmationPanel();
+  } else {
+    var obs = new MutationObserver(function() {
+      if (view.style.display !== 'none') {
+        initConfirmationPanel();
+        obs.disconnect();
+      }
+    });
+    obs.observe(view, { attributes: true, attributeFilter: ['style'] });
+  }
+})();

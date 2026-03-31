@@ -79,7 +79,7 @@
             <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
           </svg>
         </div>
-        <span class="global-nav__title">MegaTool</span>
+        <span class="global-nav__title">Marketing Program Center</span>
       </div>
       <div class="global-nav__actions">
       </div>
@@ -129,43 +129,67 @@
               </button>
             </div>
 
-            <div class="start-input-row">
-              <input
-                type="text"
-                class="start-input-field"
-                id="start-input-field"
-                placeholder="Paste your brief text or upload a file below"
-              />
-            </div>
-            <div class="start-input-footer">
-              <div class="start-input-actions-left">
-                <input type="file" id="brief-file-input" class="visually-hidden" accept=".pdf,.doc,.docx" />
-                <button class="start-input-btn" id="upload-brief-btn">
-                  <svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg>
-                  Upload
+            <!-- Brief tab content: upload only -->
+            <div class="start-tab-panel" id="tab-panel-brief">
+              <div class="start-input-footer">
+                <div class="start-input-actions-left">
+                  <input type="file" id="brief-file-input" class="visually-hidden" accept=".pdf,.doc,.docx" />
+                  <div class="upload-menu-wrapper" id="upload-menu-wrapper">
+                    <button class="start-input-btn" id="upload-brief-btn">
+                      <svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg>
+                      Upload brief
+                    </button>
+                    <div class="upload-menu" id="upload-menu">
+                      <button class="upload-menu__item" id="upload-from-drive">
+                        <svg class="icon" width="16" height="16" viewBox="0 0 87.3 78" fill="currentColor">
+                          <path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L28.2 52H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066DA"/>
+                          <path d="M43.65 25L29.2 0c-1.35.8-2.5 1.9-3.3 3.3L1.2 47.5c-.8 1.4-1.2 2.95-1.2 4.5h28.2z" fill="#00AC47"/>
+                          <path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.1l6.0 11.5z" fill="#EA4335"/>
+                          <path d="M43.65 25L58.1 0H29.2L43.65 25z" fill="#00832D"/>
+                          <path d="M59.1 52H28.2L13.75 76.8H59.1z" fill="#2684FC"/>
+                          <path d="M73.55 76.8L59.1 52l-15.45-27H87.3c0-1.55-.4-3.1-1.2-4.5L62.55 3.3C61.75 1.9 60.6.8 59.25 0L43.65 25 59.1 52h28.2c0-1.55-.4-3.1-1.2-4.5z" fill="#FFBA00"/>
+                        </svg>
+                        Add from Google Drive
+                      </button>
+                      <button class="upload-menu__item" id="upload-from-file">
+                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        Add a file
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button class="start-input-submit">
+                  <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                  </svg>
                 </button>
               </div>
-              <button class="start-input-submit">
-                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 19V5M5 12l7-7 7 7"/>
-                </svg>
-              </button>
+            </div>
+
+            <!-- Scratch tab content: textarea + submit -->
+            <div class="start-tab-panel" id="tab-panel-scratch" style="display: none;">
+              <div class="start-input-row">
+                <textarea
+                  class="start-input-field"
+                  id="start-input-field"
+                  placeholder="Tell me what campaign you want to create..."
+                  rows="1"
+                ></textarea>
+              </div>
+              <div class="start-input-footer">
+                <div class="start-input-actions-left"></div>
+                <button class="start-input-submit">
+                  <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="start-quick-chips">
-            <button class="start-quick-chip">
-              <svg class="icon" width="16" height="16"><use href="#icon-flag"/></svg>
-              Create campaign
-            </button>
-            <button class="start-quick-chip">
-              <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z"/></svg>
-              Create promo
-            </button>
-            <button class="start-quick-chip">Define objective & KPIs</button>
-            <button class="start-quick-chip">Build target audience</button>
-            <button class="start-quick-chip">Create placement</button>
-          </div>
         </div>
 
         <!-- Loading State -->
@@ -186,20 +210,583 @@
         </div>
 
         <!-- Template Selection View -->
-        <div class="template-selection-view" id="template-selection-view" style="display: none;">
+        <div class="template-selection-view template-selection-view--scrollable" id="template-selection-view" style="display: none;">
           <div class="template-selection-container">
             <div class="template-selection-content">
+
               <div class="template-selection__header">
                 <h1 class="template-selection__title">What type of campaign would you like to create?</h1>
-                <p class="template-selection__description">Based on your brief, we recommend starting with a single campaign structure.</p>
+                <p class="template-selection__description" id="ts-header-desc">Based on your brief, we think you want to create <strong>1 parent + 2 children campaigns</strong>.</p>
               </div>
 
-              <!-- Campaign Options -->
+              <!-- Recommendation banner (full width) -->
+              <div class="recommendation-banner">
+                <span class="recommendation-banner__icon">✦</span>
+                <p>We detected a parent-children structure: 1 parent campaign with 2 children targeting subsets of the parent audience.</p>
+              </div>
+
+              <!-- Two-column: diagram left, confirmation/chat right -->
+              <div class="ts-main-layout">
+                <div class="ts-diagram-col">
+                  <div class="hierarchy-diagram">
+                    <div class="hierarchy-parent">
+
+                      <div class="hierarchy-parent__header">
+                        <span class="hierarchy-node-label">Parent</span>
+                        <span class="hierarchy-parent__title">New sign-ups — past 45 days, 0 orders</span>
+                      </div>
+
+                      <div class="campaign-meta-row">
+                        <div class="campaign-meta-item">
+                          <span class="campaign-meta-label">Promo</span>
+                          <span class="campaign-meta-value">40% off</span>
+                          <span class="campaign-meta-sub">Up to $12 · Min $12</span>
+                        </div>
+                        <div class="campaign-meta-divider"></div>
+                        <div class="campaign-meta-item">
+                          <span class="campaign-meta-label">Targeting</span>
+                          <div class="campaign-meta-pills">
+                            <span class="targeting-pill">Signed up last 45 days</span>
+                            <span class="targeting-pill">0 orders to date</span>
+                          </div>
+                        </div>
+                        <div class="campaign-meta-divider"></div>
+                        <div class="campaign-meta-item">
+                          <span class="campaign-meta-label">Channels</span>
+                          <div class="campaign-meta-pills">
+                            <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
+                            <span class="placement-tag">Email</span>
+                            <span class="placement-tag">Push</span>
+                            <span class="placement-tag">Hub</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="hierarchy-children-row">
+                        <div class="hierarchy-child">
+                          <div class="hierarchy-child__header">
+                            <span class="hierarchy-node-label hierarchy-node-label--child">Child 1</span>
+                            <span class="hierarchy-child__title">Multi-account customers</span>
+                          </div>
+                          <div class="campaign-meta-col">
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Promo</span>
+                              <span class="campaign-meta-value">20% off · Up to $8 · Min $15</span>
+                            </div>
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Targeting</span>
+                              <span class="targeting-pill">+ Multiple accounts</span>
+                            </div>
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Channels</span>
+                              <div class="campaign-meta-pills" id="ts-child1-channels">
+                                <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
+                                <span class="placement-tag">Email</span>
+                                <span class="placement-tag">Push</span>
+                                <span class="placement-tag">Hub</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="hierarchy-child">
+                          <div class="hierarchy-child__header">
+                            <span class="hierarchy-node-label hierarchy-node-label--child">Child 2</span>
+                            <span class="hierarchy-child__title">Hot markets</span>
+                          </div>
+                          <div class="campaign-meta-col">
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Promo</span>
+                              <span class="campaign-meta-value">50% off · Up to $15 · Min $15</span>
+                            </div>
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Targeting</span>
+                              <div class="campaign-meta-pills">
+                                <span class="targeting-pill">+ Hot market</span>
+                                <span class="targeting-pill targeting-pill--market">NY</span>
+                                <span class="targeting-pill targeting-pill--market">SF</span>
+                                <span class="targeting-pill targeting-pill--market">LA</span>
+                              </div>
+                            </div>
+                            <div class="campaign-meta-item--inline">
+                              <span class="campaign-meta-label">Channels</span>
+                              <div class="campaign-meta-pills">
+                                <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
+                                <span class="placement-tag">Email</span>
+                                <span class="placement-tag">Push</span>
+                                <span class="placement-tag">Hub</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p class="hierarchy-fallback-note">↑ Customers not matched by either child campaign will fall to the parent.</p>
+                    </div>
+                  </div><!-- end hierarchy-diagram -->
+                </div><!-- end ts-diagram-col -->
+
+                <!-- Right: confirmation / chat -->
+                <div class="ts-confirm-col" id="ts-confirm-col">
+
+                  <div class="confirmation-panel" id="confirmation-panel">
+                    <p class="confirmation-question">Does this look right?</p>
+                    <p class="confirmation-subtext">AI generated this structure from your brief. Confirm to proceed or adjust.</p>
+                    <div class="confirmation-actions">
+                      <button class="btn btn--primary confirm-yes-btn">Proceed, no changes</button>
+                      <button class="btn btn--outlined confirm-no-btn">No, change it</button>
+                    </div>
+                    <div class="confirmation-no-options" id="confirmation-no-options" style="display: none;">
+                      <p class="confirmation-no-label">What would you like to do?</p>
+                      <button class="no-opt-btn" data-no-action="chat">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/></svg>
+                        Chat about it
+                      </button>
+                      <button class="no-opt-btn" data-no-action="manual">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
+                        Update manually
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- "Make more changes" options panel -->
+                  <div class="change-options-panel" id="change-options-panel" style="display: none;">
+                    <p class="confirmation-question" style="margin-bottom:14px;">What would you like to do?</p>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <button class="no-opt-btn" data-change-action="chat">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/></svg>
+                        Chat about it
+                      </button>
+                      <button class="no-opt-btn" data-change-action="manual">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
+                        Update manually
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Update manually: structure check -->
+                  <div class="update-manually-panel" id="update-manually-panel" style="display: none;">
+                    <p class="confirmation-question">Does this parent-children structure look right?</p>
+                    <p class="confirmation-subtext">This structure was generated from your brief. You can keep it or pick a different one.</p>
+                    <div class="confirmation-actions" style="margin-top:16px;">
+                      <button class="btn btn--primary" id="structure-yes-btn">Yes, keep it</button>
+                      <button class="btn btn--outlined" id="structure-no-btn">No, change it</button>
+                    </div>
+                    <div style="margin-top:12px;">
+                      <button class="ts-chat-back-btn" id="update-back-btn">← Back</button>
+                    </div>
+                  </div>
+
+                  <!-- Structure selection panel (shown when "No, change it" clicked in update-manually) -->
+                  <div class="structure-select-panel" id="structure-select-panel" style="display: none;">
+                    <p class="confirmation-question" style="margin-bottom:4px;">Select a marketing program type</p>
+                    <p class="confirmation-subtext" style="margin-bottom:14px;">Choose a type — configuration options will appear inline.</p>
+
+                    <div class="structure-option-list" id="structure-option-list">
+
+                      <!-- Single campaign -->
+                      <div class="structure-card" data-type="single">
+                        <div class="structure-card__summary">
+                          <span class="structure-card__title">Single campaign</span>
+                          <div class="structure-card__tags">
+                            <span class="tag">One-time promo</span>
+                            <span class="tag">Standalone evergreen promo</span>
+                          </div>
+                        </div>
+                        <div class="structure-card__expanded" style="display:none;">
+                          <p class="structure-card__desc">One campaign with unified targeting, offers, and placements.</p>
+                        </div>
+                      </div>
+
+                      <!-- Multiple campaigns -->
+                      <div class="structure-card structure-card--active" data-type="promotion">
+                        <div class="structure-card__summary">
+                          <span class="structure-card__title">Multiple campaigns with mutually exclusive targeting <span class="tag tag--positive-subdued" style="margin-left:4px;vertical-align:middle;">Current</span></span>
+                          <div class="structure-card__tags">
+                            <span class="tag">Parent &amp; Child</span>
+                            <span class="tag">Timeline</span>
+                            <span class="tag">Lifecycle</span>
+                            <span class="tag">A/B test</span>
+                          </div>
+                        </div>
+                        <div class="structure-card__expanded" style="display:none;">
+                          <p class="structure-card__desc">Create variations of the same campaign across different audiences, time periods, or placements.</p>
+                        </div>
+                        <!-- Config: Multiple Promotion (inline with card) -->
+                        <div class="structure-config" id="ssp-config-promotion" style="display:none;">
+                          <div class="create-field">
+                            <label class="create-field__label">Number of campaigns</label>
+                            <input type="number" class="create-field__input" id="ssp-campaign-count" value="3" min="2" max="10" style="max-width:120px;" />
+                            <span class="create-field__hint">Coordinated promotions to run simultaneously (2–10)</span>
+                          </div>
+                          <div class="create-field" style="margin-top:14px;">
+                            <label class="create-field__label">Marketing program structure</label>
+                            <div class="template-config-options" id="ssp-structure-options">
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-campaign-structure" value="parent-child" checked />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Parent &amp; Child</span>
+                                  <span class="template-config-option__desc">Main campaign with dependent sub-campaigns</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-campaign-structure" value="timeline" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Timeline</span>
+                                  <span class="template-config-option__desc">Sequential campaigns over time periods</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-campaign-structure" value="lifecycle" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Lifecycle</span>
+                                  <span class="template-config-option__desc">Stage-based campaigns for customer lifecycle</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-campaign-structure" value="ab-test" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">A/B test</span>
+                                  <span class="template-config-option__desc">Test different approaches with similar audiences</span>
+                                </div>
+                              </label>
+                            </div>
+                          </div>
+                          <div style="margin-top:14px;text-align:right;">
+                            <button class="btn btn--primary btn--sm" id="ssp-confirm-promotion">Confirm</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Action-based -->
+                      <div class="structure-card" data-type="action">
+                        <div class="structure-card__summary">
+                          <span class="structure-card__title">Action-based campaign</span>
+                          <div class="structure-card__tags">
+                            <span class="tag">DashPass signup</span>
+                            <span class="tag">Milestone reward</span>
+                            <span class="tag">Partnership signup</span>
+                          </div>
+                        </div>
+                        <div class="structure-card__expanded" style="display:none;">
+                          <p class="structure-card__desc">Sequential campaigns triggered by user actions like sign-ups, milestones, or events.</p>
+                        </div>
+                        <!-- Config: Action-based (inline with card) -->
+                        <div class="structure-config" id="ssp-config-action" style="display:none;">
+                          <div class="create-field">
+                            <label class="create-field__label">Number of action steps</label>
+                            <input type="number" class="create-field__input" id="ssp-action-steps" value="2" min="2" max="10" style="max-width:120px;" />
+                            <span class="create-field__hint">Sequential actions in the customer journey (2–10)</span>
+                          </div>
+                          <div class="create-field" style="margin-top:14px;">
+                            <label class="create-field__label">Journey type</label>
+                            <div class="template-config-options">
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-journey-type" value="before-after" checked />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Before/After</span>
+                                  <span class="template-config-option__desc">Campaigns triggered before and after key actions</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-journey-type" value="parent-child" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Parent &amp; Child</span>
+                                  <span class="template-config-option__desc">Main campaign with dependent sub-campaigns</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-journey-type" value="timeline" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Timeline</span>
+                                  <span class="template-config-option__desc">Sequential campaigns over time periods</span>
+                                </div>
+                              </label>
+                              <label class="template-config-option">
+                                <input type="radio" name="ssp-journey-type" value="challenge" />
+                                <div class="template-config-option__content">
+                                  <span class="template-config-option__title">Challenge</span>
+                                  <span class="template-config-option__desc">Gamified campaigns with progressive rewards</span>
+                                </div>
+                              </label>
+                            </div>
+                          </div>
+                          <div style="margin-top:14px;text-align:right;">
+                            <button class="btn btn--primary btn--sm" id="ssp-confirm-action">Confirm</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div><!-- end structure-option-list -->
+
+                    <div style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;">
+                      <button class="ts-chat-back-btn" id="structure-select-back-btn">← Back</button>
+                      <button class="btn btn--primary" id="structure-apply-btn">Apply structure</button>
+                    </div>
+                  </div>
+
+                  <!-- Inline chat panel (shown when "Chat about it" clicked) -->
+                  <div class="ts-inline-chat" id="chat-panel" style="display: none;">
+                    <div class="ts-inline-chat__header">
+                      <button class="ts-chat-back-btn" id="chat-back-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg>
+                        Back
+                      </button>
+                      <span class="ts-inline-chat__title">✦ AI Assistant</span>
+                    </div>
+                    <div class="ts-chat-messages" id="chat-messages">
+                      <div class="ts-chat-message ts-chat-message--ai">
+                        <p>What would you like to change about this campaign structure?</p>
+                      </div>
+                    </div>
+                    <div class="ts-chat-input-row">
+                      <textarea class="ts-chat-input" id="ts-chat-input" placeholder="Describe a change…" rows="2"></textarea>
+                      <button class="ts-chat-send-btn" id="chat-send-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/></svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Incentive config panel (shown after Apply structure) -->
+                  <div class="incentive-config-panel" id="incentive-config-panel" style="display:none;">
+                    <div class="incentive-config-header">
+                      <button class="ts-chat-back-btn" id="incentive-back-btn">← Back</button>
+                      <span class="incentive-config-title">Incentive Configuration</span>
+                    </div>
+
+                    <div class="incentive-section">
+                      <h3 class="incentive-section__title">Reward Configuration</h3>
+                      <div class="incentive-row">
+                        <div class="incentive-field">
+                          <label class="incentive-label">Reward Type <span class="incentive-required">*</span></label>
+                          <select class="incentive-input incentive-select">
+                            <option value="">Select reward type</option>
+                            <option value="percentage">Percentage off</option>
+                            <option value="dollar">Dollar off</option>
+                            <option value="free-delivery">Free delivery</option>
+                            <option value="bogo">Buy one get one</option>
+                          </select>
+                        </div>
+                        <div class="incentive-field">
+                          <label class="incentive-label">Discount Value <span class="incentive-required">*</span></label>
+                          <input class="incentive-input" type="text" placeholder="e.g., 20 or 10.00" />
+                          <span class="incentive-hint">Enter percentage or dollar amount</span>
+                        </div>
+                      </div>
+                      <div class="incentive-row">
+                        <div class="incentive-field">
+                          <label class="incentive-label">Minimum Order Value</label>
+                          <input class="incentive-input" type="number" placeholder="0.00" step="0.01" min="0" />
+                        </div>
+                        <div class="incentive-field">
+                          <label class="incentive-label">Maximum Discount Cap</label>
+                          <input class="incentive-input" type="text" placeholder="No cap" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="incentive-section">
+                      <h3 class="incentive-section__title">Eligibility &amp; Limits</h3>
+                      <div class="incentive-row">
+                        <div class="incentive-field">
+                          <label class="incentive-label">Usage Limit per User</label>
+                          <input class="incentive-input" type="text" placeholder="Unlimited" />
+                        </div>
+                        <div class="incentive-field">
+                          <label class="incentive-label">Total Usage Limit</label>
+                          <input class="incentive-input" type="text" placeholder="Unlimited" />
+                        </div>
+                      </div>
+                      <div class="incentive-row">
+                        <div class="incentive-field">
+                          <label class="incentive-label">Start Date &amp; Time <span class="incentive-required">*</span></label>
+                          <input class="incentive-input" type="datetime-local" />
+                        </div>
+                        <div class="incentive-field">
+                          <label class="incentive-label">End Date &amp; Time <span class="incentive-required">*</span></label>
+                          <input class="incentive-input" type="datetime-local" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="incentive-section">
+                      <h3 class="incentive-section__title">Advanced Settings</h3>
+                      <div class="incentive-field" style="margin-bottom:12px;">
+                        <label class="incentive-label">Stackable with other promotions?</label>
+                        <div class="incentive-radios">
+                          <label class="incentive-radio-label"><input type="radio" name="stackable" value="yes" /> Yes</label>
+                          <label class="incentive-radio-label"><input type="radio" name="stackable" value="no" checked /> No</label>
+                        </div>
+                      </div>
+                      <div class="incentive-field">
+                        <label class="incentive-label">Promo Code (optional)</label>
+                        <input class="incentive-input" type="text" placeholder="e.g., SUMMER20" />
+                        <span class="incentive-hint">Leave blank for auto-apply promotions</span>
+                      </div>
+                    </div>
+
+                    <div class="incentive-footer">
+                      <button class="btn btn--outlined" id="incentive-back-btn2">Back</button>
+                      <button class="btn btn--primary" id="incentive-save-btn">Save &amp; Continue</button>
+                    </div>
+                  </div>
+
+                </div><!-- end ts-confirm-col -->
+              </div><!-- end ts-main-layout -->
+
+              <!-- Hidden radio inputs kept for JS compatibility (promotion pre-selected) -->
+              <div style="display:none;">
+                <input type="radio" name="template" value="single" class="template-option__radio" />
+                <input type="radio" name="template" value="promotion" class="template-option__radio" checked />
+                <input type="radio" name="template" value="action" class="template-option__radio" />
+                <div id="template-config-section">
+                  <div id="config-promotion"></div>
+                  <div id="config-action"></div>
+                </div>
+              </div>
+
+              <!-- Hidden continue button triggered programmatically by Yes -->
+              <div style="display:none;">
+                <button class="btn btn--primary template-selection__continue">Continue</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Campaign Updated View (shown after AI chat edit is confirmed) -->
+        <div class="template-selection-view template-selection-view--scrollable" id="campaign-updated-view" style="display: none;">
+          <div class="template-selection-container">
+            <div class="template-selection-content">
+
+              <div class="template-selection__header">
+                <div class="edit-confirmed-badge">✓ Edit applied</div>
+                <h1 class="template-selection__title">Here's your updated campaign structure</h1>
+                <p class="template-selection__description">Removed <strong>Spotlight</strong> and <strong>Hub</strong> from <strong>Child 1</strong> only. Child 1 will now use <strong>USI · Email · Push</strong>.</p>
+              </div>
+
+              <div class="hierarchy-diagram">
+                <div class="hierarchy-parent">
+                  <div class="hierarchy-parent__header">
+                    <span class="hierarchy-node-label">Parent</span>
+                    <span class="hierarchy-parent__title">New sign-ups — past 45 days, 0 orders</span>
+                  </div>
+                  <div class="campaign-meta-row">
+                    <div class="campaign-meta-item">
+                      <span class="campaign-meta-label">Promo</span>
+                      <span class="campaign-meta-value">40% off</span>
+                      <span class="campaign-meta-sub">Up to $12 · Min $12</span>
+                    </div>
+                    <div class="campaign-meta-divider"></div>
+                    <div class="campaign-meta-item">
+                      <span class="campaign-meta-label">Targeting</span>
+                      <div class="campaign-meta-pills">
+                        <span class="targeting-pill">Signed up last 45 days</span>
+                        <span class="targeting-pill">0 orders to date</span>
+                      </div>
+                    </div>
+                    <div class="campaign-meta-divider"></div>
+                    <div class="campaign-meta-item">
+                      <span class="campaign-meta-label">Channels</span>
+                      <div class="campaign-meta-pills">
+                        <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
+                        <span class="placement-tag">Email</span>
+                        <span class="placement-tag">Push</span>
+                        <span class="placement-tag">Hub</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hierarchy-children-row">
+                    <div class="hierarchy-child">
+                      <div class="hierarchy-child__header">
+                        <span class="hierarchy-node-label hierarchy-node-label--child">Child 1</span>
+                        <span class="hierarchy-child__title">Multi-account customers</span>
+                      </div>
+                      <div class="campaign-meta-col">
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Promo</span>
+                          <span class="campaign-meta-value">20% off · Up to $8 · Min $15</span>
+                        </div>
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Targeting</span>
+                          <span class="targeting-pill">+ Multiple accounts</span>
+                        </div>
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Channels</span>
+                          <div class="campaign-meta-pills">
+                            <span class="placement-tag placement-tag--removed">Spotlight</span>
+                            <span class="placement-tag">USI</span>
+                            <span class="placement-tag">Email</span>
+                            <span class="placement-tag">Push</span>
+                            <span class="placement-tag placement-tag--removed">Hub</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hierarchy-child">
+                      <div class="hierarchy-child__header">
+                        <span class="hierarchy-node-label hierarchy-node-label--child">Child 2</span>
+                        <span class="hierarchy-child__title">Hot markets</span>
+                      </div>
+                      <div class="campaign-meta-col">
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Promo</span>
+                          <span class="campaign-meta-value">50% off · Up to $15 · Min $15</span>
+                        </div>
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Targeting</span>
+                          <div class="campaign-meta-pills">
+                            <span class="targeting-pill">+ Hot market</span>
+                            <span class="targeting-pill targeting-pill--market">NY</span>
+                            <span class="targeting-pill targeting-pill--market">SF</span>
+                            <span class="targeting-pill targeting-pill--market">LA</span>
+                          </div>
+                        </div>
+                        <div class="campaign-meta-item--inline">
+                          <span class="campaign-meta-label">Channels</span>
+                          <div class="campaign-meta-pills">
+                            <span class="placement-tag">Spotlight</span>
+                            <span class="placement-tag">USI</span>
+                            <span class="placement-tag">Email</span>
+                            <span class="placement-tag">Push</span>
+                            <span class="placement-tag">Hub</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="hierarchy-fallback-note">↑ Customers not matched by either child campaign will fall to the parent.</p>
+                </div>
+              </div>
+
+              <div class="updated-view-footer">
+                <button class="btn btn--outlined" id="updated-make-changes-btn">✦ Make more changes</button>
+                <button class="btn btn--primary" id="updated-continue-btn">Looks good, continue →</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Setup View (shown when "Set up manually" clicked) -->
+        <div class="template-selection-view template-selection-view--scrollable" id="manual-setup-view" style="display: none;">
+          <div class="template-selection-container">
+            <div class="template-selection-content">
+
+              <div class="template-selection__header">
+                <h1 class="template-selection__title">What type of campaign would you like to create?</h1>
+                <p class="template-selection__description">Choose a structure to get started.</p>
+              </div>
+
               <div class="template-section">
                 <div class="template-options">
-                  <!-- Single Campaign Option -->
+
+                  <!-- Single Campaign -->
                   <label class="template-option">
-                    <input type="radio" name="template" value="single" class="template-option__radio" checked />
+                    <input type="radio" name="manual-template" value="single" class="manual-template-radio" checked />
                     <div class="template-option__card">
                       <div class="template-option__icon">
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -207,10 +794,7 @@
                         </svg>
                       </div>
                       <div class="template-option__content">
-                        <div class="template-option__header">
-                          <h3 class="template-option__title">Single Campaign</h3>
-                          <span class="tag tag--positive-subdued">Auto-detected</span>
-                        </div>
+                        <h3 class="template-option__title">Single Campaign</h3>
                         <p class="template-option__desc">Create one campaign with a single set of targeting, offers, and placements.</p>
                         <div class="template-option__tags">
                           <span class="tag">One-time promo</span>
@@ -220,9 +804,9 @@
                     </div>
                   </label>
 
-                  <!-- Multiple Promotion Campaigns Option -->
+                  <!-- Multiple Promotion Campaigns -->
                   <label class="template-option">
-                    <input type="radio" name="template" value="promotion" class="template-option__radio" />
+                    <input type="radio" name="manual-template" value="promotion" class="manual-template-radio" />
                     <div class="template-option__card">
                       <div class="template-option__icon">
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -242,9 +826,9 @@
                     </div>
                   </label>
 
-                  <!-- Multiple Action-Based Campaigns Option -->
+                  <!-- Multiple Action-Based Campaigns -->
                   <label class="template-option">
-                    <input type="radio" name="template" value="action" class="template-option__radio" />
+                    <input type="radio" name="manual-template" value="action" class="manual-template-radio" />
                     <div class="template-option__card">
                       <div class="template-option__icon">
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -264,42 +848,41 @@
                       </div>
                     </div>
                   </label>
+
                 </div>
               </div>
 
-              <!-- Inline Configuration Section (shown when multiple campaigns selected) -->
-              <div class="template-config-section" id="template-config-section" style="display: none;">
+              <!-- Inline config (expands on radio change) -->
+              <div class="template-config-section" id="manual-config-section" style="display: none;">
                 <div class="template-config-container">
                   <h3 class="template-config__title">Configure your campaigns</h3>
                   <p class="template-config__subtitle">Set up the structure for your multiple campaigns</p>
 
-                  <!-- Multiple Promotion Configuration -->
-                  <div class="template-config-content" id="config-promotion" style="display: none;">
+                  <div class="template-config-content" id="manual-config-promotion" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of campaigns</label>
-                      <input type="number" class="create-field__input" id="campaign-count" value="3" min="2" max="10" />
-                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2-10)</span>
+                      <input type="number" class="create-field__input" value="3" min="2" max="10" />
+                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2–10)</span>
                     </div>
-
                     <div class="create-field">
                       <label class="create-field__label">Campaign structure</label>
                       <div class="template-config-options">
                         <label class="template-config-option">
-                          <input type="radio" name="campaign-structure" value="tiered" checked />
+                          <input type="radio" name="manual-campaign-structure" value="tiered" checked />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">Tiered offers</span>
                             <span class="template-config-option__desc">Bronze, Silver, Gold tiers with increasing benefits</span>
                           </div>
                         </label>
                         <label class="template-config-option">
-                          <input type="radio" name="campaign-structure" value="sequential" />
+                          <input type="radio" name="manual-campaign-structure" value="sequential" />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">Sequential timeline</span>
                             <span class="template-config-option__desc">Week 1, Week 2, Week 3 rolling campaigns</span>
                           </div>
                         </label>
                         <label class="template-config-option">
-                          <input type="radio" name="campaign-structure" value="ab-test" />
+                          <input type="radio" name="manual-campaign-structure" value="ab-test" />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">A/B test variants</span>
                             <span class="template-config-option__desc">Test different approaches with similar audiences</span>
@@ -309,33 +892,31 @@
                     </div>
                   </div>
 
-                  <!-- Multiple Action-Based Configuration -->
-                  <div class="template-config-content" id="config-action" style="display: none;">
+                  <div class="template-config-content" id="manual-config-action" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of action steps</label>
-                      <input type="number" class="create-field__input" id="action-steps-count" value="2" min="2" max="10" />
-                      <span class="create-field__hint">How many sequential actions in the customer journey (2-10)</span>
+                      <input type="number" class="create-field__input" value="2" min="2" max="10" />
+                      <span class="create-field__hint">How many sequential actions in the customer journey (2–10)</span>
                     </div>
-
                     <div class="create-field">
                       <label class="create-field__label">Journey type</label>
                       <div class="template-config-options">
                         <label class="template-config-option">
-                          <input type="radio" name="journey-type" value="signup" checked />
+                          <input type="radio" name="manual-journey-type" value="signup" checked />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">Sign-up incentive flow</span>
                             <span class="template-config-option__desc">Reward users for completing registration steps</span>
                           </div>
                         </label>
                         <label class="template-config-option">
-                          <input type="radio" name="journey-type" value="milestone" />
+                          <input type="radio" name="manual-journey-type" value="milestone" />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">Milestone rewards</span>
                             <span class="template-config-option__desc">Unlock benefits after reaching activity thresholds</span>
                           </div>
                         </label>
                         <label class="template-config-option">
-                          <input type="radio" name="journey-type" value="custom" />
+                          <input type="radio" name="manual-journey-type" value="custom" />
                           <div class="template-config-option__content">
                             <span class="template-config-option__title">Custom action sequence</span>
                             <span class="template-config-option__desc">Define your own specific trigger and reward flow</span>
@@ -348,8 +929,9 @@
               </div>
 
               <div class="template-selection-footer">
-                <button class="btn btn--primary template-selection__continue">Continue</button>
+                <button class="btn btn--primary manual-continue-btn">Continue</button>
               </div>
+
             </div>
           </div>
         </div>
