@@ -80,6 +80,94 @@
   flex-shrink: 0;
 }
 
+/* Icon-Only Collapsed Sidebar */
+.side-nav--icon-only {
+  position: fixed;
+  left: 0;
+  top: 64px;
+  bottom: 0;
+  width: 56px;
+  min-width: 56px;
+  max-width: 56px;
+  box-sizing: border-box;
+  background-color: white;
+  border-right: 1px solid #e7e7e7;
+  transition: all 0.2s ease;
+  z-index: 100;
+  overflow: hidden;
+  padding: 16px 8px;
+}
+
+.side-nav--icon-only:hover {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.side-nav--icon-only .side-nav-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: #6B7280;
+}
+
+.side-nav--icon-only:hover .side-nav-item {
+  width: 184px;
+}
+
+.side-nav--icon-only .side-nav-item span {
+  opacity: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.side-nav--icon-only:hover .side-nav-item span {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.side-nav--icon-only .side-nav-item:hover {
+  background-color: #f6f7f8;
+  color: #191919;
+}
+
+.side-nav--icon-only .side-nav-item--active {
+  background-color: #ecfcfc;
+  color: #00838a;
+}
+
+.side-nav--icon-only .side-nav-item--active .icon {
+  color: #00838a;
+}
+
+.side-nav--icon-only .icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Main content area with icon-only sidebar */
+.detail-main {
+  padding: 32px 170px 200px 170px;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-left: 56px;
+  transition: margin-left 0.2s ease;
+}
+
 /* Expandable Side Nav Item */
 .side-nav-item--expandable {
   justify-content: space-between;
