@@ -675,3 +675,388 @@
   flex-shrink: 0;
   opacity: 0.7;
 }
+
+/* ==========================================
+   Confirm Campaign Structure Page Styles
+   ========================================== */
+
+/* Main content full width for wizard */
+.main-content--full-width {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 88px 48px 120px;
+  box-sizing: border-box;
+}
+
+.main-content--full-width .program-section__title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #191919;
+  margin: 0 0 32px 0;
+  letter-spacing: -0.01px;
+}
+
+/* Campaign Section Label */
+.campaign-section-label {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #191919;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01px;
+}
+
+/* Parent Campaign Card */
+.parent-campaign-card {
+  background: white;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  min-height: 120px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.parent-campaign-card__header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.parent-campaign-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #111318;
+  margin: 0;
+  letter-spacing: -0.01px;
+}
+
+.parent-campaign-card__actions {
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parent-campaign-card__fields {
+  position: absolute;
+  top: 52px;
+  left: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.parent-campaign-field {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+
+.parent-campaign-field__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 81px;
+}
+
+.parent-campaign-field__content--wide {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.parent-campaign-field-label {
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6c707a;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+.parent-campaign-field-value {
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #494949;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+.field-divider-vertical {
+  width: 1px;
+  height: 44px;
+  background-color: #e7e7e7;
+  flex-shrink: 0;
+}
+
+.placement-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.placement-tag {
+  font-family: 'TT Norms', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  background-color: #f1f1f1;
+  color: #191919;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+.btn-outline-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: white;
+  color: #111318;
+  border: 1px solid #d3d6d9;
+  border-radius: 8px;
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 32px;
+  min-height: 32px;
+}
+
+.btn-outline-small:hover {
+  background-color: #f6f7f8;
+  border-color: #b8bcc4;
+}
+
+/* Sub-Campaigns Section */
+.sub-campaigns-section {
+  margin-bottom: 32px;
+  background: #f6f7f8;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.sub-campaigns-header {
+  font-size: 14px;
+  font-weight: 700;
+  color: #191919;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sub-campaigns-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: #606060;
+  background: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.sub-campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.sub-campaign-card {
+  background: white;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  min-height: 108px;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.sub-campaign-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-color: #c0c0c0;
+}
+
+.sub-campaign-card__header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sub-campaign-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #111318;
+  margin: 0;
+  letter-spacing: -0.01px;
+}
+
+.sub-campaign-card__actions {
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sub-campaign-card__fields {
+  position: absolute;
+  top: 52px;
+  left: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.sub-campaign-field {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+
+.sub-campaign-field__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 81px;
+}
+
+.sub-campaign-field__content--wide {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.sub-campaign-divider {
+  width: 1px;
+  height: 44px;
+  background-color: #e7e7e7;
+  flex-shrink: 0;
+}
+
+.sub-campaign-label {
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6c707a;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+.sub-campaign-value {
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #494949;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+/* Progress Bar Container */
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress-bar-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-bar-step {
+  width: 32px;
+  height: 4px;
+  background-color: #f1f1f1;
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.progress-bar-step--completed {
+  background-color: #191919;
+}
+
+.progress-bar-step--active {
+  background-color: #191919;
+}
+
+.progress-bar-step--disabled {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+.progress-bar-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #494949;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+}
+
+/* Button styles for actions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.01px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  border: none;
+}
+
+.btn--primary {
+  background-color: #00838a;
+  color: white;
+}
+
+.btn--primary:hover {
+  background-color: #00666d;
+}
+
+.btn--outlined {
+  background-color: white;
+  color: #111318;
+  border: 1px solid #d3d6d9;
+}
+
+.btn--outlined:hover {
+  background-color: #f6f7f8;
+  border-color: #b8bcc4;
+}

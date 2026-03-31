@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>National NPWS Program - MegaTool</title>
-  <link rel="stylesheet" href="styles.css?v=35">
-  <link rel="stylesheet" href="program-detail-v2-styles.css?v=1774292162">
+  <title>Confirm Campaign Structure - MegaTool</title>
+  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="programs-styles.css?v=202603311">
 </head>
 <body>
   <!-- SVG Icon Sprite - Prism Icons -->
@@ -96,12 +96,12 @@
             <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
           </svg>
         </div>
-        <span class="global-nav__title">Marketing Program Center</span>
+        <span class="global-nav__title">MegaTool</span>
       </div>
       <!-- Progress Bar -->
       <div class="progress-bar-container" id="progress-bar-container">
         <div class="progress-bar-steps">
-          <a href="create-program.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
+          <a href="campaign-builder.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
           <a href="#step2" class="progress-bar-step progress-bar-step--active" data-step="2"></a>
           <a href="#step3" class="progress-bar-step progress-bar-step--disabled" data-step="3"></a>
         </div>
@@ -352,54 +352,14 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="action-buttons">
-          <button class="btn btn--secondary" id="back-to-step1">Back</button>
-          <button class="btn btn--primary" id="continue-to-segmentation">Next</button>
+        <div style="margin-top: 48px; display: flex; gap: 12px; justify-content: flex-end;">
+          <button class="btn btn--outlined" onclick="window.location.href='campaign-builder.html'">Back</button>
+          <button class="btn btn--primary" onclick="alert('Proceeding to next step...')">Continue</button>
         </div>
-      </main>
-    </div>
 
-    <!-- AI Chat Panel -->
-    <aside class="ai-chat-panel" id="aiChatPanel">
-      <div class="ai-chat-panel__header">
-        <h2 class="ai-chat-panel__title">AskAI</h2>
-        <button class="btn-icon btn-icon--small" id="closeAiPanel" title="Close AI Chat">
-          <svg class="icon" width="20" height="20" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
-          </svg>
-        </button>
-      </div>
-      <div class="ai-chat-panel__body">
-        <div class="ai-suggestions">
-          <button class="ai-suggestion-btn">
-            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
-            Identify top performing cities
-          </button>
-          <button class="ai-suggestion-btn">
-            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
-            Compare campaign variants
-          </button>
-          <button class="ai-suggestion-btn">
-            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
-            Export campaign data
-          </button>
-        </div>
-      </div>
-
-      <!-- Chat Input -->
-      <div class="ai-chat-panel__input">
-        <div class="ai-chat-panel__input-wrapper">
-          <input type="text" class="ai-chat-panel__input-field" placeholder="Ask a question...">
-          <button class="ai-chat-panel__input-submit">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 19V5M5 12l7-7 7 7"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </aside>
+    </main>
   </div>
 
-  <script src="confirm-campaign-structure-scripts.js"></script>
+  <script src="scripts.js?v=8"></script>
 </body>
 </html>
