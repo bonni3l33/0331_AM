@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirm Campaign Structure - MegaTool</title>
-  <link rel="stylesheet" href="styles.css?v=8">
-  <link rel="stylesheet" href="programs-styles.css?v=202603311">
+  <title>National NPWS Program - MegaTool</title>
+  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="program-detail-v2-styles.css?v=1774292162">
 </head>
 <body>
   <!-- SVG Icon Sprite - Prism Icons -->
@@ -101,7 +101,7 @@
       <!-- Progress Bar -->
       <div class="progress-bar-container" id="progress-bar-container">
         <div class="progress-bar-steps">
-          <a href="campaign-builder.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
+          <a href="create-program.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
           <a href="#step2" class="progress-bar-step progress-bar-step--active" data-step="2"></a>
           <a href="#step3" class="progress-bar-step progress-bar-step--disabled" data-step="3"></a>
         </div>
@@ -352,14 +352,54 @@
         </div>
 
         <!-- Action Buttons -->
-        <div style="margin-top: 48px; display: flex; gap: 12px; justify-content: flex-end;">
-          <button class="btn btn--outlined" onclick="window.location.href='campaign-builder.html'">Back</button>
-          <button class="btn btn--primary" onclick="alert('Proceeding to next step...')">Continue</button>
+        <div class="action-buttons">
+          <button class="btn btn--secondary" id="back-to-step1">Back</button>
+          <button class="btn btn--primary" id="continue-to-segmentation">Next</button>
         </div>
+      </main>
+    </div>
 
-    </main>
+    <!-- AI Chat Panel -->
+    <aside class="ai-chat-panel" id="aiChatPanel">
+      <div class="ai-chat-panel__header">
+        <h2 class="ai-chat-panel__title">AskAI</h2>
+        <button class="btn-icon btn-icon--small" id="closeAiPanel" title="Close AI Chat">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="ai-chat-panel__body">
+        <div class="ai-suggestions">
+          <button class="ai-suggestion-btn">
+            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
+            Identify top performing cities
+          </button>
+          <button class="ai-suggestion-btn">
+            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
+            Compare campaign variants
+          </button>
+          <button class="ai-suggestion-btn">
+            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-ai-chat"/></svg>
+            Export campaign data
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="ai-chat-panel__input">
+        <div class="ai-chat-panel__input-wrapper">
+          <input type="text" class="ai-chat-panel__input-field" placeholder="Ask a question...">
+          <button class="ai-chat-panel__input-submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <script src="scripts.js?v=8"></script>
+  <script src="confirm-campaign-structure-scripts.js"></script>
 </body>
 </html>
