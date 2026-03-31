@@ -4,21 +4,21 @@ A campaign management prototype for managing promotional campaigns and merchandi
 
 ## Live Demo
 
-Your GitHub Page is now live at: https://bonni3l33.github.io/0330_PM/
+Your GitHub Page is now live at: https://bonni3l33.github.io/0331_AM/
 
-**AI Campaign Creation Views**: https://bonni3l33.github.io/0330_PM/
+**AI Campaign Creation Views**: https://bonni3l33.github.io/0331_AM/
 
 ### Program Management Views
 
 **Programs Overview**
-- https://bonni3l33.github.io/0330_PM/programs.html
+- https://bonni3l33.github.io/0331_AM/programs.html
 
 **Program Detail Pages**
-- **NPWS (National Program)**: https://bonni3l33.github.io/0330_PM/program-detail-v2.html
-- **Ulta Partnership**: https://bonni3l33.github.io/0330_PM/program-detail-ulta.html
-- **Lifecycle Resurrection**: https://bonni3l33.github.io/0330_PM/program-detail-lifecycle.html
-- **Signup AI Evergreen**: https://bonni3l33.github.io/0330_PM/program-detail-signup-ai.html
-- **Summer of Dashpass**: https://bonni3l33.github.io/0330_PM/program-detail-sodp.html
+- **NPWS (National Program)**: https://bonni3l33.github.io/0331_AM/program-detail-v2.html
+- **Ulta Partnership**: https://bonni3l33.github.io/0331_AM/program-detail-ulta.html
+- **Lifecycle Resurrection**: https://bonni3l33.github.io/0331_AM/program-detail-lifecycle.html
+- **Signup AI Evergreen**: https://bonni3l33.github.io/0331_AM/program-detail-signup-ai.html
+- **Summer of Dashpass**: https://bonni3l33.github.io/0331_AM/program-detail-sodp.html
 
 ## Overview
 
@@ -73,8 +73,8 @@ bonnie-prototype/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/bonni3l33/0330_PM.git
-cd 0330_PM
+git clone https://github.com/bonni3l33/0331_AM.git
+cd 0331_AM
 ```
 
 2. Open directly in browser:
@@ -141,7 +141,7 @@ chmod +x .git/hooks/pre-commit
 ### Trigger Manual Build
 
 ```bash
-gh api repos/bonni3l33/0330_PM/pages/builds -X POST
+gh api repos/bonni3l33/0331_AM/pages/builds -X POST
 ```
 
 ## Branching Strategy
@@ -216,7 +216,7 @@ Note: View Transitions API requires modern browser support or graceful fallback 
 
 ## Repository
 
-**GitHub**: https://github.com/bonni3l33/0330_PM
+**GitHub**: https://github.com/bonni3l33/0331_AM
 
 ---
 
