@@ -83,4 +83,22 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('AI Suggestion: ' + suggestionText + '\n\nThis would be sent to the AI chat interface.');
     });
   });
+
+  // User Journeys Expandable Menu
+  const userJourneysToggle = document.getElementById('userJourneysToggle');
+  const userJourneysNested = document.getElementById('userJourneysNested');
+
+  if (userJourneysToggle && userJourneysNested) {
+    userJourneysToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Toggle expanded class on button
+      this.classList.toggle('expanded');
+
+      // Toggle show class on nested container
+      userJourneysNested.classList.toggle('show');
+
+      console.log('User Journeys expanded:', this.classList.contains('expanded'));
+    });
+  }
 });
