@@ -4,9 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Promo and Merch Manager</title>
-  <link rel="stylesheet" href="styles.css?v=8">
-  <link rel="stylesheet" href="programs-styles.css?v=202603311">
+  <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="stylesheet" href="programs-styles.css?v=202603315">
   <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    /* Edit mode toggle styles */
+    .hierarchy-diagram[data-edit-mode="false"] .field-edit-mode {
+      display: none !important;
+    }
+
+    .hierarchy-diagram[data-edit-mode="true"] .field-view-mode {
+      display: none !important;
+    }
+
+    .hierarchy-diagram[data-edit-mode="true"] .field-edit-mode {
+      display: block !important;
+    }
+
+    /* Ensure toggle chips wrap properly in edit mode */
+    .hierarchy-diagram[data-edit-mode="true"] .toggle-chips-group--wrap {
+      display: flex !important;
+    }
+  </style>
 </head>
 <body>
   <!-- SVG Icon Sprite -->
@@ -283,52 +302,80 @@
         <!-- Template Selection View -->
         <div class="template-selection-view template-selection-view--scrollable" id="template-selection-view" style="display: none;">
           <div class="template-selection-container">
-            <div class="template-selection-content">
+            <div class="template-selection-content" id="campaign-structure-view">
 
-              <div class="template-selection__header">
-                <h1 class="template-selection__title">What type of campaign would you like to create?</h1>
-                <p class="template-selection__description" id="ts-header-desc">Based on your brief, we think you want to create <strong>1 parent + 2 children campaigns</strong>.</p>
-              </div>
+              <h1 class="template-selection-header">Campaign Setup</h1>
 
               <!-- Recommendation banner (full width) -->
               <div class="recommendation-banner">
-                <span class="recommendation-banner__icon">✦</span>
+                <svg class="recommendation-banner__icon" width="16" height="16">
+                  <use href="#icon-sparkle"/>
+                </svg>
                 <p>We detected a parent-children structure: 1 parent campaign with 2 children targeting subsets of the parent audience.</p>
               </div>
 
-              <!-- Two-column: diagram left, confirmation/chat right -->
-              <div class="ts-main-layout">
-                <div class="ts-diagram-col">
-                  <div class="hierarchy-diagram">
+              <!-- Campaign Structure Diagram -->
+                  <div class="hierarchy-diagram" id="hierarchy-diagram" data-edit-mode="false">
                     <div class="hierarchy-parent">
 
                       <div class="hierarchy-parent__header">
-                        <span class="hierarchy-node-label">Parent</span>
-                        <span class="hierarchy-parent__title">New sign-ups — past 45 days, 0 orders</span>
+                        <div class="hierarchy-parent__header-left">
+                          <span class="hierarchy-node-label">Parent</span>
+                          <span class="hierarchy-parent__title">New sign-ups — past 45 days, 0 orders</span>
+                        </div>
+                        <div class="hierarchy-edit-actions">
+                          <button class="btn btn--sm btn--tertiary hierarchy-edit-btn" id="edit-campaign-btn">Edit</button>
+                          <div class="hierarchy-save-cancel-group">
+                            <button class="btn btn--sm btn--tertiary" id="cancel-edit-btn">Cancel</button>
+                            <button class="btn btn--sm btn--primary" id="save-edit-btn">Save</button>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="campaign-meta-row">
                         <div class="campaign-meta-item">
                           <span class="campaign-meta-label">Promo</span>
-                          <span class="campaign-meta-value">40% off</span>
-                          <span class="campaign-meta-sub">Up to $12 · Min $12</span>
+                          <!-- View mode -->
+                          <div class="field-view-mode">
+                            <span class="campaign-meta-value" data-field="parent-promo-value">40% off · Up to $12 · Min $12</span>
+                          </div>
+                          <!-- Edit mode -->
+                          <div class="field-edit-mode create-field">
+                            <input type="text" class="form-field__input" data-field="parent-promo-input" value="40% off · Up to $12 · Min $12" placeholder="e.g., 40% off · Up to $12 · Min $12">
+                          </div>
                         </div>
                         <div class="campaign-meta-divider"></div>
                         <div class="campaign-meta-item">
                           <span class="campaign-meta-label">Targeting</span>
-                          <div class="campaign-meta-pills">
+                          <!-- View mode -->
+                          <div class="campaign-meta-pills field-view-mode" data-field="parent-targeting-pills">
                             <span class="targeting-pill">Signed up last 45 days</span>
                             <span class="targeting-pill">0 orders to date</span>
+                          </div>
+                          <!-- Edit mode -->
+                          <div class="field-edit-mode create-field">
+                            <input type="text" class="form-field__input" data-field="parent-targeting-input" value="Signed up last 45 days, 0 orders to date" placeholder="e.g., Signed up last 45 days, 0 orders to date">
                           </div>
                         </div>
                         <div class="campaign-meta-divider"></div>
                         <div class="campaign-meta-item">
                           <span class="campaign-meta-label">Channels</span>
-                          <div class="campaign-meta-pills">
+                          <!-- View mode -->
+                          <div class="campaign-meta-pills field-view-mode" data-field="parent-channels-pills">
                             <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
                             <span class="placement-tag">Email</span>
                             <span class="placement-tag">Push</span>
                             <span class="placement-tag">Hub</span>
+                          </div>
+                          <!-- Edit mode -->
+                          <div class="field-edit-mode toggle-chips-group" data-field="parent-channels-chips">
+                            <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="spotlight">Spotlight</button>
+                            <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="usi">USI</button>
+                            <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="email">Email</button>
+                            <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="push">Push</button>
+                            <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="hub">Hub</button>
+                            <button class="toggle-chip toggle-chip--channel" data-value="sms">SMS</button>
+                            <button class="toggle-chip toggle-chip--channel" data-value="in-app">In-App</button>
                           </div>
                         </div>
                       </div>
@@ -340,21 +387,42 @@
                             <span class="hierarchy-child__title">Multi-account customers</span>
                           </div>
                           <div class="campaign-meta-col">
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Promo</span>
-                              <span class="campaign-meta-value">20% off · Up to $8 · Min $15</span>
+                              <!-- View mode -->
+                              <span class="campaign-meta-value field-view-mode" data-field="child1-promo">20% off · Up to $8 · Min $15</span>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode create-field">
+                                <input type="text" class="form-field__input" data-field="child1-promo-input" value="20% off · Up to $8 · Min $15">
+                              </div>
                             </div>
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Targeting</span>
-                              <span class="targeting-pill">+ Multiple accounts</span>
+                              <!-- View mode -->
+                              <span class="targeting-pill field-view-mode" data-field="child1-targeting-pill">+ Multiple accounts</span>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode create-field">
+                                <input type="text" class="form-field__input" data-field="child1-targeting-input" value="+ Multiple accounts">
+                              </div>
                             </div>
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Channels</span>
-                              <div class="campaign-meta-pills" id="ts-child1-channels">
+                              <!-- View mode -->
+                              <div class="campaign-meta-pills field-view-mode" data-field="child1-channels-pills">
                                 <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
                                 <span class="placement-tag">Email</span>
                                 <span class="placement-tag">Push</span>
                                 <span class="placement-tag">Hub</span>
+                              </div>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode toggle-chips-group toggle-chips-group--wrap" data-field="child1-channels-chips">
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="spotlight">Spotlight</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="usi">USI</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="email">Email</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="push">Push</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="hub">Hub</button>
+                                <button class="toggle-chip toggle-chip--channel" data-value="sms">SMS</button>
+                                <button class="toggle-chip toggle-chip--channel" data-value="in-app">In-App</button>
                               </div>
                             </div>
                           </div>
@@ -366,26 +434,47 @@
                             <span class="hierarchy-child__title">Hot markets</span>
                           </div>
                           <div class="campaign-meta-col">
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Promo</span>
-                              <span class="campaign-meta-value">50% off · Up to $15 · Min $15</span>
+                              <!-- View mode -->
+                              <span class="campaign-meta-value field-view-mode" data-field="child2-promo">50% off · Up to $15 · Min $15</span>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode create-field">
+                                <input type="text" class="form-field__input" data-field="child2-promo-input" value="50% off · Up to $15 · Min $15">
+                              </div>
                             </div>
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Targeting</span>
-                              <div class="campaign-meta-pills">
+                              <!-- View mode -->
+                              <div class="campaign-meta-pills field-view-mode" data-field="child2-targeting-pills">
                                 <span class="targeting-pill">+ Hot market</span>
                                 <span class="targeting-pill targeting-pill--market">NY</span>
                                 <span class="targeting-pill targeting-pill--market">SF</span>
                                 <span class="targeting-pill targeting-pill--market">LA</span>
                               </div>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode create-field">
+                                <input type="text" class="form-field__input" data-field="child2-targeting-input" value="+ Hot market, NY, SF, LA">
+                              </div>
                             </div>
-                            <div class="campaign-meta-item--inline">
+                            <div class="campaign-meta-item--inline campaign-meta-item--stacked">
                               <span class="campaign-meta-label">Channels</span>
-                              <div class="campaign-meta-pills">
+                              <!-- View mode -->
+                              <div class="campaign-meta-pills field-view-mode" data-field="child2-channels-pills">
                                 <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
                                 <span class="placement-tag">Email</span>
                                 <span class="placement-tag">Push</span>
                                 <span class="placement-tag">Hub</span>
+                              </div>
+                              <!-- Edit mode -->
+                              <div class="field-edit-mode toggle-chips-group toggle-chips-group--wrap" data-field="child2-channels-chips">
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="spotlight">Spotlight</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="usi">USI</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="email">Email</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="push">Push</button>
+                                <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="hub">Hub</button>
+                                <button class="toggle-chip toggle-chip--channel" data-value="sms">SMS</button>
+                                <button class="toggle-chip toggle-chip--channel" data-value="in-app">In-App</button>
                               </div>
                             </div>
                           </div>
@@ -395,33 +484,634 @@
                       <p class="hierarchy-fallback-note">↑ Customers not matched by either child campaign will fall to the parent.</p>
                     </div>
                   </div><!-- end hierarchy-diagram -->
-                </div><!-- end ts-diagram-col -->
 
-                <!-- Right: confirmation / chat -->
-                <div class="ts-confirm-col" id="ts-confirm-col">
+            </div><!-- end template-selection-content -->
 
-                  <div class="confirmation-panel" id="confirmation-panel">
-                    <p class="confirmation-question">Does this look right?</p>
-                    <p class="confirmation-subtext">AI generated this structure from your brief. Confirm to proceed or adjust.</p>
-                    <div class="confirmation-actions">
-                      <div style="display:flex;align-items:center;gap:8px;">
-                        <button class="btn btn--primary confirm-yes-btn">Proceed, no changes</button>
-                        <span class="tag tag--wip">WIP</span>
+            <!-- Right: AI Chat -->
+            <div class="ts-confirm-col" id="ts-confirm-col-structure">
+              <div class="ts-chat-content">
+                <div class="ts-chat-conversation">
+                  <div class="ts-chat-message">
+                    <p class="ts-chat-message__text">Let's review the campaign setup from your brief. I'll walk you through the following steps:</p>
+                    <div class="ts-chat-timeline">
+                      <!-- Step 1 -->
+                      <div class="ts-chat-step ts-chat-step--active">
+                        <div class="ts-chat-step__track">
+                          <div class="ts-chat-step__circle ts-chat-step__circle--active">1</div>
+                          <div class="ts-chat-step__line"></div>
+                        </div>
+                        <div class="ts-chat-step__content">
+                          <div class="ts-chat-step__title">Campaign Overview</div>
+                          <div class="ts-chat-step__subtitle">Review structure, segmentation, promotion, and placement</div>
+                        </div>
                       </div>
-                      <button class="btn btn--outlined confirm-no-btn">No, change it</button>
-                    </div>
-                    <div class="confirmation-no-options" id="confirmation-no-options" style="display: none;">
-                      <p class="confirmation-no-label">What would you like to do?</p>
-                      <button class="no-opt-btn" data-no-action="chat">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/></svg>
-                        Chat about it
-                      </button>
-                      <button class="no-opt-btn" data-no-action="manual">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
-                        Update manually
-                      </button>
+                      <!-- Step 2 -->
+                      <div class="ts-chat-step ts-chat-step--last">
+                        <div class="ts-chat-step__track">
+                          <div class="ts-chat-step__circle">2</div>
+                        </div>
+                        <div class="ts-chat-step__content">
+                          <div class="ts-chat-step__title">Detailed Configuration</div>
+                          <div class="ts-chat-step__subtitle">targeting, promo, and placements</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  <div class="ts-chat-message" id="step-context-message">
+                    <p class="ts-chat-message__text">Based on your brief, we think you want to create <strong>1 parent + 2 children campaigns</strong>.</p>
+                  </div>
+
+                  <!-- Question Dialog -->
+                  <div class="ts-chat-question" id="ts-chat-question">
+                    <div class="ts-chat-question__text">Does this look right?</div>
+                    <div class="ts-chat-question__actions">
+                      <button class="btn btn--sm btn--tertiary confirm-no-btn">No, change it</button>
+                      <button class="btn btn--sm btn--tertiary confirm-yes-btn">Looks good</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chat Input -->
+              <div class="ts-chat-input">
+                <div class="ts-chat-input__wrapper">
+                  <input type="text" class="ts-chat-input__field" id="ts-chat-input-field" placeholder="How can i help">
+                  <button class="ts-chat-input__submit" id="ts-chat-submit-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div><!-- end ts-confirm-col -->
+
+          </div><!-- end template-selection-container -->
+
+            <!-- Option A: Detailed Configuration with Inheritance (initially hidden) -->
+            <div class="template-selection-content" id="detailed-configuration-view-a" style="display: none;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                <h1 class="template-selection-header" style="margin: 0;">Campaign Configuration</h1>
+                <button class="btn btn--sm btn--ghost" id="switch-to-option-c">Switch to Comparison View</button>
+              </div>
+
+              <!-- Campaign Tabs -->
+              <div class="campaign-tabs">
+                <button class="campaign-tab campaign-tab--active" data-campaign="parent">
+                  Parent: Summer Retention
+                </button>
+                <button class="campaign-tab" data-campaign="child1">
+                  Child 1: Multi-account customers
+                </button>
+                <button class="campaign-tab" data-campaign="child2">
+                  Child 2: Hot markets
+                </button>
+              </div>
+
+              <!-- Parent Campaign Form -->
+              <div class="campaign-config-form" id="parent-form">
+                <div class="config-section config-section--completed">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">1</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Targeting</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-field-group">
+                      <div class="config-field">
+                        <label class="config-field__label">Audience</label>
+                        <select class="config-field__input">
+                          <option>All customers</option>
+                          <option selected>Multiple accounts</option>
+                          <option>Hot market</option>
+                          <option>New users</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--completed">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">2</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Promotion</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-field-group">
+                      <div class="config-field">
+                        <label class="config-field__label">Discount Type</label>
+                        <select class="config-field__input">
+                          <option selected>Percentage off</option>
+                          <option>Dollar amount off</option>
+                          <option>Free delivery</option>
+                        </select>
+                      </div>
+                      <div class="config-field-row">
+                        <div class="config-field">
+                          <label class="config-field__label">Discount Value</label>
+                          <input type="text" class="config-field__input" value="30% off" />
+                        </div>
+                        <div class="config-field">
+                          <label class="config-field__label">Cap Amount</label>
+                          <input type="text" class="config-field__input" value="$10" />
+                        </div>
+                        <div class="config-field">
+                          <label class="config-field__label">Minimum Order</label>
+                          <input type="text" class="config-field__input" value="$20" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--completed">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">3</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Creative Assets</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-field-group">
+                      <div class="config-field">
+                        <label class="config-field__label">Hero Image</label>
+                        <input type="text" class="config-field__input" value="summer_hero_2026.jpg" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--completed">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">4</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Placement</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-field-group">
+                      <div class="config-field">
+                        <label class="config-field__label">Channels</label>
+                        <div class="config-field__chips">
+                          <span class="chip">Spotlight</span>
+                          <span class="chip">USI</span>
+                          <span class="chip">Email</span>
+                          <span class="chip">Push</span>
+                          <span class="chip">Hub</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Child 1 Campaign Form (with inheritance) -->
+              <div class="campaign-config-form" id="child1-form" style="display: none;">
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">1</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Targeting</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-inherited-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      <span>Same as Parent</span>
+                    </div>
+                    <div class="config-inherited-value">Multiple accounts</div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--customized">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">2</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Promotion</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost">Revert to Parent</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-customized-badge">Customized</div>
+                    <div class="config-field-group">
+                      <div class="config-field">
+                        <label class="config-field__label">Discount Type</label>
+                        <select class="config-field__input">
+                          <option selected>Percentage off</option>
+                          <option>Dollar amount off</option>
+                          <option>Free delivery</option>
+                        </select>
+                      </div>
+                      <div class="config-field-row">
+                        <div class="config-field">
+                          <label class="config-field__label">Discount Value</label>
+                          <input type="text" class="config-field__input" value="20% off" />
+                          <div class="config-field__hint">Parent: 30% off</div>
+                        </div>
+                        <div class="config-field">
+                          <label class="config-field__label">Cap Amount</label>
+                          <input type="text" class="config-field__input" value="$8" />
+                          <div class="config-field__hint">Parent: $10</div>
+                        </div>
+                        <div class="config-field">
+                          <label class="config-field__label">Minimum Order</label>
+                          <input type="text" class="config-field__input" value="$15" />
+                          <div class="config-field__hint">Parent: $20</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">3</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Creative Assets</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-inherited-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      <span>Same as Parent</span>
+                    </div>
+                    <div class="config-inherited-value">summer_hero_2026.jpg</div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">4</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Placement</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-inherited-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      <span>Same as Parent</span>
+                    </div>
+                    <div class="config-inherited-value">
+                      <span class="chip">Spotlight</span>
+                      <span class="chip">USI</span>
+                      <span class="chip">Email</span>
+                      <span class="chip">Push</span>
+                      <span class="chip">Hub</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Child 2 Campaign Form (similar structure) -->
+              <div class="campaign-config-form" id="child2-form" style="display: none;">
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">1</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Targeting</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                  <div class="config-inherited-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                    <span>Same as Parent</span>
+                  </div>
+                  <div class="config-inherited-value">Multiple accounts</div>
+                </div>
+
+                <div class="config-section config-section--customized">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">2</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Promotion</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost">Revert to Parent</button>
+                  </div>
+                  <div class="config-section__content">
+                  <div class="config-customized-badge">Customized</div>
+                  <div class="config-field">
+                    <label class="config-field__label">Discount Type</label>
+                    <select class="config-field__input">
+                      <option selected>Percentage off</option>
+                      <option>Dollar amount off</option>
+                      <option>Free delivery</option>
+                    </select>
+                  </div>
+                  <div class="config-field-row">
+                    <div class="config-field">
+                      <label class="config-field__label">Discount Value</label>
+                      <input type="text" class="config-field__input" value="50% off" />
+                      <div class="config-field__hint">Parent: 30% off</div>
+                    </div>
+                    <div class="config-field">
+                      <label class="config-field__label">Cap Amount</label>
+                      <input type="text" class="config-field__input" value="$15" />
+                      <div class="config-field__hint">Parent: $10</div>
+                    </div>
+                    <div class="config-field">
+                      <label class="config-field__label">Minimum Order</label>
+                      <input type="text" class="config-field__input" value="$15" />
+                      <div class="config-field__hint">Parent: $20</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">3</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Creative Assets</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-inherited-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      <span>Same as Parent</span>
+                    </div>
+                    <div class="config-inherited-value">summer_hero_2026.jpg</div>
+                  </div>
+                </div>
+
+                <div class="config-section config-section--inherited">
+                  <div class="config-section__header">
+                    <div class="config-section__header-left">
+                      <div class="config-section__status config-section__status--active">4</div>
+                      <div class="config-section__title-group">
+                        <h3 class="config-section__title">Placement</h3>
+                      </div>
+                    </div>
+                    <button class="btn btn--xs btn--ghost config-customize-btn">Customize</button>
+                  </div>
+                  <div class="config-section__content">
+                    <div class="config-inherited-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color: #3D8C7F;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      <span>Same as Parent</span>
+                    </div>
+                    <div class="config-inherited-value">
+                      <span class="chip">Spotlight</span>
+                      <span class="chip">USI</span>
+                      <span class="chip">Email</span>
+                      <span class="chip">Push</span>
+                      <span class="chip">Hub</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option C: Comparison Table View (initially hidden) -->
+            <div class="template-selection-content" id="detailed-configuration-view-c" style="display: none;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                <h1 class="template-selection-header" style="margin: 0;">Campaign Configuration</h1>
+                <button class="btn btn--sm btn--ghost" id="switch-to-option-a">Switch to Detail View</button>
+              </div>
+
+              <div class="comparison-table">
+                <div class="comparison-table__header">
+                  <div class="comparison-table__cell comparison-table__cell--field">Field</div>
+                  <div class="comparison-table__cell comparison-table__cell--campaign">
+                    <div class="campaign-label">Parent</div>
+                    <div class="campaign-name">Summer Retention</div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--campaign">
+                    <div class="campaign-label">Child 1</div>
+                    <div class="campaign-name">Multi-account customers</div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--campaign">
+                    <div class="campaign-label">Child 2</div>
+                    <div class="campaign-name">Hot markets</div>
+                  </div>
+                </div>
+
+                <div class="comparison-table__section-header">Targeting</div>
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Audience</div>
+                  <div class="comparison-table__cell">
+                    <input type="text" class="comparison-input" value="Multiple accounts" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comparison-table__section-header">Promotion</div>
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Discount Value</div>
+                  <div class="comparison-table__cell">
+                    <input type="text" class="comparison-input" value="30% off" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="20% off" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="50% off" />
+                  </div>
+                </div>
+
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Cap Amount</div>
+                  <div class="comparison-table__cell">
+                    <input type="text" class="comparison-input" value="$10" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="$8" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="$15" />
+                  </div>
+                </div>
+
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Minimum Order</div>
+                  <div class="comparison-table__cell">
+                    <input type="text" class="comparison-input" value="$20" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="$15" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--custom">
+                    <input type="text" class="comparison-input comparison-input--custom" value="$15" />
+                  </div>
+                </div>
+
+                <div class="comparison-table__section-header">Creative Assets</div>
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Hero Image</div>
+                  <div class="comparison-table__cell">
+                    <input type="text" class="comparison-input" value="summer_hero_2026.jpg" />
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comparison-table__section-header">Placement</div>
+                <div class="comparison-table__row">
+                  <div class="comparison-table__cell comparison-table__cell--field">Channels</div>
+                  <div class="comparison-table__cell">
+                    <div class="config-field__chips">
+                      <span class="chip">Spotlight</span>
+                      <span class="chip">USI</span>
+                      <span class="chip">Email</span>
+                      <span class="chip">Push</span>
+                      <span class="chip">Hub</span>
+                    </div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                  <div class="comparison-table__cell comparison-table__cell--linked">
+                    <div class="linked-indicator">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                      <span>Same</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: confirmation / chat -->
+            <div class="ts-confirm-col" id="ts-confirm-col">
+              <div class="ts-chat-content">
+                <div class="ts-chat-conversation">
+                  <div class="ts-chat-message">
+                    <p class="ts-chat-message__text">Let's review the campaign setup from your brief. I'll walk you through the following steps:</p>
+                    <div class="ts-chat-timeline">
+                      <!-- Step 1 -->
+                      <div class="ts-chat-step ts-chat-step--active">
+                        <div class="ts-chat-step__track">
+                          <div class="ts-chat-step__circle ts-chat-step__circle--active">1</div>
+                          <div class="ts-chat-step__line"></div>
+                        </div>
+                        <div class="ts-chat-step__content">
+                          <div class="ts-chat-step__title">Campaign Overview</div>
+                          <div class="ts-chat-step__subtitle">Review structure, segmentation, promotion, and placement</div>
+                        </div>
+                      </div>
+                      <!-- Step 2 -->
+                      <div class="ts-chat-step ts-chat-step--last">
+                        <div class="ts-chat-step__track">
+                          <div class="ts-chat-step__circle">2</div>
+                        </div>
+                        <div class="ts-chat-step__content">
+                          <div class="ts-chat-step__title">Detailed Configuration</div>
+                          <div class="ts-chat-step__subtitle">targeting, promo, and placements</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ts-chat-message" id="step-context-message">
+                    <p class="ts-chat-message__text">Based on your brief, we think you want to create <strong>1 parent + 2 children campaigns</strong>.</p>
+                  </div>
+
+                  <!-- Question Dialog -->
+                  <div class="ts-chat-question" id="ts-chat-question">
+                    <div class="ts-chat-question__text">Does this look right?</div>
+                    <div class="ts-chat-question__actions">
+                      <button class="btn btn--sm btn--tertiary confirm-no-btn">No, change it</button>
+                      <button class="btn btn--sm btn--tertiary confirm-yes-btn">Looks good</button>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="confirmation-panel" id="confirmation-panel" style="display: none;">
+                    <div class="confirmation-actions">
+                      <div class="confirmation-no-options" id="confirmation-no-options" style="display: none;">
+                        <p class="confirmation-no-label">What would you like to do?</p>
+                        <button class="no-opt-btn" data-no-action="chat">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/></svg>
+                          Chat about it
+                        </button>
+                        <button class="no-opt-btn" data-no-action="manual">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
+                          Update manually
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
 
                   <!-- "Make more changes" options panel -->
                   <div class="change-options-panel" id="change-options-panel" style="display: none;">
@@ -490,7 +1180,7 @@
                         <div class="structure-config" id="ssp-config-promotion" style="display:none;">
                           <div class="create-field">
                             <label class="create-field__label">Number of campaigns</label>
-                            <input type="number" class="create-field__input" id="ssp-campaign-count" value="3" min="2" max="10" style="max-width:120px;" />
+                            <input type="number" class="form-field__input" id="ssp-campaign-count" value="3" min="2" max="10" style="max-width:120px;" />
                             <span class="create-field__hint">Coordinated promotions to run simultaneously (2–10)</span>
                           </div>
                           <div class="create-field" style="margin-top:14px;">
@@ -549,7 +1239,7 @@
                         <div class="structure-config" id="ssp-config-action" style="display:none;">
                           <div class="create-field">
                             <label class="create-field__label">Number of action steps</label>
-                            <input type="number" class="create-field__input" id="ssp-action-steps" value="2" min="2" max="10" style="max-width:120px;" />
+                            <input type="number" class="form-field__input" id="ssp-action-steps" value="2" min="2" max="10" style="max-width:120px;" />
                             <span class="create-field__hint">Sequential actions in the customer journey (2–10)</span>
                           </div>
                           <div class="create-field" style="margin-top:14px;">
@@ -711,25 +1401,33 @@
                     </div>
                   </div>
 
-                </div><!-- end ts-confirm-col -->
-              </div><!-- end ts-main-layout -->
-
-              <!-- Hidden radio inputs kept for JS compatibility (promotion pre-selected) -->
-              <div style="display:none;">
-                <input type="radio" name="template" value="single" class="template-option__radio" />
-                <input type="radio" name="template" value="promotion" class="template-option__radio" checked />
-                <input type="radio" name="template" value="action" class="template-option__radio" />
-                <div id="template-config-section">
-                  <div id="config-promotion"></div>
-                  <div id="config-action"></div>
+              <!-- Chat Input -->
+              <div class="ts-chat-input">
+                <div class="ts-chat-input__wrapper">
+                  <input type="text" class="ts-chat-input__field" id="ts-chat-input-field" placeholder="How can i help">
+                  <button class="ts-chat-input__submit" id="ts-chat-submit-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
+            </div><!-- end ts-confirm-col -->
 
-              <!-- Hidden continue button triggered programmatically by Yes -->
-              <div style="display:none;">
-                <button class="btn btn--primary template-selection__continue">Continue</button>
+            <!-- Hidden radio inputs kept for JS compatibility (promotion pre-selected) -->
+            <div style="display:none;">
+              <input type="radio" name="template" value="single" class="template-option__radio" />
+              <input type="radio" name="template" value="promotion" class="template-option__radio" checked />
+              <input type="radio" name="template" value="action" class="template-option__radio" />
+              <div id="template-config-section">
+                <div id="config-promotion"></div>
+                <div id="config-action"></div>
               </div>
+            </div>
 
+            <!-- Hidden continue button triggered programmatically by Yes -->
+            <div style="display:none;">
+              <button class="btn btn--primary template-selection__continue">Continue</button>
             </div>
           </div>
         </div>
@@ -754,8 +1452,7 @@
                   <div class="campaign-meta-row">
                     <div class="campaign-meta-item">
                       <span class="campaign-meta-label">Promo</span>
-                      <span class="campaign-meta-value">40% off</span>
-                      <span class="campaign-meta-sub">Up to $12 · Min $12</span>
+                      <span class="campaign-meta-value">40% off · Up to $12 · Min $12</span>
                     </div>
                     <div class="campaign-meta-divider"></div>
                     <div class="campaign-meta-item">
@@ -941,7 +1638,7 @@
                   <div class="template-config-content" id="manual-config-promotion" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of campaigns</label>
-                      <input type="number" class="create-field__input" value="3" min="2" max="10" />
+                      <input type="number" class="form-field__input" value="3" min="2" max="10" />
                       <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2–10)</span>
                     </div>
                     <div class="create-field">
@@ -975,7 +1672,7 @@
                   <div class="template-config-content" id="manual-config-action" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of action steps</label>
-                      <input type="number" class="create-field__input" value="2" min="2" max="10" />
+                      <input type="number" class="form-field__input" value="2" min="2" max="10" />
                       <span class="create-field__hint">How many sequential actions in the customer journey (2–10)</span>
                     </div>
                     <div class="create-field">
@@ -1078,12 +1775,12 @@
                         <div class="preview-modal-body">
                           <div class="create-field">
                             <label class="create-field__label">How many campaigns do you want to create?</label>
-                            <input type="number" class="create-field__input" value="3" min="2" max="10" />
+                            <input type="number" class="form-field__input" value="3" min="2" max="10" />
                             <span class="create-field__hint">Create 2-10 coordinated promotion campaigns</span>
                           </div>
                           <div class="create-field">
                             <label class="create-field__label">Campaign naming pattern (optional)</label>
-                            <input type="text" class="create-field__input" placeholder="e.g., Summer Sale - Tier {n}" />
+                            <input type="text" class="form-field__input" placeholder="e.g., Summer Sale - Tier {n}" />
                           </div>
                         </div>
                         <div class="preview-modal-footer">
@@ -1206,7 +1903,7 @@
                         <div class="preview-config-form">
                           <div class="create-field">
                             <label class="create-field__label">Number of campaigns</label>
-                            <select class="create-field__input">
+                            <select class="form-field__input">
                               <option>2 campaigns</option>
                               <option selected>3 campaigns</option>
                               <option>4 campaigns</option>
@@ -1718,7 +2415,7 @@
                   <div class="create-field-group">
                     <div class="create-field">
                       <label class="create-field__label">Campaign Name</label>
-                      <input type="text" class="create-field__input" id="campaign-name-input" placeholder="Enter campaign name" value="Summer 2026 DashPass Campaign" />
+                      <input type="text" class="form-field__input" id="campaign-name-input" placeholder="Enter campaign name" value="Summer 2026 DashPass Campaign" />
                     </div>
                     <div class="create-field">
                       <label class="create-field__label">Description</label>
@@ -1727,11 +2424,11 @@
                     <div class="create-field-row">
                       <div class="create-field">
                         <label class="create-field__label">Owner Group</label>
-                        <input type="text" class="create-field__input" value="Growth Marketing Team" />
+                        <input type="text" class="form-field__input" value="Growth Marketing Team" />
                       </div>
                       <div class="create-field">
                         <label class="create-field__label">Campaign Type</label>
-                        <select class="create-field__input">
+                        <select class="form-field__input">
                           <option>Acquisition</option>
                           <option selected>Retention</option>
                           <option>Reactivation</option>
@@ -1741,11 +2438,11 @@
                     <div class="create-field-row">
                       <div class="create-field">
                         <label class="create-field__label">Start Date</label>
-                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="06/01/2026" />
+                        <input type="text" class="form-field__input" placeholder="MM/DD/YYYY" value="06/01/2026" />
                       </div>
                       <div class="create-field">
                         <label class="create-field__label">End Date</label>
-                        <input type="text" class="create-field__input" placeholder="MM/DD/YYYY" value="08/31/2026" />
+                        <input type="text" class="form-field__input" placeholder="MM/DD/YYYY" value="08/31/2026" />
                       </div>
                     </div>
                   </div>
@@ -1965,5 +2662,723 @@
   <script src="view-transition.js"></script>
   <script src="section-toggle.js"></script>
   <script src="dropdown.js"></script>
+
+  <script>
+    // AI Chat interaction for buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const noChangeBtn = document.querySelector('#ts-confirm-col-structure .confirm-no-btn');
+      const looksGoodBtn = document.querySelector('#ts-confirm-col-structure .confirm-yes-btn');
+      const chatQuestion = document.getElementById('ts-chat-question');
+      const chatConversation = document.querySelector('#ts-confirm-col-structure .ts-chat-conversation');
+
+      // "No, change it" button
+      if (noChangeBtn) {
+        noChangeBtn.addEventListener('click', function() {
+          // Remove the question dialog
+          if (chatQuestion) {
+            chatQuestion.remove();
+          }
+
+          // Add AI message asking what to change
+          const askMessage = document.createElement('div');
+          askMessage.className = 'ts-chat-message';
+          askMessage.innerHTML = '<p class="ts-chat-message__text">What would you like to change?</p>';
+
+          if (chatConversation) {
+            chatConversation.appendChild(askMessage);
+
+            // Scroll to the message
+            askMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Use the existing chat input field
+            const input = document.getElementById('ts-chat-input-field');
+            const submitBtn = document.getElementById('ts-chat-submit-btn');
+
+            // Typing animation
+            const textToType = "Remove Spotlight and Hub for both child campaigns";
+            let currentIndex = 0;
+
+            // Handle submit
+            const handleSubmit = function() {
+              const userText = input.value.trim();
+              if (!userText) return;
+
+              // Clear the input field
+              input.value = '';
+
+              // Add user message
+              const userMessage = document.createElement('div');
+              userMessage.className = 'ts-chat-message';
+              userMessage.innerHTML = `<p class="ts-chat-message__text">${userText}</p>`;
+
+              // Add AI response with proposed edit
+              const aiMessage = document.createElement('div');
+              aiMessage.className = 'ts-chat-message';
+              aiMessage.innerHTML = `
+                <p class="ts-chat-message__text">Here's what I'd change:</p>
+                <div class="ts-chat-proposed-edit">
+                  <div class="ts-chat-proposed-edit__header">
+                    <h4 class="ts-chat-proposed-edit__title">Proposed edit</h4>
+                  </div>
+                  <div class="ts-chat-proposed-edit__body">
+                    <div class="ts-chat-campaign-change">
+                      <div class="ts-chat-campaign-change__name">Child 1 — Multi-account customers</div>
+                      <div class="ts-chat-campaign-change__content">
+                        <div class="ts-chat-change-item">
+                          <span class="ts-chat-change-item__label">Channels:</span>
+                          <span class="ts-chat-change-item__value">
+                            <span class="ts-chat-tag ts-chat-tag--crossed">Spotlight</span>
+                            <span class="ts-chat-tag">USI</span>
+                            <span class="ts-chat-tag">Email</span>
+                            <span class="ts-chat-tag">Push</span>
+                            <span class="ts-chat-tag ts-chat-tag--crossed">Hub</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ts-chat-campaign-change">
+                      <div class="ts-chat-campaign-change__name">Child 2 — Hot markets</div>
+                      <div class="ts-chat-campaign-change__content">
+                        <div class="ts-chat-change-item">
+                          <span class="ts-chat-change-item__label">Channels:</span>
+                          <span class="ts-chat-change-item__value">
+                            <span class="ts-chat-tag ts-chat-tag--crossed">Spotlight</span>
+                            <span class="ts-chat-tag">USI</span>
+                            <span class="ts-chat-tag">Email</span>
+                            <span class="ts-chat-tag">Push</span>
+                            <span class="ts-chat-tag ts-chat-tag--crossed">Hub</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ts-chat-proposed-edit__footer">
+                    <button class="btn btn--sm btn--tertiary" id="never-mind-btn">Never mind</button>
+                    <button class="btn btn--sm btn--primary" id="apply-change-btn">Apply this change</button>
+                  </div>
+                </div>
+              `;
+
+              chatConversation.appendChild(userMessage);
+              chatConversation.appendChild(aiMessage);
+
+              // Add cross-out styling to the hierarchy diagram
+              const child1Channels = document.querySelectorAll('[data-field="child1-channels-pills"] .placement-tag');
+              const child2Channels = document.querySelectorAll('[data-field="child2-channels-pills"] .placement-tag');
+
+              // Cross out Spotlight and Hub for Child 1
+              child1Channels.forEach(tag => {
+                const text = tag.textContent.trim();
+                if (text === 'Spotlight' || text === 'Hub') {
+                  tag.classList.add('placement-tag--crossed-out');
+                }
+              });
+
+              // Cross out Spotlight and Hub for Child 2
+              child2Channels.forEach(tag => {
+                const text = tag.textContent.trim();
+                if (text === 'Spotlight' || text === 'Hub') {
+                  tag.classList.add('placement-tag--crossed-out');
+                }
+              });
+
+              // Scroll to the new messages
+              aiMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+              // Add event listener to Apply button
+              const applyBtn = document.getElementById('apply-change-btn');
+              if (applyBtn) {
+                applyBtn.addEventListener('click', function() {
+                  // Remove cross-out styling and actually remove the tags
+                  child1Channels.forEach(tag => {
+                    const text = tag.textContent.trim();
+                    if (text === 'Spotlight' || text === 'Hub') {
+                      tag.remove();
+                  }
+                });
+                child2Channels.forEach(tag => {
+                  const text = tag.textContent.trim();
+                  if (text === 'Spotlight' || text === 'Hub') {
+                    tag.remove();
+                  }
+                });
+
+                // Update the proposed edit to show success
+                const proposedEdit = document.querySelector('.ts-chat-proposed-edit');
+                if (proposedEdit) {
+                  proposedEdit.innerHTML = `
+                    <div style="padding: 16px; text-align: center;">
+                      <p style="margin: 0; font-size: 13px; color: #1E8E3E; font-weight: 600;">✓ Changes applied</p>
+                    </div>
+                  `;
+                }
+
+                // Show the confirmation question again
+                const confirmQuestion = document.createElement('div');
+                confirmQuestion.className = 'ts-chat-question';
+                confirmQuestion.id = 'ts-chat-question';
+                confirmQuestion.innerHTML = `
+                  <div class="ts-chat-question__text">Does this look right?</div>
+                  <div class="ts-chat-question__actions">
+                    <button class="btn btn--sm btn--tertiary" id="make-more-changes-btn">Make more changes</button>
+                    <button class="btn btn--sm btn--tertiary confirm-yes-btn">Looks good</button>
+                  </div>
+                `;
+                  chatConversation.appendChild(confirmQuestion);
+                  confirmQuestion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                  // Add event listener to "Make more changes" button
+                  const makeMoreChangesBtn = document.getElementById('make-more-changes-btn');
+                  if (makeMoreChangesBtn) {
+                    makeMoreChangesBtn.addEventListener('click', function() {
+                      // Remove the question
+                      confirmQuestion.remove();
+
+                      // Add AI message
+                      const changeMessage = document.createElement('div');
+                      changeMessage.className = 'ts-chat-message';
+                      changeMessage.innerHTML = '<p class="ts-chat-message__text">What would you like to change?</p>';
+                      chatConversation.appendChild(changeMessage);
+
+                      // Use the existing chat input field
+                      const inputField = document.getElementById('ts-chat-input-field');
+                      const submitButton = document.getElementById('ts-chat-submit-btn');
+
+                      // Typing animation
+                      const textToType2 = "I want to change the campaign structure";
+                      let currentIndex2 = 0;
+
+                      // Handle submit for structure change
+                      const handleStructureSubmit = function() {
+                        const userText2 = inputField.value.trim();
+                        if (!userText2) return;
+
+                        // Clear the input field
+                        inputField.value = '';
+
+                        // Add user message
+                        const userMessage2 = document.createElement('div');
+                        userMessage2.className = 'ts-chat-message';
+                        userMessage2.innerHTML = `<p class="ts-chat-message__text">${userText2}</p>`;
+
+                        // Add AI response with marketing program type options
+                        const aiStructureMessage = document.createElement('div');
+                        aiStructureMessage.className = 'ts-chat-message';
+                        aiStructureMessage.innerHTML = `
+                          <p class="ts-chat-message__text" style="margin-bottom:4px;">Select a marketing program type</p>
+                          <p style="margin-bottom:14px;font-size:13px;color:#6C707A;">Choose a type — configuration options will appear inline.</p>
+
+                          <div class="structure-option-list" id="chat-structure-option-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Single campaign -->
+                            <div class="structure-card" data-type="single" style="border: 1px solid #E9EAEC; border-radius: 8px; padding: 12px; cursor: pointer; background: white; transition: all 0.2s;">
+                              <div class="structure-card__summary">
+                                <span class="structure-card__title" style="display: block; font-weight: 600; font-size: 14px; color: #111318; margin-bottom: 6px;">Single campaign</span>
+                                <div class="structure-card__tags" style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">One-time promo</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Standalone evergreen promo</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Multiple campaigns -->
+                            <div class="structure-card structure-card--active" data-type="promotion" style="border: 1px solid #00838A; border-radius: 8px; padding: 12px; cursor: pointer; background: white; transition: all 0.2s;">
+                              <div class="structure-card__summary">
+                                <span class="structure-card__title" style="display: block; font-weight: 600; font-size: 14px; color: #111318; margin-bottom: 6px;">
+                                  Multiple campaigns with mutually exclusive targeting
+                                  <span class="tag tag--positive-subdued" style="display: inline-block; margin-left: 4px; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A; font-weight: 500; vertical-align: middle;">Current</span>
+                                </span>
+                                <div class="structure-card__tags" style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Parent & Child</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Timeline</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Lifecycle</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">A/B test</span>
+                                </div>
+                              </div>
+                              <!-- Config: Multiple Promotion (inline with card) -->
+                              <div class="structure-config" id="chat-ssp-config-promotion" style="display:block; margin-top: 10px; padding-top: 10px; border-top: 1px solid #E9EAEC; background: none !important; padding-left: 0 !important; padding-right: 0 !important;">
+                                <div class="create-field">
+                                  <label class="create-field__label" style="display: block; font-weight: 500; font-size: 11px; color: #6C707A; margin-bottom: 6px;">Campaigns</label>
+                                  <input type="number" class="form-field__input" id="chat-ssp-campaign-count" value="3" min="2" max="10" style="max-width:80px; height: 32px; font-size: 13px; padding: 6px 8px;" />
+                                </div>
+                                <div class="create-field" style="margin-top:10px;">
+                                  <label class="create-field__label" style="display: block; font-weight: 500; font-size: 11px; color: #6C707A; margin-bottom: 6px;">Structure</label>
+                                  <div class="template-config-options" id="chat-ssp-structure-options" role="radiogroup" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    <button type="button" role="radio" aria-checked="true" data-value="parent-child" class="prism-secondary-btn prism-secondary-btn--selected" style="padding: 6px 12px; border: 2px solid #111318; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Parent & Child</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="timeline" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Timeline</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="lifecycle" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Lifecycle</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="ab-test" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">A/B test</button>
+                                  </div>
+                                </div>
+                                <div style="margin-top:10px;text-align:right;">
+                                  <button class="btn btn--primary btn--sm" id="chat-ssp-confirm-promotion">Confirm</button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Action-based -->
+                            <div class="structure-card" data-type="action" style="border: 1px solid #E9EAEC; border-radius: 8px; padding: 12px; cursor: pointer; background: white; transition: all 0.2s;">
+                              <div class="structure-card__summary">
+                                <span class="structure-card__title" style="display: block; font-weight: 600; font-size: 14px; color: #111318; margin-bottom: 6px;">Action-based campaign</span>
+                                <div class="structure-card__tags" style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">DashPass signup</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Milestone reward</span>
+                                  <span class="tag" style="display: inline-block; padding: 2px 8px; background: #F6F7F8; border-radius: 4px; font-size: 12px; color: #6C707A;">Partnership signup</span>
+                                </div>
+                              </div>
+                              <!-- Config: Action-based (inline with card) -->
+                              <div class="structure-config" id="chat-ssp-config-action" style="display:none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #E9EAEC; background: none !important; padding-left: 0 !important; padding-right: 0 !important;">
+                                <div class="create-field">
+                                  <label class="create-field__label" style="display: block; font-weight: 500; font-size: 11px; color: #6C707A; margin-bottom: 6px;">Action steps</label>
+                                  <input type="number" class="form-field__input" id="chat-ssp-action-steps" value="2" min="2" max="10" style="max-width:80px; height: 32px; font-size: 13px; padding: 6px 8px;" />
+                                </div>
+                                <div class="create-field" style="margin-top:10px;">
+                                  <label class="create-field__label" style="display: block; font-weight: 500; font-size: 11px; color: #6C707A; margin-bottom: 6px;">Type</label>
+                                  <div class="template-config-options" id="chat-ssp-type-options" role="radiogroup" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    <button type="button" role="radio" aria-checked="true" data-value="before-after" class="prism-secondary-btn prism-secondary-btn--selected" style="padding: 6px 12px; border: 2px solid #111318; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Before/After</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="parent-child" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Parent & Child</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="timeline" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Timeline</button>
+                                    <button type="button" role="radio" aria-checked="false" data-value="challenge" class="prism-secondary-btn" style="padding: 6px 12px; border: 1px solid #D3D6D9; background: #FFFFFF; color: #111318; font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; line-height: 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; text-align: left;">Challenge</button>
+                                  </div>
+                                </div>
+                                <div style="margin-top:10px;text-align:right;">
+                                  <button class="btn btn--primary btn--sm" id="chat-ssp-confirm-action">Confirm</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        `;
+
+                        chatConversation.appendChild(userMessage2);
+                        chatConversation.appendChild(aiStructureMessage);
+                        aiStructureMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                        // Add click handlers to structure cards for expand/collapse
+                        const chatStructureCards = aiStructureMessage.querySelectorAll('.structure-card');
+                        chatStructureCards.forEach(card => {
+                          card.addEventListener('click', function(e) {
+                            // Don't trigger if clicking on input, button, or label
+                            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.closest('label')) {
+                              return;
+                            }
+
+                            const cardType = this.getAttribute('data-type');
+                            const configSection = this.querySelector('.structure-config');
+
+                            // Toggle active state
+                            const wasActive = this.classList.contains('structure-card--active');
+
+                            // Remove active from all cards
+                            chatStructureCards.forEach(c => {
+                              c.classList.remove('structure-card--active');
+                              c.style.borderColor = '#E9EAEC';
+                              const config = c.querySelector('.structure-config');
+                              if (config) config.style.display = 'none';
+                            });
+
+                            // If card wasn't active, make it active
+                            if (!wasActive) {
+                              this.classList.add('structure-card--active');
+                              this.style.borderColor = '#00838A';
+                              if (configSection) {
+                                configSection.style.display = 'block';
+                              }
+                            }
+                          });
+                        });
+
+                        // Add click handlers to Prism secondary button options
+                        const secondaryButtons = aiStructureMessage.querySelectorAll('.prism-secondary-btn');
+                        secondaryButtons.forEach(btn => {
+                          btn.addEventListener('click', function(e) {
+                            // Get all buttons in the same group (parent with role="radiogroup")
+                            const group = this.closest('[role="radiogroup"]');
+                            if (group) {
+                              const allButtons = group.querySelectorAll('.prism-secondary-btn');
+
+                              // Deselect all buttons in the group
+                              allButtons.forEach(b => {
+                                b.setAttribute('aria-checked', 'false');
+                                b.classList.remove('prism-secondary-btn--selected');
+                                b.style.border = '1px solid #D3D6D9';
+                                b.style.background = '#FFFFFF';
+                                b.style.color = '#111318';
+                              });
+
+                              // Select clicked button - outline style only
+                              this.setAttribute('aria-checked', 'true');
+                              this.classList.add('prism-secondary-btn--selected');
+                              this.style.border = '2px solid #111318';
+                              this.style.background = '#FFFFFF';
+                              this.style.color = '#111318';
+                            }
+                          });
+                        });
+
+                        // Add click handler for promotion confirm button
+                        const confirmPromotionBtn = document.getElementById('chat-ssp-confirm-promotion');
+                        if (confirmPromotionBtn) {
+                          confirmPromotionBtn.addEventListener('click', function() {
+                            // Find the hierarchy-children-row in the campaign-structure-view (left panel)
+                            const hierarchyRow = document.querySelector('#campaign-structure-view .hierarchy-children-row');
+
+                            // Check if Child 3 already exists
+                            const existingChild3 = hierarchyRow?.querySelector('.hierarchy-child:nth-child(3)');
+
+                            if (hierarchyRow && !existingChild3) {
+                              // Create new Child 3 block
+                              const child3 = document.createElement('div');
+                              child3.className = 'hierarchy-child';
+                              child3.innerHTML = `
+                                <div class="hierarchy-child__header">
+                                  <span class="hierarchy-node-label hierarchy-node-label--child">Child 3</span>
+                                  <span class="hierarchy-child__title" style="color: #999;">Untitled segment</span>
+                                </div>
+                                <div class="campaign-meta-col">
+                                  <div class="campaign-meta-item--inline campaign-meta-item--stacked">
+                                    <span class="campaign-meta-label">Promo</span>
+                                    <span class="campaign-meta-value field-view-mode" data-field="child3-promo" style="color: #999;">—</span>
+                                    <div class="field-edit-mode create-field">
+                                      <input type="text" class="form-field__input" data-field="child3-promo-input" value="" placeholder="e.g., 20% off">
+                                    </div>
+                                  </div>
+                                  <div class="campaign-meta-item--inline campaign-meta-item--stacked">
+                                    <span class="campaign-meta-label">Targeting</span>
+                                    <div class="field-view-mode" data-field="child3-targeting-pill">
+                                      <div style="display: flex; align-items: center; gap: 6px; color: #D97706; font-size: 12px;">
+                                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0;">
+                                          <path d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1ZM8 11.5C7.72386 11.5 7.5 11.2761 7.5 11V8C7.5 7.72386 7.72386 7.5 8 7.5C8.27614 7.5 8.5 7.72386 8.5 8V11C8.5 11.2761 8.27614 11.5 8 11.5ZM8 6.5C7.72386 6.5 7.5 6.27614 7.5 6V5C7.5 4.72386 7.72386 4.5 8 4.5C8.27614 4.5 8.5 4.72386 8.5 5V6C8.5 6.27614 8.27614 6.5 8 6.5Z" fill="currentColor"/>
+                                        </svg>
+                                        <span>Add targeting details</span>
+                                      </div>
+                                    </div>
+                                    <div class="field-edit-mode create-field">
+                                      <input type="text" class="form-field__input" data-field="child3-targeting-input" value="" placeholder="e.g., + Hot market">
+                                    </div>
+                                  </div>
+                                  <div class="campaign-meta-item--inline campaign-meta-item--stacked">
+                                    <span class="campaign-meta-label">Channels</span>
+                                    <div class="campaign-meta-pills field-view-mode" data-field="child3-channels-pills">
+                                      <span class="placement-tag">Spotlight</span><span class="placement-tag">USI</span>
+                                      <span class="placement-tag">Email</span>
+                                      <span class="placement-tag">Push</span>
+                                      <span class="placement-tag">Hub</span>
+                                    </div>
+                                    <div class="field-edit-mode toggle-chips-group toggle-chips-group--wrap" data-field="child3-channels-chips">
+                                      <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="spotlight">Spotlight</button>
+                                      <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="usi">USI</button>
+                                      <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="email">Email</button>
+                                      <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="push">Push</button>
+                                      <button class="toggle-chip toggle-chip--channel toggle-chip--selected" data-value="hub">Hub</button>
+                                      <button class="toggle-chip toggle-chip--channel" data-value="sms">SMS</button>
+                                      <button class="toggle-chip toggle-chip--channel" data-value="in-app">In-App</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              `;
+
+                              // Append the new child to the hierarchy row
+                              hierarchyRow.appendChild(child3);
+
+                              // Update the fallback note text
+                              const fallbackNote = document.querySelector('#campaign-structure-view .hierarchy-fallback-note');
+                              if (fallbackNote) {
+                                fallbackNote.textContent = '↑ Customers not matched by any child campaign will fall to the parent.';
+                              }
+                            }
+
+                            // Hide the AI structure message with configuration cards
+                            aiStructureMessage.style.display = 'none';
+
+                            // Show confirmation question
+                            const confirmationQuestion = document.createElement('div');
+                            confirmationQuestion.className = 'ts-chat-message';
+                            confirmationQuestion.innerHTML = `
+                              <p class="ts-chat-message__text">Does the structure look good?</p>
+                            `;
+                            chatConversation.appendChild(confirmationQuestion);
+
+                            // Add question dialog
+                            const questionDialog = document.createElement('div');
+                            questionDialog.className = 'ts-chat-question';
+                            questionDialog.innerHTML = `
+                              <div class="ts-chat-question__text">Ready to proceed?</div>
+                              <div class="ts-chat-question__actions">
+                                <button class="btn btn--sm btn--tertiary" id="structure-change-btn">No, change it</button>
+                                <button class="btn btn--sm btn--tertiary" id="structure-looks-good-btn">Looks good</button>
+                              </div>
+                            `;
+                            chatConversation.appendChild(questionDialog);
+                            questionDialog.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                            // Add event handler for "Looks good" button
+                            const looksGoodBtn = document.getElementById('structure-looks-good-btn');
+                            if (looksGoodBtn) {
+                              looksGoodBtn.addEventListener('click', function() {
+                                // Navigate to step 2
+                                window.location.href = 'campaign-config-standalone.html';
+                              });
+                            }
+
+                            // Add event handler for "No, change it" button
+                            const changeBtn = document.getElementById('structure-change-btn');
+                            if (changeBtn) {
+                              changeBtn.addEventListener('click', function() {
+                                // Show the structure message again
+                                aiStructureMessage.style.display = 'block';
+                                // Remove the confirmation messages
+                                confirmationQuestion.remove();
+                                questionDialog.remove();
+                              });
+                            }
+                          });
+                        }
+
+                        // Remove event listeners to prevent duplicates
+                        inputField.removeEventListener('keypress', handleStructureKeypress);
+                        submitButton.removeEventListener('click', handleStructureSubmit);
+                      };
+
+                      const handleStructureKeypress = function(e) {
+                        if (e.key === 'Enter') {
+                          handleStructureSubmit();
+                        }
+                      };
+
+                      // Start typing animation
+                      setTimeout(() => {
+                        if (inputField && submitButton) {
+                          inputField.focus();
+                          inputField.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                          inputField.readOnly = true;
+                          submitButton.disabled = true;
+
+                          // Type character by character
+                          const typingInterval2 = setInterval(() => {
+                            if (currentIndex2 < textToType2.length) {
+                              inputField.value += textToType2[currentIndex2];
+                              currentIndex2++;
+                            } else {
+                              clearInterval(typingInterval2);
+                              // Auto-submit after typing is complete
+                              setTimeout(() => {
+                                inputField.readOnly = false;
+                                submitButton.disabled = false;
+                                handleStructureSubmit();
+                              }, 500);
+                            }
+                          }, 50);
+                        }
+                      }, 500);
+
+                      // Submit on Enter key
+                      inputField.addEventListener('keypress', handleStructureKeypress);
+
+                      // Submit on button click
+                      submitButton.addEventListener('click', handleStructureSubmit);
+                    });
+                  }
+                });
+              }
+
+              // Add event listener to Never mind button
+              const neverMindBtn = document.getElementById('never-mind-btn');
+              if (neverMindBtn) {
+                neverMindBtn.addEventListener('click', function() {
+                  // Remove cross-out styling from the tags
+                  child1Channels.forEach(tag => {
+                    tag.classList.remove('placement-tag--crossed-out');
+                  });
+                  child2Channels.forEach(tag => {
+                    tag.classList.remove('placement-tag--crossed-out');
+                  });
+
+                  // Remove all the chat messages (ask message, user message, and AI response)
+                  if (askMessage && askMessage.parentNode) {
+                    askMessage.remove();
+                  }
+                  if (userMessage && userMessage.parentNode) {
+                    userMessage.remove();
+                  }
+                  if (aiMessage && aiMessage.parentNode) {
+                    aiMessage.remove();
+                  }
+
+                  // Show the original question again
+                  const originalQuestion = document.createElement('div');
+                  originalQuestion.className = 'ts-chat-question';
+                  originalQuestion.id = 'ts-chat-question';
+                  originalQuestion.innerHTML = `
+                    <div class="ts-chat-question__text">Does this look right?</div>
+                    <div class="ts-chat-question__actions">
+                      <button class="btn btn--sm btn--tertiary confirm-no-btn">No, change it</button>
+                      <button class="btn btn--sm btn--tertiary confirm-yes-btn">Looks good</button>
+                    </div>
+                  `;
+                  chatConversation.appendChild(originalQuestion);
+                  originalQuestion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+              }
+            };
+
+            // Submit on Enter key
+            if (input) {
+              input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                  handleSubmit();
+                }
+              });
+            }
+
+            // Submit on button click
+            if (submitBtn) {
+              submitBtn.addEventListener('click', handleSubmit);
+            }
+
+            // Start typing animation
+            setTimeout(() => {
+              if (input && submitBtn) {
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                input.readOnly = true; // Prevent user from typing during animation
+                submitBtn.disabled = true; // Disable submit button during animation
+
+                // Type character by character
+                const typingInterval = setInterval(() => {
+                  if (currentIndex < textToType.length) {
+                    input.value += textToType[currentIndex];
+                    currentIndex++;
+                  } else {
+                    clearInterval(typingInterval);
+                    // Auto-submit after typing is complete
+                    setTimeout(() => {
+                      input.readOnly = false; // Re-enable input
+                      submitBtn.disabled = false; // Re-enable button
+                      handleSubmit();
+                    }, 500);
+                  }
+                }, 50); // 50ms per character
+              }
+            }, 500); // Start typing after 500ms
+          }
+        });
+      }
+
+      // "Looks good" button
+      if (looksGoodBtn) {
+        looksGoodBtn.addEventListener('click', function(e) {
+          // Prevent default behavior and stop other handlers
+          e.preventDefault();
+          e.stopImmediatePropagation();
+
+          // Hide the current campaign structure view
+          const campaignStructureView = document.getElementById('campaign-structure-view');
+          if (campaignStructureView) {
+            campaignStructureView.style.display = 'none';
+          }
+
+          // Show the detailed configuration view (Option A by default)
+          const detailedConfigView = document.getElementById('detailed-configuration-view-a');
+          if (detailedConfigView) {
+            detailedConfigView.style.display = 'block';
+          }
+
+          // Remove the question dialog
+          if (chatQuestion) {
+            chatQuestion.remove();
+          }
+
+          // Update the context message for step 2
+          const stepContextMessage = document.getElementById('step-context-message');
+          if (stepContextMessage) {
+            const messageText = stepContextMessage.querySelector('.ts-chat-message__text');
+            if (messageText) {
+              messageText.innerHTML = 'Now let\'s configure the campaign details and link your creative assets.';
+            }
+          }
+
+          // Update timeline: deactivate step 1, activate step 2
+          const step1 = document.querySelector('.ts-chat-step:nth-child(1)');
+          const step2 = document.querySelector('.ts-chat-step:nth-child(2)');
+
+          if (step1) {
+            step1.classList.remove('ts-chat-step--active');
+            const step1Circle = step1.querySelector('.ts-chat-step__circle');
+            if (step1Circle) {
+              step1Circle.classList.remove('ts-chat-step__circle--active');
+            }
+          }
+
+          if (step2) {
+            step2.classList.add('ts-chat-step--active');
+            const step2Circle = step2.querySelector('.ts-chat-step__circle');
+            if (step2Circle) {
+              step2Circle.classList.add('ts-chat-step__circle--active');
+            }
+            // Remove the last class since it's now active
+            step2.classList.remove('ts-chat-step--last');
+          }
+        }, true); // Use capture phase to run before other listeners
+      }
+
+      // Campaign tab switching (Option A)
+      const campaignTabs = document.querySelectorAll('.campaign-tab');
+      const campaignForms = {
+        parent: document.getElementById('parent-form'),
+        child1: document.getElementById('child1-form'),
+        child2: document.getElementById('child2-form')
+      };
+
+      campaignTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const campaign = this.getAttribute('data-campaign');
+
+          // Update active tab
+          campaignTabs.forEach(t => t.classList.remove('campaign-tab--active'));
+          this.classList.add('campaign-tab--active');
+
+          // Show corresponding form
+          Object.values(campaignForms).forEach(form => {
+            if (form) form.style.display = 'none';
+          });
+          if (campaignForms[campaign]) {
+            campaignForms[campaign].style.display = 'block';
+          }
+        });
+      });
+
+      // Switch between Option A and Option C
+      const switchToOptionABtn = document.getElementById('switch-to-option-a');
+      if (switchToOptionABtn) {
+        switchToOptionABtn.addEventListener('click', function() {
+          const optionA = document.getElementById('detailed-configuration-view-a');
+          const optionC = document.getElementById('detailed-configuration-view-c');
+          if (optionA && optionC) {
+            optionC.style.display = 'none';
+            optionA.style.display = 'block';
+            this.textContent = 'Switch to Comparison View';
+            this.id = 'switch-to-option-c';
+          }
+        });
+      }
+    });
+
+    // Add switch to Option C button handler (needs to be attached to the dynamically shown button)
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'switch-to-option-c') {
+        const optionA = document.getElementById('detailed-configuration-view-a');
+        const optionC = document.getElementById('detailed-configuration-view-c');
+        if (optionA && optionC) {
+          optionA.style.display = 'none';
+          optionC.style.display = 'block';
+          e.target.textContent = 'Switch to Detail View';
+          e.target.id = 'switch-to-option-a';
+        }
+      }
+    });
+
+  </script>
+
+  <!-- Campaign Edit Mode Script -->
+  <script src="campaign-edit-mode.js"></script>
 </body>
 </html>
