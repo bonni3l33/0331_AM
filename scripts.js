@@ -1930,7 +1930,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function hideAllConfirmPanels() {
-    ['confirmation-panel', 'change-options-panel', 'update-manually-panel', 'chat-panel', 'structure-select-panel'].forEach(function(id) {
+    ['confirmation-panel', 'change-options-panel', 'update-manually-panel', 'chat-panel', 'structure-select-panel', 'incentive-config-panel'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.style.display = 'none';
     });
@@ -2243,11 +2243,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    // Incentive save → go to create-program
+    // Incentive save → WIP (no further pages)
     var incentiveSaveBtn = document.getElementById('incentive-save-btn');
     if (incentiveSaveBtn) {
       incentiveSaveBtn.addEventListener('click', function() {
-        window.location.href = 'create-program.html';
+        incentiveSaveBtn.textContent = 'Saved ✓';
+        incentiveSaveBtn.disabled = true;
+        var wipNote = document.getElementById('incentive-wip-note');
+        if (wipNote) wipNote.style.display = 'block';
       });
     }
 
