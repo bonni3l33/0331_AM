@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const createButton = document.querySelector('.btn-primary');
   if (createButton) {
     createButton.addEventListener('click', function() {
-      window.location.href = 'index.html';
+      window.location.href = 'campaign-builder.html';
     });
   }
 
