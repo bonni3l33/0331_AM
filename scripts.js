@@ -2016,9 +2016,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!yesBtn || !noBtn) return;
 
-    // Yes → proceed to summary
+    // Yes → go to create-program (WIP: skipping intermediate pages)
     yesBtn.addEventListener('click', function() {
-      if (continueBtn) continueBtn.click();
+      window.location.href = 'create-program.html';
     });
 
     // No → reveal options
