@@ -264,7 +264,7 @@
       width: 2px;
       flex: 1;
       background: var(--color-status-info-bg);
-      margin: 2px 0;
+      margin: 0;
     }
     .summary-chat-step__line--completed {
       background: var(--color-text);
@@ -274,7 +274,7 @@
     }
     .summary-chat-step__content {
       flex: 1;
-      padding-bottom: var(--space-5);
+      padding-bottom: 0;
     }
     .summary-chat-step__title {
       font-size: var(--text-xs);
@@ -590,7 +590,7 @@
             <div class="summary-chat-step__line"></div>
           </div>
           <div class="summary-chat-step__content">
-            <div class="summary-chat-step__title">Campaign Structure</div>
+            <div class="summary-chat-step__title">Program Setup</div>
           </div>
         </div>
 
@@ -942,7 +942,23 @@
               <div class="ts-chat-content">
                 <div class="ts-chat-conversation">
                   <div class="ts-chat-message">
-                    <p class="ts-chat-message__text">Let's review the campaign setup from your brief. I'll walk you through the following steps:</p>
+                    <p class="ts-chat-message__text">Here's a summary of the marketing program I generated from your brief:</p>
+
+                    <div class="ts-chat-summary">
+                      <div class="ts-chat-summary__item">
+                        <span class="ts-chat-summary__label">Structure</span>
+                        <span class="ts-chat-summary__value">1 parent + 2 children — Child 2 (Hot markets) is nested under Child 1 (Multi-account customers)</span>
+                      </div>
+                      <div class="ts-chat-summary__item">
+                        <span class="ts-chat-summary__label">Promotion type</span>
+                        <span class="ts-chat-summary__value">All 3 campaigns use promotion (40% off / 20% off / 50% off)</span>
+                      </div>
+                      <div class="ts-chat-summary__item">
+                        <span class="ts-chat-summary__label">Channels</span>
+                        <span class="ts-chat-summary__value">Spotlight, USI, Email, Push, Hub across all campaigns</span>
+                      </div>
+                    </div>
+
                     <div class="ts-chat-timeline">
                       <!-- Step 1 -->
                       <div class="ts-chat-step ts-chat-step--active">
