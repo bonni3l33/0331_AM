@@ -77,6 +77,24 @@
     }
 
 
+    /* Program Header */
+    .program-header {
+      margin-bottom: 24px;
+    }
+
+    .program-header__title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #191919;
+      margin: 0 0 4px 0;
+    }
+
+    .program-header__subtitle {
+      font-size: 14px;
+      color: #6B6B6B;
+      margin: 0;
+    }
+
     /* Config Table */
     .config-table {
       border: 1px solid #E7E7E7;
@@ -88,7 +106,7 @@
 
     .config-table__header {
       display: grid;
-      grid-template-columns: 250px 120px 1fr 100px;
+      grid-template-columns: 200px 120px 1fr;
       gap: 16px;
       padding: 12px 20px;
       background: #F6F7F8;
@@ -108,11 +126,12 @@
 
     .config-table__row {
       display: grid;
-      grid-template-columns: 250px 120px 1fr 100px;
+      grid-template-columns: 200px 120px 1fr;
       gap: 16px;
       padding: 16px 20px;
       border-bottom: 1px solid #E7E7E7;
       transition: background 0.1s ease;
+      cursor: pointer;
     }
 
     .config-table__row:last-child {
@@ -121,6 +140,14 @@
 
     .config-table__row:hover {
       background: #FAFAFA;
+    }
+
+    .config-table__row.config-table__row--inherited {
+      background: #FAFBFC;
+    }
+
+    .config-table__row.config-table__row--inherited .config-table__cell {
+      color: #6B6B6B;
     }
 
     .config-table__row .config-table__cell {
@@ -133,34 +160,30 @@
 
     /* Variant Names */
     .variant-name {
-      font-weight: 600;
+      font-weight: 500;
       color: #191919;
     }
 
-    .variant-name--child {
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .variant-name--child::before {
-      content: "└";
-      position: absolute;
-      left: 0;
-      color: #D3D6D9;
+    /* Relationship Labels */
+    .relationship-label {
+      font-size: 13px;
+      color: #6B6B6B;
     }
 
     /* Status Badges */
     .status-badge {
       display: inline-flex;
       align-items: center;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
       font-weight: 600;
       white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
-    .status-badge--parent {
+    .status-badge--base {
       background: #E3F2FD;
       color: #1565C0;
     }
@@ -576,6 +599,12 @@
       <main class="detail-main">
         <div class="page-wrapper">
           <div class="content-main">
+            <!-- Program Header -->
+            <div class="program-header">
+              <h1 class="program-header__title">Campaign Configuration – Nationwide Promo + Hot Market Boosts</h1>
+              <p class="program-header__subtitle">Structure: Parent (Base) + 3 Child Variants</p>
+            </div>
+
             <!-- Progress Stepper -->
             <div class="progress-stepper">
               <div class="progress-stepper__steps">
@@ -606,9 +635,8 @@
             <div class="config-table">
               <div class="config-table__header">
                 <div class="config-table__cell">Variant</div>
-                <div class="config-table__cell">Status</div>
-                <div class="config-table__cell">Summary</div>
-                <div class="config-table__cell">Action</div>
+                <div class="config-table__cell">Relationship</div>
+                <div class="config-table__cell" id="section-header-cell">Targeting</div>
               </div>
               <div class="config-table__body" id="table-body">
                 <!-- Table rows will be dynamically inserted here -->
@@ -650,24 +678,42 @@
     // Campaign configuration data
     const campaignConfig = {
       parent: {
-        name: 'Parent: Summer Retention',
-        targeting: { type: 'custom', segmentationId: 'SEG123', name: 'Multi-account users' },
-        promotion: { discountType: 'percentage', value: 40, maxDiscount: 12, minOrder: 12 },
-        placements: { channels: ['spotlight', 'usi', 'email', 'push', 'hub'] }
+        name: 'Base (Nationwide)',
+        relationship: 'Parent',
+        targeting: { type: 'base', segmentationId: 'SEG_US', name: 'US – All Users' },
+        promotion: { type: 'base', discountType: 'percentage', value: 40, maxDiscount: 15, minOrder: 10 },
+        placements: { type: 'base', channels: ['in-app', 'push', 'email'], setName: 'Set A (3 channels)' }
       },
-      child1: {
-        name: 'Child 1: Multi-account customers',
-        targeting: { type: 'inherit' },
-        promotion: { type: 'inherit' },
+      nyc: {
+        name: 'NYC Boost',
+        relationship: 'Child',
+        targeting: { type: 'override', segmentationId: 'SEG_NYC', name: 'NYC Only' },
+        promotion: { type: 'override', discountType: 'percentage', value: 50, maxDiscount: 20, minOrder: 10 },
         placements: { type: 'inherit' }
       },
-      child2: {
-        name: 'Child 2: Hot markets',
-        targeting: { type: 'override', segmentationId: 'SEG456', name: 'Hot market customers (NY, SF, LA)' },
-        promotion: { type: 'inherit' },
-        placements: { type: 'override', channels: ['spotlight', 'email', 'push'] }
+      sf: {
+        name: 'SF Boost',
+        relationship: 'Child',
+        targeting: { type: 'override', segmentationId: 'SEG_SF', name: 'SF Only' },
+        promotion: { type: 'override', discountType: 'percentage', value: 50, maxDiscount: 20, minOrder: 10 },
+        placements: { type: 'inherit' }
+      },
+      la: {
+        name: 'LA Boost',
+        relationship: 'Child',
+        targeting: { type: 'override', segmentationId: 'SEG_LA', name: 'LA Only' },
+        promotion: { type: 'override', discountType: 'percentage', value: 50, maxDiscount: 20, minOrder: 10 },
+        placements: { type: 'inherit' }
       }
     };
+
+    const segmentations = [
+      { id: 'SEG_US', name: 'US – All Users' },
+      { id: 'SEG_NYC', name: 'NYC Only' },
+      { id: 'SEG_SF', name: 'SF Only' },
+      { id: 'SEG_LA', name: 'LA Only' },
+      { id: 'SEG_HIGH_VALUE', name: 'High Value Customers' }
+    ];
 
     let currentSection = 'targeting';
     let currentVariant = null;
@@ -700,6 +746,15 @@
         step.classList.toggle('progress-stepper__step--active', step.dataset.step === section);
       });
 
+      // Update table header
+      const headerCell = document.getElementById('section-header-cell');
+      const sectionTitles = {
+        targeting: 'Targeting',
+        promotion: 'Promotion',
+        placements: 'Placements'
+      };
+      headerCell.textContent = sectionTitles[section];
+
       // Re-render table
       renderTable();
     }
@@ -709,59 +764,61 @@
       const tbody = document.getElementById('table-body');
       tbody.innerHTML = '';
 
-      ['parent', 'child1', 'child2'].forEach(variantKey => {
+      ['parent', 'nyc', 'sf', 'la'].forEach(variantKey => {
         const variant = campaignConfig[variantKey];
         const config = variant[currentSection];
+        const isInherited = config.type === 'inherit';
 
         const row = document.createElement('div');
         row.className = 'config-table__row';
+        if (isInherited) {
+          row.classList.add('config-table__row--inherited');
+        }
         row.dataset.variant = variantKey;
+        row.onclick = () => openDrawer(variantKey, currentSection);
 
         // Variant name
         const nameCell = document.createElement('div');
         nameCell.className = 'config-table__cell';
         const nameSpan = document.createElement('span');
-        nameSpan.className = variantKey === 'parent' ? 'variant-name' : 'variant-name variant-name--child';
+        nameSpan.className = 'variant-name';
         nameSpan.textContent = variant.name;
         nameCell.appendChild(nameSpan);
 
-        // Status badge
-        const statusCell = document.createElement('div');
-        statusCell.className = 'config-table__cell';
+        // Relationship
+        const relationshipCell = document.createElement('div');
+        relationshipCell.className = 'config-table__cell';
+        const relationshipSpan = document.createElement('span');
+        relationshipSpan.className = 'relationship-label';
+        relationshipSpan.textContent = variant.relationship;
+        relationshipCell.appendChild(relationshipSpan);
+
+        // Content cell with badge
+        const contentCell = document.createElement('div');
+        contentCell.className = 'config-table__cell';
+
+        // Badge
         const badge = document.createElement('span');
-        if (variantKey === 'parent') {
-          badge.className = 'status-badge status-badge--parent';
-          badge.textContent = 'Base';
+        badge.className = 'status-badge';
+        if (config.type === 'base') {
+          badge.className += ' status-badge--base';
+          badge.textContent = '[Base]';
         } else if (config.type === 'inherit') {
-          badge.className = 'status-badge status-badge--inherited';
-          badge.textContent = 'Inherited';
+          badge.className += ' status-badge--inherited';
+          badge.textContent = '[Inherited]';
         } else {
-          badge.className = 'status-badge status-badge--override';
-          badge.textContent = 'Override';
+          badge.className += ' status-badge--override';
+          badge.textContent = '[Override]';
         }
-        statusCell.appendChild(badge);
+        contentCell.appendChild(badge);
 
-        // Summary
-        const summaryCell = document.createElement('div');
-        summaryCell.className = 'config-table__cell';
-        const summary = document.createElement('span');
-        summary.className = config.type === 'inherit' ? 'config-summary config-summary--inherited' : 'config-summary';
-        summary.textContent = formatSummary(variantKey, currentSection);
-        summaryCell.appendChild(summary);
-
-        // Action button
-        const actionCell = document.createElement('div');
-        actionCell.className = 'config-table__cell';
-        const btn = document.createElement('button');
-        btn.className = 'btn btn--sm btn--tertiary';
-        btn.textContent = 'Edit';
-        btn.onclick = () => openDrawer(variantKey, currentSection);
-        actionCell.appendChild(btn);
+        // Summary text
+        const summaryText = document.createTextNode(' ' + formatSummary(variantKey, currentSection));
+        contentCell.appendChild(summaryText);
 
         row.appendChild(nameCell);
-        row.appendChild(statusCell);
-        row.appendChild(summaryCell);
-        row.appendChild(actionCell);
+        row.appendChild(relationshipCell);
+        row.appendChild(contentCell);
 
         tbody.appendChild(row);
       });
@@ -780,11 +837,14 @@
       }
 
       if (section === 'promotion') {
-        return `${config.value}% off, max $${config.maxDiscount}`;
+        return `${config.value}% off`;
       }
 
       if (section === 'placements') {
-        return `${config.channels.length} channels selected`;
+        if (config.setName) {
+          return config.setName;
+        }
+        return `${config.channels.length} channels`;
       }
 
       return 'Not configured';
@@ -860,29 +920,23 @@
       const config = variant === 'parent' ? campaignConfig.parent.targeting : campaignConfig[variant].targeting;
       const actualConfig = config.type === 'inherit' ? campaignConfig.parent.targeting : config;
 
+      let options = '';
+      segmentations.forEach(seg => {
+        const selected = seg.id === actualConfig.segmentationId ? 'selected' : '';
+        options += `<option value="${seg.id}" ${selected}>${seg.name}</option>`;
+      });
+
       return `
-        <h4 class="form-section__title">Segmentation</h4>
-        <div class="segmentation-options">
-          <button class="segmentation-option" onclick="alert('Open existing segmentations modal')">
-            <div class="segmentation-option__icon">📋</div>
-            <div class="segmentation-option__content">
-              <div class="segmentation-option__title">Use existing segmentation</div>
-              <div class="segmentation-option__description">Select from library</div>
-            </div>
-          </button>
-          <button class="segmentation-option" onclick="alert('Open create segmentation modal')">
-            <div class="segmentation-option__icon">✨</div>
-            <div class="segmentation-option__content">
-              <div class="segmentation-option__title">Create new segmentation</div>
-              <div class="segmentation-option__description">Build custom rules</div>
-            </div>
-          </button>
+        <h4 class="form-section__title">Targeting</h4>
+        <div class="form-field">
+          <label class="form-field__label">Segmentation</label>
+          <select class="form-field__select" id="segmentation-select">
+            ${options}
+          </select>
         </div>
-        <div class="selected-segmentation">
-          <div class="selected-segmentation__label">Selected:</div>
-          <div class="selected-segmentation__name">${actualConfig.name}</div>
-          <button class="btn btn--sm btn--ghost" onclick="alert('Change segmentation')">Change</button>
-        </div>
+        <button class="btn btn--sm btn--ghost" onclick="alert('Open create segmentation drawer')" style="margin-top: 8px;">
+          + Create new segmentation
+        </button>
       `;
     }
 
@@ -928,28 +982,20 @@
         <h4 class="form-section__title">Channels</h4>
         <div class="channel-checkboxes">
           <label class="checkbox-option">
-            <input type="checkbox" ${channels.includes('spotlight') ? 'checked' : ''}>
-            <span>Spotlight</span>
+            <input type="checkbox" ${channels.includes('in-app') ? 'checked' : ''}>
+            <span>In-app banner</span>
           </label>
           <label class="checkbox-option">
-            <input type="checkbox" ${channels.includes('usi') ? 'checked' : ''}>
-            <span>USI (User Storefront)</span>
+            <input type="checkbox" ${channels.includes('push') ? 'checked' : ''}>
+            <span>Push notification</span>
           </label>
           <label class="checkbox-option">
             <input type="checkbox" ${channels.includes('email') ? 'checked' : ''}>
             <span>Email</span>
           </label>
           <label class="checkbox-option">
-            <input type="checkbox" ${channels.includes('push') ? 'checked' : ''}>
-            <span>Push Notifications</span>
-          </label>
-          <label class="checkbox-option">
             <input type="checkbox" ${channels.includes('sms') ? 'checked' : ''}>
             <span>SMS</span>
-          </label>
-          <label class="checkbox-option">
-            <input type="checkbox" ${channels.includes('hub') ? 'checked' : ''}>
-            <span>In-App Messages</span>
           </label>
         </div>
       `;
@@ -968,9 +1014,12 @@
         campaignConfig[variant][section] = { type: 'inherit' };
       } else {
         formSection.style.display = 'block';
-        // Initialize with parent values
+        // Initialize with parent values but mark as override
         const parentConfig = campaignConfig.parent[section];
-        campaignConfig[variant][section] = { ...parentConfig, type: 'override' };
+        const newConfig = { ...parentConfig };
+        delete newConfig.type;
+        newConfig.type = 'override';
+        campaignConfig[variant][section] = newConfig;
       }
     }
 
