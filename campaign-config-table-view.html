@@ -1156,52 +1156,34 @@
       return `
         <h4 class="form-section__title">Consumer Audience</h4>
 
-        <div class="form-field" style="margin-bottom: 20px;">
-          <label class="checkbox-option" style="cursor: default;">
-            <input type="checkbox" id="suppress-low-roi" />
-            <span>Allow suppression of low-ROI CX</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-left: 4px; color: #6B6B6B;">
-              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 7v4M8 5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </label>
-        </div>
-
         <div class="form-field" style="display: flex; flex-direction: column; gap: 12px;">
-          <label class="radio-option">
-            <input type="radio" name="audience-type" value="all-users" onchange="toggleAudienceType('all-users')" />
-            <span>All Users</span>
-          </label>
-
           <div>
             <label class="radio-option">
-              <input type="radio" name="audience-type" value="custom" checked onchange="toggleAudienceType('custom')" />
-              <span>Custom Audience (experimental)</span>
+              <input type="radio" name="audience-type" value="existing" checked onchange="toggleAudienceType('existing')" />
+              <span>Choose from existing</span>
             </label>
-            <div id="custom-audience-field" style="margin-top: 12px; margin-left: 28px;">
+            <div id="existing-audience-field" style="margin-top: 12px; margin-left: 28px;">
               <select class="form-field__select">
                 ${options}
               </select>
             </div>
           </div>
 
-          <label class="radio-option">
-            <input type="radio" name="audience-type" value="audience-selection" onchange="toggleAudienceType('audience-selection')" />
-            <span>Audience Selection</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="audience-type" value="segment-legacy" onchange="toggleAudienceType('segment-legacy')" />
-            <span>Segment Legacy</span>
-          </label>
+          <div>
+            <label class="radio-option">
+              <input type="radio" name="audience-type" value="create" onchange="toggleAudienceType('create')" />
+              <span>Create new segmentation</span>
+            </label>
+            <div id="create-audience-field" style="display: none; margin-top: 12px; margin-left: 28px;">
+              <button class="btn btn--secondary" onclick="openSegmentationPlatform()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Segmentation platform
+              </button>
+            </div>
+          </div>
         </div>
-
-        <button class="btn btn--secondary" onclick="openSegmentationPlatform()" style="margin-top: 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Segmentation platform
-        </button>
       `;
     }
 
@@ -1330,12 +1312,15 @@
 
     // Toggle audience type
     function toggleAudienceType(type) {
-      const customField = document.getElementById('custom-audience-field');
+      const existingField = document.getElementById('existing-audience-field');
+      const createField = document.getElementById('create-audience-field');
 
-      if (type === 'custom') {
-        customField.style.display = 'block';
+      if (type === 'existing') {
+        existingField.style.display = 'block';
+        createField.style.display = 'none';
       } else {
-        customField.style.display = 'none';
+        existingField.style.display = 'none';
+        createField.style.display = 'block';
       }
     }
 
