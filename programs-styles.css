@@ -853,6 +853,9 @@
   gap: 8px;
   border-top: 1px solid var(--color-border);
   margin-top: auto;
+  margin-bottom: 64px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .user-profile__info {
@@ -902,6 +905,15 @@
 
 .user-profile__menu {
   flex-shrink: 0;
+}
+
+/* User Profile - Side Nav Collapsed State */
+.side-nav--icon-only .user-profile {
+  display: none;
+}
+
+.side-nav--icon-only:hover .user-profile {
+  display: flex;
 }
 
 /* Prism Form Field Components */

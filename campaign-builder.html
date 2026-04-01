@@ -187,6 +187,20 @@
             <span>Notification Portal</span>
           </a>
         </div>
+
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="user-profile__info">
+            <img src="asset/avatar.png" alt="Bonnie Lee" class="user-profile__avatar">
+            <div class="user-profile__details">
+              <div class="user-profile__name">Bonnie Lee</div>
+              <div class="user-profile__title">Product Designer</div>
+            </div>
+          </div>
+          <button class="btn-icon btn-icon--small user-profile__menu" aria-label="User menu">
+            <svg class="icon" width="16" height="16"><use href="#icon-more"/></svg>
+          </button>
+        </div>
       </nav>
 
       <main class="detail-main">
@@ -3342,6 +3356,21 @@
         window.location.href = 'campaign-structure.html';
       });
     });
+
+    // Navigate to campaign-structure when uploading brief
+    const uploadFromDrive = document.getElementById('upload-from-drive');
+    if (uploadFromDrive) {
+      uploadFromDrive.addEventListener('click', function() {
+        window.location.href = 'campaign-structure.html';
+      });
+    }
+
+    const uploadFromFile = document.getElementById('upload-from-file');
+    if (uploadFromFile) {
+      uploadFromFile.addEventListener('click', function() {
+        window.location.href = 'campaign-structure.html';
+      });
+    }
 
   </script>
 

@@ -574,6 +574,20 @@
             <span>Notification Portal</span>
           </a>
         </div>
+
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="user-profile__info">
+            <img src="asset/avatar.png" alt="Bonnie Lee" class="user-profile__avatar">
+            <div class="user-profile__details">
+              <div class="user-profile__name">Bonnie Lee</div>
+              <div class="user-profile__title">Product Designer</div>
+            </div>
+          </div>
+          <button class="btn-icon btn-icon--small user-profile__menu" aria-label="User menu">
+            <svg class="icon" width="16" height="16"><use href="#icon-more"/></svg>
+          </button>
+        </div>
       </nav>
 
       <main class="detail-main">
@@ -3651,8 +3665,8 @@
                             const looksGoodBtn = document.getElementById('structure-looks-good-btn');
                             if (looksGoodBtn) {
                               looksGoodBtn.addEventListener('click', function() {
-                                // Navigate to step 2
-                                window.location.href = 'campaign-config-table-view.html';
+                                // Navigate to targeting config
+                                window.location.href = 'targeting-config.html';
                               });
                             }
 
@@ -3803,8 +3817,8 @@
       // "Looks good" button
       if (looksGoodBtn) {
         looksGoodBtn.addEventListener('click', function(e) {
-          // Navigate to campaign config table view page
-          window.location.href = 'campaign-config-table-view.html';
+          // Navigate to targeting config
+          window.location.href = 'targeting-config.html';
         });
       }
 
@@ -3921,7 +3935,7 @@
     const summaryLooksGoodBtn = document.getElementById('summary-chat-looks-good-btn');
     if (summaryLooksGoodBtn) {
       summaryLooksGoodBtn.addEventListener('click', function() {
-        window.location.href = 'campaign-config-table-view.html';
+        window.location.href = 'targeting-config.html';
       });
     }
 
