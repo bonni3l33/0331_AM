@@ -217,7 +217,7 @@
     .version-history-row__date { color: var(--color-text-disabled); }
     .version-wrapper { position: relative; }
 
-    /* Workflow Step Navigator */
+    /* Workflow Step Navigator - Chat Style */
     .workflow-steps {
       flex: 0 0 200px;
       width: 200px;
@@ -228,112 +228,73 @@
       background: var(--color-bg);
       border-right: 1px solid var(--color-border);
     }
-    .workflow-step {
+    .summary-chat-step {
       display: flex;
-      align-items: flex-start;
-      gap: var(--space-3);
-      padding: var(--space-3) 0;
-      position: relative;
+      gap: var(--space-5);
     }
-    .workflow-step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      left: 11px;
-      top: 34px;
-      bottom: -12px;
-      width: 2px;
-      background: var(--color-border-input);
+    .summary-chat-step__track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
     }
-    .workflow-step--done:not(:last-child)::after,
-    .workflow-step--active:not(:last-child)::after {
-      background: var(--color-primary);
-    }
-    .workflow-step__indicator {
-      flex: 0 0 24px;
-      width: 24px;
-      height: 24px;
+    .summary-chat-step__circle {
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
+      background: var(--color-status-info-bg);
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      font-weight: var(--font-bold);
-      line-height: 1;
-      margin-top: 1px;
-    }
-    .workflow-step--done .workflow-step__indicator {
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-    }
-    .workflow-step--active .workflow-step__indicator {
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-      box-shadow: 0 0 0 3px rgba(0,131,138,0.18);
-    }
-    .workflow-step--upcoming .workflow-step__indicator {
-      background: var(--color-bg);
-      color: var(--color-text-subdued);
-      border: 2px solid var(--color-border-strong);
-    }
-    .workflow-step--disabled .workflow-step__indicator {
-      background: var(--color-bg-secondary);
-      color: var(--color-text-disabled);
-      border: 2px solid var(--color-border-input);
-    }
-    .workflow-step__label {
       font-size: var(--text-xs);
-      line-height: 1.4;
-      padding-top: 4px;
-    }
-    .workflow-step--done .workflow-step__label {
-      color: var(--color-primary);
-      font-weight: var(--font-medium);
-    }
-    .workflow-step--active .workflow-step__label {
-      color: var(--color-text);
-      font-weight: var(--font-bold);
-    }
-    .workflow-step--upcoming .workflow-step__label {
+      font-weight: var(--font-semibold);
+      line-height: 18px;
       color: var(--color-text-subdued);
     }
-    .workflow-step--disabled .workflow-step__label {
-      color: var(--color-text-disabled);
+    .summary-chat-step__circle--active {
+      background: var(--color-text);
+      color: var(--color-text-inverse);
     }
-    .workflow-step__coming-soon {
-      display: inline-block;
-      margin-left: var(--space-2);
-      font-size: 10px;
-      font-weight: var(--font-medium);
-      background: var(--color-bg-secondary);
-      color: var(--color-text-disabled);
-      border-radius: var(--radius-sm);
-      padding: 1px 5px;
-      vertical-align: middle;
+    .summary-chat-step__circle--completed {
+      background: var(--color-text);
+      color: var(--color-text-inverse);
     }
-    .workflow-step--clickable {
+    .summary-chat-step__line {
+      width: 2px;
+      flex: 1;
+      background: var(--color-status-info-bg);
+      margin: 2px 0;
+    }
+    .summary-chat-step__line--completed {
+      background: var(--color-text);
+    }
+    .summary-chat-step--last .summary-chat-step__line {
+      display: none;
+    }
+    .summary-chat-step__content {
+      flex: 1;
+      padding-bottom: var(--space-5);
+    }
+    .summary-chat-step__title {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      line-height: 18px;
+      color: var(--color-text);
+      margin-bottom: 2px;
+      letter-spacing: -0.01px;
+    }
+    .summary-chat-step__subtitle {
+      font-size: var(--text-xs);
+      line-height: 18px;
+      color: var(--color-text-subdued);
+      letter-spacing: -0.01px;
+    }
+    .summary-chat-step--clickable {
       cursor: pointer;
     }
-    .workflow-step--clickable:hover .workflow-step__indicator {
-      opacity: 0.85;
-    }
-    .workflow-step--clickable:hover .workflow-step__label {
+    .summary-chat-step--clickable:hover .summary-chat-step__title {
       text-decoration: underline;
-    }
-    .workflow-step__action-badge {
-      display: block;
-      margin-top: 3px;
-      font-size: 9px;
-      font-weight: var(--font-bold);
-      color: var(--color-status-warning-text);
-      background: var(--color-status-warning-bg);
-      border-radius: 3px;
-      padding: 1px 5px;
-      width: fit-content;
-    }
-    .workflow-step--done .workflow-step__action-badge,
-    .workflow-step--active .workflow-step__action-badge,
-    .workflow-step--disabled .workflow-step__action-badge {
-      display: none;
     }
   </style>
 </head>
@@ -588,44 +549,78 @@
     <div class="app-body" style="display: flex; flex: 1; overflow: hidden;">
       <!-- Workflow Steps Navigator -->
       <div class="workflow-steps">
-        <div class="workflow-step workflow-step--done">
-          <div class="workflow-step__indicator">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <!-- Step 1 - Completed -->
+        <div class="summary-chat-step">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle summary-chat-step__circle--completed">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="summary-chat-step__line summary-chat-step__line--completed"></div>
           </div>
-          <div class="workflow-step__label">Get started</div>
-        </div>
-        <div class="workflow-step workflow-step--active">
-          <div class="workflow-step__indicator">2</div>
-          <div class="workflow-step__label">Campaign Structure</div>
-        </div>
-        <div class="workflow-step workflow-step--upcoming workflow-step--clickable">
-          <div class="workflow-step__indicator">3</div>
-          <div class="workflow-step__label">
-            Targeting
-            <span class="workflow-step__action-badge">Action needed</span>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">Get started</div>
+            <div class="summary-chat-step__subtitle">Campaign basics</div>
           </div>
         </div>
-        <div class="workflow-step workflow-step--upcoming workflow-step--clickable">
-          <div class="workflow-step__indicator">4</div>
-          <div class="workflow-step__label">
-            Promotion
-            <span class="workflow-step__action-badge">Action needed</span>
+
+        <!-- Step 2 - Active -->
+        <div class="summary-chat-step">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle summary-chat-step__circle--active">2</div>
+            <div class="summary-chat-step__line"></div>
+          </div>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">Campaign Structure</div>
+            <div class="summary-chat-step__subtitle">Hierarchy and variants</div>
           </div>
         </div>
-        <div class="workflow-step workflow-step--upcoming">
-          <div class="workflow-step__indicator">5</div>
-          <div class="workflow-step__label">
-            Placement
-            <span class="workflow-step__action-badge">Action needed</span>
+
+        <!-- Step 3 -->
+        <div class="summary-chat-step summary-chat-step--clickable">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle">3</div>
+            <div class="summary-chat-step__line"></div>
+          </div>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">Targeting</div>
+            <div class="summary-chat-step__subtitle">Define your audience</div>
           </div>
         </div>
-        <div class="workflow-step workflow-step--disabled">
-          <div class="workflow-step__indicator">6</div>
-          <div class="workflow-step__label">
-            CRM
-            <span class="workflow-step__coming-soon">To come</span>
+
+        <!-- Step 4 -->
+        <div class="summary-chat-step summary-chat-step--clickable">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle">4</div>
+            <div class="summary-chat-step__line"></div>
+          </div>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">Promotion</div>
+            <div class="summary-chat-step__subtitle">Rewards and offers</div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="summary-chat-step summary-chat-step--clickable">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle">5</div>
+            <div class="summary-chat-step__line"></div>
+          </div>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">Placement</div>
+            <div class="summary-chat-step__subtitle">Where to show</div>
+          </div>
+        </div>
+
+        <!-- Step 6 - Last -->
+        <div class="summary-chat-step summary-chat-step--last">
+          <div class="summary-chat-step__track">
+            <div class="summary-chat-step__circle">6</div>
+          </div>
+          <div class="summary-chat-step__content">
+            <div class="summary-chat-step__title">CRM</div>
+            <div class="summary-chat-step__subtitle">Coming soon</div>
           </div>
         </div>
       </div>
