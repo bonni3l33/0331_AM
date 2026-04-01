@@ -319,8 +319,12 @@
       padding: var(--space-6) 36px 36px var(--space-6) !important;
       gap: var(--space-5) !important;
       max-width: none !important;
-      height: auto !important;
-      overflow: visible !important;
+      height: calc(100vh - 120px - var(--space-6) - 36px) !important;
+      overflow: hidden !important;
+    }
+    .template-selection-content {
+      overflow-y: auto !important;
+      height: 100% !important;
     }
     .ts-confirm-col {
       flex: 1 !important;
