@@ -3266,58 +3266,9 @@
       // "Looks good" button
       if (looksGoodBtn) {
         looksGoodBtn.addEventListener('click', function(e) {
-          // Prevent default behavior and stop other handlers
-          e.preventDefault();
-          e.stopImmediatePropagation();
-
-          // Hide the current campaign structure view
-          const campaignStructureView = document.getElementById('campaign-structure-view');
-          if (campaignStructureView) {
-            campaignStructureView.style.display = 'none';
-          }
-
-          // Show the detailed configuration view (Option A by default)
-          const detailedConfigView = document.getElementById('detailed-configuration-view-a');
-          if (detailedConfigView) {
-            detailedConfigView.style.display = 'block';
-          }
-
-          // Remove the question dialog
-          if (chatQuestion) {
-            chatQuestion.remove();
-          }
-
-          // Update the context message for step 2
-          const stepContextMessage = document.getElementById('step-context-message');
-          if (stepContextMessage) {
-            const messageText = stepContextMessage.querySelector('.ts-chat-message__text');
-            if (messageText) {
-              messageText.innerHTML = 'Now let\'s configure the campaign details and link your creative assets.';
-            }
-          }
-
-          // Update timeline: deactivate step 1, activate step 2
-          const step1 = document.querySelector('.ts-chat-step:nth-child(1)');
-          const step2 = document.querySelector('.ts-chat-step:nth-child(2)');
-
-          if (step1) {
-            step1.classList.remove('ts-chat-step--active');
-            const step1Circle = step1.querySelector('.ts-chat-step__circle');
-            if (step1Circle) {
-              step1Circle.classList.remove('ts-chat-step__circle--active');
-            }
-          }
-
-          if (step2) {
-            step2.classList.add('ts-chat-step--active');
-            const step2Circle = step2.querySelector('.ts-chat-step__circle');
-            if (step2Circle) {
-              step2Circle.classList.add('ts-chat-step__circle--active');
-            }
-            // Remove the last class since it's now active
-            step2.classList.remove('ts-chat-step--last');
-          }
-        }, true); // Use capture phase to run before other listeners
+          // Navigate to campaign config standalone page
+          window.location.href = 'campaign-config-standalone.html';
+        });
       }
 
       // Campaign tab switching (Option A)
