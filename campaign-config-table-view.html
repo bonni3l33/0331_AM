@@ -76,13 +76,61 @@
       margin: 0 8px;
     }
 
+    /* Config Section */
+    .config-section {
+      margin-bottom: 32px;
+    }
+
+    .config-section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .config-section__header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .config-section__status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #00838A;
+      color: white;
+      font-family: 'DD Norms', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .config-section__title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .config-section__title {
+      font-family: 'DD Norms', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #191919;
+      margin: 0;
+    }
+
+    .config-section__content {
+      /* Content styling handled by child elements */
+    }
+
     /* Config Table */
     .config-table {
       border: 1px solid #E7E7E7;
       border-radius: 8px;
       overflow: hidden;
       background: white;
-      margin-top: 24px;
     }
 
     .config-table__header {
@@ -608,41 +656,75 @@
       <main class="detail-main">
         <div class="page-wrapper">
           <div class="content-main">
-            <!-- Progress Stepper -->
-            <div class="progress-stepper">
-              <div class="progress-stepper__steps">
-                <div class="progress-stepper__step progress-stepper__step--active" data-step="targeting">
-                  <div class="progress-stepper__step-indicator">
-                    <div class="progress-stepper__step-number">1</div>
+            <!-- Section 1: Targeting -->
+            <div class="config-section">
+              <div class="config-section__header">
+                <div class="config-section__header-left">
+                  <div class="config-section__status config-section__status--active">1</div>
+                  <div class="config-section__title-group">
+                    <h3 class="config-section__title">Targeting</h3>
                   </div>
-                  <div class="progress-stepper__step-label">Targeting</div>
                 </div>
-                <div class="progress-stepper__connector"></div>
-                <div class="progress-stepper__step" data-step="promotion">
-                  <div class="progress-stepper__step-indicator">
-                    <div class="progress-stepper__step-number">2</div>
+              </div>
+              <div class="config-section__content">
+                <div class="config-table">
+                  <div class="config-table__header">
+                    <div class="config-table__cell">Variant</div>
+                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Targeting</div>
                   </div>
-                  <div class="progress-stepper__step-label">Promotion</div>
-                </div>
-                <div class="progress-stepper__connector"></div>
-                <div class="progress-stepper__step" data-step="placements">
-                  <div class="progress-stepper__step-indicator">
-                    <div class="progress-stepper__step-number">3</div>
+                  <div class="config-table__body" id="targeting-table-body">
+                    <!-- Targeting rows will be inserted here -->
                   </div>
-                  <div class="progress-stepper__step-label">Channels</div>
                 </div>
               </div>
             </div>
 
-            <!-- Config Table -->
-            <div class="config-table">
-              <div class="config-table__header">
-                <div class="config-table__cell">Variant</div>
-                <div class="config-table__cell">Relationship</div>
-                <div class="config-table__cell" id="section-header-cell">Targeting</div>
+            <!-- Section 2: Promotion -->
+            <div class="config-section">
+              <div class="config-section__header">
+                <div class="config-section__header-left">
+                  <div class="config-section__status config-section__status--active">2</div>
+                  <div class="config-section__title-group">
+                    <h3 class="config-section__title">Promotion</h3>
+                  </div>
+                </div>
               </div>
-              <div class="config-table__body" id="table-body">
-                <!-- Table rows will be dynamically inserted here -->
+              <div class="config-section__content">
+                <div class="config-table">
+                  <div class="config-table__header">
+                    <div class="config-table__cell">Variant</div>
+                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Promotion</div>
+                  </div>
+                  <div class="config-table__body" id="promotion-table-body">
+                    <!-- Promotion rows will be inserted here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Placements -->
+            <div class="config-section">
+              <div class="config-section__header">
+                <div class="config-section__header-left">
+                  <div class="config-section__status config-section__status--active">3</div>
+                  <div class="config-section__title-group">
+                    <h3 class="config-section__title">Placements</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="config-section__content">
+                <div class="config-table">
+                  <div class="config-table__header">
+                    <div class="config-table__cell">Variant</div>
+                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Placements</div>
+                  </div>
+                  <div class="config-table__body" id="placements-table-body">
+                    <!-- Placements rows will be inserted here -->
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -686,7 +768,7 @@
                 </div>
 
                 <div class="ts-chat-message">
-                  <p class="ts-chat-message__text">Use the stepper above to switch between <strong>Targeting</strong>, <strong>Promotion</strong>, and <strong>Placements</strong> sections.</p>
+                  <p class="ts-chat-message__text">Each section shows a table with all variants. Review <strong>Targeting</strong>, <strong>Promotion</strong>, and <strong>Placements</strong> configurations at a glance.</p>
                 </div>
               </div>
             </div>
@@ -774,58 +856,28 @@
       { id: 'SEG_HIGH_VALUE', name: 'High Value Customers' }
     ];
 
-    let currentSection = 'targeting';
     let currentVariant = null;
 
     // Initialize the page
     function init() {
-      renderTable();
-      setupStepperNavigation();
+      renderAllTables();
     }
 
-    // Setup stepper navigation
-    function setupStepperNavigation() {
-      const steps = document.querySelectorAll('.progress-stepper__step');
-      steps.forEach(step => {
-        step.addEventListener('click', () => {
-          const section = step.dataset.step;
-          if (section) {
-            switchSection(section);
-          }
-        });
-      });
+    // Render all three section tables
+    function renderAllTables() {
+      renderSectionTable('targeting');
+      renderSectionTable('promotion');
+      renderSectionTable('placements');
     }
 
-    // Switch section
-    function switchSection(section) {
-      currentSection = section;
-
-      // Update stepper
-      document.querySelectorAll('.progress-stepper__step').forEach(step => {
-        step.classList.toggle('progress-stepper__step--active', step.dataset.step === section);
-      });
-
-      // Update table header
-      const headerCell = document.getElementById('section-header-cell');
-      const sectionTitles = {
-        targeting: 'Targeting',
-        promotion: 'Promotion',
-        placements: 'Placements'
-      };
-      headerCell.textContent = sectionTitles[section];
-
-      // Re-render table
-      renderTable();
-    }
-
-    // Render table based on current section
-    function renderTable() {
-      const tbody = document.getElementById('table-body');
+    // Render a specific section table
+    function renderSectionTable(section) {
+      const tbody = document.getElementById(`${section}-table-body`);
       tbody.innerHTML = '';
 
       ['parent', 'nyc', 'sf', 'la'].forEach(variantKey => {
         const variant = campaignConfig[variantKey];
-        const config = variant[currentSection];
+        const config = variant[section];
         const isInherited = config.type === 'inherit';
 
         const row = document.createElement('div');
@@ -834,7 +886,7 @@
           row.classList.add('config-table__row--inherited');
         }
         row.dataset.variant = variantKey;
-        row.onclick = () => openDrawer(variantKey, currentSection);
+        row.onclick = () => openDrawer(variantKey, section);
 
         // Variant name
         const nameCell = document.createElement('div');
@@ -872,7 +924,7 @@
         contentCell.appendChild(badge);
 
         // Summary text
-        const summaryText = document.createTextNode(' ' + formatSummary(variantKey, currentSection));
+        const summaryText = document.createTextNode(' ' + formatSummary(variantKey, section));
         contentCell.appendChild(summaryText);
 
         row.appendChild(nameCell);
@@ -1086,7 +1138,7 @@
     function saveConfig() {
       alert('Configuration saved! (This would update the backend)');
       closeDrawer();
-      renderTable();
+      renderAllTables();
     }
 
     // Initialize on load
