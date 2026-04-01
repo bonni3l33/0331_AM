@@ -7,6 +7,87 @@
   <link rel="stylesheet" href="styles.css?v=202603316">
   <link rel="stylesheet" href="programs-styles.css?v=202603317">
   <style>
+    /* Progress Stepper Styles */
+    .progress-stepper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .progress-stepper__steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .progress-stepper__step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-stepper__step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #D3D6D9;
+      transition: all 0.2s ease;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-indicator {
+      background: #00838A;
+      border-color: #00838A;
+    }
+
+    .progress-stepper__step--completed .progress-stepper__step-indicator {
+      background: #00838A;
+      border-color: #00838A;
+    }
+
+    .progress-stepper__step-number {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #6C707A;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-number,
+    .progress-stepper__step--completed .progress-stepper__step-number {
+      color: #FFFFFF;
+    }
+
+    .progress-stepper__step-label {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #6C707A;
+      white-space: nowrap;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-label {
+      color: #111318;
+      font-weight: 600;
+    }
+
+    .progress-stepper__connector {
+      width: 80px;
+      height: 2px;
+      background: #D3D6D9;
+      margin: 0 8px;
+      margin-bottom: 28px;
+    }
+
+    .progress-stepper__step--completed + .progress-stepper__connector {
+      background: #00838A;
+    }
+
     /* Ensure consistent spacing between sections */
     .campaign-config-form {
       display: flex;
@@ -173,6 +254,32 @@
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
         <h1 class="template-selection-header" style="margin: 0;">Campaign Configuration</h1>
         <button class="btn btn--sm btn--ghost" id="switch-to-option-c">Switch to Table View</button>
+      </div>
+
+      <!-- Progress Stepper -->
+      <div class="progress-stepper" style="margin-bottom: 32px;">
+        <div class="progress-stepper__steps">
+          <div class="progress-stepper__step progress-stepper__step--active">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">1</div>
+            </div>
+            <div class="progress-stepper__step-label">Targeting</div>
+          </div>
+          <div class="progress-stepper__connector"></div>
+          <div class="progress-stepper__step">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">2</div>
+            </div>
+            <div class="progress-stepper__step-label">Promotion</div>
+          </div>
+          <div class="progress-stepper__connector"></div>
+          <div class="progress-stepper__step">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">3</div>
+            </div>
+            <div class="progress-stepper__step-label">Channels</div>
+          </div>
+        </div>
       </div>
 
       <!-- Campaign Tabs -->
