@@ -3376,6 +3376,14 @@
       }
     });
 
+    // Add navigation handler for initial "Looks good" button in summary chat
+    const summaryLooksGoodBtn = document.getElementById('summary-chat-looks-good-btn');
+    if (summaryLooksGoodBtn) {
+      summaryLooksGoodBtn.addEventListener('click', function() {
+        window.location.href = 'campaign-config-standalone.html';
+      });
+    }
+
   </script>
 
   <!-- Campaign Edit Mode Script -->
