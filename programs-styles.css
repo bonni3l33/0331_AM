@@ -1,5 +1,20 @@
 /* Programs View Styles
    Matches Figma design at node-id=32-12725
+   ==========================================
+
+   DESIGN SYSTEM REQUIREMENT:
+   ==========================================
+   ALWAYS USE PRISM DESIGN SYSTEM
+
+   All UI components MUST follow DoorDash Prism design system.
+
+   Prism Component Reference:
+   - Form Fields: .form-field (see lines 892-936)
+   - Checkboxes: .prism-checkbox (see lines 1055-1091)
+   - Radio Buttons: .promo-radio (see lines 960-980)
+   - Input Prefix/Suffix: .input-with-prefix, .input-with-suffix (see lines 998-1029)
+
+   Source: /bonnie-prototype/create-program.html & create-program-styles.css
    ========================================== */
 
 /* Global Nav Extensions for Programs View */
@@ -39,6 +54,12 @@
   padding: 24px 8px 8px 8px;
   background-color: white;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.side-nav-items {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -161,7 +182,7 @@
 
 /* Main content area with icon-only sidebar */
 .detail-main {
-  padding: 32px 170px 200px 170px;
+  padding: 0;
   max-width: 1400px;
   margin: 0 auto;
   margin-left: 56px;
@@ -676,387 +697,506 @@
   opacity: 0.7;
 }
 
-/* ==========================================
-   Confirm Campaign Structure Page Styles
-   ========================================== */
+/* Programs Table Styles */
+.programs-table-container {
+  overflow-x: auto;
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
 
-/* Main content full width for wizard */
-.main-content--full-width {
+.programs-table {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 88px 48px 120px;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.programs-table thead {
+  background-color: white;
+}
+
+.programs-table thead tr {
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table-header {
+  padding: 8px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--color-text);
+  letter-spacing: -0.01px;
+  white-space: nowrap;
+  position: relative;
+  background-color: white;
+}
+
+.table-header--checkbox {
+  width: 48px;
+  padding: 8px 16px;
+}
+
+.table-header--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-header--sortable:hover {
+  background-color: var(--color-bg-tertiary);
+}
+
+.table-header--name {
+  min-width: 200px;
+}
+
+.icon-sort {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 4px;
+  width: 12px;
+  height: 12px;
+  opacity: 0.5;
+}
+
+.table-row {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.15s ease;
+}
+
+.table-row:hover {
+  background-color: #f7f7f7;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--color-text);
+  letter-spacing: -0.01px;
+  vertical-align: middle;
+  height: 48px;
+}
+
+.table-cell--checkbox {
+  width: 48px;
+  padding: 8px 16px;
+}
+
+.table-cell--name {
+  font-weight: 500;
+}
+
+.table-cell--actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.table-link {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.table-link:hover {
+  color: var(--color-teal);
+  text-decoration: underline;
+}
+
+.table-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-text);
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none;
+  background-color: white;
+  display: inline-block;
+  position: relative;
+}
+
+.table-checkbox:hover {
+  border-color: var(--color-teal);
+}
+
+.table-checkbox:checked {
+  background-color: var(--color-teal);
+  border-color: var(--color-teal);
+}
+
+.table-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* User Profile */
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  gap: 8px;
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.user-profile__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-profile__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.user-profile__details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.user-profile__name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--color-text);
+  letter-spacing: -0.01px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-profile__title {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--color-text-subdued);
+  letter-spacing: -0.01px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-profile__menu {
+  flex-shrink: 0;
+}
+
+/* Prism Form Field Components */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field__label {
+  font-family: var(--font-primary, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #111318;
+  letter-spacing: -0.01px;
+  display: block;
+}
+
+.form-field__input {
+  padding: 8px 12px;
+  border: 1px solid #d3d6d9;
+  border-radius: 8px;
+  font-family: var(--font-primary, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #111318;
+  height: 40px;
+  letter-spacing: -0.01px;
+  background: white;
+  display: block;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.main-content--full-width .program-section__title {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-  color: #191919;
-  margin: 0 0 32px 0;
-  letter-spacing: -0.01px;
+.form-field__input::placeholder {
+  color: #51545d;
+  font-size: 14px;
+  font-weight: 400;
 }
 
-/* Campaign Section Label */
-.campaign-section-label {
-  font-family: var(--font-primary);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  color: #191919;
-  margin: 0 0 16px 0;
-  letter-spacing: -0.01px;
+.form-field__input:focus {
+  outline: none;
+  border: 2px solid rgba(25, 25, 25, 0.66);
+  padding: 7px 11px;
 }
 
-/* Parent Campaign Card */
-.parent-campaign-card {
-  background: white;
-  border: 1px solid #e7e7e7;
-  border-radius: 8px;
-  min-height: 120px;
-  margin-bottom: 24px;
-  position: relative;
+/* Promotion Form Styles - Prism Design System */
+.promo-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.parent-campaign-card__header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+/* Radio Group */
+.promo-radio-group {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.promo-radio-option {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.parent-campaign-card__title {
+.promo-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d0d0d0;
+  border-radius: 50%;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.promo-radio:hover {
+  border-color: #111318;
+}
+
+.promo-radio:checked {
+  border-color: #111318;
+  box-shadow: inset 0 0 0 4px white, inset 0 0 0 10px #111318;
+}
+
+.promo-radio-text {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 20px;
   color: #111318;
-  margin: 0;
   letter-spacing: -0.01px;
 }
 
-.parent-campaign-card__actions {
+/* Field Row */
+.promo-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Input with Prefix/Suffix */
+.input-with-prefix,
+.input-with-suffix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix,
+.input-suffix {
   position: absolute;
-  top: 19px;
-  right: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #51545d;
+  pointer-events: none;
+  letter-spacing: -0.01px;
+}
+
+.input-prefix {
+  left: 12px;
+}
+
+.input-suffix {
+  right: 12px;
+}
+
+.input-with-prefix-field {
+  padding-left: 28px !important;
+}
+
+.form-field__input:focus.input-with-prefix-field {
+  padding-left: 27px !important;
+}
+
+/* Checkbox List */
+.promo-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.promo-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #111318;
+  letter-spacing: -0.01px;
+}
+
+.promo-checkbox-item span {
+  user-select: none;
+}
+
+/* Prism Checkbox */
+.prism-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #111318;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: white;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.prism-checkbox:hover {
+  background: #f6f7f8;
+  border-color: #1b1d22;
+}
+
+.prism-checkbox:checked {
+  background: #111318;
+  border-color: #111318;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.prism-checkbox:checked:hover {
+  background-color: #1b1d22;
+  border-color: #1b1d22;
+}
+
+.prism-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(25, 25, 25, 0.66);
+}
+
+/* Nested Input for Checkbox */
+.promo-checkbox-item-with-nested {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.promo-nested-input {
+  padding-left: 26px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.parent-campaign-card__fields {
-  position: absolute;
-  top: 52px;
-  left: 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.parent-campaign-field {
-  display: flex;
-  gap: 11px;
-  align-items: flex-start;
-}
-
-.parent-campaign-field__content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 81px;
-}
-
-.parent-campaign-field__content--wide {
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
-}
-
-.parent-campaign-field-label {
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
+/* Config Field Hint (Parent Value Reference) */
+.config-field__hint {
   font-size: 12px;
   font-weight: 400;
-  color: #6c707a;
   line-height: 18px;
+  color: #767B83;
+  margin-top: 4px;
   letter-spacing: -0.01px;
 }
 
-.parent-campaign-field-value {
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: #494949;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-}
-
-.field-divider-vertical {
-  width: 1px;
-  height: 44px;
-  background-color: #e7e7e7;
-  flex-shrink: 0;
-}
-
-.placement-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.placement-tag {
-  font-family: 'TT Norms', sans-serif;
+/* Customized Badge */
+.config-customized-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px;
-  background-color: #f1f1f1;
-  color: #191919;
+  padding: 4px 8px;
+  background: #fff6d4;
+  color: #a36500;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 18px;
-  letter-spacing: -0.01px;
-}
-
-.btn-outline-small {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 6px 12px;
-  background-color: white;
-  color: #111318;
-  border: 1px solid #d3d6d9;
-  border-radius: 8px;
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  height: 32px;
-  min-height: 32px;
-}
-
-.btn-outline-small:hover {
-  background-color: #f6f7f8;
-  border-color: #b8bcc4;
-}
-
-/* Sub-Campaigns Section */
-.sub-campaigns-section {
-  margin-bottom: 32px;
-  background: #f6f7f8;
-  border: 1px solid #e7e7e7;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.sub-campaigns-header {
-  font-size: 14px;
-  font-weight: 700;
-  color: #191919;
   margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.sub-campaigns-count {
-  font-size: 12px;
-  font-weight: 700;
-  color: #606060;
-  background: white;
-  padding: 2px 8px;
-  border-radius: 12px;
-}
-
-.sub-campaigns-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.sub-campaign-card {
-  background: white;
-  border: 1px solid #e7e7e7;
-  border-radius: 8px;
-  min-height: 108px;
-  transition: all 0.2s ease;
-  position: relative;
-  padding-bottom: 20px;
-}
-
-.sub-campaign-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-color: #c0c0c0;
-}
-
-.sub-campaign-card__header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sub-campaign-card__title {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #111318;
-  margin: 0;
   letter-spacing: -0.01px;
 }
 
-.sub-campaign-card__actions {
-  position: absolute;
-  top: 19px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sub-campaign-card__fields {
-  position: absolute;
-  top: 52px;
-  left: 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.sub-campaign-field {
-  display: flex;
-  gap: 11px;
-  align-items: flex-start;
-}
-
-.sub-campaign-field__content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 81px;
-}
-
-.sub-campaign-field__content--wide {
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
-}
-
-.sub-campaign-divider {
-  width: 1px;
-  height: 44px;
-  background-color: #e7e7e7;
-  flex-shrink: 0;
-}
-
-.sub-campaign-label {
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: #6c707a;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-}
-
-.sub-campaign-value {
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: #494949;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-}
-
-/* Progress Bar Container */
-.progress-bar-container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.progress-bar-steps {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.progress-bar-step {
-  width: 32px;
-  height: 4px;
-  background-color: #f1f1f1;
-  border-radius: 9999px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.progress-bar-step--completed {
-  background-color: #191919;
-}
-
-.progress-bar-step--active {
-  background-color: #191919;
-}
-
-.progress-bar-step--disabled {
-  background-color: #f1f1f1;
-  cursor: not-allowed;
-}
-
-.progress-bar-text {
-  font-size: 12px;
-  font-weight: 500;
-  color: #494949;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-}
-
-/* Button styles for actions */
-.btn {
+/* Prism Tag Component */
+.meta-tag {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-family: 'DD Norms', 'TT Norms', sans-serif;
+  gap: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-primary, Arial, sans-serif);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.meta-tag--default {
+  background-color: #f1f1f1;
+  color: #191919;
+}
+
+.meta-tag--running {
+  background-color: #e7fbef;
+  color: #00832d;
+}
+
+.meta-tag--success {
+  background-color: #e7fbef;
+  color: #00832d;
+}
+
+.meta-tag--inherited {
+  background-color: #e7fbef;
+  color: #00832d;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  line-height: 18px;
   letter-spacing: -0.01px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 40px;
-  border: none;
+  height: 20px;
 }
 
-.btn--primary {
-  background-color: #00838a;
-  color: white;
-}
-
-.btn--primary:hover {
-  background-color: #00666d;
-}
-
-.btn--outlined {
-  background-color: white;
-  color: #111318;
-  border: 1px solid #d3d6d9;
-}
-
-.btn--outlined:hover {
-  background-color: #f6f7f8;
-  border-color: #b8bcc4;
+.meta-tag--customized {
+  background-color: #fff6d4;
+  color: #a36500;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+  height: 20px;
 }

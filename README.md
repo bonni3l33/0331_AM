@@ -40,6 +40,49 @@ This prototype provides a streamlined interface for managing promotional campaig
 - **View Transitions API** - Smooth page transitions
 - **Router** - Client-side routing system
 
+## Design System
+
+### **ALWAYS USE PRISM DESIGN SYSTEM**
+
+All UI components, form fields, buttons, and interactive elements **MUST** follow the DoorDash Prism design system specifications.
+
+#### Key Prism Components
+
+**Form Fields**
+```css
+.form-field              /* Container wrapper */
+.form-field__label       /* 14px, 600 weight, #111318 */
+.form-field__input       /* 40px height, 8px border-radius, 1px border #d3d6d9 */
+```
+
+**Checkboxes**
+```css
+.prism-checkbox          /* 18px, 2px border #111318, white checkmark SVG */
+```
+
+**Radio Buttons**
+```css
+.promo-radio            /* 20px, circular with inset shadow indicator */
+```
+
+**Input Enhancements**
+```css
+.input-with-prefix      /* $ prefix support */
+.input-with-suffix      /* % suffix support */
+```
+
+**Focus States**
+- All inputs: `2px border rgba(25, 25, 25, 0.66)`
+- Checkboxes: `box-shadow: 0 0 0 2px rgba(25, 25, 25, 0.66)`
+
+#### Reference Files
+- `/bonnie-prototype/create-program.html` - Form field examples
+- `/bonnie-prototype/create-program-styles.css` - Prism component styles
+- `programs-styles.css` (lines 892-1105) - Prism components implementation
+
+#### Documentation
+For React components, search for `@doordash/prism-react` components in the codebase.
+
 ## Project Structure
 
 ```

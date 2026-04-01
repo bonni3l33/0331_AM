@@ -135,34 +135,50 @@
     <div class="programs-layout">
       <!-- Side Navigation -->
       <nav class="side-nav">
-        <a href="#all-programs" class="side-nav-item side-nav-item--active">
-          <svg class="icon" width="24" height="24"><use href="#icon-list"/></svg>
-          <span>All programs</span>
-        </a>
-        <a href="#segmentations" class="side-nav-item">
-          <svg class="icon" width="24" height="24"><use href="#icon-person-find"/></svg>
-          <span>Segmentations</span>
-        </a>
-        <a href="#promotion-manager" class="side-nav-item">
-          <svg class="icon" width="24" height="24"><use href="#icon-deals"/></svg>
-          <span>Promo Manager</span>
-        </a>
-        <a href="#placement-portal" class="side-nav-item">
-          <svg class="icon" width="24" height="24"><use href="#icon-calendar-check"/></svg>
-          <span>Placement Portal</span>
-        </a>
-        <button class="side-nav-item side-nav-item--expandable" id="userJourneysToggle">
-          <svg class="icon" width="24" height="24"><use href="#icon-channel"/></svg>
-          <span>User Journeys</span>
-          <svg class="icon icon-chevron" width="24" height="24"><use href="#icon-chevron-down"/></svg>
-        </button>
-        <div class="side-nav-nested" id="userJourneysNested">
-          <a href="#journey-platform" class="side-nav-item side-nav-item--nested">
-            <span>Journey Platform</span>
+        <div class="side-nav-items">
+          <a href="#all-programs" class="side-nav-item side-nav-item--active">
+            <svg class="icon" width="24" height="24"><use href="#icon-list"/></svg>
+            <span>All programs</span>
           </a>
-          <a href="#notification-portal" class="side-nav-item side-nav-item--nested">
-            <span>Notification Portal</span>
+          <a href="#segmentations" class="side-nav-item">
+            <svg class="icon" width="24" height="24"><use href="#icon-person-find"/></svg>
+            <span>Segmentations</span>
           </a>
+          <a href="#promotion-manager" class="side-nav-item">
+            <svg class="icon" width="24" height="24"><use href="#icon-deals"/></svg>
+            <span>Promo Manager</span>
+          </a>
+          <a href="#placement-portal" class="side-nav-item">
+            <svg class="icon" width="24" height="24"><use href="#icon-calendar-check"/></svg>
+            <span>Placement Portal</span>
+          </a>
+          <button class="side-nav-item side-nav-item--expandable" id="userJourneysToggle">
+            <svg class="icon" width="24" height="24"><use href="#icon-channel"/></svg>
+            <span>User Journeys</span>
+            <svg class="icon icon-chevron" width="24" height="24"><use href="#icon-chevron-down"/></svg>
+          </button>
+          <div class="side-nav-nested" id="userJourneysNested">
+            <a href="#journey-platform" class="side-nav-item side-nav-item--nested">
+              <span>Journey Platform</span>
+            </a>
+            <a href="#notification-portal" class="side-nav-item side-nav-item--nested">
+              <span>Notification Portal</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="user-profile__info">
+            <img src="asset/avatar.png" alt="Bonnie Lee" class="user-profile__avatar">
+            <div class="user-profile__details">
+              <div class="user-profile__name">Bonnie Lee</div>
+              <div class="user-profile__title">Product Designer</div>
+            </div>
+          </div>
+          <button class="btn-icon btn-icon--small user-profile__menu" aria-label="User menu">
+            <svg class="icon" width="16" height="16"><use href="#icon-more"/></svg>
+          </button>
         </div>
       </nav>
 
@@ -190,122 +206,153 @@
           <button class="programs-tab">Draft</button>
         </div>
 
-        <!-- Programs Grid -->
-        <div class="programs-grid">
-          <!-- Card 1 - NPWS June Go Hotter -->
-          <div class="program-card">
-            <div class="program-card__header">
-              <h3 class="program-card__title">NPWS June Go Hotter</h3>
-              <button class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-more"/></svg>
-              </button>
-            </div>
-            <div class="program-card__body">
-              <span class="program-card__date">Starts 11/30</span>
-              <span class="program-tag program-tag--success">
-                <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
-                Approved
-              </span>
-            </div>
-            <div class="program-card__footer">
-              <a href="program-detail-v2.html" class="btn-text">View details</a>
-              <a href="program-detail-v2.html" class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-arrow-right"/></svg>
-              </a>
-            </div>
-          </div>
+        <!-- Programs Table -->
+        <div class="programs-table-container">
+          <table class="programs-table">
+            <thead>
+              <tr>
+                <th class="table-header table-header--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select all programs">
+                </th>
+                <th class="table-header table-header--sortable">
+                  Status
+                  <svg class="icon-sort" width="16" height="16">
+                    <path fill="currentColor" d="M8 2v12M5 11l3 3 3-3"/>
+                  </svg>
+                </th>
+                <th class="table-header table-header--sortable table-header--name">
+                  Name
+                  <svg class="icon-sort" width="16" height="16">
+                    <path fill="currentColor" d="M8 2v12M5 11l3 3 3-3"/>
+                  </svg>
+                </th>
+                <th class="table-header table-header--sortable">
+                  Start Date
+                  <svg class="icon-sort" width="16" height="16">
+                    <path fill="currentColor" d="M8 2v12M5 11l3 3 3-3"/>
+                  </svg>
+                </th>
+                <th class="table-header table-header--sortable">
+                  Type
+                  <svg class="icon-sort" width="16" height="16">
+                    <path fill="currentColor" d="M8 2v12M5 11l3 3 3-3"/>
+                  </svg>
+                </th>
+                <th class="table-header">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1 - NPWS June Go Hotter -->
+              <tr class="table-row">
+                <td class="table-cell table-cell--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select NPWS June Go Hotter">
+                </td>
+                <td class="table-cell">
+                  <span class="program-tag program-tag--success">
+                    <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
+                    Approved
+                  </span>
+                </td>
+                <td class="table-cell table-cell--name">
+                  <a href="program-detail-v2.html" class="table-link">NPWS June Go Hotter</a>
+                </td>
+                <td class="table-cell">Starts 11/30</td>
+                <td class="table-cell">Campaign</td>
+                <td class="table-cell table-cell--actions">
+                  <a href="program-detail-v2.html" class="btn-text">View details</a>
+                </td>
+              </tr>
 
-          <!-- Card 2 - SoDP - Ulta deal drop -->
-          <div class="program-card">
-            <div class="program-card__header">
-              <h3 class="program-card__title">SoDP - Ulta deal drop</h3>
-            </div>
-            <div class="program-card__body">
-              <span class="program-card__date">Starts 11/30</span>
-              <span class="program-tag program-tag--draft">
-                <svg class="icon" width="12" height="12" viewBox="0 0 16 16">
-                  <circle cx="8" cy="8" r="6" fill="currentColor"/>
-                </svg>
-                Draft
-              </span>
-            </div>
-            <div class="program-card__footer">
-              <a href="program-detail-ulta.html" class="btn-text">View details</a>
-              <a href="program-detail-ulta.html" class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-arrow-right"/></svg>
-              </a>
-            </div>
-          </div>
+              <!-- Row 2 - SoDP - Ulta deal drop -->
+              <tr class="table-row">
+                <td class="table-cell table-cell--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select SoDP - Ulta deal drop">
+                </td>
+                <td class="table-cell">
+                  <span class="program-tag program-tag--draft">
+                    <svg class="icon" width="12" height="12" viewBox="0 0 16 16">
+                      <circle cx="8" cy="8" r="6" fill="currentColor"/>
+                    </svg>
+                    Draft
+                  </span>
+                </td>
+                <td class="table-cell table-cell--name">
+                  <a href="program-detail-ulta.html" class="table-link">SoDP - Ulta deal drop</a>
+                </td>
+                <td class="table-cell">Starts 11/30</td>
+                <td class="table-cell">Promotion</td>
+                <td class="table-cell table-cell--actions">
+                  <a href="program-detail-ulta.html" class="btn-text">View details</a>
+                </td>
+              </tr>
 
-          <!-- Card 3 - Lifecycle Resurrection -->
-          <a href="program-detail-lifecycle.html" class="program-card">
-            <div class="program-card__header">
-              <h3 class="program-card__title">Lifecycle Resurrection</h3>
-            </div>
-            <div class="program-card__body">
-              <span class="program-card__date">Starts 11/30</span>
-              <span class="program-tag program-tag--warning">
-                <svg class="icon" width="12" height="12" viewBox="0 0 16 16">
-                  <path fill="currentColor" d="M8 0L0 15h16L8 0zm0 3l6 11H2L8 3z"/>
-                  <path fill="currentColor" d="M7 8h2v3H7V8zm0 4h2v2H7v-2z"/>
-                </svg>
-                Action needed
-              </span>
-            </div>
-            <div class="program-card__footer">
-              <button class="btn-text">View details</button>
-              <button class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-arrow-right"/></svg>
-              </button>
-            </div>
-          </a>
+              <!-- Row 3 - Lifecycle Resurrection -->
+              <tr class="table-row">
+                <td class="table-cell table-cell--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select Lifecycle Resurrection">
+                </td>
+                <td class="table-cell">
+                  <span class="program-tag program-tag--warning">
+                    <svg class="icon" width="12" height="12" viewBox="0 0 16 16">
+                      <path fill="currentColor" d="M8 0L0 15h16L8 0zm0 3l6 11H2L8 3z"/>
+                      <path fill="currentColor" d="M7 8h2v3H7V8zm0 4h2v2H7v-2z"/>
+                    </svg>
+                    Action needed
+                  </span>
+                </td>
+                <td class="table-cell table-cell--name">
+                  <a href="program-detail-lifecycle.html" class="table-link">Lifecycle Resurrection</a>
+                </td>
+                <td class="table-cell">Starts 11/30</td>
+                <td class="table-cell">Lifecycle</td>
+                <td class="table-cell table-cell--actions">
+                  <a href="program-detail-lifecycle.html" class="btn-text">View details</a>
+                </td>
+              </tr>
 
-          <!-- Card 4 - Signup AI Evergreen -->
-          <a href="program-detail-signup-ai.html" class="program-card">
-            <div class="program-card__header">
-              <h3 class="program-card__title">Signup AI Evergreen</h3>
-            </div>
-            <div class="program-card__body">
-              <span class="program-card__date">Launched Jan 27, 2026</span>
-              <span class="program-tag program-tag--success">
-                <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
-                Active
-              </span>
-            </div>
-            <div class="program-card__footer">
-              <button class="btn-text">View details</button>
-              <button class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-arrow-right"/></svg>
-              </button>
-            </div>
-          </a>
+              <!-- Row 4 - Signup AI Evergreen -->
+              <tr class="table-row">
+                <td class="table-cell table-cell--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select Signup AI Evergreen">
+                </td>
+                <td class="table-cell">
+                  <span class="program-tag program-tag--success">
+                    <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
+                    Active
+                  </span>
+                </td>
+                <td class="table-cell table-cell--name">
+                  <a href="program-detail-signup-ai.html" class="table-link">Signup AI Evergreen</a>
+                </td>
+                <td class="table-cell">Launched Jan 27, 2026</td>
+                <td class="table-cell">AI Campaign</td>
+                <td class="table-cell table-cell--actions">
+                  <a href="program-detail-signup-ai.html" class="btn-text">View details</a>
+                </td>
+              </tr>
 
-          <!-- Card 5 - Summer of Dashpass -->
-          <a href="program-detail-sodp.html" class="program-card">
-            <div class="program-card__header">
-              <h3 class="program-card__title">Summer of Dashpass</h3>
-            </div>
-            <div class="program-card__body">
-              <span class="program-card__date">May 28 - Jul 23</span>
-              <span class="program-tag program-tag--success">
-                <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
-                Active
-              </span>
-            </div>
-            <div class="program-card__footer">
-              <button class="btn-text">View details</button>
-              <button class="btn-icon btn-icon--small">
-                <svg class="icon" width="20" height="20"><use href="#icon-arrow-right"/></svg>
-              </button>
-            </div>
-          </a>
-
-          <!-- Card 6 - Placeholder -->
-          <div class="program-card program-card--placeholder">
-            <div class="placeholder-bar placeholder-bar--title"></div>
-            <div class="placeholder-bar placeholder-bar--body"></div>
-            <div class="placeholder-bar placeholder-bar--footer"></div>
-          </div>
+              <!-- Row 5 - Summer of Dashpass -->
+              <tr class="table-row">
+                <td class="table-cell table-cell--checkbox">
+                  <input type="checkbox" class="table-checkbox" aria-label="Select Summer of Dashpass">
+                </td>
+                <td class="table-cell">
+                  <span class="program-tag program-tag--success">
+                    <svg class="icon" width="12" height="12"><use href="#icon-check-circle"/></svg>
+                    Active
+                  </span>
+                </td>
+                <td class="table-cell table-cell--name">
+                  <a href="program-detail-sodp.html" class="table-link">Summer of Dashpass</a>
+                </td>
+                <td class="table-cell">May 28 - Jul 23</td>
+                <td class="table-cell">Campaign</td>
+                <td class="table-cell table-cell--actions">
+                  <a href="program-detail-sodp.html" class="btn-text">View details</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>
