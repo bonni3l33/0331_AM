@@ -316,17 +316,18 @@
 
     /* Align content padding with workflow steps */
     .template-selection-container {
-      padding: var(--space-6) 0 12px var(--space-6) !important;
+      padding: var(--space-6) 36px 36px var(--space-6) !important;
       gap: var(--space-5) !important;
       max-width: none !important;
       height: auto !important;
       overflow: visible !important;
     }
     .ts-confirm-col {
-      flex: 0 0 440px !important;
-      max-width: 440px !important;
-      height: calc(100vh - 120px - var(--space-6) - var(--space-6)) !important;
-      max-height: calc(100vh - 120px - var(--space-6) - var(--space-6)) !important;
+      flex: 1 !important;
+      min-width: 405px !important;
+      max-width: none !important;
+      height: calc(100vh - 120px - var(--space-6) - 36px) !important;
+      max-height: calc(100vh - 120px - var(--space-6) - 36px) !important;
     }
     .ts-chat-content {
       padding: var(--space-6) 0 var(--space-6) var(--space-5);
