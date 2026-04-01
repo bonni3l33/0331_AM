@@ -462,14 +462,39 @@
     }
 
     .page-wrapper {
+      display: flex;
+      gap: 28px;
       max-width: 1440px;
       margin: 0 auto;
-      padding: 24px 64px;
+      padding: 24px 64px 0;
+      min-height: calc(100vh - 64px);
     }
 
     .content-main {
-      background: #F6F7F8;
-      min-height: calc(100vh - 64px);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ts-chat-step__circle--completed {
+      background: transparent;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ts-chat-step__circle--completed svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ts-chat-step--completed .ts-chat-step__title {
+      color: #767B83;
+    }
+
+    .ts-chat-step--completed .ts-chat-step__subtitle {
+      color: #B3B6BA;
     }
 
     .detail-layout {
@@ -491,6 +516,9 @@
     <svg xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-close" viewBox="0 0 24 24">
         <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/>
+      </symbol>
+      <symbol id="icon-check-circle-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM11.2071 7.20711C11.5976 6.81658 11.5976 6.18342 11.2071 5.79289C10.8166 5.40237 10.1834 5.40237 9.79289 5.79289L7 8.58579L6.20711 7.79289C5.81658 7.40237 5.18342 7.40237 4.79289 7.79289C4.40237 8.18342 4.40237 8.81658 4.79289 9.20711L6.29289 10.7071C6.68342 11.0976 7.31658 11.0976 7.70711 10.7071L11.2071 7.20711Z" fill="#00832D"/>
       </symbol>
       <symbol id="icon-list" viewBox="0 0 24 24">
         <g transform="translate(2.25, 4.5)">
@@ -618,8 +646,64 @@
               </div>
             </div>
 
-          </div>
-        </div>
+          </div><!-- end content-main -->
+
+          <!-- Right: AI Chat -->
+          <div class="ts-confirm-col">
+            <div class="ts-chat-content">
+              <div class="ts-chat-conversation">
+                <div class="ts-chat-message">
+                  <p class="ts-chat-message__text">Let's configure your campaign variants. You can customize targeting, promotions, and placements for each variant.</p>
+                  <div class="ts-chat-timeline">
+                    <!-- Step 1 -->
+                    <div class="ts-chat-step ts-chat-step--completed">
+                      <div class="ts-chat-step__track">
+                        <div class="ts-chat-step__circle ts-chat-step__circle--completed">
+                          <svg width="20" height="20"><use href="#icon-check-circle-fill"/></svg>
+                        </div>
+                        <div class="ts-chat-step__line"></div>
+                      </div>
+                      <div class="ts-chat-step__content">
+                        <div class="ts-chat-step__title">Campaign Structure</div>
+                        <div class="ts-chat-step__subtitle">Parent + 3 child variants defined</div>
+                      </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="ts-chat-step ts-chat-step--active ts-chat-step--last">
+                      <div class="ts-chat-step__track">
+                        <div class="ts-chat-step__circle ts-chat-step__circle--active">2</div>
+                      </div>
+                      <div class="ts-chat-step__content">
+                        <div class="ts-chat-step__title">Configuration</div>
+                        <div class="ts-chat-step__subtitle">Targeting, promotion, and placements</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ts-chat-message">
+                  <p class="ts-chat-message__text">Click any row to edit configuration. Child variants inherit from the parent by default, but you can override any section.</p>
+                </div>
+
+                <div class="ts-chat-message">
+                  <p class="ts-chat-message__text">Use the stepper above to switch between <strong>Targeting</strong>, <strong>Promotion</strong>, and <strong>Placements</strong> sections.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="ts-chat-input">
+              <div class="ts-chat-input__wrapper">
+                <input type="text" class="ts-chat-input__field" placeholder="How can i help">
+                <button class="ts-chat-input__submit">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div><!-- end ts-confirm-col -->
+        </div><!-- end page-wrapper -->
       </main>
     </div>
   </div>
