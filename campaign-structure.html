@@ -267,7 +267,7 @@
       margin: 2px 0;
     }
     .summary-chat-step__line--completed {
-      background: #00832D;
+      background: var(--color-text);
     }
     .summary-chat-step--last .summary-chat-step__line {
       display: none;
@@ -290,11 +290,30 @@
       color: var(--color-text-subdued);
       letter-spacing: -0.01px;
     }
+    .summary-chat-step__action-badge {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: var(--font-bold);
+      color: var(--color-status-warning-text);
+      background: var(--color-status-warning-bg);
+      border-radius: 3px;
+      padding: 2px 6px;
+      width: fit-content;
+    }
     .summary-chat-step--clickable {
       cursor: pointer;
     }
     .summary-chat-step--clickable:hover .summary-chat-step__title {
       text-decoration: underline;
+    }
+
+    /* Align content padding with workflow steps */
+    .template-selection-container {
+      padding: var(--space-6) var(--space-5) 0;
+    }
+    .ts-chat-content {
+      padding: var(--space-6) var(--space-5);
     }
   </style>
 </head>
@@ -561,7 +580,6 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Get started</div>
-            <div class="summary-chat-step__subtitle">Campaign basics</div>
           </div>
         </div>
 
@@ -573,7 +591,6 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Campaign Structure</div>
-            <div class="summary-chat-step__subtitle">Hierarchy and variants</div>
           </div>
         </div>
 
@@ -585,7 +602,7 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Targeting</div>
-            <div class="summary-chat-step__subtitle">Define your audience</div>
+            <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
         </div>
 
@@ -597,7 +614,7 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Promotion</div>
-            <div class="summary-chat-step__subtitle">Rewards and offers</div>
+            <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
         </div>
 
@@ -609,7 +626,7 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Placement</div>
-            <div class="summary-chat-step__subtitle">Where to show</div>
+            <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
         </div>
 
@@ -620,7 +637,6 @@
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">CRM</div>
-            <div class="summary-chat-step__subtitle">Coming soon</div>
           </div>
         </div>
       </div>
