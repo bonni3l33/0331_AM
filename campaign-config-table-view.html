@@ -76,38 +76,6 @@
       margin: 0 8px;
     }
 
-    /* Section Navigator */
-    .section-navigator {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      border-bottom: 2px solid #E7E7E7;
-    }
-
-    .section-nav-tab {
-      flex: 1;
-      padding: 12px 24px;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      font-family: 'DD Norms', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: #6B6B6B;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      margin-bottom: -2px;
-    }
-
-    .section-nav-tab:hover {
-      color: #191919;
-      background: #FAFAFA;
-    }
-
-    .section-nav-tab.active {
-      color: #00838A;
-      border-bottom-color: #00838A;
-    }
 
     /* Config Table */
     .config-table {
@@ -634,19 +602,6 @@
               </div>
             </div>
 
-            <!-- Section Navigator Tabs -->
-            <div class="section-navigator">
-              <button class="section-nav-tab active" data-section="targeting">
-                Targeting
-              </button>
-              <button class="section-nav-tab" data-section="promotion">
-                Promotion
-              </button>
-              <button class="section-nav-tab" data-section="placements">
-                Placements
-              </button>
-            </div>
-
             <!-- Config Table -->
             <div class="config-table">
               <div class="config-table__header">
@@ -720,19 +675,7 @@
     // Initialize the page
     function init() {
       renderTable();
-      setupSectionNavigation();
       setupStepperNavigation();
-    }
-
-    // Setup section navigation
-    function setupSectionNavigation() {
-      const tabs = document.querySelectorAll('.section-nav-tab');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const section = tab.dataset.section;
-          switchSection(section);
-        });
-      });
     }
 
     // Setup stepper navigation
@@ -751,11 +694,6 @@
     // Switch section
     function switchSection(section) {
       currentSection = section;
-
-      // Update tabs
-      document.querySelectorAll('.section-nav-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.section === section);
-      });
 
       // Update stepper
       document.querySelectorAll('.progress-stepper__step').forEach(step => {
