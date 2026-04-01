@@ -377,6 +377,22 @@
       color: var(--color-text);
     }
 
+    /* AI Chat Toggle States */
+    .ts-confirm-col.chat-hidden {
+      display: none !important;
+    }
+    .template-selection-container.chat-hidden {
+      gap: 0 !important;
+    }
+    .template-selection-content.chat-expanded {
+      max-width: none !important;
+      flex: 1 !important;
+    }
+    .btn-icon.active {
+      background: var(--color-bg-highlight) !important;
+      color: var(--color-text-selected) !important;
+    }
+
     /* Fixed confirm bar */
     .confirm-bar {
       position: fixed;
@@ -518,7 +534,7 @@
         <span class="global-nav__title">Marketing Program Center</span>
       </div>
       <div class="global-nav__actions">
-        <button class="btn-icon" title="AI Chat">
+        <button class="btn-icon active" id="ai-chat-toggle-btn" title="AI Chat">
           <svg class="icon" width="24" height="24"><use href="#icon-ai-chat"></use></svg>
         </button>
       </div>
@@ -3919,6 +3935,36 @@
 
   <!-- Campaign Edit Mode Script -->
   <script src="campaign-edit-mode.js"></script>
+
+  <!-- AI Chat Toggle Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const aiChatToggleBtn = document.getElementById('ai-chat-toggle-btn');
+      const aiChatPanel = document.getElementById('ts-confirm-col-structure');
+      const contentContainer = document.querySelector('.template-selection-container');
+      const contentArea = document.querySelector('.template-selection-content');
+
+      if (aiChatToggleBtn && aiChatPanel) {
+        aiChatToggleBtn.addEventListener('click', function() {
+          // Toggle button active state
+          this.classList.toggle('active');
+
+          // Toggle chat visibility
+          aiChatPanel.classList.toggle('chat-hidden');
+
+          // Toggle container gap
+          if (contentContainer) {
+            contentContainer.classList.toggle('chat-hidden');
+          }
+
+          // Toggle content expansion
+          if (contentArea) {
+            contentArea.classList.toggle('chat-expanded');
+          }
+        });
+      }
+    });
+  </script>
 
   <!-- Fixed Confirm Bar -->
   <div class="confirm-bar" id="page-confirm-bar">
