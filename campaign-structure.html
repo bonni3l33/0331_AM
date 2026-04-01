@@ -381,13 +381,6 @@
     .ts-confirm-col.chat-hidden {
       display: none !important;
     }
-    .template-selection-container.chat-hidden {
-      gap: 0 !important;
-    }
-    .template-selection-content.chat-expanded {
-      max-width: none !important;
-      flex: 1 !important;
-    }
     .btn-icon.active {
       background: var(--color-bg-highlight) !important;
       color: var(--color-text-selected) !important;
@@ -3941,8 +3934,6 @@
     document.addEventListener('DOMContentLoaded', function() {
       const aiChatToggleBtn = document.getElementById('ai-chat-toggle-btn');
       const aiChatPanel = document.getElementById('ts-confirm-col-structure');
-      const contentContainer = document.querySelector('.template-selection-container');
-      const contentArea = document.querySelector('.template-selection-content');
 
       if (aiChatToggleBtn && aiChatPanel) {
         aiChatToggleBtn.addEventListener('click', function() {
@@ -3951,16 +3942,6 @@
 
           // Toggle chat visibility
           aiChatPanel.classList.toggle('chat-hidden');
-
-          // Toggle container gap
-          if (contentContainer) {
-            contentContainer.classList.toggle('chat-hidden');
-          }
-
-          // Toggle content expansion
-          if (contentArea) {
-            contentArea.classList.toggle('chat-expanded');
-          }
         });
       }
     });
