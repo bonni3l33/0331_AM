@@ -316,17 +316,18 @@
 
     /* Align content padding with workflow steps */
     .template-selection-container {
-      padding: var(--space-6) 36px 36px var(--space-6) !important;
+      padding: var(--space-6) 36px 0 var(--space-6) !important;
       gap: var(--space-5) !important;
       max-width: none !important;
-      height: calc(100vh - 120px - var(--space-6) - 36px) !important;
+      height: calc(100vh - 120px - var(--space-6)) !important;
       overflow: hidden !important;
     }
     .template-selection-content {
       overflow-y: auto !important;
-      height: 100% !important;
+      height: calc(100% - 36px) !important;
       padding-bottom: 0 !important;
       padding-right: 0 !important;
+      margin-bottom: 36px !important;
     }
     .ts-confirm-col {
       flex: 1 !important;
@@ -334,6 +335,7 @@
       max-width: none !important;
       height: calc(100vh - 120px - var(--space-6) - 36px) !important;
       max-height: calc(100vh - 120px - var(--space-6) - 36px) !important;
+      margin-bottom: 36px !important;
     }
     .ts-chat-content {
       padding: var(--space-6) 0 var(--space-6) var(--space-5);
