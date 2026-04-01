@@ -25,6 +25,316 @@
     .hierarchy-diagram[data-edit-mode="true"] .toggle-chips-group--wrap {
       display: flex !important;
     }
+
+    /* Layout structure */
+    .detail-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Metadata bar - Using Prism Design Tokens */
+    .meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 74px;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+      padding: 0 var(--space-5);
+      flex-shrink: 0;
+      font-size: var(--text-xs);
+      color: var(--color-text-subdued);
+      overflow: visible;
+      position: relative;
+      z-index: 50;
+    }
+    .meta-bar__left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-right: var(--space-5);
+      flex-shrink: 0;
+    }
+    .meta-bar__back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-subdued);
+    }
+    .meta-bar__back:hover { background: var(--color-bg-secondary); }
+    .meta-bar__name {
+      font-size: 13px;
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+    }
+    .meta-bar__status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      line-height: 20px;
+      font-weight: var(--font-medium);
+      background: var(--color-bg);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+    }
+    .meta-bar__status:hover { background: var(--color-bg-secondary); }
+    .meta-bar__status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .meta-bar__status-dot--draft { background: var(--color-text-disabled); }
+    .meta-bar__status-dot--testing { background: var(--color-status-warning-text); }
+    .meta-bar__status-dot--approved { background: var(--color-status-success-text); }
+    .meta-bar__status-dot--live { background: var(--color-primary); }
+    .meta-bar__status-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-input);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(25,25,25,0.2);
+      z-index: 200;
+      min-width: 240px;
+      padding: var(--space-3) 0;
+    }
+    .meta-bar__status-menu.open { display: block; }
+    .meta-bar__status-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      width: 100%;
+      text-align: left;
+      padding: var(--space-2) var(--space-5);
+      font-size: var(--text-base);
+      line-height: 22px;
+      font-weight: var(--font-medium);
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--color-text);
+      min-height: 32px;
+    }
+    .meta-bar__status-option:hover { background: var(--color-bg-secondary); }
+    .meta-bar__status-option.selected {
+      position: relative;
+    }
+    .meta-bar__status-option.selected::after {
+      content: '';
+      position: absolute;
+      right: var(--space-5);
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M13 4L6 11L3 8' stroke='%2300838A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .meta-bar__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--color-border-input);
+      margin: 0 var(--space-4);
+      flex-shrink: 0;
+    }
+    .meta-bar__fields {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+    .meta-bar__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .meta-bar__field-label {
+      font-size: var(--text-xs);
+      line-height: 18px;
+      color: var(--color-text-subdued);
+      font-weight: var(--font-bold);
+    }
+    .meta-bar__field-value {
+      font-size: var(--text-sm);
+      line-height: 20px;
+      color: var(--color-text);
+      font-weight: var(--font-medium);
+    }
+    .meta-bar__field-value--link {
+      color: var(--color-text-selected);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .meta-bar__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    /* Version history dropdown */
+    .version-history-panel {
+      display: none;
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-input);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(25,25,25,0.2);
+      z-index: 200;
+      min-width: 280px;
+      padding: var(--space-3) 0;
+    }
+    .version-history-panel.open { display: block; }
+    .version-history-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) 14px;
+      font-size: var(--text-xs);
+      gap: var(--space-4);
+    }
+    .version-history-row:hover { background: var(--color-bg-secondary); cursor: pointer; }
+    .version-history-row__num { font-weight: var(--font-semibold); color: var(--color-text); }
+    .version-history-row__by  { color: var(--color-text-subdued); }
+    .version-history-row__date { color: var(--color-text-disabled); }
+    .version-wrapper { position: relative; }
+
+    /* Workflow Step Navigator */
+    .workflow-steps {
+      flex: 0 0 200px;
+      width: 200px;
+      padding: var(--space-6) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--color-bg);
+      border-right: 1px solid var(--color-border);
+    }
+    .workflow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 34px;
+      bottom: -12px;
+      width: 2px;
+      background: var(--color-border-input);
+    }
+    .workflow-step--done:not(:last-child)::after,
+    .workflow-step--active:not(:last-child)::after {
+      background: var(--color-primary);
+    }
+    .workflow-step__indicator {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: var(--font-bold);
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .workflow-step--done .workflow-step__indicator {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .workflow-step--active .workflow-step__indicator {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      box-shadow: 0 0 0 3px rgba(0,131,138,0.18);
+    }
+    .workflow-step--upcoming .workflow-step__indicator {
+      background: var(--color-bg);
+      color: var(--color-text-subdued);
+      border: 2px solid var(--color-border-strong);
+    }
+    .workflow-step--disabled .workflow-step__indicator {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-disabled);
+      border: 2px solid var(--color-border-input);
+    }
+    .workflow-step__label {
+      font-size: var(--text-xs);
+      line-height: 1.4;
+      padding-top: 4px;
+    }
+    .workflow-step--done .workflow-step__label {
+      color: var(--color-primary);
+      font-weight: var(--font-medium);
+    }
+    .workflow-step--active .workflow-step__label {
+      color: var(--color-text);
+      font-weight: var(--font-bold);
+    }
+    .workflow-step--upcoming .workflow-step__label {
+      color: var(--color-text-subdued);
+    }
+    .workflow-step--disabled .workflow-step__label {
+      color: var(--color-text-disabled);
+    }
+    .workflow-step__coming-soon {
+      display: inline-block;
+      margin-left: var(--space-2);
+      font-size: 10px;
+      font-weight: var(--font-medium);
+      background: var(--color-bg-secondary);
+      color: var(--color-text-disabled);
+      border-radius: var(--radius-sm);
+      padding: 1px 5px;
+      vertical-align: middle;
+    }
+    .workflow-step--clickable {
+      cursor: pointer;
+    }
+    .workflow-step--clickable:hover .workflow-step__indicator {
+      opacity: 0.85;
+    }
+    .workflow-step--clickable:hover .workflow-step__label {
+      text-decoration: underline;
+    }
+    .workflow-step__action-badge {
+      display: block;
+      margin-top: 3px;
+      font-size: 9px;
+      font-weight: var(--font-bold);
+      color: var(--color-status-warning-text);
+      background: var(--color-status-warning-bg);
+      border-radius: 3px;
+      padding: 1px 5px;
+      width: fit-content;
+    }
+    .workflow-step--done .workflow-step__action-badge,
+    .workflow-step--active .workflow-step__action-badge,
+    .workflow-step--disabled .workflow-step__action-badge {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -190,9 +500,138 @@
       </nav>
 
       <main class="detail-main">
-    <div class="app-body">
+      <!-- Metadata Bar -->
+      <div class="meta-bar" id="meta-bar">
+        <div class="meta-bar__left">
+          <button class="meta-bar__back" onclick="history.back()" title="Back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <span class="meta-bar__name">NPWS Go Hotter</span>
+        </div>
+
+        <div class="meta-bar__divider"></div>
+
+        <div class="meta-bar__fields">
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Owner Group</span>
+            <span class="meta-bar__field-value">growth-retention-pod</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Campaign DRI</span>
+            <span class="meta-bar__field-value">tina.rong</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Start Date</span>
+            <span class="meta-bar__field-value">06/01/2026</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">End Date</span>
+            <span class="meta-bar__field-value">08/31/2026</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Last Updated By</span>
+            <span class="meta-bar__field-value">tina.rong · just now</span>
+          </div>
+        </div>
+
+        <div class="meta-bar__right">
+          <div style="position:relative;">
+            <button class="meta-bar__status" id="status-btn">
+              <span class="meta-bar__status-dot meta-bar__status-dot--draft"></span>
+              <span id="status-label">Draft</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="meta-bar__status-menu" id="status-menu">
+              <button class="meta-bar__status-option selected" data-status="draft">
+                <span class="meta-bar__status-dot meta-bar__status-dot--draft"></span>
+                <span>Draft</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="testing">
+                <span class="meta-bar__status-dot meta-bar__status-dot--testing"></span>
+                <span>Testing</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="approved">
+                <span class="meta-bar__status-dot meta-bar__status-dot--approved"></span>
+                <span>Approved</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="live">
+                <span class="meta-bar__status-dot meta-bar__status-dot--live"></span>
+                <span>Live</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="version-wrapper" style="display:flex;align-items:center;gap:var(--space-2);">
+            <span style="font-size:var(--text-xs);color:var(--color-text-subdued);">Version:</span>
+            <button class="meta-bar__field-value meta-bar__field-value--link" id="version-btn" style="background:none;border:none;cursor:pointer;padding:0;font-size:var(--text-xs);">
+              V1
+            </button>
+            <div class="version-history-panel" id="version-panel">
+              <div style="padding:var(--space-3) 14px var(--space-2);font-size:11px;font-weight:var(--font-semibold);color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.04em;">Version history</div>
+              <div class="version-history-row" style="background:var(--color-status-success-bg);">
+                <span class="version-history-row__num" style="color:var(--color-status-success-text);">v1 · current</span>
+                <span class="version-history-row__by">tina.rong</span>
+                <span class="version-history-row__date">just now</span>
+              </div>
+              <div class="version-history-row">
+                <span class="version-history-row__num">v0 · initial draft</span>
+                <span class="version-history-row__by">bonnie.lee</span>
+                <span class="version-history-row__date">Mar 30</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn--sm btn--primary">Save</button>
+        </div>
+      </div>
+
+    <div class="app-body" style="display: flex; flex: 1; overflow: hidden;">
+      <!-- Workflow Steps Navigator -->
+      <div class="workflow-steps">
+        <div class="workflow-step workflow-step--done">
+          <div class="workflow-step__indicator">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="workflow-step__label">Get started</div>
+        </div>
+        <div class="workflow-step workflow-step--active">
+          <div class="workflow-step__indicator">2</div>
+          <div class="workflow-step__label">Campaign Structure</div>
+        </div>
+        <div class="workflow-step workflow-step--upcoming workflow-step--clickable">
+          <div class="workflow-step__indicator">3</div>
+          <div class="workflow-step__label">
+            Targeting
+            <span class="workflow-step__action-badge">Action needed</span>
+          </div>
+        </div>
+        <div class="workflow-step workflow-step--upcoming workflow-step--clickable">
+          <div class="workflow-step__indicator">4</div>
+          <div class="workflow-step__label">
+            Promotion
+            <span class="workflow-step__action-badge">Action needed</span>
+          </div>
+        </div>
+        <div class="workflow-step workflow-step--upcoming">
+          <div class="workflow-step__indicator">5</div>
+          <div class="workflow-step__label">
+            Placement
+            <span class="workflow-step__action-badge">Action needed</span>
+          </div>
+        </div>
+        <div class="workflow-step workflow-step--disabled">
+          <div class="workflow-step__indicator">6</div>
+          <div class="workflow-step__label">
+            CRM
+            <span class="workflow-step__coming-soon">To come</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Main Content -->
-      <main class="main-content" id="main-content">
+      <main class="main-content" id="main-content" style="flex: 1; overflow-y: auto;">
         <!-- Starting State -->
         <div class="start-state" id="start-state" style="display: none;">
           <div class="start-state__header">
@@ -3325,6 +3764,59 @@
           e.target.id = 'switch-to-option-a';
         }
       }
+    });
+
+    // Metadata bar interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Status dropdown
+      const statusBtn = document.getElementById('status-btn');
+      const statusMenu = document.getElementById('status-menu');
+      const statusLabels = { draft:'Draft', testing:'Testing', approved:'Approved', live:'Live' };
+      const statusDotClasses = { draft:'meta-bar__status-dot--draft', testing:'meta-bar__status-dot--testing', approved:'meta-bar__status-dot--approved', live:'meta-bar__status-dot--live' };
+
+      if (statusBtn) {
+        statusBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          statusMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.meta-bar__status-option').forEach(function(opt) {
+          opt.addEventListener('click', function() {
+            const s = this.dataset.status;
+
+            // Update button label and dot
+            const statusLabel = document.getElementById('status-label');
+            const statusDot = statusBtn.querySelector('.meta-bar__status-dot');
+
+            statusLabel.textContent = statusLabels[s];
+            statusDot.className = 'meta-bar__status-dot ' + statusDotClasses[s];
+
+            // Update selected state in menu
+            document.querySelectorAll('.meta-bar__status-option').forEach(function(option) {
+              option.classList.remove('selected');
+            });
+            opt.classList.add('selected');
+
+            statusMenu.classList.remove('open');
+          });
+        });
+      }
+
+      // Version history dropdown
+      const versionBtn = document.getElementById('version-btn');
+      const versionPanel = document.getElementById('version-panel');
+      if (versionBtn) {
+        versionBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          versionPanel.classList.toggle('open');
+        });
+      }
+
+      // Close dropdowns on outside click
+      document.addEventListener('click', function() {
+        if (statusMenu) statusMenu.classList.remove('open');
+        if (versionPanel) versionPanel.classList.remove('open');
+      });
     });
 
     // Add navigation handler for initial "Looks good" button in summary chat
