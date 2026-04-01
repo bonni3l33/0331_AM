@@ -142,7 +142,7 @@
 
     .config-table__header {
       display: grid;
-      grid-template-columns: 200px 120px 1fr;
+      grid-template-columns: 200px 1fr;
       gap: 16px;
       padding: 12px 20px;
       background: #F6F7F8;
@@ -162,7 +162,7 @@
 
     .config-table__row {
       display: grid;
-      grid-template-columns: 200px 120px 1fr;
+      grid-template-columns: 200px 1fr;
       gap: 16px;
       padding: 16px 20px;
       border-bottom: 1px solid #E7E7E7;
@@ -198,6 +198,21 @@
     .variant-name {
       font-weight: 500;
       color: #191919;
+    }
+
+    .variant-name--child {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .variant-tree-indicator {
+      width: 16px;
+      height: 16px;
+      border-left: 2px solid #D3D6D9;
+      border-bottom: 2px solid #D3D6D9;
+      margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
     /* Relationship Labels */
@@ -243,6 +258,34 @@
     .config-summary--inherited {
       color: #6B6B6B;
       font-style: italic;
+    }
+
+    /* Config Content - Clickable styling */
+    .config-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0073EA;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .config-table__row:hover .config-content {
+      color: #0056B3;
+      text-decoration: underline;
+    }
+
+    .config-content__icon {
+      width: 16px;
+      height: 16px;
+      color: #6B6B6B;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .config-table__row:hover .config-content__icon {
+      opacity: 1;
     }
 
     /* Edit Drawer */
@@ -376,13 +419,16 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      margin-bottom: 24px;
     }
 
     .form-section__title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       color: #191919;
       margin: 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #E7E7E7;
     }
 
     .form-field {
@@ -419,6 +465,40 @@
       gap: 12px;
     }
 
+    .form-field__label--required::after {
+      content: " *";
+      color: #d32f2f;
+    }
+
+    .form-field__hint {
+      font-size: 12px;
+      color: var(--color-text-subdued, #6b6b6b);
+    }
+
+    .form-field__radio-group {
+      display: flex;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .form-field__radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .form-field__radio-option input[type="radio"] {
+      cursor: pointer;
+    }
+
+    .form-field__radio-option label {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      color: var(--color-text, #191919);
+      cursor: pointer;
+    }
+
     .checkbox-option {
       display: flex;
       align-items: center;
@@ -439,6 +519,31 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    /* Search Field Wrapper */
+    .search-field-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-field-icon {
+      position: absolute;
+      left: 12px;
+      color: #6B6B6B;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .form-field__select--search {
+      padding-left: 36px;
+    }
+
+    /* Icon */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
     }
 
     /* Segmentation Options */
@@ -610,6 +715,9 @@
       <symbol id="icon-chevron-down" viewBox="0 0 16 16">
         <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4 6l4 4 4-4"/>
       </symbol>
+      <symbol id="icon-edit" viewBox="0 0 16 16">
+        <path fill="currentColor" d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"/>
+      </symbol>
     </svg>
   </div>
 
@@ -676,8 +784,7 @@
               <div class="config-section__content">
                 <div class="config-table">
                   <div class="config-table__header">
-                    <div class="config-table__cell">Variant</div>
-                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Campaigns</div>
                     <div class="config-table__cell">Targeting</div>
                   </div>
                   <div class="config-table__body" id="targeting-table-body">
@@ -700,8 +807,7 @@
               <div class="config-section__content">
                 <div class="config-table">
                   <div class="config-table__header">
-                    <div class="config-table__cell">Variant</div>
-                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Campaigns</div>
                     <div class="config-table__cell">Promotion</div>
                   </div>
                   <div class="config-table__body" id="promotion-table-body">
@@ -724,8 +830,7 @@
               <div class="config-section__content">
                 <div class="config-table">
                   <div class="config-table__header">
-                    <div class="config-table__cell">Variant</div>
-                    <div class="config-table__cell">Relationship</div>
+                    <div class="config-table__cell">Campaigns</div>
                     <div class="config-table__cell">Placements</div>
                   </div>
                   <div class="config-table__body" id="placements-table-body">
@@ -900,42 +1005,46 @@
         nameCell.className = 'config-table__cell';
         const nameSpan = document.createElement('span');
         nameSpan.className = 'variant-name';
-        nameSpan.textContent = variant.name;
+
+        // Add tree indicator for child variants
+        if (variantKey !== 'parent') {
+          nameSpan.classList.add('variant-name--child');
+          const treeIndicator = document.createElement('span');
+          treeIndicator.className = 'variant-tree-indicator';
+          nameSpan.appendChild(treeIndicator);
+        }
+
+        const nameText = document.createElement('span');
+        nameText.textContent = variant.name;
+        nameSpan.appendChild(nameText);
         nameCell.appendChild(nameSpan);
 
-        // Relationship
-        const relationshipCell = document.createElement('div');
-        relationshipCell.className = 'config-table__cell';
-        const relationshipSpan = document.createElement('span');
-        relationshipSpan.className = 'relationship-label';
-        relationshipSpan.textContent = variant.relationship;
-        relationshipCell.appendChild(relationshipSpan);
-
-        // Content cell with badge
+        // Content cell
         const contentCell = document.createElement('div');
         contentCell.className = 'config-table__cell';
 
-        // Badge
-        const badge = document.createElement('span');
-        badge.className = 'status-badge';
-        if (config.type === 'base') {
-          badge.className += ' status-badge--base';
-          badge.textContent = '[Base]';
-        } else if (config.type === 'inherit') {
-          badge.className += ' status-badge--inherited';
-          badge.textContent = '[Inherited]';
-        } else {
-          badge.className += ' status-badge--override';
-          badge.textContent = '[Override]';
-        }
-        contentCell.appendChild(badge);
+        // Create clickable content wrapper
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'config-content';
 
         // Summary text
-        const summaryText = document.createTextNode(' ' + formatSummary(variantKey, section));
-        contentCell.appendChild(summaryText);
+        const summaryText = document.createElement('span');
+        summaryText.textContent = formatSummary(variantKey, section);
+        contentWrapper.appendChild(summaryText);
+
+        // Edit icon
+        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        iconSvg.setAttribute('class', 'config-content__icon');
+        iconSvg.setAttribute('width', '16');
+        iconSvg.setAttribute('height', '16');
+        const iconUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        iconUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#icon-edit');
+        iconSvg.appendChild(iconUse);
+        contentWrapper.appendChild(iconSvg);
+
+        contentCell.appendChild(contentWrapper);
 
         row.appendChild(nameCell);
-        row.appendChild(relationshipCell);
         row.appendChild(contentCell);
 
         tbody.appendChild(row);
@@ -1038,22 +1147,60 @@
       const config = variant === 'parent' ? campaignConfig.parent.targeting : campaignConfig[variant].targeting;
       const actualConfig = config.type === 'inherit' ? campaignConfig.parent.targeting : config;
 
-      let options = '';
+      let options = '<option value="">Select segmentation ID</option>';
       segmentations.forEach(seg => {
         const selected = seg.id === actualConfig.segmentationId ? 'selected' : '';
-        options += `<option value="${seg.id}" ${selected}>${seg.name}</option>`;
+        options += `<option value="${seg.id}" ${selected}>${seg.id}</option>`;
       });
 
       return `
-        <h4 class="form-section__title">Targeting</h4>
-        <div class="form-field">
-          <label class="form-field__label">Segmentation</label>
-          <select class="form-field__select" id="segmentation-select">
-            ${options}
-          </select>
+        <h4 class="form-section__title">Consumer Audience</h4>
+
+        <div class="form-field" style="margin-bottom: 20px;">
+          <label class="checkbox-option" style="cursor: default;">
+            <input type="checkbox" id="suppress-low-roi" />
+            <span>Allow suppression of low-ROI CX</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-left: 4px; color: #6B6B6B;">
+              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 7v4M8 5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </label>
         </div>
-        <button class="btn btn--sm btn--ghost" onclick="alert('Open create segmentation drawer')" style="margin-top: 8px;">
-          + Create new segmentation
+
+        <div class="form-field" style="display: flex; flex-direction: column; gap: 12px;">
+          <label class="radio-option">
+            <input type="radio" name="audience-type" value="all-users" onchange="toggleAudienceType('all-users')" />
+            <span>All Users</span>
+          </label>
+
+          <div>
+            <label class="radio-option">
+              <input type="radio" name="audience-type" value="custom" checked onchange="toggleAudienceType('custom')" />
+              <span>Custom Audience (experimental)</span>
+            </label>
+            <div id="custom-audience-field" style="margin-top: 12px; margin-left: 28px;">
+              <select class="form-field__select">
+                ${options}
+              </select>
+            </div>
+          </div>
+
+          <label class="radio-option">
+            <input type="radio" name="audience-type" value="audience-selection" onchange="toggleAudienceType('audience-selection')" />
+            <span>Audience Selection</span>
+          </label>
+
+          <label class="radio-option">
+            <input type="radio" name="audience-type" value="segment-legacy" onchange="toggleAudienceType('segment-legacy')" />
+            <span>Segment Legacy</span>
+          </label>
+        </div>
+
+        <button class="btn btn--secondary" onclick="openSegmentationPlatform()" style="margin-top: 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Segmentation platform
         </button>
       `;
     }
@@ -1062,30 +1209,87 @@
     function getPromotionForm(variant) {
       const config = variant === 'parent' ? campaignConfig.parent.promotion : campaignConfig[variant].promotion;
       const actualConfig = config.type === 'inherit' ? campaignConfig.parent.promotion : config;
+      const variantId = variant === 'parent' ? 'parent' : variant;
 
       return `
-        <h4 class="form-section__title">Promotion Details</h4>
-        <div class="form-field">
-          <label class="form-field__label">Discount Type</label>
-          <select class="form-field__select">
-            <option ${actualConfig.discountType === 'percentage' ? 'selected' : ''}>Percentage Off</option>
-            <option ${actualConfig.discountType === 'dollar' ? 'selected' : ''}>Dollar Off</option>
-            <option ${actualConfig.discountType === 'free-delivery' ? 'selected' : ''}>Free Delivery</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-field__label">Value (%)</label>
-            <input type="number" class="form-field__input" value="${actualConfig.value}" />
+        <!-- Reward Configuration -->
+        <div class="form-section">
+          <h4 class="form-section__title">Reward Configuration</h4>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required">Reward Type</label>
+              <select class="form-field__select">
+                <option value="">Select reward type</option>
+                <option value="percentage" ${actualConfig.discountType === 'percentage' ? 'selected' : ''}>Percentage Discount</option>
+                <option value="fixed" ${actualConfig.discountType === 'dollar' ? 'selected' : ''}>Fixed Amount</option>
+                <option value="bogo">Buy One Get One</option>
+                <option value="freeitem">Free Item</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required">Discount Value</label>
+              <input type="text" class="form-field__input" placeholder="e.g., 20 or 10.00" value="${actualConfig.value}" />
+              <span class="form-field__hint">Enter percentage or dollar amount</span>
+            </div>
           </div>
-          <div class="form-field">
-            <label class="form-field__label">Max Discount ($)</label>
-            <input type="number" class="form-field__input" value="${actualConfig.maxDiscount}" />
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-field__label">Minimum Order Value</label>
+              <input type="text" class="form-field__input" placeholder="0.00" value="${actualConfig.minOrder}" />
+            </div>
+            <div class="form-field">
+              <label class="form-field__label">Maximum Discount Cap</label>
+              <input type="text" class="form-field__input" placeholder="No cap" value="${actualConfig.maxDiscount}" />
+            </div>
           </div>
         </div>
-        <div class="form-field">
-          <label class="form-field__label">Minimum Order ($)</label>
-          <input type="number" class="form-field__input" value="${actualConfig.minOrder}" />
+
+        <!-- Eligibility & Limits -->
+        <div class="form-section">
+          <h4 class="form-section__title">Eligibility & Limits</h4>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-field__label">Usage Limit per User</label>
+              <input type="number" class="form-field__input" placeholder="Unlimited" min="1" />
+            </div>
+            <div class="form-field">
+              <label class="form-field__label">Total Usage Limit</label>
+              <input type="number" class="form-field__input" placeholder="Unlimited" min="1" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required">Start Date & Time</label>
+              <input type="datetime-local" class="form-field__input" />
+            </div>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required">End Date & Time</label>
+              <input type="datetime-local" class="form-field__input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Settings -->
+        <div class="form-section">
+          <h4 class="form-section__title">Advanced Settings</h4>
+          <div class="form-field">
+            <label class="form-field__label">Stackable with other promotions?</label>
+            <div class="form-field__radio-group">
+              <div class="form-field__radio-option">
+                <input type="radio" id="stackable-yes-${variantId}" name="stackable-${variantId}" value="yes" />
+                <label for="stackable-yes-${variantId}">Yes</label>
+              </div>
+              <div class="form-field__radio-option">
+                <input type="radio" id="stackable-no-${variantId}" name="stackable-${variantId}" value="no" checked />
+                <label for="stackable-no-${variantId}">No</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-field" style="margin-top: 16px;">
+            <label class="form-field__label">Promo Code (optional)</label>
+            <input type="text" class="form-field__input" placeholder="e.g., SUMMER20" />
+            <span class="form-field__hint">Leave blank for auto-apply promotions</span>
+          </div>
         </div>
       `;
     }
@@ -1122,6 +1326,24 @@
     // Setup drawer forms
     function setupDrawerForms(variant, section) {
       // Form interactions are handled by inline event handlers
+    }
+
+    // Toggle audience type
+    function toggleAudienceType(type) {
+      const customField = document.getElementById('custom-audience-field');
+
+      if (type === 'custom') {
+        customField.style.display = 'block';
+      } else {
+        customField.style.display = 'none';
+      }
+    }
+
+    // Open Segmentation Platform
+    function openSegmentationPlatform() {
+      alert('Opening Segmentation Platform... (This would navigate to the platform)');
+      // In production, this would navigate to the actual platform:
+      // window.location.href = '/segmentation-platform';
     }
 
     // Toggle inheritance
