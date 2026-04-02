@@ -354,6 +354,15 @@
           <path fill-rule="evenodd" clip-rule="evenodd" d="M13 0C14.6569 0 16 1.34315 16 3C16 4.65685 14.6569 6 13 6C12.5368 6 12.0997 5.89159 11.708 5.7041L9.1709 8.24219C9.51868 8.76711 9.76977 9.36142 9.89941 10H14.1738C14.5859 8.83532 15.6941 8 17 8C18.6569 8 20 9.34315 20 11C20 12.6569 18.6569 14 17 14C15.6941 14 14.5859 13.1647 14.1738 12H9.89941C9.76983 12.6383 9.51845 13.2321 9.1709 13.7568L11.709 16.2949C12.1004 16.1078 12.5372 16 13 16C14.6569 16 16 17.3431 16 19C16 20.6569 14.6569 22 13 22C11.3431 22 10 20.6569 10 19C10 18.5372 10.1078 18.1004 10.2949 17.709L7.75684 15.1709C6.96642 15.6944 6.01906 16 5 16C2.23858 16 0 13.7614 0 11C0 8.23858 2.23858 6 5 6C6.01886 6 6.96651 6.30481 7.75684 6.82812L10.2939 4.29004C10.1072 3.89895 10 3.4623 10 3C10 1.34315 11.3431 0 13 0ZM13 18C12.4477 18 12 18.4477 12 19C12 19.5523 12.4477 20 13 20C13.5523 20 14 19.5523 14 19C14 18.4477 13.5523 18 13 18ZM5 8C3.34315 8 2 9.34315 2 11C2 12.6569 3.34315 14 5 14C6.65685 14 8 12.6569 8 11C8 9.34315 6.65685 8 5 8ZM17 10C16.4477 10 16 10.4477 16 11C16 11.5523 16.4477 12 17 12C17.5523 12 18 11.5523 18 11C18 10.4477 17.5523 10 17 10ZM13 2C12.4477 2 12 2.44772 12 3C12 3.55228 12.4477 4 13 4C13.5523 4 14 3.55228 14 3C14 2.44772 13.5523 2 13 2Z" fill="currentColor"/>
         </g>
       </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+      </symbol>
+      <symbol id="icon-share" viewBox="0 0 16 16">
+        <path d="M1 12.0024V9.00244C1 8.45015 1.44772 8.00244 2 8.00244C2.55228 8.00244 3 8.45015 3 9.00244V12.0024C3.00001 12.5547 3.44772 13.0024 4 13.0024H12C12.5523 13.0024 13 12.5547 13 12.0024V9.00244C13 8.45015 13.4477 8.00244 14 8.00244C14.5523 8.00244 15 8.45015 15 9.00244V12.0024C15 13.6593 13.6568 15.0024 12 15.0024H4C2.34315 15.0024 1.00001 13.6593 1 12.0024ZM7 10.0024V3.4165L5.20703 5.20947C4.81652 5.59985 4.18346 5.59989 3.79297 5.20947C3.40248 4.81898 3.40256 4.18594 3.79297 3.79541L6.81934 0.769039L6.94629 0.653805C7.60219 0.119166 8.56937 0.157812 9.18066 0.769039L12.207 3.79541C12.5975 4.18594 12.5975 4.81896 12.207 5.20947C11.8165 5.59985 11.1835 5.59989 10.793 5.20947L9 3.4165V10.0024C8.99991 10.5546 8.55213 11.0023 8 11.0024C7.44777 11.0024 7.00009 10.5546 7 10.0024Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 16 16">
+        <path fill="currentColor" d="M10.0928 1.69256C11.2565 0.528877 13.1429 0.528945 14.3066 1.69256C15.4704 2.85629 15.4704 4.74271 14.3066 5.90643L4.71191 15.5012C4.3931 15.82 3.96064 15.9992 3.50977 15.9992H1.7002C0.761312 15.9992 0 15.2379 0 14.299V12.4894C0 12.0386 0.179233 11.6061 0.498047 11.2873L10.0928 1.69256ZM2 12.6135V13.9992H3.38574L10.7852 6.59881L9.39941 5.21307L2 12.6135ZM12.8926 3.10663C12.5099 2.72406 11.8895 2.72399 11.5068 3.10663L10.8135 3.79901L12.1992 5.18475L12.8926 4.49237C13.2753 4.10969 13.2753 3.4893 12.8926 3.10663Z"/>
+      </symbol>
     </svg>
   </div>
 
@@ -582,19 +591,93 @@
 
         <!-- Main Content -->
         <main class="main-content" id="main-content" style="flex: 1; overflow-y: auto;">
-          <div class="template-selection-view" id="template-selection-view">
-            <div class="template-selection-container">
-              <div class="template-selection-content" id="targeting-config-view">
-                <h1 class="template-selection-header">Get Started</h1>
+          <!-- Starting State -->
+          <div class="start-state" id="start-state">
+            <div class="start-state__header">
+              <h1 class="start-state__title">Hi Bonnie,<br/>where should we start?</h1>
+            </div>
 
-                <!-- Placeholder Content -->
-                <div class="placeholder-content">
-                  <p class="placeholder-text">
-                    Content area - to be designed
-                  </p>
+            <div class="start-input-card">
+              <div class="start-input-tabs">
+                <button class="start-input-tab start-input-tab--active" data-tab="brief">
+                  <svg class="icon" width="18" height="18"><use href="#icon-share"/></svg>
+                  I have a brief
+                </button>
+                <button class="start-input-tab" data-tab="scratch">
+                  <svg class="icon" width="18" height="18"><use href="#icon-edit"/></svg>
+                  Start from scratch
+                </button>
+              </div>
+
+              <!-- Brief tab content: upload only -->
+              <div class="start-tab-panel" id="tab-panel-brief">
+                <div class="start-input-row">
+                  <input
+                    type="text"
+                    class="start-input-field"
+                    id="start-input-field-brief"
+                    placeholder="Paste your brief text or upload a file below"
+                  />
+                </div>
+                <div class="start-input-footer">
+                  <div class="start-input-actions-left">
+                    <input type="file" id="brief-file-input" class="visually-hidden" accept=".pdf,.doc,.docx" />
+                    <div class="upload-menu-wrapper" id="upload-menu-wrapper">
+                      <button class="start-input-btn" id="upload-brief-btn">
+                        <svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg>
+                        Upload brief
+                      </button>
+                      <div class="upload-menu" id="upload-menu">
+                        <button class="upload-menu__item" id="upload-from-drive">
+                          <svg class="icon" width="16" height="16" viewBox="0 0 87.3 78" fill="currentColor">
+                            <path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L28.2 52H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066DA"/>
+                            <path d="M43.65 25L29.2 0c-1.35.8-2.5 1.9-3.3 3.3L1.2 47.5c-.8 1.4-1.2 2.95-1.2 4.5h28.2z" fill="#00AC47"/>
+                            <path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.1l6.0 11.5z" fill="#EA4335"/>
+                            <path d="M43.65 25L58.1 0H29.2L43.65 25z" fill="#00832D"/>
+                            <path d="M59.1 52H28.2L13.75 76.8H59.1z" fill="#2684FC"/>
+                            <path d="M73.55 76.8L59.1 52l-15.45-27H87.3c0-1.55-.4-3.1-1.2-4.5L62.55 3.3C61.75 1.9 60.6.8 59.25 0L43.65 25 59.1 52h28.2c0-1.55-.4-3.1-1.2-4.5z" fill="#FFBA00"/>
+                          </svg>
+                          Add from Google Drive
+                        </button>
+                        <button class="upload-menu__item" id="upload-from-file">
+                          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                          </svg>
+                          Add a file
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="start-input-submit">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Scratch tab content: textarea + submit -->
+              <div class="start-tab-panel" id="tab-panel-scratch" style="display: none;">
+                <div class="start-input-row">
+                  <textarea
+                    class="start-input-field"
+                    id="start-input-field"
+                    placeholder="Tell me what campaign you want to create..."
+                    rows="1"
+                  ></textarea>
+                </div>
+                <div class="start-input-footer">
+                  <div class="start-input-actions-left"></div>
+                  <button class="start-input-submit">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
+
           </div>
         </main>
       </div>
@@ -646,8 +729,77 @@
   <script src="router.js"></script>
 
   <script>
-    // AI Chat Toggle for get-started page
+    // Tab switching and input functionality
     document.addEventListener('DOMContentLoaded', function() {
+      // Tab switcher
+      const tabs = document.querySelectorAll('.start-input-tab');
+      const inputField = document.getElementById('start-input-field');
+      const panelBrief = document.getElementById('tab-panel-brief');
+      const panelScratch = document.getElementById('tab-panel-scratch');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const targetTab = this.getAttribute('data-tab');
+
+          // Update active tab
+          tabs.forEach(t => t.classList.remove('start-input-tab--active'));
+          this.classList.add('start-input-tab--active');
+
+          // Show corresponding panel
+          if (targetTab === 'brief') {
+            panelBrief.style.display = 'block';
+            panelScratch.style.display = 'none';
+          } else {
+            panelBrief.style.display = 'none';
+            panelScratch.style.display = 'block';
+          }
+        });
+      });
+
+      // Auto-resize textarea as user types
+      if (inputField) {
+        inputField.addEventListener('input', function() {
+          this.style.height = 'auto';
+          this.style.height = this.scrollHeight + 'px';
+        });
+      }
+
+      // Upload menu toggle
+      const uploadBtn = document.getElementById('upload-brief-btn');
+      const uploadMenu = document.getElementById('upload-menu');
+      const uploadMenuWrapper = document.getElementById('upload-menu-wrapper');
+
+      if (uploadBtn && uploadMenu) {
+        uploadBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          uploadMenu.classList.toggle('upload-menu--open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!uploadMenuWrapper.contains(e.target)) {
+            uploadMenu.classList.remove('upload-menu--open');
+          }
+        });
+      }
+
+      // Upload from Google Drive
+      const uploadFromDrive = document.getElementById('upload-from-drive');
+      if (uploadFromDrive) {
+        uploadFromDrive.addEventListener('click', function() {
+          window.location.href = 'campaign-structure.html';
+        });
+      }
+
+      // Upload from file
+      const uploadFromFile = document.getElementById('upload-from-file');
+      if (uploadFromFile) {
+        uploadFromFile.addEventListener('click', function() {
+          window.location.href = 'campaign-structure.html';
+        });
+      }
+
+      // AI Chat Toggle for get-started page
       const aiChatToggleBtn = document.getElementById('ai-chat-toggle-btn');
       const chatPanel = document.getElementById('chat-panel');
       const chatScrim = document.getElementById('chat-scrim');
