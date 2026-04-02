@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaign Configuration - Step 2</title>
+  <link rel="stylesheet" href="styles.css?v=202603316">
+  <link rel="stylesheet" href="programs-styles.css?v=202603317">
+  <style>
+    /* Progress Stepper Styles */
+    .progress-stepper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .progress-stepper__steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .progress-stepper__step {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .progress-stepper__step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #D3D6D9;
+      transition: all 0.2s ease;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-indicator {
+      background: #00838A;
+      border-color: #00838A;
+    }
+
+    .progress-stepper__step--completed .progress-stepper__step-indicator {
+      background: #00838A;
+      border-color: #00838A;
+    }
+
+    .progress-stepper__step-number {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #6C707A;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-number,
+    .progress-stepper__step--completed .progress-stepper__step-number {
+      color: #FFFFFF;
+    }
+
+    .progress-stepper__step-label {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #6C707A;
+      white-space: nowrap;
+    }
+
+    .progress-stepper__step--active .progress-stepper__step-label {
+      color: #111318;
+      font-weight: 600;
+    }
+
+    .progress-stepper__connector {
+      width: 80px;
+      height: 2px;
+      background: #D3D6D9;
+      margin: 0 8px;
+    }
+
+    .progress-stepper__step--completed + .progress-stepper__connector {
+      background: #00838A;
+    }
+
+    /* Ensure consistent spacing between sections */
+    .campaign-config-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px !important;
+      margin-top: 24px;
+    }
+    .config-section:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    body {
+      background: #F6F7F8;
+      margin: 0;
+      padding: 0;
+    }
+    .page-wrapper {
+      display: flex;
+      gap: 28px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 64px 0;
+      min-height: calc(100vh - 64px);
+    }
+    .content-main {
+      flex: 1;
+      min-width: 0;
+    }
+    .ts-chat-step__circle--completed {
+      background: transparent;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ts-chat-step__circle--completed svg {
+      width: 20px;
+      height: 20px;
+    }
+    .ts-chat-step--completed .ts-chat-step__title {
+      color: #767B83;
+    }
+    .ts-chat-step--completed .ts-chat-step__subtitle {
+      color: #B3B6BA;
+    }
+    .detail-layout {
+      display: flex;
+      height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+    .detail-main {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <div style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-sparkle" viewBox="0 0 16 16">
+        <path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z" fill="currentColor"/>
+      </symbol>
+      <!-- Prism 16/check-circle-fill -->
+      <symbol id="icon-check-circle-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM11.2071 7.20711C11.5976 6.81658 11.5976 6.18342 11.2071 5.79289C10.8166 5.40237 10.1834 5.40237 9.79289 5.79289L7 8.58579L6.20711 7.79289C5.81658 7.40237 5.18342 7.40237 4.79289 7.79289C4.40237 8.18342 4.40237 8.81658 4.79289 9.20711L6.29289 10.7071C6.68342 11.0976 7.31658 11.0976 7.70711 10.7071L11.2071 7.20711Z" fill="#00832D"/>
+      </symbol>
+      <!-- Sidebar Navigation Icons -->
+      <symbol id="icon-list" viewBox="0 0 24 24">
+        <g transform="translate(2.25, 4.5)">
+          <path d="M1.5 12C2.32843 12 3 12.6716 3 13.5C2.99993 14.3284 2.32839 15 1.5 15C0.671726 14.9999 6.59509e-05 14.3283 0 13.5C0 12.6717 0.671685 12.0001 1.5 12Z" fill="currentColor"/>
+          <path d="M18.5 12.5C19.0523 12.5 19.5 12.9477 19.5 13.5C19.5 14.0523 19.0523 14.5 18.5 14.5H6.5C5.94783 14.4999 5.5 14.0522 5.5 13.5C5.5 12.9478 5.94783 12.5001 6.5 12.5H18.5Z" fill="currentColor"/>
+          <path d="M1.5 6C2.32843 6 3 6.67157 3 7.5C2.99993 8.32837 2.32839 9 1.5 9C0.671726 8.99987 6.59509e-05 8.32829 0 7.5C0 6.67165 0.671685 6.00013 1.5 6Z" fill="currentColor"/>
+          <path d="M18.5 6.5C19.0523 6.5 19.5 6.94772 19.5 7.5C19.5 8.05228 19.0523 8.5 18.5 8.5H6.5C5.94783 8.49987 5.5 8.0522 5.5 7.5C5.5 6.9478 5.94783 6.50013 6.5 6.5H18.5Z" fill="currentColor"/>
+          <path d="M1.5 0C2.32843 0 3 0.671573 3 1.5C2.99993 2.32837 2.32839 3 1.5 3C0.671726 2.99987 6.59509e-05 2.32829 0 1.5C0 0.671654 0.671685 0.000131938 1.5 0Z" fill="currentColor"/>
+          <path d="M18.5 0.5C19.0523 0.5 19.5 0.947715 19.5 1.5C19.4999 2.05223 19.0522 2.5 18.5 2.5H6.5C5.94787 2.49987 5.50007 2.05215 5.5 1.5C5.5 0.947797 5.94783 0.500132 6.5 0.5H18.5Z" fill="currentColor"/>
+        </g>
+      </symbol>
+      <symbol id="icon-person-find" viewBox="0 0 24 24">
+        <g transform="translate(2.5, 2)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8 10C10.7614 10 13 7.76142 13 5C13 2.23858 10.7614 0 8 0C5.23857 0 3 2.23858 3 5C3 7.76142 5.23857 10 8 10ZM11 5C11 6.65685 9.65685 8 8 8C6.34314 8 5 6.65685 5 5C5 3.34315 6.34314 2 8 2C9.65685 2 11 3.34315 11 5Z" fill="currentColor"/>
+          <path d="M9.21506 11.0516C8.8293 11.0177 8.42451 11 8 11C4.51201 11 2.35525 12.193 1.15 13.8C0.479246 14.6943 0 15.8634 0 17C0 18.1046 0.89543 19 2 19H10.3369C9.6075 18.4863 9.00857 17.7998 8.59971 17H2C2 17 2 16 2.75 15C3.5 14 5 13 8 13C8.06966 13 8.13852 13.0005 8.20658 13.0016C8.41028 12.2805 8.75736 11.6196 9.21506 11.0516Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.532 17.9462C14.9365 18.2981 14.2418 18.5 13.5 18.5C11.2909 18.5 9.5 16.7091 9.5 14.5C9.5 12.2909 11.2909 10.5 13.5 10.5C15.7091 10.5 17.5 12.2909 17.5 14.5C17.5 15.2418 17.2981 15.9365 16.9462 16.532L18.7071 18.2929C19.0976 18.6834 19.0976 19.3166 18.7071 19.7071C18.3166 20.0976 17.6834 20.0976 17.2929 19.7071L15.532 17.9462ZM15.5 14.5C15.5 15.6046 14.6046 16.5 13.5 16.5C12.3954 16.5 11.5 15.6046 11.5 14.5C11.5 13.3954 12.3954 12.5 13.5 12.5C14.6046 12.5 15.5 13.3954 15.5 14.5Z" fill="currentColor"/>
+        </g>
+      </symbol>
+      <symbol id="icon-calendar-check" viewBox="0 0 24 24">
+        <g transform="translate(3, 2)">
+          <path d="M12.2071 12.2071C12.5976 11.8166 12.5976 11.1834 12.2071 10.7929C11.8166 10.4024 11.1834 10.4024 10.7929 10.7929L8 13.5858L7.20711 12.7929C6.81658 12.4024 6.18342 12.4024 5.79289 12.7929C5.40237 13.1834 5.40237 13.8166 5.79289 14.2071L7.29289 15.7071C7.68342 16.0976 8.31658 16.0976 8.70711 15.7071L12.2071 12.2071Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.00001 1C3.00001 0.447715 3.44773 0 4.00001 0C4.5523 0 5.00001 0.447715 5.00001 1V2H13V1C13 0.447715 13.4477 0 14 0C14.5523 0 15 0.447715 15 1V2.14192C15.2642 2.20321 15.5396 2.29518 15.816 2.43597C16.5686 2.81947 17.1805 3.43139 17.564 4.18404C17.8406 4.72689 17.9288 5.26635 17.9661 5.72354C18.0001 6.13987 18.0001 6.63146 18 7.13624V14.8638C18.0001 15.3685 18.0001 15.8601 17.9661 16.2765C17.9288 16.7336 17.8406 17.2731 17.564 17.816C17.1805 18.5686 16.5686 19.1805 15.816 19.564C15.2731 19.8406 14.7337 19.9288 14.2765 19.9661C13.8601 20.0001 13.3685 20.0001 12.8638 20H5.13625C4.63147 20.0001 4.13988 20.0001 3.72355 19.9661C3.26636 19.9288 2.7269 19.8406 2.18405 19.564C1.4314 19.1805 0.819478 18.5686 0.435984 17.816C0.159389 17.2731 0.0712545 16.7336 0.033901 16.2765C-0.00011301 15.8601 -5.48358e-05 15.3686 5.00726e-06 14.8638V7.1362C-5.48358e-05 6.63145 -0.00011301 6.13985 0.033901 5.72354C0.0712545 5.26635 0.159389 4.72689 0.435984 4.18404C0.819478 3.43139 1.4314 2.81947 2.18405 2.43597C2.46038 2.29518 2.73584 2.20321 3.00001 2.14192V1ZM15.9808 6H2.0192C2.04315 5.60779 2.09698 5.32953 2.218 5.09202C2.40974 4.71569 2.71571 4.40973 3.09203 4.21799C3.51985 4 4.07991 4 5.20001 4H12.8C13.9201 4 14.4802 4 14.908 4.21799C15.2843 4.40973 15.5903 4.71569 15.782 5.09202C15.903 5.32953 15.9569 5.60779 15.9808 6ZM2.00001 8H16L16 14.8C16 15.9201 16 16.4802 15.782 16.908C15.5903 17.2843 15.2843 17.5903 14.908 17.782C14.4802 18 13.9201 18 12.8 18H5.20001C4.07991 18 3.51985 18 3.09203 17.782C2.71571 17.5903 2.40974 17.2843 2.218 16.908C2.00001 16.4802 2.00001 15.9201 2.00001 14.8V8Z" fill="currentColor"/>
+        </g>
+      </symbol>
+      <symbol id="icon-channel" viewBox="0 0 24 24">
+        <g transform="translate(2, 1)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13 0C14.6569 0 16 1.34315 16 3C16 4.65685 14.6569 6 13 6C12.5368 6 12.0997 5.89159 11.708 5.7041L9.1709 8.24219C9.51868 8.76711 9.76977 9.36142 9.89941 10H14.1738C14.5859 8.83532 15.6941 8 17 8C18.6569 8 20 9.34315 20 11C20 12.6569 18.6569 14 17 14C15.6941 14 14.5859 13.1647 14.1738 12H9.89941C9.76983 12.6383 9.51845 13.2321 9.1709 13.7568L11.709 16.2949C12.1004 16.1078 12.5372 16 13 16C14.6569 16 16 17.3431 16 19C16 20.6569 14.6569 22 13 22C11.3431 22 10 20.6569 10 19C10 18.5372 10.1078 18.1004 10.2949 17.709L7.75684 15.1709C6.96642 15.6944 6.01906 16 5 16C2.23858 16 0 13.7614 0 11C0 8.23858 2.23858 6 5 6C6.01886 6 6.96651 6.30481 7.75684 6.82812L10.2939 4.29004C10.1072 3.89895 10 3.4623 10 3C10 1.34315 11.3431 0 13 0ZM13 18C12.4477 18 12 18.4477 12 19C12 19.5523 12.4477 20 13 20C13.5523 20 14 19.5523 14 19C14 18.4477 13.5523 18 13 18ZM5 8C3.34315 8 2 9.34315 2 11C2 12.6569 3.34315 14 5 14C6.65685 14 8 12.6569 8 11C8 9.34315 6.65685 8 5 8ZM17 10C16.4477 10 16 10.4477 16 11C16 11.5523 16.4477 12 17 12C17.5523 12 18 11.5523 18 11C18 10.4477 17.5523 10 17 10ZM13 2C12.4477 2 12 2.44772 12 3C12 3.55228 12.4477 4 13 4C13.5523 4 14 3.55228 14 3C14 2.44772 13.5523 2 13 2Z" fill="currentColor"/>
+        </g>
+      </symbol>
+      <symbol id="icon-deals" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M19.1213 12.7072L13.1213 18.7072C11.9497 19.8787 10.0502 19.8787 8.87865 18.7072L5.29286 15.1214C4.12129 13.9498 4.12129 12.0503 5.29286 10.8787L11.2929 4.87872C11.8555 4.31611 12.6185 4.00005 13.4142 4.00005H17C18.6568 4.00005 20 5.34319 20 7.00005V10.5858C20 11.3815 19.6839 12.1445 19.1213 12.7072ZM13.4142 6.00005H17C17.5523 6.00005 18 6.44776 18 7.00005V10.5858C18 10.851 17.8946 11.1054 17.7071 11.2929L11.7071 17.2929C11.3166 17.6835 10.6834 17.6835 10.2929 17.2929L6.70708 13.7072C6.31655 13.3166 6.31655 12.6835 6.70708 12.2929L12.7071 6.29294C12.8946 6.1054 13.149 6.00005 13.4142 6.00005Z"/>
+        <path fill="currentColor" d="M16.5 8.75005C16.5 9.4404 15.9403 10 15.25 10C14.5596 10 14 9.4404 14 8.75005C14 8.05969 14.5596 7.50005 15.25 7.50005C15.9403 7.50005 16.5 8.05969 16.5 8.75005Z"/>
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 16 16">
+        <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4 6l4 4 4-4"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <div class="app-container" id="app">
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="global-nav__brand">
+        <div class="global-nav__logo">
+          <svg width="24" height="14" viewBox="0 0 20 12" fill="none">
+            <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
+          </svg>
+        </div>
+        <span class="global-nav__title">Marketing Program Center</span>
+      </div>
+      <div class="global-nav__actions">
+      </div>
+      <!-- Progress Bar attached to header bottom -->
+      <div class="progress-bar-container" id="progress-bar-container">
+        <div class="progress-bar-steps">
+          <a href="campaign-structure.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
+          <a href="#summary" class="progress-bar-step progress-bar-step--active" data-step="2"></a>
+        </div>
+        <span class="progress-bar-text" id="progress-bar-text">Step 2 of 2</span>
+      </div>
+    </header>
+
+    <div class="detail-layout">
+      <!-- Sidebar Navigation -->
+      <nav class="side-nav side-nav--icon-only">
+        <a href="programs.html" class="side-nav-item">
+          <svg class="icon" width="24" height="24"><use href="#icon-list"/></svg>
+          <span>All programs</span>
+        </a>
+        <a href="#segmentations" class="side-nav-item">
+          <svg class="icon" width="24" height="24"><use href="#icon-person-find"/></svg>
+          <span>Segmentations</span>
+        </a>
+        <a href="#promotion-manager" class="side-nav-item">
+          <svg class="icon" width="24" height="24"><use href="#icon-deals"/></svg>
+          <span>Promo Manager</span>
+        </a>
+        <a href="#placement-portal" class="side-nav-item">
+          <svg class="icon" width="24" height="24"><use href="#icon-calendar-check"/></svg>
+          <span>Placement Portal</span>
+        </a>
+        <button class="side-nav-item side-nav-item--expandable">
+          <svg class="icon" width="24" height="24"><use href="#icon-channel"/></svg>
+          <span>User Journeys</span>
+          <svg class="icon icon-chevron" width="24" height="24"><use href="#icon-chevron-down"/></svg>
+        </button>
+      </nav>
+
+      <main class="detail-main">
+  <div class="page-wrapper">
+    <!-- Main Content -->
+    <div class="content-main">
+    <!-- Option A: Detail View with Tabs (default visible) -->
+    <div class="template-selection-content" id="detailed-configuration-view-a">
+      <!-- Progress Stepper -->
+      <div class="progress-stepper" style="margin-bottom: 32px;">
+        <div class="progress-stepper__steps">
+          <div class="progress-stepper__step progress-stepper__step--active">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">1</div>
+            </div>
+            <div class="progress-stepper__step-label">Targeting</div>
+          </div>
+          <div class="progress-stepper__connector"></div>
+          <div class="progress-stepper__step">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">2</div>
+            </div>
+            <div class="progress-stepper__step-label">Promotion</div>
+          </div>
+          <div class="progress-stepper__connector"></div>
+          <div class="progress-stepper__step">
+            <div class="progress-stepper__step-indicator">
+              <div class="progress-stepper__step-number">3</div>
+            </div>
+            <div class="progress-stepper__step-label">Channels</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign Tabs -->
+      <div class="campaign-config-container">
+        <div class="campaign-tabs-container">
+          <div class="campaign-tabs">
+            <button class="campaign-tab campaign-tab--active" data-campaign="parent">
+              Parent: Summer Retention
+            </button>
+            <button class="campaign-tab" data-campaign="child1">
+              Child 1: Multi-account customers
+            </button>
+            <button class="campaign-tab" data-campaign="child2">
+              Child 2: Hot markets
+            </button>
+          </div>
+        </div>
+
+        <!-- Parent Campaign Form -->
+        <div class="campaign-config-form" id="parent-form">
+          <div class="config-section config-section--completed">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">1</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Targeting</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary segmentation-header__guide-btn">
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Segmentation platform
+              </button>
+            </div>
+            <div class="config-section__content">
+              <div class="config-field-group">
+                <div class="config-field">
+                  <label class="config-field__label">Audience</label>
+                  <input type="text" class="config-field__input" value="Multiple accounts" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--completed">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">2</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Promotion</h3>
+                </div>
+              </div>
+            </div>
+            <div class="config-section__content">
+              <div class="promo-form-container">
+                <!-- Discount Type -->
+                <div class="form-field">
+                  <label class="form-field__label">Discount Type</label>
+                  <div class="promo-radio-group">
+                    <label class="promo-radio-option">
+                      <input type="radio" name="parent-discount-type" value="flat" class="promo-radio">
+                      <span class="promo-radio-text">Flat Amount Off</span>
+                    </label>
+                    <label class="promo-radio-option">
+                      <input type="radio" name="parent-discount-type" value="percentage" class="promo-radio" checked>
+                      <span class="promo-radio-text">Percentage Discount</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Discount Values -->
+                <div class="promo-field-row">
+                  <div class="form-field">
+                    <label class="form-field__label">Percentage</label>
+                    <div class="input-with-suffix">
+                      <input type="number" class="form-field__input" value="40" min="0" max="100">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label">Max Value Amount</label>
+                    <div class="input-with-prefix">
+                      <span class="input-prefix">$</span>
+                      <input type="number" class="form-field__input input-with-prefix-field" value="12" min="0" step="0.01">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Promotion Incentives -->
+                <div class="form-field">
+                  <label class="form-field__label">Promotion Incentives</label>
+                  <div class="promo-checkbox-list">
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox" checked>
+                      <span>Cash Discount</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Delivery Fee Discount</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Waive Service Fee</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Waive Small Order Fee</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Order Cart Conditions -->
+                <div class="form-field">
+                  <label class="form-field__label">Order Cart Conditions</label>
+                  <div class="promo-checkbox-list">
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>DashParty</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Drone-only Delivery</span>
+                    </label>
+                    <div class="promo-checkbox-item-with-nested">
+                      <label class="promo-checkbox-item">
+                        <input type="checkbox" class="prism-checkbox" checked id="min-subtotal-checkbox">
+                        <span>Minimum Subtotal</span>
+                      </label>
+                      <div class="promo-nested-input" id="min-subtotal-input">
+                        <label class="form-field__label">Amount</label>
+                        <div class="input-with-prefix" style="max-width: 160px;">
+                          <span class="input-prefix">$</span>
+                          <input type="number" class="form-field__input input-with-prefix-field" value="12.00" min="0" step="0.01">
+                        </div>
+                      </div>
+                    </div>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Maximum Subtotal</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Items In Cart</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--completed">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">3</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Creative Assets</h3>
+                </div>
+              </div>
+            </div>
+            <div class="config-section__content">
+              <div class="config-field-group">
+                <div class="config-field">
+                  <label class="config-field__label">Hero Image</label>
+                  <input type="text" class="config-field__input" value="summer_hero_2026.jpg" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--completed">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">4</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Placement</h3>
+                </div>
+              </div>
+            </div>
+            <div class="config-section__content">
+              <div class="config-field-group">
+                <div class="config-field">
+                  <label class="config-field__label">Channels</label>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span class="tag">Spotlight</span>
+                    <span class="tag">USI</span>
+                    <span class="tag">Email</span>
+                    <span class="tag">Push</span>
+                    <span class="tag">Hub</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Child 1 Campaign Form -->
+        <div class="campaign-config-form" id="child1-form" style="display: none;">
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">1</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Targeting</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">Multiple accounts</div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">2</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Promotion</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">30% off (cap $10, min $20)</div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">3</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Creative Assets</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">summer_hero_2026.jpg</div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">4</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Placement</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">
+                <span class="tag">Spotlight</span>
+                <span class="tag">USI</span>
+                <span class="tag">Email</span>
+                <span class="tag">Push</span>
+                <span class="tag">Hub</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Child 2 Campaign Form -->
+        <div class="campaign-config-form" id="child2-form" style="display: none;">
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">1</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Targeting</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">Multiple accounts</div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--customized">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">2</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Promotion</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary">Revert to Parent</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--customized">Customized</span>
+              <div class="promo-form-container">
+                <!-- Discount Type -->
+                <div class="form-field">
+                  <label class="form-field__label">Discount Type</label>
+                  <div class="promo-radio-group">
+                    <label class="promo-radio-option">
+                      <input type="radio" name="child2-discount-type" value="flat" class="promo-radio">
+                      <span class="promo-radio-text">Flat Amount Off</span>
+                    </label>
+                    <label class="promo-radio-option">
+                      <input type="radio" name="child2-discount-type" value="percentage" class="promo-radio" checked>
+                      <span class="promo-radio-text">Percentage Discount</span>
+                    </label>
+                  </div>
+                  <div class="config-field__hint" style="margin-top: 4px;">Parent: Percentage Discount</div>
+                </div>
+
+                <!-- Discount Values -->
+                <div class="promo-field-row">
+                  <div class="form-field">
+                    <label class="form-field__label">Percentage</label>
+                    <div class="input-with-suffix">
+                      <input type="number" class="form-field__input" value="50" min="0" max="100">
+                      <span class="input-suffix">%</span>
+                    </div>
+                    <div class="config-field__hint">Parent: 40%</div>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-field__label">Max Value Amount</label>
+                    <div class="input-with-prefix">
+                      <span class="input-prefix">$</span>
+                      <input type="number" class="form-field__input input-with-prefix-field" value="15" min="0" step="0.01">
+                    </div>
+                    <div class="config-field__hint">Parent: $12</div>
+                  </div>
+                </div>
+
+                <!-- Promotion Incentives -->
+                <div class="form-field">
+                  <label class="form-field__label">Promotion Incentives</label>
+                  <div class="promo-checkbox-list">
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox" checked>
+                      <span>Cash Discount</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Delivery Fee Discount</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Waive Service Fee</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Waive Small Order Fee</span>
+                    </label>
+                  </div>
+                  <div class="config-field__hint" style="margin-top: 8px;">Parent: Cash Discount</div>
+                </div>
+
+                <!-- Order Cart Conditions -->
+                <div class="form-field">
+                  <label class="form-field__label">Order Cart Conditions</label>
+                  <div class="promo-checkbox-list">
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>DashParty</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Drone-only Delivery</span>
+                    </label>
+                    <div class="promo-checkbox-item-with-nested">
+                      <label class="promo-checkbox-item">
+                        <input type="checkbox" class="prism-checkbox" checked id="child2-min-subtotal-checkbox">
+                        <span>Minimum Subtotal</span>
+                      </label>
+                      <div class="promo-nested-input" id="child2-min-subtotal-input">
+                        <label class="form-field__label">Amount</label>
+                        <div class="input-with-prefix" style="max-width: 160px;">
+                          <span class="input-prefix">$</span>
+                          <input type="number" class="form-field__input input-with-prefix-field" value="15.00" min="0" step="0.01">
+                        </div>
+                        <div class="config-field__hint">Parent: $12.00</div>
+                      </div>
+                    </div>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Maximum Subtotal</span>
+                    </label>
+                    <label class="promo-checkbox-item">
+                      <input type="checkbox" class="prism-checkbox">
+                      <span>Items In Cart</span>
+                    </label>
+                  </div>
+                  <div class="config-field__hint" style="margin-top: 8px;">Parent: Minimum Subtotal ($12.00)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">3</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Creative Assets</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">summer_hero_2026.jpg</div>
+            </div>
+          </div>
+
+          <div class="config-section config-section--inherited">
+            <div class="config-section__header">
+              <div class="config-section__header-left">
+                <div class="config-section__status config-section__status--active">4</div>
+                <div class="config-section__title-group">
+                  <h3 class="config-section__title">Placement</h3>
+                </div>
+              </div>
+              <button class="btn btn--sm btn--tertiary config-customize-btn">Customize</button>
+            </div>
+            <div class="config-section__content">
+              <span class="meta-tag meta-tag--inherited">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Same as Parent
+              </span>
+              <div class="config-inherited-value">
+                <span class="tag">Spotlight</span>
+                <span class="tag">USI</span>
+                <span class="tag">Email</span>
+                <span class="tag">Push</span>
+                <span class="tag">Hub</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C: Comparison Table View (initially hidden) -->
+    <div class="template-selection-content" id="detailed-configuration-view-c" style="display: none;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+        <h1 class="template-selection-header" style="margin: 0;">Campaign Configuration</h1>
+        <button class="btn btn--sm btn--ghost" id="switch-to-option-a">Switch to Detail View</button>
+      </div>
+
+      <div class="comparison-table">
+        <div class="comparison-table__header">
+          <div class="comparison-table__cell comparison-table__cell--field">Field</div>
+          <div class="comparison-table__cell comparison-table__cell--campaign">
+            <div class="campaign-label">Parent</div>
+            <div class="campaign-name">Summer Retention</div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--campaign">
+            <div class="campaign-label">Child 1</div>
+            <div class="campaign-name">Multi-account customers</div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--campaign">
+            <div class="campaign-label">Child 2</div>
+            <div class="campaign-name">Hot markets</div>
+          </div>
+        </div>
+
+        <div class="comparison-table__section-header">Targeting</div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Audience</div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input" value="Multiple accounts" />
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-table__section-header">Promotion</div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Discount Value</div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input" value="30% off" />
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input comparison-input--customized" value="50% off" />
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Cap Amount</div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input" value="$10" />
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input comparison-input--customized" value="$15" />
+          </div>
+        </div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Minimum Order</div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input" value="$20" />
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input comparison-input--customized" value="$15" />
+          </div>
+        </div>
+
+        <div class="comparison-table__section-header">Creative Assets</div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Hero Image</div>
+          <div class="comparison-table__cell">
+            <input type="text" class="comparison-input" value="summer_hero_2026.jpg" />
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-table__section-header">Placement</div>
+        <div class="comparison-table__row">
+          <div class="comparison-table__cell comparison-table__cell--field">Channels</div>
+          <div class="comparison-table__cell">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="tag">Spotlight</span>
+              <span class="tag">USI</span>
+              <span class="tag">Email</span>
+              <span class="tag">Push</span>
+              <span class="tag">Hub</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+          <div class="comparison-table__cell comparison-table__cell--linked">
+            <div class="linked-indicator">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Same</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- end main-content -->
+
+    <!-- Right: AI Chat -->
+    <div class="ts-confirm-col">
+      <div class="ts-chat-content">
+        <div class="ts-chat-conversation">
+          <div class="ts-chat-message">
+            <p class="ts-chat-message__text">Let's review the campaign setup from your brief. I'll walk you through the following steps:</p>
+            <div class="ts-chat-timeline">
+              <!-- Step 1 -->
+              <div class="ts-chat-step ts-chat-step--completed">
+                <div class="ts-chat-step__track">
+                  <div class="ts-chat-step__circle ts-chat-step__circle--completed">
+                    <svg width="20" height="20"><use href="#icon-check-circle-fill"/></svg>
+                  </div>
+                  <div class="ts-chat-step__line"></div>
+                </div>
+                <div class="ts-chat-step__content">
+                  <div class="ts-chat-step__title">Campaign Overview</div>
+                  <div class="ts-chat-step__subtitle">Review structure, segmentation, promotion, and placement</div>
+                </div>
+              </div>
+              <!-- Step 2 -->
+              <div class="ts-chat-step ts-chat-step--active ts-chat-step--last">
+                <div class="ts-chat-step__track">
+                  <div class="ts-chat-step__circle ts-chat-step__circle--active">2</div>
+                </div>
+                <div class="ts-chat-step__content">
+                  <div class="ts-chat-step__title">Detailed Configuration</div>
+                  <div class="ts-chat-step__subtitle">targeting, promo, and placements</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-chat-message">
+            <p class="ts-chat-message__text">Now let's configure the details for each campaign. You can customize targeting, promotions, creative assets, and placements for <strong>Parent</strong> and <strong>2 child campaigns</strong>.</p>
+          </div>
+
+          <div class="ts-chat-message">
+            <p class="ts-chat-message__text">Use the tabs to switch between campaigns, or toggle to the Table View to see all campaigns side-by-side.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="ts-chat-input">
+        <div class="ts-chat-input__wrapper">
+          <input type="text" class="ts-chat-input__field" placeholder="How can i help">
+          <button class="ts-chat-input__submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div><!-- end ts-confirm-col -->
+  </div><!-- end page-wrapper -->
+      </main><!-- end detail-main -->
+    </div><!-- end detail-layout -->
+  </div><!-- end app-container -->
+
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.campaign-tab');
+    const forms = {
+      parent: document.getElementById('parent-form'),
+      child1: document.getElementById('child1-form'),
+      child2: document.getElementById('child2-form')
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const campaign = tab.dataset.campaign;
+
+        // Update active tab
+        tabs.forEach(t => t.classList.remove('campaign-tab--active'));
+        tab.classList.add('campaign-tab--active');
+
+        // Show corresponding form
+        Object.values(forms).forEach(form => form.style.display = 'none');
+        forms[campaign].style.display = 'block';
+      });
+    });
+
+    // View switching
+    const viewA = document.getElementById('detailed-configuration-view-a');
+    const viewC = document.getElementById('detailed-configuration-view-c');
+    const switchToC = document.getElementById('switch-to-option-c');
+    const switchToA = document.getElementById('switch-to-option-a');
+
+    switchToC.addEventListener('click', () => {
+      viewA.style.display = 'none';
+      viewC.style.display = 'block';
+    });
+
+    switchToA.addEventListener('click', () => {
+      viewC.style.display = 'none';
+      viewA.style.display = 'block';
+    });
+
+    // Toggle nested input visibility for minimum subtotal (Parent)
+    const minSubtotalCheckbox = document.getElementById('min-subtotal-checkbox');
+    const minSubtotalInput = document.getElementById('min-subtotal-input');
+
+    if (minSubtotalCheckbox && minSubtotalInput) {
+      minSubtotalCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          minSubtotalInput.style.display = 'flex';
+        } else {
+          minSubtotalInput.style.display = 'none';
+        }
+      });
+    }
+
+    // Toggle nested input visibility for minimum subtotal (Child 2)
+    const child2MinSubtotalCheckbox = document.getElementById('child2-min-subtotal-checkbox');
+    const child2MinSubtotalInput = document.getElementById('child2-min-subtotal-input');
+
+    if (child2MinSubtotalCheckbox && child2MinSubtotalInput) {
+      child2MinSubtotalCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          child2MinSubtotalInput.style.display = 'flex';
+        } else {
+          child2MinSubtotalInput.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

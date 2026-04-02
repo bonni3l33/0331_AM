@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Program - MegaTool</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="create-program-styles.css">
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <div style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-logo" viewBox="0 0 20 12">
+        <path fill="#00838A" d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z"/>
+      </symbol>
+      <symbol id="icon-sparkle" viewBox="0 0 16 16">
+        <path d="M3.71152 0.725279C3.58887 0.295977 3.19648 0 2.75 0C2.30352 0 1.91113 0.29598 1.78848 0.725282L1.77945 0.756878C1.62301 1.30441 1.59364 1.36765 1.56674 1.40847C1.52527 1.47142 1.47142 1.52527 1.40847 1.56674C1.36765 1.59364 1.3044 1.62301 0.756875 1.77945L0.725282 1.78848C0.29598 1.91113 0 2.30352 0 2.75C0 3.19648 0.295977 3.58887 0.725279 3.71152L0.756875 3.72055C1.3044 3.87699 1.36765 3.90636 1.40847 3.93326C1.47142 3.97473 1.52527 4.02858 1.56674 4.09153C1.59364 4.13235 1.62301 4.1956 1.77945 4.74312L1.78848 4.77472C1.91113 5.20402 2.30352 5.5 2.75 5.5C3.19648 5.5 3.58887 5.20402 3.71152 4.77472L3.72055 4.74312C3.87699 4.19559 3.90637 4.13235 3.93326 4.09153C3.97473 4.02858 4.02858 3.97473 4.09153 3.93326C4.13235 3.90636 4.19559 3.87699 4.74312 3.72055L4.77472 3.71152C5.20402 3.58887 5.5 3.19648 5.5 2.75C5.5 2.30352 5.20402 1.91113 4.77472 1.78848L4.74312 1.77945C4.19559 1.62301 4.13235 1.59364 4.09153 1.56674C4.02858 1.52527 3.97473 1.47142 3.93326 1.40847C3.90636 1.36765 3.87699 1.30441 3.72055 0.756876L3.71152 0.725279Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.96152 2.72528C9.83887 2.29598 9.44648 2 9 2C8.55352 2 8.16113 2.29598 8.03848 2.72528L8.00752 2.83361C7.51438 4.55961 7.31665 5.21209 6.97111 5.73657C6.64762 6.22758 6.22758 6.64762 5.73656 6.97111C5.21209 7.31665 4.55961 7.51438 2.83361 8.00752L2.72528 8.03848C2.29598 8.16113 2 8.55352 2 9C2 9.44648 2.29598 9.83887 2.72528 9.96152L2.83361 9.99248C4.55961 10.4856 5.21209 10.6833 5.73656 11.0289C6.22758 11.3524 6.64762 11.7724 6.97111 12.2634C7.31665 12.7879 7.51438 13.4404 8.00752 15.1664L8.03848 15.2747C8.16113 15.704 8.55352 16 9 16C9.44648 16 9.83887 15.704 9.96152 15.2747L9.99248 15.1664C10.4856 13.4404 10.6833 12.7879 11.0289 12.2634C11.3524 11.7724 11.7724 11.3524 12.2634 11.0289C12.7879 10.6833 13.4404 10.4856 15.1664 9.99248L15.2747 9.96152C15.704 9.83887 16 9.44648 16 9C16 8.55352 15.704 8.16113 15.2747 8.03848L15.1664 8.00752C13.4404 7.51438 12.7879 7.31665 12.2634 6.97111C11.7724 6.64762 11.3524 6.22758 11.0289 5.73656C10.6833 5.21209 10.4856 4.55961 9.99248 2.83361L9.96152 2.72528ZM8.64123 6.83689C8.77474 6.63423 8.89221 6.4217 9 6.19342C9.1078 6.4217 9.22526 6.63423 9.35877 6.83689C9.83157 7.55452 10.4455 8.16843 11.1631 8.64123C11.3658 8.77474 11.5783 8.89221 11.8066 9C11.5783 9.1078 11.3658 9.22526 11.1631 9.35877C10.4455 9.83157 9.83157 10.4455 9.35877 11.1631C9.22526 11.3658 9.1078 11.5783 9 11.8066C8.89221 11.5783 8.77474 11.3658 8.64123 11.1631C8.16843 10.4455 7.55452 9.83157 6.83689 9.35878C6.63423 9.22526 6.4217 9.1078 6.19342 9C6.4217 8.89221 6.63423 8.77474 6.83689 8.64123C7.55452 8.16843 8.16843 7.55452 8.64123 6.83689Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12"/>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+      </symbol>
+      <symbol id="icon-share" viewBox="0 0 16 16">
+        <path d="M1 12.0024V9.00244C1 8.45015 1.44772 8.00244 2 8.00244C2.55228 8.00244 3 8.45015 3 9.00244V12.0024C3.00001 12.5547 3.44772 13.0024 4 13.0024H12C12.5523 13.0024 13 12.5547 13 12.0024V9.00244C13 8.45015 13.4477 8.00244 14 8.00244C14.5523 8.00244 15 8.45015 15 9.00244V12.0024C15 13.6593 13.6568 15.0024 12 15.0024H4C2.34315 15.0024 1.00001 13.6593 1 12.0024ZM7 10.0024V3.4165L5.20703 5.20947C4.81652 5.59985 4.18346 5.59989 3.79297 5.20947C3.40248 4.81898 3.40256 4.18594 3.79297 3.79541L6.81934 0.769039L6.94629 0.653805C7.60219 0.119166 8.56937 0.157812 9.18066 0.769039L12.207 3.79541C12.5975 4.18594 12.5975 4.81896 12.207 5.20947C11.8165 5.59985 11.1835 5.59989 10.793 5.20947L9 3.4165V10.0024C8.99991 10.5546 8.55213 11.0023 8 11.0024C7.44777 11.0024 7.00009 10.5546 7 10.0024Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 16 16">
+        <path fill="currentColor" d="M10.0928 1.69256C11.2565 0.528877 13.1429 0.528945 14.3066 1.69256C15.4704 2.85629 15.4704 4.74271 14.3066 5.90643L4.71191 15.5012C4.3931 15.82 3.96064 15.9992 3.50977 15.9992H1.7002C0.761312 15.9992 0 15.2379 0 14.299V12.4894C0 12.0386 0.179233 11.6061 0.498047 11.2873L10.0928 1.69256ZM2 12.6135V13.9992H3.38574L10.7852 6.59881L9.39941 5.21307L2 12.6135ZM12.8926 3.10663C12.5099 2.72406 11.8895 2.72399 11.5068 3.10663L10.8135 3.79901L12.1992 5.18475L12.8926 4.49237C13.2753 4.10969 13.2753 3.4893 12.8926 3.10663Z"/>
+      </symbol>
+      <symbol id="icon-flag" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 19C6 19.5523 6.44772 20 7 20C7.55228 20 8 19.5523 8 19L8 12.9565H8.25665C9.49323 12.9565 10.6957 13.362 11.6798 14.1107C13.3097 15.3509 15.3688 15.886 17.3963 15.5964L18.1414 15.4899C18.6341 15.4196 19 14.9977 19 14.5V7.5C19 7.21011 18.8742 6.93448 18.6552 6.74455C18.4362 6.55461 18.1456 6.46905 17.8586 6.51005L17.1012 6.61824C15.6077 6.83161 14.0906 6.44293 12.8836 5.53771C11.5528 4.53957 9.93406 4 8.27049 4H7C6.96548 4 6.93137 4.00175 6.89776 4.00516C6.3935 4.05637 6 4.48223 6 5V19ZM8 6V10.9565H8.25665C9.9307 10.9565 11.5586 11.5054 12.8908 12.5191C14.0644 13.412 15.5392 13.8102 17 13.6315V8.6432C15.1072 8.81713 13.2115 8.28365 11.6836 7.13771C10.6989 6.39921 9.50132 6 8.27049 6H8Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <div class="app-container" id="app">
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="global-nav__brand">
+        <div class="global-nav__logo">
+          <svg width="24" height="14" viewBox="0 0 20 12" fill="none">
+            <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
+          </svg>
+        </div>
+        <span class="global-nav__title">Marketing Program Center</span>
+      </div>
+      <!-- Progress Bar -->
+      <div class="progress-bar-container" id="progress-bar-container">
+        <div class="progress-bar-steps">
+          <a href="#step1" class="progress-bar-step progress-bar-step--active" data-step="1"></a>
+          <a href="#step2" class="progress-bar-step progress-bar-step--disabled" data-step="2"></a>
+        </div>
+        <span class="progress-bar-text" id="progress-bar-text">Step 1 of 2</span>
+      </div>
+    </header>
+
+    <!-- Main Content (No Side Nav) -->
+    <main class="main-content main-content--full-width" id="main-content" data-step="1">
+      <!-- Step 1: Program Setup -->
+      <h2 class="program-section__title step-1-content">Program Details</h2>
+
+      <div class="program-context-card step-1-content">
+        <div class="program-context-header">
+          <span class="program-context-header__text">Context</span>
+        </div>
+        <div class="program-context-box">
+          <div class="form-field">
+            <label for="program-name" class="form-field__label">Program Name</label>
+            <input type="text" id="program-name" class="form-field__input" placeholder="Enter program name" />
+          </div>
+
+          <div class="form-field">
+            <label for="program-tags" class="form-field__label">Tags</label>
+            <input type="text" id="program-tags" class="form-field__input" placeholder="Add tags (comma separated)" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-field__label">Upload Brief</label>
+            <input type="file" id="brief-file-upload" class="visually-hidden" accept=".pdf,.doc,.docx" />
+            <button class="file-upload-btn" id="upload-brief-button">
+              <svg class="icon" width="16" height="16"><use href="#icon-plus"/></svg>
+              Upload file
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="program-section__title step-1-content">Select Campaign Goal</h2>
+
+      <div class="goal-options-container step-1-content">
+                <!-- Single Campaign Option -->
+                <label class="template-option">
+                  <input type="radio" name="goal" value="single" class="template-option__radio" checked />
+                  <div class="template-option__card">
+                    <div class="template-option__icon">
+                      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5116 1.47409C12.5775 0.929209 11.4225 0.929208 10.4884 1.47409L3.48839 5.55743C2.56673 6.09506 2 7.08176 2 8.14876V15.8513C2 16.9183 2.56673 17.905 3.48839 18.4426L10.4884 22.526C11.4225 23.0708 12.5775 23.0708 13.5116 22.526L20.5116 18.4426C21.4333 17.905 22 16.9183 22 15.8513V8.14876C22 7.08176 21.4333 6.09506 20.5116 5.55743L13.5116 1.47409ZM11.4961 3.20165C11.8075 3.02002 12.1925 3.02002 12.5039 3.20165L18.8388 6.89701L16.3702 8.32222L9.50894 4.36085L11.4961 3.20165ZM7.51925 5.5215L14.3702 9.47692L12.5001 10.5566C12.1907 10.7353 11.8095 10.7353 11.5001 10.5566L5.16132 6.89695L7.51925 5.5215ZM4 8.53586V15.8513C4 16.207 4.18891 16.5359 4.49613 16.7151L11 20.509V12.5191C10.8284 12.4584 10.661 12.3816 10.5001 12.2887L4 8.53586ZM13 12.5192V20.509L19.5039 16.7151C19.8111 16.5359 20 16.2069 20 15.8513V8.53598L13.5001 12.2887C13.3391 12.3816 13.1717 12.4585 13 12.5192Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="template-option__content">
+                      <h3 class="template-option__title">Single Campaign</h3>
+                      <p class="template-option__desc">Create one campaign with a single set of targeting, offers, and placements.</p>
+                      <div class="template-option__tags">
+                        <span class="tag">One-time promo</span>
+                        <span class="tag">Standalone evergreen promo</span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Multiple Promotion Campaigns Option -->
+                <label class="template-option">
+                  <input type="radio" name="goal" value="promotion" class="template-option__radio" />
+                  <div class="template-option__card">
+                    <div class="template-option__icon">
+                      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M17 20C17.5523 20 18 20.4477 18 21C18 21.5523 17.5523 22 17 22H6.16146C5.63431 22 5.17955 22 4.80497 21.9694C4.40963 21.9371 4.01641 21.8658 3.63803 21.673C3.07354 21.3854 2.6146 20.9265 2.32698 20.362C2.13419 19.9836 2.06287 19.5904 2.03057 19.195C1.99997 18.8204 1.99998 18.3657 2 17.8385L2 7C2 6.44771 2.44772 6 3 6C3.55229 6 4 6.44771 4 7L4 17.8C4 18.3766 4.00078 18.7488 4.02393 19.0322C4.04612 19.3038 4.0838 19.4045 4.10899 19.454C4.20487 19.6422 4.35785 19.7951 4.54601 19.891C4.59545 19.9162 4.69617 19.9539 4.96784 19.9761C5.25117 19.9992 5.62345 20 6.2 20H17Z" fill="currentColor"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22 15.2L22 4.80005L22 4.77236C22.0001 4.66077 22.0003 4.47766 21.9865 4.30878C21.9696 4.10173 21.9224 3.74748 21.7275 3.36507C21.4878 2.89466 21.1054 2.51221 20.635 2.27253C20.2526 2.07768 19.8983 2.03042 19.6913 2.0135C19.5224 1.9997 19.3393 1.9999 19.2277 2.00003L19.2 2.00005L8.8 2.00005L8.77232 2.00002C8.66072 1.9999 8.47762 1.9997 8.30874 2.0135C8.10168 2.03042 7.74744 2.07768 7.36503 2.27253C6.89462 2.51221 6.51217 2.89466 6.27249 3.36507C6.07764 3.74748 6.03037 4.10173 6.01346 4.30878C5.99966 4.47766 5.99986 4.66077 5.99998 4.77236L6 4.80005L6 15.2L5.99998 15.2277C5.99986 15.3393 5.99966 15.5224 6.01346 15.6913C6.03037 15.8984 6.07763 16.2526 6.27248 16.635C6.51217 17.1054 6.89462 17.4879 7.36502 17.7276C7.74744 17.9224 8.10168 17.9697 8.30874 17.9866C8.47762 18.0004 8.66072 18.0002 8.77232 18.0001L8.8 18H19.2L19.2277 18.0001C19.3393 18.0002 19.5224 18.0004 19.6913 17.9866C19.8983 17.9697 20.2526 17.9224 20.635 17.7276C21.1054 17.4879 21.4878 17.1054 21.7275 16.635C21.9224 16.2526 21.9696 15.8984 21.9865 15.6913C22.0003 15.5224 22.0001 15.3393 22 15.2277L22 15.2ZM19.727 4.05454C19.62 4.00005 19.48 4.00005 19.2 4.00005L8.8 4.00005C8.51998 4.00005 8.37996 4.00005 8.27301 4.05454C8.17893 4.10248 8.10243 4.17897 8.0545 4.27305C8 4.38001 8 4.52002 8 4.80005L8 15.2C8 15.4801 8 15.6201 8.0545 15.727C8.10243 15.8211 8.17892 15.8976 8.27301 15.9455C8.37996 16 8.51997 16 8.8 16H19.2C19.48 16 19.62 16 19.727 15.9455C19.8211 15.8976 19.8976 15.8211 19.9455 15.727C20 15.6201 20 15.4801 20 15.2L20 4.80005C20 4.52002 20 4.38001 19.9455 4.27305C19.8976 4.17897 19.8211 4.10248 19.727 4.05454Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="template-option__content">
+                      <h3 class="template-option__title">Multiple Promotion Campaigns</h3>
+                      <p class="template-option__desc">Create variations of the same campaign across different placements, stores, audiences, time periods, or carousel configurations.</p>
+                      <div class="template-option__tags">
+                        <span class="tag">Single promo with multiple variants testing</span>
+                        <span class="tag">Stage-based promo</span>
+                        <span class="tag">Lifecycle stage based</span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Multiple Action-Based Campaigns Option -->
+                <label class="template-option">
+                  <input type="radio" name="goal" value="action" class="template-option__radio" />
+                  <div class="template-option__card">
+                    <div class="template-option__icon">
+                      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M14.5 17.2929C14.1095 17.6834 14.1095 18.3166 14.5 18.7071C14.8905 19.0976 15.5237 19.0976 15.9142 18.7071L21.3649 13.2564C21.4491 13.1722 21.5498 13.0717 21.6311 12.9758C21.7254 12.8648 21.851 12.6962 21.9266 12.4635C22.0245 12.1623 22.0245 11.8377 21.9266 11.5365C21.851 11.3038 21.7254 11.1352 21.6311 11.0242C21.5498 10.9283 21.4491 10.8278 21.3649 10.7436L15.9142 5.29289C15.5237 4.90237 14.8905 4.90237 14.5 5.29289C14.1095 5.68342 14.1095 6.31658 14.5 6.70711L19.7929 12L14.5 17.2929Z" fill="currentColor"/>
+                        <path d="M9.49999 18.7071C9.10946 18.3166 9.10946 17.6834 9.49999 17.2929L13.7929 13L3.20709 13C2.65481 13 2.20709 12.5523 2.20709 12C2.20709 11.4477 2.65481 11 3.20709 11L13.7929 11L9.49999 6.70711C9.10946 6.31658 9.10946 5.68342 9.49999 5.29289C9.89051 4.90237 10.5237 4.90237 10.9142 5.29289L16.3649 10.7436C16.4491 10.8278 16.5498 10.9283 16.6311 11.0242C16.7254 11.1352 16.851 11.3038 16.9266 11.5365C17.0245 11.8377 17.0245 12.1623 16.9266 12.4635C16.851 12.6962 16.7254 12.8648 16.6311 12.9758C16.5498 13.0717 16.4491 13.1722 16.3649 13.2564L10.9142 18.7071C10.5237 19.0976 9.89051 19.0976 9.49999 18.7071Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="template-option__content">
+                      <h3 class="template-option__title">Multiple Action-Based Campaigns</h3>
+                      <p class="template-option__desc">Create sequential campaigns triggered by user actions like sign-ups, milestones, or events.</p>
+                      <div class="template-option__tags">
+                        <span class="tag">Dashpass signup</span>
+                        <span class="tag">Milestone reward</span>
+                        <span class="tag">Partnership</span>
+                        <span class="tag">Signup</span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+
+      </div>
+
+      <!-- Inline Configuration Section (shown when multiple campaigns selected) -->
+      <div class="template-config-section step-1-content" id="goal-config-section" style="display: none;">
+                <div class="template-config-container">
+                  <h3 class="template-config__title">Configure your campaigns</h3>
+                  <p class="template-config__subtitle">Set up the structure for your multiple campaigns</p>
+
+                  <!-- Multiple Promotion Configuration -->
+                  <div class="template-config-content" id="config-promotion" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of campaigns</label>
+                      <input type="number" class="create-field__input" id="campaign-count" value="3" min="2" max="10" />
+                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2-10)</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Campaign structure</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="parent-child" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Parent & Child</span>
+                            <span class="template-config-option__desc">Main campaign with dependent sub-campaigns</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="timeline" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Timeline</span>
+                            <span class="template-config-option__desc">Sequential campaigns over time periods</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="lifecycle" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Lifecycle</span>
+                            <span class="template-config-option__desc">Stage-based campaigns for customer lifecycle</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="ab-test" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">A/B test</span>
+                            <span class="template-config-option__desc">Test different approaches with similar audiences</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Multiple Action-Based Configuration -->
+                  <div class="template-config-content" id="config-action" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of action steps</label>
+                      <input type="number" class="create-field__input" id="action-steps-count" value="2" min="2" max="10" />
+                      <span class="create-field__hint">How many sequential actions in the customer journey (2-10)</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Journey type</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="before-after" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Before/After</span>
+                            <span class="template-config-option__desc">Sequential campaigns triggered before and after key actions</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="parent-child" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Parent & Child</span>
+                            <span class="template-config-option__desc">Main campaign with dependent sub-campaigns</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="timeline" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Timeline</span>
+                            <span class="template-config-option__desc">Sequential campaigns over time periods</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="lifecycle" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Lifecycle</span>
+                            <span class="template-config-option__desc">Stage-based campaigns for customer lifecycle</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="ab-test" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">A/B test</span>
+                            <span class="template-config-option__desc">Test different approaches with similar audiences</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="challenge" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Challenge</span>
+                            <span class="template-config-option__desc">Gamified campaigns with objectives and progressive rewards</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+        </div>
+      </div>
+
+      <!-- Step 2: Campaigns Segmentation -->
+      <div class="segmentation-view step-2-content" id="segmentation-view" style="display: none;">
+        <div class="segmentation-header">
+          <div class="segmentation-header__left">
+            <h2 class="segmentation-title">Campaigns Segmentation</h2>
+            <p class="segmentation-subtitle">Define one or more segments for your campaign</p>
+          </div>
+          <button class="btn btn--secondary segmentation-header__guide-btn">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Segmentation platform
+          </button>
+        </div>
+
+        <div class="segmentation-container">
+          <!-- Segmentation Table -->
+          <div class="segmentation-table">
+            <div class="segmentation-table__header">
+              <div class="segmentation-table__cell segmentation-table__cell--variant">Variants</div>
+              <div class="segmentation-table__cell segmentation-table__cell--name">Name</div>
+              <div class="segmentation-table__cell segmentation-table__cell--segid">Segmentation ID</div>
+              <div class="segmentation-table__cell segmentation-table__cell--channels">Channels</div>
+              <div class="segmentation-table__cell segmentation-table__cell--delete">Delete</div>
+            </div>
+
+            <div class="segmentation-table__body" id="segmentation-table-body">
+              <!-- Rows will be generated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Add Segment Button -->
+          <button class="btn-add-segment" id="add-segment-btn">
+            <svg class="icon" width="16" height="16"><use href="#icon-plus"/></svg>
+            Add Segment
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Fixed Footer -->
+    <footer class="create-footer">
+      <div class="create-footer__left">
+        <a href="programs.html" class="btn btn--secondary">Cancel</a>
+      </div>
+      <div class="create-footer__right">
+        <button class="btn btn--secondary" id="back-to-step1" style="display: none;">Back</button>
+        <button class="btn btn--primary" id="continue-to-step2">Next</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="create-program-scripts.js"></script>
+</body>
+</html>

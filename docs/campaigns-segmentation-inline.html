@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaigns Segmentation (Inline Config) - MegaTool</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="create-program-styles.css">
+  <style>
+    /* Channel Config Sections */
+    .channel-config-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .channel-config-card {
+      background: white;
+      border: 1px solid var(--color-border, #e7e7e7);
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .channel-config-card.active {
+      display: block;
+    }
+
+    .channel-config-card__header {
+      background: #f6f7f8;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-border, #e7e7e7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .channel-config-card__title {
+      font-family: var(--font-primary);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+      color: var(--color-text, #191919);
+      margin: 0;
+    }
+
+    .channel-config-card__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      background: #e7fbef;
+      color: #00572d;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .channel-config-card__body {
+      padding: 24px;
+    }
+
+    .config-placeholder {
+      padding: 40px;
+      text-align: center;
+      color: var(--color-text-subdued, #6b6b6b);
+      font-size: 14px;
+    }
+
+    /* Variant Tabs */
+    .variant-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--color-border, #e7e7e7);
+      padding: 0 24px;
+      background: white;
+    }
+
+    .variant-tab {
+      padding: 12px 20px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-subdued, #6b6b6b);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .variant-tab:hover {
+      color: var(--color-text, #191919);
+      background: #fafafa;
+    }
+
+    .variant-tab.active {
+      color: var(--color-text, #191919);
+      border-bottom-color: var(--color-text, #191919);
+    }
+
+    .variant-tab-content {
+      display: none;
+      padding: 24px;
+    }
+
+    .variant-tab-content.active {
+      display: block;
+    }
+
+    .variant-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f6f7f8;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .variant-info__label {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text, #191919);
+      min-width: 32px;
+    }
+
+    .variant-info__name {
+      flex: 1;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text, #191919);
+    }
+
+    /* Promotion Manager Form Styles */
+    .promo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .promo-form__section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .promo-form__section-title {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text, #191919);
+      margin: 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border, #e7e7e7);
+    }
+
+    .promo-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .promo-form__row--full {
+      grid-template-columns: 1fr;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field__label {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text, #191919);
+    }
+
+    .form-field__label--required::after {
+      content: " *";
+      color: #d32f2f;
+    }
+
+    .form-field__input,
+    .form-field__select,
+    .form-field__textarea {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border, #e7e7e7);
+      border-radius: 4px;
+      background: white;
+      color: var(--color-text, #191919);
+      transition: border-color 0.2s ease;
+    }
+
+    .form-field__input:focus,
+    .form-field__select:focus,
+    .form-field__textarea:focus {
+      outline: none;
+      border-color: #00838a;
+    }
+
+    .form-field__textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-field__hint {
+      font-size: 12px;
+      color: var(--color-text-subdued, #6b6b6b);
+    }
+
+    .form-field__radio-group {
+      display: flex;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .form-field__radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .form-field__radio-option input[type="radio"] {
+      cursor: pointer;
+    }
+
+    .form-field__radio-option label {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      color: var(--color-text, #191919);
+      cursor: pointer;
+    }
+
+    /* Placement Portal Content Table */
+    .content-table {
+      border: 1px solid var(--color-border, #e7e7e7);
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .content-table__header {
+      display: grid;
+      grid-template-columns: 60px 1fr 120px 80px;
+      gap: 16px;
+      padding: 12px 16px;
+      background: #f6f7f8;
+      border-bottom: 1px solid var(--color-border, #e7e7e7);
+    }
+
+    .content-table__header-cell {
+      font-family: var(--font-primary);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-subdued, #6b6b6b);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .content-table__body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 120px 80px;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-border, #e7e7e7);
+      transition: background 0.1s ease;
+    }
+
+    .content-row:last-child {
+      border-bottom: none;
+    }
+
+    .content-row:hover {
+      background: #fafafa;
+    }
+
+    .content-row__number {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text, #191919);
+    }
+
+    .content-row__id-input {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border, #e7e7e7);
+      border-radius: 4px;
+      background: white;
+      color: var(--color-text, #191919);
+      width: 100%;
+    }
+
+    .content-row__id-input:focus {
+      outline: none;
+      border-color: #00838a;
+    }
+
+    .content-row__status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-row__toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .content-row__toggle.active {
+      background: #00838a;
+    }
+
+    .content-row__toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: left 0.2s ease;
+    }
+
+    .content-row__toggle.active::after {
+      left: 22px;
+    }
+
+    .content-row__delete {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-add-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      margin: 16px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 500;
+      color: #00838a;
+      background: transparent;
+      border: 1px dashed #00838a;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add-content:hover {
+      background: #e7f5f5;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Icon Sprite -->
+  <div style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-logo" viewBox="0 0 20 12">
+        <path fill="#00838A" d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z"/>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12"/>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <div class="app-container" id="app">
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="global-nav__brand">
+        <div class="global-nav__logo">
+          <svg width="24" height="14" viewBox="0 0 20 12" fill="none">
+            <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
+          </svg>
+        </div>
+        <span class="global-nav__title">Marketing Program Center</span>
+      </div>
+      <!-- Progress Bar -->
+      <div class="progress-bar-container" id="progress-bar-container">
+        <div class="progress-bar-steps">
+          <a href="create-program.html" class="progress-bar-step progress-bar-step--completed" data-step="1"></a>
+          <a href="confirm-campaign-structure.html" class="progress-bar-step progress-bar-step--completed" data-step="2"></a>
+          <a href="#step3" class="progress-bar-step progress-bar-step--active" data-step="3"></a>
+        </div>
+        <span class="progress-bar-text" id="progress-bar-text">Step 3 of 3</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content main-content--full-width" id="main-content">
+      <!-- Step 2: Campaigns Segmentation -->
+      <div class="segmentation-view" id="segmentation-view">
+        <div class="segmentation-header">
+          <div class="segmentation-header__left">
+            <h2 class="segmentation-title">Campaigns Segmentation</h2>
+            <p class="segmentation-subtitle">Define segments and configure channels inline</p>
+          </div>
+          <button class="btn btn--secondary segmentation-header__guide-btn">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Segmentation platform
+          </button>
+        </div>
+
+        <div class="segmentation-container">
+          <!-- Segmentation Table -->
+          <div class="segmentation-table">
+            <div class="segmentation-table__header">
+              <div class="segmentation-table__cell segmentation-table__cell--variant">Variants</div>
+              <div class="segmentation-table__cell segmentation-table__cell--name">Name</div>
+              <div class="segmentation-table__cell segmentation-table__cell--segid">Segmentation ID</div>
+              <div class="segmentation-table__cell segmentation-table__cell--channels">Channels</div>
+              <div class="segmentation-table__cell segmentation-table__cell--delete">Delete</div>
+            </div>
+
+            <div class="segmentation-table__body" id="segmentation-table-body">
+              <!-- Rows will be generated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Add Segment Button -->
+          <button class="btn-add-segment" id="add-segment-btn">
+            <svg class="icon" width="16" height="16"><use href="#icon-plus"/></svg>
+            Add Segment
+          </button>
+        </div>
+
+        <!-- Channel Configuration Sections (shown when channels are checked) -->
+        <div class="channel-config-sections">
+          <!-- Promotion Manager Config -->
+          <div class="channel-config-card" id="promotion-config">
+            <div class="channel-config-card__header">
+              <h3 class="channel-config-card__title">Promotion Manager</h3>
+            </div>
+            <div class="channel-config-card__body">
+              <div class="config-placeholder">
+                Promotion Manager configuration will appear here based on selected segments
+              </div>
+            </div>
+          </div>
+
+          <!-- Placement Portal Config -->
+          <div class="channel-config-card" id="placement-config">
+            <div class="channel-config-card__header">
+              <h3 class="channel-config-card__title">Placement Portal</h3>
+              <button class="btn btn--secondary segmentation-header__guide-btn">
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Creative Studio
+              </button>
+            </div>
+            <div class="channel-config-card__body">
+              <div class="config-placeholder">
+                Placement Portal configuration will appear here based on selected segments
+              </div>
+            </div>
+          </div>
+
+          <!-- Journey Platform Config -->
+          <div class="channel-config-card" id="crm-config">
+            <div class="channel-config-card__header">
+              <h3 class="channel-config-card__title">Journey Platform</h3>
+            </div>
+            <div class="channel-config-card__body">
+              <div class="config-placeholder">
+                Journey Platform configuration will appear here based on selected segments
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Fixed Footer -->
+    <footer class="create-footer">
+      <div class="create-footer__left">
+        <a href="programs.html" class="btn btn--secondary">Cancel</a>
+      </div>
+      <div class="create-footer__right">
+        <a href="create-program.html" class="btn btn--secondary">Back</a>
+        <button class="btn btn--primary" id="continue-btn">Continue</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Segmentation interface JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get campaign structure from sessionStorage
+      const campaignStructureData = sessionStorage.getItem('campaignStructure');
+      let campaignStructure = null;
+      let campaignCount = 1;
+
+      if (campaignStructureData) {
+        campaignStructure = JSON.parse(campaignStructureData);
+        campaignCount = campaignStructure.children ? campaignStructure.children.length : 1;
+      } else {
+        // Fallback to old method
+        campaignCount = parseInt(sessionStorage.getItem('campaignCount')) || 1;
+      }
+
+      let segmentIdCounter = campaignCount + 1;
+
+      // Generate initial rows based on campaign structure
+      const segmentTableBody = document.getElementById('segmentation-table-body');
+      if (segmentTableBody) {
+        if (campaignStructure && campaignStructure.children) {
+          // Prefill with campaign structure data
+          campaignStructure.children.forEach((child, index) => {
+            const row = createSegmentRow(index + 1, child.name, child.placements);
+            segmentTableBody.insertAdjacentHTML('beforeend', row);
+          });
+        } else {
+          // Create empty rows
+          for (let i = 1; i <= campaignCount; i++) {
+            const row = createSegmentRow(i);
+            segmentTableBody.insertAdjacentHTML('beforeend', row);
+          }
+        }
+      }
+
+      // Update channel config visibility based on checkbox changes
+      document.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox' && e.target.name.includes('channel-')) {
+          updateChannelConfigs();
+        }
+      });
+
+      // Update config when name changes
+      document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('segment-name-input')) {
+          updateChannelConfigs();
+        }
+      });
+
+      // Add new segment
+      const addSegmentBtn = document.getElementById('add-segment-btn');
+      if (addSegmentBtn && segmentTableBody) {
+        addSegmentBtn.addEventListener('click', function() {
+          const newSegmentId = segmentIdCounter++;
+          const newRow = createSegmentRow(newSegmentId);
+          segmentTableBody.insertAdjacentHTML('beforeend', newRow);
+        });
+      }
+
+      // Delete segment
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.icon-btn--delete')) {
+          const row = e.target.closest('.segmentation-table__row');
+          if (row) {
+            const allRows = document.querySelectorAll('.segmentation-table__row');
+            if (allRows.length > 1) {
+              row.remove();
+              updateChannelConfigs();
+            } else {
+              alert('You must have at least one segment');
+            }
+          }
+        }
+      });
+
+      // Continue button
+      const continueBtn = document.getElementById('continue-btn');
+      if (continueBtn) {
+        continueBtn.addEventListener('click', function() {
+          const segments = [];
+          const rows = document.querySelectorAll('.segmentation-table__row');
+
+          rows.forEach(row => {
+            const id = row.getAttribute('data-segment-id');
+            const variant = row.querySelector('.variant-label').textContent;
+            const name = row.querySelector('.segment-name-input').value;
+            const segId = row.querySelector('.segment-segid-input').value;
+            const channels = [];
+
+            row.querySelectorAll('.channel-checkbox input[type="checkbox"]:checked').forEach(checkbox => {
+              const channelName = checkbox.name.split('-').pop();
+              channels.push(channelName);
+            });
+
+            segments.push({ id, variant, name, segmentationId: segId, channels });
+          });
+
+          console.log('Segments data:', segments);
+          alert('Campaign created successfully with ' + segments.length + ' segment(s)!');
+        });
+      }
+
+      // Function to update channel config visibility
+      function updateChannelConfigs() {
+        const rows = document.querySelectorAll('.segmentation-table__row');
+        const channels = {
+          promotion: [],
+          inapp: [],
+          crm: []
+        };
+
+        // Collect which variants have each channel checked
+        rows.forEach(row => {
+          const variant = row.querySelector('.variant-label').textContent;
+          const name = row.querySelector('.segment-name-input').value;
+
+          if (row.querySelector('input[name*="promotion"]:checked')) {
+            channels.promotion.push({ variant, name });
+          }
+          if (row.querySelector('input[name*="inapp"]:checked')) {
+            channels.inapp.push({ variant, name });
+          }
+          if (row.querySelector('input[name*="crm"]:checked')) {
+            channels.crm.push({ variant, name });
+          }
+        });
+
+        // Update Promotion Manager
+        const promotionConfig = document.getElementById('promotion-config');
+        if (channels.promotion.length > 0) {
+          promotionConfig.classList.add('active');
+          updateConfigBody('promotion-config', channels.promotion);
+        } else {
+          promotionConfig.classList.remove('active');
+        }
+
+        // Update Placement Portal
+        const placementConfig = document.getElementById('placement-config');
+        if (channels.inapp.length > 0) {
+          placementConfig.classList.add('active');
+          updateConfigBody('placement-config', channels.inapp);
+        } else {
+          placementConfig.classList.remove('active');
+        }
+
+        // Update Journey Platform
+        const crmConfig = document.getElementById('crm-config');
+        if (channels.crm.length > 0) {
+          crmConfig.classList.add('active');
+          updateConfigBody('crm-config', channels.crm);
+        } else {
+          crmConfig.classList.remove('active');
+        }
+      }
+
+      // Helper function to update config card body with variant list
+      function updateConfigBody(configId, variants) {
+        const configCard = document.getElementById(configId);
+        const body = configCard.querySelector('.channel-config-card__body');
+
+        // For any channel with multiple variants, use tabs
+        if (variants.length > 1) {
+          // Remove existing tabs if they exist
+          const existingTabs = configCard.querySelector('.variant-tabs');
+          if (existingTabs) {
+            existingTabs.remove();
+          }
+
+          // Get channel name for placeholder
+          const channelName = configId === 'promotion-config' ? 'Promotion Manager' :
+                             configId === 'placement-config' ? 'Placement Portal' :
+                             'Journey Platform';
+
+          const tabs = variants.map((v, index) => `
+            <button class="variant-tab ${index === 0 ? 'active' : ''}" data-tab="${index}">
+              ${v.variant} ${v.name ? '- ' + v.name : ''}
+            </button>
+          `).join('');
+
+          const tabContents = variants.map((v, index) => {
+            // Generate content based on channel type
+            let configContent = '';
+            if (configId === 'promotion-config') {
+              configContent = generatePromoManagerForm(v.variant);
+            } else if (configId === 'placement-config') {
+              configContent = generatePlacementPortalTable(v.variant);
+            } else {
+              configContent = `<div class="config-placeholder">${channelName} configuration for ${v.variant} will appear here</div>`;
+            }
+
+            return `
+              <div class="variant-tab-content ${index === 0 ? 'active' : ''}" data-content="${index}">
+                ${configContent}
+              </div>
+            `;
+          }).join('');
+
+          // Create tabs container
+          const tabsContainer = document.createElement('div');
+          tabsContainer.className = 'variant-tabs';
+          tabsContainer.innerHTML = tabs;
+          configCard.insertBefore(tabsContainer, body);
+
+          // Add content to body
+          body.innerHTML = tabContents;
+
+          // Add tab click handlers
+          tabsContainer.querySelectorAll('.variant-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+              const tabIndex = this.getAttribute('data-tab');
+
+              // Update active tab
+              tabsContainer.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+              this.classList.add('active');
+
+              // Update active content
+              body.querySelectorAll('.variant-tab-content').forEach(c => c.classList.remove('active'));
+              body.querySelector(`[data-content="${tabIndex}"]`).classList.add('active');
+            });
+          });
+        } else {
+          // For single variant, show without tabs
+          const variant = variants[0];
+          const channelName = configId === 'promotion-config' ? 'Promotion Manager' :
+                             configId === 'placement-config' ? 'Placement Portal' :
+                             'Journey Platform';
+
+          let configContent = '';
+          if (configId === 'promotion-config') {
+            configContent = generatePromoManagerForm(variant.variant);
+          } else if (configId === 'placement-config') {
+            configContent = generatePlacementPortalTable(variant.variant);
+          } else {
+            configContent = `<div class="config-placeholder">${channelName} configuration will appear here</div>`;
+          }
+
+          // Remove tabs if they exist
+          const existingTabs = configCard.querySelector('.variant-tabs');
+          if (existingTabs) {
+            existingTabs.remove();
+          }
+
+          body.innerHTML = configContent;
+        }
+      }
+
+      // Helper function to generate placement portal content table
+      function generatePlacementPortalTable(variantId) {
+        return `
+          <div class="content-table">
+            <div class="content-table__header">
+              <div class="content-table__header-cell">#</div>
+              <div class="content-table__header-cell">Content ID</div>
+              <div class="content-table__header-cell">Status</div>
+              <div class="content-table__header-cell">Delete</div>
+            </div>
+            <div class="content-table__body">
+              <div class="content-row">
+                <span class="content-row__number">1</span>
+                <input type="text" class="content-row__id-input" placeholder="Enter content ID" />
+                <div class="content-row__status">
+                  <div class="content-row__toggle active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="content-row__delete">
+                  <button class="icon-btn icon-btn--delete" title="Delete">
+                    <svg class="icon" width="16" height="16"><use href="#icon-trash"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-content">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Add Content
+            </button>
+          </div>
+        `;
+      }
+
+      // Helper function to generate promotion manager form
+      function generatePromoManagerForm(variantId) {
+        return `
+          <form class="promo-form">
+            <!-- Reward Configuration -->
+            <div class="promo-form__section">
+              <h4 class="promo-form__section-title">Reward Configuration</h4>
+              <div class="promo-form__row">
+                <div class="form-field">
+                  <label class="form-field__label form-field__label--required">Reward Type</label>
+                  <select class="form-field__select">
+                    <option value="">Select reward type</option>
+                    <option value="percentage">Percentage Discount</option>
+                    <option value="fixed">Fixed Amount</option>
+                    <option value="bogo">Buy One Get One</option>
+                    <option value="freeitem">Free Item</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label form-field__label--required">Discount Value</label>
+                  <input type="text" class="form-field__input" placeholder="e.g., 20 or 10.00" />
+                  <span class="form-field__hint">Enter percentage or dollar amount</span>
+                </div>
+              </div>
+              <div class="promo-form__row">
+                <div class="form-field">
+                  <label class="form-field__label">Minimum Order Value</label>
+                  <input type="text" class="form-field__input" placeholder="0.00" />
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label">Maximum Discount Cap</label>
+                  <input type="text" class="form-field__input" placeholder="No cap" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Eligibility & Limits -->
+            <div class="promo-form__section">
+              <h4 class="promo-form__section-title">Eligibility & Limits</h4>
+              <div class="promo-form__row">
+                <div class="form-field">
+                  <label class="form-field__label">Usage Limit per User</label>
+                  <input type="number" class="form-field__input" placeholder="Unlimited" min="1" />
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label">Total Usage Limit</label>
+                  <input type="number" class="form-field__input" placeholder="Unlimited" min="1" />
+                </div>
+              </div>
+              <div class="promo-form__row">
+                <div class="form-field">
+                  <label class="form-field__label form-field__label--required">Start Date & Time</label>
+                  <input type="datetime-local" class="form-field__input" />
+                </div>
+                <div class="form-field">
+                  <label class="form-field__label form-field__label--required">End Date & Time</label>
+                  <input type="datetime-local" class="form-field__input" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Advanced Settings -->
+            <div class="promo-form__section">
+              <h4 class="promo-form__section-title">Advanced Settings</h4>
+              <div class="promo-form__row--full">
+                <div class="form-field">
+                  <label class="form-field__label">Stackable with other promotions?</label>
+                  <div class="form-field__radio-group">
+                    <div class="form-field__radio-option">
+                      <input type="radio" id="stackable-yes-${variantId}" name="stackable-${variantId}" value="yes" />
+                      <label for="stackable-yes-${variantId}">Yes</label>
+                    </div>
+                    <div class="form-field__radio-option">
+                      <input type="radio" id="stackable-no-${variantId}" name="stackable-${variantId}" value="no" checked />
+                      <label for="stackable-no-${variantId}">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="promo-form__row--full">
+                <div class="form-field">
+                  <label class="form-field__label">Promo Code (optional)</label>
+                  <input type="text" class="form-field__input" placeholder="e.g., SUMMER20" />
+                  <span class="form-field__hint">Leave blank for auto-apply promotions</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        `;
+      }
+
+      // Helper function to create a new segment row
+      function createSegmentRow(id, prefillName = '', prefillPlacements = []) {
+        const variantName = `#${id}`;
+        const campaignName = prefillName || '';
+
+        // Map placements from Step 2 to channel checkboxes
+        const hasPromotion = prefillPlacements.includes('Push') || prefillPlacements.includes('Email') || prefillPlacements.includes('Hub');
+        const hasInapp = prefillPlacements.includes('HP banner') || prefillPlacements.includes('SP banner');
+        const hasCrm = false; // Default, can be enhanced later
+
+        const promotionChecked = hasPromotion || id === 1 ? 'checked' : '';
+        const inappChecked = hasInapp ? 'checked' : '';
+        const crmChecked = hasCrm ? 'checked' : '';
+
+        return `
+          <div class="segmentation-table__row" data-segment-id="${id}">
+            <div class="segmentation-table__cell segmentation-table__cell--variant">
+              <span class="variant-label">${variantName}</span>
+            </div>
+            <div class="segmentation-table__cell segmentation-table__cell--name">
+              <input type="text" class="segment-name-input" placeholder="Campaign ${id}" value="${campaignName}" />
+            </div>
+            <div class="segmentation-table__cell segmentation-table__cell--segid">
+              <input type="text" class="segment-segid-input" placeholder="Enter segmentation ID" />
+            </div>
+            <div class="segmentation-table__cell segmentation-table__cell--channels">
+              <div class="channel-checkboxes">
+                <label class="channel-checkbox">
+                  <input type="checkbox" name="channel-${id}-promotion" ${promotionChecked} />
+                  <span>Promotion</span>
+                </label>
+                <label class="channel-checkbox">
+                  <input type="checkbox" name="channel-${id}-inapp" ${inappChecked} />
+                  <span>In-app placement</span>
+                </label>
+                <label class="channel-checkbox">
+                  <input type="checkbox" name="channel-${id}-crm" ${crmChecked} />
+                  <span>Off-channel CRM</span>
+                </label>
+              </div>
+            </div>
+            <div class="segmentation-table__cell segmentation-table__cell--delete">
+              <button class="icon-btn icon-btn--delete" title="Delete">
+                <svg class="icon" width="16" height="16"><use href="#icon-trash"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // Initial check for channel configs
+      updateChannelConfigs();
+    });
+  </script>
+</body>
+</html>

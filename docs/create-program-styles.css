@@ -1,0 +1,814 @@
+/* Create Program Flow Styles
+   ========================================== */
+
+/* Main Content Full Width */
+.main-content--full-width {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 48px 100px;
+}
+
+/* Main Content Wide (for segmentation tables) */
+.main-content--full-width:has(.segmentation-view) {
+  max-width: 1440px;
+  padding: 48px 150px 100px;
+}
+
+/* Start State Adjustments for Full Width */
+.main-content--full-width .start-state {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.main-content--full-width .start-state__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-content--full-width .start-state__title {
+  font-size: var(--text-3xl, 32px);
+  font-weight: 700;
+  line-height: 40px;
+  color: var(--color-text, #191919);
+  letter-spacing: -0.01px;
+  margin: 0;
+}
+
+.main-content--full-width .start-input-card {
+  margin-bottom: 32px;
+}
+
+.main-content--full-width .start-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Loading State Full Width */
+.main-content--full-width .loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+/* Template Selection Full Width */
+.main-content--full-width .template-selection-view {
+  max-width: 900px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+/* Step visibility control */
+.main-content--full-width[data-step="1"] .step-2-content {
+  display: none !important;
+}
+
+.main-content--full-width[data-step="2"] .step-1-content {
+  display: none !important;
+}
+
+/* Spacing between sections */
+.main-content--full-width > * + * {
+  margin-top: 24px;
+}
+
+.program-section__title {
+  font-size: var(--text-xl, 24px);
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--color-text, #191919);
+  margin: 0 auto 16px auto;
+  width: 787px;
+}
+
+.program-section__title:not(:first-child) {
+  margin-top: 48px;
+}
+
+/* Program Context Card */
+.program-context-card {
+  width: 787px;
+  margin: 16px auto 0 auto;
+  background: white;
+  border: 1px solid var(--color-border, #e7e7e7);
+  border-radius: 8px;
+  overflow: visible;
+  min-height: 280px;
+}
+
+.program-context-header {
+  background: #f6f7f8;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--color-border, #e7e7e7);
+}
+
+.program-context-header__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm, 14px);
+  font-weight: 600;
+  color: var(--color-text, #191919);
+  letter-spacing: -0.01em;
+}
+
+/* Program Context Box */
+.program-context-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 24px;
+  min-height: 200px;
+}
+
+.program-context-box .form-field:last-child {
+  grid-column: 1 / -1;
+}
+
+/* Form Fields */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field__label {
+  font-family: var(--font-primary, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #111318;
+  letter-spacing: -0.01px;
+  display: block;
+}
+
+.form-field__input {
+  padding: 8px 12px;
+  border: 1px solid #d3d6d9;
+  border-radius: 8px;
+  font-family: var(--font-primary, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #111318;
+  height: 40px;
+  letter-spacing: -0.01px;
+  background: white;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-field__input::placeholder {
+  color: #51545d;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.form-field__input:focus {
+  outline: none;
+  border: 2px solid rgba(25, 25, 25, 0.66);
+  padding: 7px 11px; /* Adjust padding to maintain same total size with thicker border */
+}
+
+.file-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: white;
+  color: #111318;
+  border: 1px solid #d3d6d9;
+  border-radius: 8px;
+  font-family: var(--font-primary, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+  letter-spacing: -0.01px;
+}
+
+.file-upload-btn:hover {
+  background-color: #f6f7f8;
+}
+
+.file-upload-btn:focus {
+  outline: none;
+  border: 2px solid rgba(25, 25, 25, 0.66);
+  padding: 7px 15px; /* Adjust padding to maintain same total size with thicker border */
+}
+
+.file-upload-btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Goal Selection Options Container */
+.goal-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 787px;
+  margin: 16px auto 0 auto;
+}
+
+/* Template Options */
+.template-option {
+  display: block;
+  cursor: pointer;
+}
+
+.template-option__radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.template-option__card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  padding-right: 56px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+/* Custom radio button indicator */
+.template-option__card::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d0d0d0;
+  border-radius: 50%;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.template-option__radio:checked + .template-option__card::after {
+  border-color: #191919;
+  box-shadow: inset 0 0 0 4px white, inset 0 0 0 10px #191919;
+}
+
+.template-option:hover .template-option__card {
+  border-color: #c0c0c0;
+}
+
+.template-option__radio:checked + .template-option__card {
+  border-color: var(--color-text, #191919);
+  border-width: 1.5px;
+  padding: 16px 20px;
+  padding-right: 56px;
+}
+
+.template-option__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text, #191919);
+}
+
+.template-option__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.template-option__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.template-option__title {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text, #191919);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.template-option__desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-subdued, #6b6b6b);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.template-option__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text, #191919);
+  line-height: 1.3;
+}
+
+.tag--positive-subdued {
+  background: #e7fbef;
+  color: #00572d;
+}
+
+/* Fixed Create Footer */
+.create-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: white;
+  border-top: 1px solid var(--color-border, #e7e7e7);
+  z-index: 100;
+  height: 76px;
+  box-sizing: border-box;
+}
+
+.create-footer__left {
+  display: flex;
+  gap: 16px;
+}
+
+.create-footer__right {
+  display: flex;
+  gap: 16px;
+}
+
+/* Remove custom template selection header styles to use default from styles.css */
+
+.main-content--full-width .template-selection-footer {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border, #e7e7e7);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  letter-spacing: -0.01px;
+  height: 40px;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+
+.btn--primary {
+  background-color: #00855f;
+  color: white;
+  border: none;
+}
+
+.btn--primary:hover {
+  background-color: #006d4a;
+}
+
+.btn--secondary {
+  background-color: white;
+  color: #111318;
+  border: 1px solid #d3d6d9;
+}
+
+.btn--secondary:hover {
+  background-color: #f6f7f8;
+  border-color: #c0c0c0;
+}
+
+/* Button Overrides */
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background-color: transparent;
+  color: var(--color-text, #191919);
+  border: none;
+  border-radius: 4px;
+  font-size: var(--text-base, 16px);
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  letter-spacing: -0.01px;
+  text-decoration: none;
+}
+
+.btn-text:hover {
+  background-color: var(--color-bg-tertiary, #f1f1f1);
+  text-decoration: none;
+}
+
+.btn-text .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content--full-width {
+    padding: 24px 16px;
+  }
+
+  .main-content--full-width .start-state__title {
+    font-size: var(--text-2xl, 24px);
+    line-height: 32px;
+  }
+
+  .main-content--full-width .start-quick-chips {
+    justify-content: flex-start;
+  }
+}
+
+/* App Container Override for No Sidenav */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container #main-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Summary View Overrides for Create Program Flow */
+.main-content--full-width .summary-view {
+  display: block !important;
+  flex: none !important;
+  overflow: visible !important;
+}
+
+.summary-layout {
+  padding-bottom: 100px;
+  display: block !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.summary-container {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Template Config Section Override */
+.template-config-section {
+  width: 787px;
+  margin: 32px auto 0 auto;
+}
+
+/* ==========================================
+   Step 2: Campaigns Segmentation Styles
+   ========================================== */
+
+.segmentation-view {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.segmentation-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.segmentation-header__left {
+  flex: 1;
+}
+
+.segmentation-title {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--color-text, #191919);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01px;
+}
+
+.segmentation-subtitle {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text-subdued, #6b6b6b);
+  margin: 0;
+}
+
+.segmentation-header__guide-btn {
+  flex-shrink: 0;
+}
+
+/* Segmentation Container */
+.segmentation-container {
+  background: white;
+  border: 1px solid var(--color-border, #e7e7e7);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Segmentation Table */
+.segmentation-table {
+  width: 100%;
+}
+
+.segmentation-table__header {
+  display: grid;
+  grid-template-columns: 80px 5fr 200px 220px 80px;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #f6f7f8;
+  border-bottom: 1px solid var(--color-border, #e7e7e7);
+}
+
+.segmentation-table__cell {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--color-text, #191919);
+  letter-spacing: -0.01px;
+  text-transform: uppercase;
+}
+
+.segmentation-table__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.segmentation-table__row {
+  display: grid;
+  grid-template-columns: 80px 5fr 200px 220px 80px;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-border, #e7e7e7);
+  align-items: flex-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.segmentation-table__row:last-child {
+  border-bottom: none;
+}
+
+.segmentation-table__row:hover {
+  background: #fafafa;
+}
+
+/* Variant Label */
+.variant-label {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--color-text, #191919);
+  letter-spacing: -0.01px;
+}
+
+/* Segment ID Badge */
+.segment-id-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #f0f0f0;
+  border-radius: 6px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #191919);
+}
+
+/* Segment Type Select */
+.segment-type-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d3d6d9;
+  border-radius: 6px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #111318;
+  background: white;
+  cursor: pointer;
+  letter-spacing: -0.01px;
+}
+
+.segment-type-select:focus {
+  outline: none;
+  border: 2px solid rgba(25, 25, 25, 0.66);
+  padding: 7px 11px;
+}
+
+/* Segment Name Input - Prism Field Component Style */
+.segment-name-input,
+.segment-segid-input {
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px;
+  border: 2px solid #d3d6d9;
+  border-radius: 8px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #111318;
+  background: white;
+  letter-spacing: -0.01px;
+  box-sizing: border-box;
+}
+
+.segment-name-input::placeholder,
+.segment-segid-input::placeholder {
+  color: #51545d;
+}
+
+.segment-name-input:focus,
+.segment-segid-input:focus {
+  outline: none;
+  border: 2px solid rgba(25, 25, 25, 0.66);
+  padding: 4px 8px;
+}
+
+/* Channel Checkboxes - Prism Design */
+.channel-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.channel-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #111318;
+  letter-spacing: -0.01px;
+}
+
+.channel-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #111318;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: white;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.channel-checkbox input[type="checkbox"]:checked {
+  background: #111318;
+  border-color: #111318;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.channel-checkbox input[type="checkbox"]:hover {
+  background: #f6f7f8;
+  border-color: #1b1d22;
+}
+
+.channel-checkbox input[type="checkbox"]:checked:hover {
+  background-color: #1b1d22;
+  border-color: #1b1d22;
+}
+
+.channel-checkbox input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(25, 25, 25, 0.66);
+}
+
+.channel-checkbox span {
+  user-select: none;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--color-text, #191919);
+}
+
+.icon-btn:hover {
+  background: #f0f0f0;
+}
+
+.icon-btn--delete:hover {
+  background: #fee;
+  color: #d32f2f;
+}
+
+.icon-btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.segmentation-table__cell--delete {
+  display: flex;
+  justify-content: center;
+}
+
+/* Add Segment Button */
+.btn-add-segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: none;
+  border-top: 1px solid var(--color-border, #e7e7e7);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #111318;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  letter-spacing: -0.01px;
+}
+
+.btn-add-segment:hover {
+  background: #f6f7f8;
+}
+
+.btn-add-segment .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .segmentation-table__header,
+  .segmentation-table__row {
+    grid-template-columns: 70px 3fr 180px 250px 70px;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+}
