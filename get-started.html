@@ -58,10 +58,136 @@
     }
     .meta-bar__separator {
       width: 1px;
-      height: 20px;
+      height: 32px;
       background: var(--color-border);
-      margin: 0 var(--space-4);
+      margin: 0 var(--space-2);
     }
+    .meta-bar__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--color-border-input);
+      margin: 0 var(--space-4);
+      flex-shrink: 0;
+    }
+    .meta-bar__fields {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+    .meta-bar__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .meta-bar__field-label {
+      font-size: var(--text-xs);
+      line-height: 18px;
+      color: var(--color-text-subdued);
+      font-weight: var(--font-bold);
+    }
+    .meta-bar__field-value {
+      font-size: var(--text-sm);
+      line-height: 20px;
+      color: var(--color-text-subdued);
+      font-weight: var(--font-medium);
+    }
+    .meta-bar__field-value--link {
+      color: var(--color-text-selected);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .meta-bar__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .meta-bar__status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      line-height: 20px;
+      font-weight: var(--font-medium);
+      background: var(--color-bg);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+    }
+    .meta-bar__status:hover { background: var(--color-bg-secondary); }
+    .meta-bar__status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .meta-bar__status-dot--draft { background: var(--color-text-disabled); }
+    .meta-bar__status-dot--testing { background: var(--color-status-warning-text); }
+    .meta-bar__status-dot--approved { background: var(--color-status-success-text); }
+    .meta-bar__status-dot--live { background: var(--color-primary); }
+    .meta-bar__status-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-input);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(25,25,25,0.2);
+      z-index: 200;
+      min-width: 240px;
+      padding: var(--space-3) 0;
+    }
+    .meta-bar__status-menu.open { display: block; }
+    .meta-bar__status-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      width: 100%;
+      text-align: left;
+      padding: var(--space-2) var(--space-5);
+      font-size: var(--text-base);
+      line-height: 22px;
+      font-weight: var(--font-medium);
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .meta-bar__status-option:hover { background: var(--color-bg-secondary); }
+    .meta-bar__status-option.selected { background: var(--color-bg-active); }
+    .version-history-panel {
+      display: none;
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-input);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(25,25,25,0.2);
+      z-index: 200;
+      min-width: 280px;
+      padding: var(--space-3) 0;
+    }
+    .version-history-panel.open { display: block; }
+    .version-history-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) 14px;
+      font-size: var(--text-xs);
+      gap: var(--space-4);
+    }
+    .version-history-row:hover { background: var(--color-bg-secondary); cursor: pointer; }
+    .version-history-row__num { font-weight: var(--font-semibold); color: var(--color-text); }
+    .version-history-row__by  { color: var(--color-text-subdued); }
+    .version-history-row__date { color: var(--color-text-disabled); }
+    .version-wrapper { position: relative; }
 
     /* Workflow Step Navigator */
     .workflow-steps {
@@ -302,9 +428,82 @@
           <span class="meta-bar__name">Summer Sale 2026</span>
         </div>
 
-        <div class="meta-bar__separator"></div>
+        <div class="meta-bar__divider"></div>
 
-        <button class="btn btn--sm btn--primary">Save</button>
+        <div class="meta-bar__fields">
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Owner Group</span>
+            <span class="meta-bar__field-value">growth-retention-pod</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Campaign DRI</span>
+            <span class="meta-bar__field-value">bonnie.lee</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Start Date</span>
+            <span class="meta-bar__field-value">06/01/2026</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">End Date</span>
+            <span class="meta-bar__field-value">08/31/2026</span>
+          </div>
+          <div class="meta-bar__field">
+            <span class="meta-bar__field-label">Last Updated By</span>
+            <span class="meta-bar__field-value">bonnie.lee · just now</span>
+          </div>
+        </div>
+
+        <div class="meta-bar__right">
+          <div style="position:relative;">
+            <button class="meta-bar__status" id="status-btn">
+              <span class="meta-bar__status-dot meta-bar__status-dot--draft"></span>
+              <span id="status-label">Draft</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="meta-bar__status-menu" id="status-menu">
+              <button class="meta-bar__status-option selected" data-status="draft">
+                <span class="meta-bar__status-dot meta-bar__status-dot--draft"></span>
+                <span>Draft</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="testing">
+                <span class="meta-bar__status-dot meta-bar__status-dot--testing"></span>
+                <span>Testing</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="approved">
+                <span class="meta-bar__status-dot meta-bar__status-dot--approved"></span>
+                <span>Approved</span>
+              </button>
+              <button class="meta-bar__status-option" data-status="live">
+                <span class="meta-bar__status-dot meta-bar__status-dot--live"></span>
+                <span>Live</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="version-wrapper" style="display:flex;align-items:center;gap:var(--space-2);">
+            <span style="font-size:var(--text-xs);color:var(--color-text-subdued);">Version:</span>
+            <button class="meta-bar__field-value meta-bar__field-value--link" id="version-btn" style="background:none;border:none;cursor:pointer;padding:0;font-size:var(--text-xs);">
+              V1
+            </button>
+            <div class="version-history-panel" id="version-panel">
+              <div style="padding:var(--space-3) 14px var(--space-2);font-size:11px;font-weight:var(--font-semibold);color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.04em;">Version history</div>
+              <div class="version-history-row" style="background:var(--color-status-success-bg);">
+                <span class="version-history-row__num" style="color:var(--color-status-success-text);">v1 · current</span>
+                <span class="version-history-row__by">bonnie.lee</span>
+                <span class="version-history-row__date">just now</span>
+              </div>
+              <div class="version-history-row">
+                <span class="version-history-row__num">v0 · initial draft</span>
+                <span class="version-history-row__by">bonnie.lee</span>
+                <span class="version-history-row__date">Apr 1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="meta-bar__separator"></div>
+
+          <button class="btn btn--sm btn--primary">Save</button>
+        </div>
       </div>
 
       <div class="app-body" style="display: flex; flex: 1; overflow: hidden;">
