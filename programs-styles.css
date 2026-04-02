@@ -849,11 +849,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px;
+  padding: 16px 8px 8px;
   gap: 8px;
   border-top: 1px solid var(--color-border);
   margin-top: auto;
-  margin-bottom: 64px;
+  margin-bottom: 24px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
