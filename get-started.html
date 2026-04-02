@@ -303,6 +303,9 @@
       flex-direction: column;
       gap: var(--space-5);
       margin-top: var(--space-5);
+      padding: var(--space-6);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
     }
     .start-form-row {
       display: flex;
@@ -643,11 +646,11 @@
               <div class="start-input-tabs">
                 <button class="start-input-tab start-input-tab--active" data-tab="brief">
                   <svg class="icon" width="18" height="18"><use href="#icon-share"/></svg>
-                  I have a brief
+                  AI creation
                 </button>
                 <button class="start-input-tab" data-tab="scratch">
                   <svg class="icon" width="18" height="18"><use href="#icon-edit"/></svg>
-                  Start from scratch
+                  Manual creation
                 </button>
               </div>
 
@@ -705,7 +708,7 @@
                   <textarea
                     class="start-input-field"
                     id="start-input-field"
-                    placeholder="Tell me what campaign you want to create..."
+                    placeholder=""
                     rows="3"
                   ></textarea>
                 </div>
