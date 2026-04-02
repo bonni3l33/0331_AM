@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | Promo and Merch Manager</title>
+  <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="stylesheet" href="programs-styles.css?v=202603315">
+  <style>
+    /* Layout structure */
+    .detail-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Metadata bar - Using Prism Design Tokens */
+    .meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 74px;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+      padding: 0 var(--space-5);
+      flex-shrink: 0;
+      font-size: var(--text-xs);
+      color: var(--color-text-subdued);
+      overflow: visible;
+      position: relative;
+      z-index: 50;
+    }
+    .meta-bar__left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-right: var(--space-5);
+      flex-shrink: 0;
+    }
+    .meta-bar__back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-subdued);
+    }
+    .meta-bar__back:hover { background: var(--color-bg-secondary); }
+    .meta-bar__name {
+      font-size: 13px;
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+    }
+    .meta-bar__separator {
+      width: 1px;
+      height: 20px;
+      background: var(--color-border);
+      margin: 0 var(--space-4);
+    }
+
+    /* Workflow Step Navigator */
+    .workflow-steps {
+      flex: 0 0 180px;
+      width: 180px;
+      padding: var(--space-6) var(--space-5) 0 var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--color-bg);
+      overflow: hidden;
+    }
+    .summary-chat-step {
+      display: flex;
+      gap: var(--space-5);
+    }
+    .summary-chat-step__track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .summary-chat-step__circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-status-info-bg);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      line-height: 18px;
+      color: var(--color-text-subdued);
+    }
+    .summary-chat-step__circle--active {
+      background: var(--color-text);
+      color: var(--color-text-inverse);
+    }
+    .summary-chat-step__circle--completed {
+      background: var(--color-text);
+      color: var(--color-text-inverse);
+    }
+    .summary-chat-step__line {
+      width: 2px;
+      flex: 1;
+      background: var(--color-status-info-bg);
+      margin: 0;
+    }
+    .summary-chat-step__line--completed {
+      background: var(--color-text);
+    }
+    .summary-chat-step--last .summary-chat-step__line {
+      display: none;
+    }
+    .summary-chat-step__content {
+      flex: 1;
+      padding-bottom: var(--space-6);
+    }
+    .summary-chat-step__title {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      line-height: 18px;
+      color: var(--color-text);
+      margin-bottom: 2px;
+      letter-spacing: -0.01px;
+    }
+    .summary-chat-step--clickable {
+      cursor: pointer;
+    }
+    .summary-chat-step--clickable:hover .summary-chat-step__title {
+      text-decoration: underline;
+    }
+
+    /* Align content padding with workflow steps */
+    .template-selection-container {
+      padding: var(--space-6) 36px 0 var(--space-6) !important;
+      gap: var(--space-5) !important;
+      max-width: none !important;
+      height: calc(100vh - 120px - var(--space-6) - 64px) !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      justify-content: flex-start !important;
+    }
+    .template-selection-content {
+      overflow-y: auto !important;
+      height: 100% !important;
+      padding-bottom: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    /* Placeholder content */
+    .placeholder-content {
+      padding: var(--space-8) var(--space-6);
+      max-width: 800px;
+    }
+    .placeholder-title {
+      font-size: 24px;
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+    .placeholder-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-subdued);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Icons -->
+  <div style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-more" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="1" fill="currentColor"/>
+        <circle cx="12" cy="5" r="1" fill="currentColor"/>
+        <circle cx="12" cy="19" r="1" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-ai-chat" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.86l-.28-.14-2.85.48.48-2.85-.14-.28A7.93 7.93 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+      </symbol>
+    </svg>
+  </div>
+
+  <div class="app-container" id="app">
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="global-nav__brand">
+        <div class="global-nav__logo">
+          <svg width="24" height="14" viewBox="0 0 20 12" fill="none">
+            <path d="M18.9506 2.65628C18.0784 1.01097 16.3736 0 14.5301 0H0.475747C0.218051 0 0 0.218053 0 0.495575C0 0.614513 0.0594683 0.733451 0.138759 0.832566L3.19147 3.90513C3.46899 4.18265 3.8258 4.34124 4.20243 4.32142H14.094C14.8076 4.32142 15.3825 4.87646 15.3825 5.59009C15.3825 6.30372 14.8274 6.87858 14.1138 6.87858H7.31461C7.05691 6.87858 6.83886 7.09664 6.83886 7.37416C6.83886 7.4931 6.89833 7.61204 6.97762 7.71115L10.0303 10.7837C10.3078 11.0612 10.6647 11.2 11.0611 11.2H14.1535C18.1577 11.2 21.1905 6.91823 18.9506 2.65628Z" fill="#00838A"/>
+          </svg>
+        </div>
+        <span class="global-nav__title">Marketing Program Center</span>
+      </div>
+      <div class="global-nav__actions">
+        <button class="btn-icon" id="ai-chat-toggle-btn" title="AI Chat">
+          <svg class="icon" width="24" height="24"><use href="#icon-ai-chat"></use></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+      <div class="side-nav-content">
+        <a href="programs.html" class="side-nav__item">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="9" y1="3" x2="9" y2="21"/>
+          </svg>
+          <span>Programs</span>
+        </a>
+        <a href="#" class="side-nav__item">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span>Templates</span>
+        </a>
+        <a href="#" class="side-nav__item">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>History</span>
+        </a>
+        <a href="#" class="side-nav__item">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6M1 12h6m6 0h6"/>
+          </svg>
+          <span>Settings</span>
+        </a>
+      </div>
+
+      <div class="side-nav-footer">
+        <a href="#" class="side-nav__item">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span>Notification Portal</span>
+        </a>
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-profile">
+        <div class="user-profile__info">
+          <img src="asset/avatar.png" alt="Bonnie Lee" class="user-profile__avatar">
+          <div class="user-profile__details">
+            <div class="user-profile__name">Bonnie Lee</div>
+            <div class="user-profile__title">Product Designer</div>
+          </div>
+        </div>
+        <button class="btn-icon btn-icon--small user-profile__menu" aria-label="User menu">
+          <svg class="icon" width="16" height="16"><use href="#icon-more"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <main class="detail-main">
+      <!-- Metadata Bar -->
+      <div class="meta-bar" id="meta-bar">
+        <div class="meta-bar__left">
+          <button class="meta-bar__back" onclick="history.back()" title="Back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <span class="meta-bar__name">Summer Sale 2026</span>
+        </div>
+
+        <div class="meta-bar__separator"></div>
+
+        <button class="btn btn--sm btn--primary">Save</button>
+      </div>
+
+      <div class="app-body" style="display: flex; flex: 1; overflow: hidden;">
+        <!-- Workflow Steps Navigator -->
+        <div class="workflow-steps">
+          <!-- Step 1 - Active -->
+          <div class="summary-chat-step">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle summary-chat-step__circle--active">1</div>
+              <div class="summary-chat-step__line"></div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">Get started</div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="summary-chat-step summary-chat-step--clickable" onclick="window.location.href='campaign-structure.html'">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle">2</div>
+              <div class="summary-chat-step__line"></div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">Program Setup</div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="summary-chat-step summary-chat-step--clickable" onclick="window.location.href='targeting-config.html'">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle">3</div>
+              <div class="summary-chat-step__line"></div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">Targeting</div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="summary-chat-step summary-chat-step--clickable" onclick="window.location.href='promotion-config.html'">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle">4</div>
+              <div class="summary-chat-step__line"></div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">Promotion</div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="summary-chat-step summary-chat-step--clickable" onclick="window.location.href='placement-config.html'">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle">5</div>
+              <div class="summary-chat-step__line"></div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">Placement</div>
+            </div>
+          </div>
+
+          <!-- Step 6 - Last -->
+          <div class="summary-chat-step summary-chat-step--last">
+            <div class="summary-chat-step__track">
+              <div class="summary-chat-step__circle">6</div>
+            </div>
+            <div class="summary-chat-step__content">
+              <div class="summary-chat-step__title">CRM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content" style="flex: 1; overflow-y: auto;">
+          <div class="template-selection-view" id="template-selection-view">
+            <div class="template-selection-container">
+              <div class="template-selection-content" id="targeting-config-view">
+                <h1 class="template-selection-header">Get Started</h1>
+
+                <!-- Placeholder Content -->
+                <div class="placeholder-content">
+                  <p class="placeholder-text">
+                    Content area - to be designed
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </main>
+  </div>
+
+  <script src="scripts.js"></script>
+  <script src="programs-scripts.js"></script>
+  <script src="router.js"></script>
+</body>
+</html>
