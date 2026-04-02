@@ -597,8 +597,94 @@
     </div>
   </div>
 
+  <!-- AI Chat Panel -->
+  <div class="chat-scrim" id="chat-scrim"></div>
+  <aside class="chat-panel" id="chat-panel">
+    <div class="chat-panel__content">
+      <div class="chat-bubble">
+        <p style="margin: 0;">Review and complete the sections below to finalize your campaign setup.</p>
+      </div>
+
+      <div class="chat-suggestions">
+        <button class="chat-suggestion">
+          <svg class="chat-suggestion__icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14.5c-3.58 0-6.5-2.92-6.5-6.5S4.42 1.5 8 1.5s6.5 2.92 6.5 6.5-2.92 6.5-6.5 6.5z"/>
+            <path d="M7.25 11.5h1.5V10h-1.5v1.5zm0-3h1.5V4h-1.5v4.5z"/>
+          </svg>
+          <span class="chat-suggestion__text">What are campaign best practices?</span>
+        </button>
+        <button class="chat-suggestion">
+          <svg class="chat-suggestion__icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M14.5 2h-13C.67 2 0 2.67 0 3.5v9c0 .83.67 1.5 1.5 1.5h13c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5zM14 12H2V4h12v8z"/>
+            <path d="M4 6h8v1.5H4V6zm0 2.5h5V10H4V8.5z"/>
+          </svg>
+          <span class="chat-suggestion__text">Help me optimize targeting settings</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-panel__input">
+      <div class="chat-panel__input-wrapper">
+        <input type="text" class="chat-panel__input-field" id="chat-input" placeholder="How can i help">
+        <button class="chat-panel__input-submit" id="chat-send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <script src="scripts.js"></script>
   <script src="programs-scripts.js"></script>
   <script src="router.js"></script>
+
+  <script>
+    // AI Chat Toggle for get-started page
+    document.addEventListener('DOMContentLoaded', function() {
+      const aiChatToggleBtn = document.getElementById('ai-chat-toggle-btn');
+      const chatPanel = document.getElementById('chat-panel');
+      const chatScrim = document.getElementById('chat-scrim');
+
+      if (aiChatToggleBtn && chatPanel) {
+        aiChatToggleBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          chatPanel.classList.toggle('chat-panel--open');
+          aiChatToggleBtn.classList.toggle('active');
+
+          if (chatPanel.classList.contains('chat-panel--open')) {
+            chatPanel.setAttribute('aria-hidden', 'false');
+            if (chatScrim) {
+              chatScrim.style.opacity = '0.5';
+              chatScrim.style.visibility = 'visible';
+              chatScrim.style.pointerEvents = 'auto';
+            }
+          } else {
+            chatPanel.setAttribute('aria-hidden', 'true');
+            if (chatScrim) {
+              chatScrim.style.opacity = '0';
+              chatScrim.style.visibility = 'hidden';
+              chatScrim.style.pointerEvents = 'none';
+            }
+          }
+        });
+      }
+
+      // Close chat when clicking scrim
+      if (chatScrim && chatPanel) {
+        chatScrim.addEventListener('click', function() {
+          chatPanel.classList.remove('chat-panel--open');
+          if (aiChatToggleBtn) {
+            aiChatToggleBtn.classList.remove('active');
+          }
+          chatPanel.setAttribute('aria-hidden', 'true');
+          chatScrim.style.opacity = '0';
+          chatScrim.style.visibility = 'hidden';
+          chatScrim.style.pointerEvents = 'none';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
