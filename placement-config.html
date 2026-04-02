@@ -864,6 +864,28 @@
       font-style: italic;
     }
 
+    /* Placement Matrix */
+    .placement-matrix-wrap {
+      margin-top: 8px;
+    }
+    .placement-matrix td {
+      text-align: center;
+      padding: 0;
+      vertical-align: middle;
+    }
+    .placement-matrix td:not(:first-child) {
+      padding: 8px;
+    }
+    .placement-matrix th:first-child {
+      width: 140px;
+    }
+    .placement-matrix td:first-child {
+      text-align: center;
+    }
+    .placement-matrix__create-btn {
+      display: inline-block;
+    }
+
     /* Placement Customized Section */
     #placement-customized-body {
       margin-bottom: 0;
@@ -1563,9 +1585,213 @@
 
               <h1 class="template-selection-header">Placement</h1>
 
+              <!-- 1. Create placement templates -->
+              <div class="placement-section">
+                <h2 class="placement-section-header">1. Create placement templates</h2>
+                <p class="placement-section-subtitle">Set up default templates for each placement type. These will be used across campaigns.</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+                  <!-- Spotlight card -->
+                  <button class="placement-template-card" onclick="openPlacementModal('spotlight')">
+                    <div class="placement-template-card__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    </div>
+                    <span class="placement-template-card__name">Spotlight</span>
+                    <span class="placement-template-card__cta">Configure →</span>
+                  </button>
+
+                  <!-- Store banner card -->
+                  <button class="placement-template-card" onclick="openPlacementModal('store-banner')">
+                    <div class="placement-template-card__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+                    </div>
+                    <span class="placement-template-card__name">Store banner</span>
+                    <span class="placement-template-card__cta">Configure →</span>
+                  </button>
+
+                  <!-- USI card -->
+                  <button class="placement-template-card" onclick="openPlacementModal('usi')">
+                    <div class="placement-template-card__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                    </div>
+                    <span class="placement-template-card__name">USI</span>
+                    <span class="placement-template-card__cta">Configure →</span>
+                  </button>
+
+                </div>
+              </div>
+
+              <!-- Placement config modals -->
+              <div id="placement-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; display:none; align-items:center; justify-content:center;">
+                <div class="preview-modal" style="max-width:560px; width:100%;">
+                  <div class="preview-modal-header">
+                    <h3 id="placement-modal-title">Configure Spotlight</h3>
+                    <button class="btn--icon btn--ghost" onclick="closePlacementModal()">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                  </div>
+                  <div class="preview-modal-body" style="display:flex; flex-direction:column; gap:16px;">
+                    <div class="form-field">
+                      <label class="form-field__label">Placement name</label>
+                      <input type="text" class="form-field__input" id="modal-placement-name" placeholder="e.g. Spotlight – Summer Retention">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-field__label">Placement ID</label>
+                      <input type="text" class="form-field__input" id="modal-placement-id" placeholder="e.g. spotlight_summer_001">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-field__label">Platform</label>
+                      <select class="form-field__input" id="modal-platform">
+                        <option>iOS</option>
+                        <option>Android</option>
+                        <option>Desktop Web</option>
+                        <option>Mobile Web</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label class="form-field__label">Priority</label>
+                      <select class="form-field__input" id="modal-priority">
+                        <option>High</option>
+                        <option selected>Medium</option>
+                        <option>Low</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="preview-modal-footer">
+                    <button class="btn btn--ghost" onclick="closePlacementModal()">Cancel</button>
+                    <button class="btn btn--primary" onclick="closePlacementModal()">Save template</button>
+                  </div>
+                </div>
+              </div>
+
+              <style>
+                .placement-template-card {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  gap: 8px;
+                  padding: 16px 20px;
+                  background: var(--color-bg);
+                  border: 1px solid var(--color-border);
+                  border-radius: var(--radius-md);
+                  cursor: pointer;
+                  text-align: left;
+                  min-width: 160px;
+                  transition: border-color 0.15s, box-shadow 0.15s;
+                }
+                .placement-template-card:hover {
+                  border-color: var(--color-primary);
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                }
+                .placement-template-card__icon {
+                  color: var(--color-text-subdued);
+                }
+                .placement-template-card__name {
+                  font-size: var(--text-sm);
+                  font-weight: var(--font-semibold);
+                  color: var(--color-text);
+                }
+                .placement-template-card__cta {
+                  font-size: var(--text-xs);
+                  color: var(--color-text-selected);
+                }
+              </style>
+
+              <script>
+                const placementModalTitles = {
+                  'spotlight': 'Configure Spotlight',
+                  'store-banner': 'Configure Store banner',
+                  'usi': 'Configure USI'
+                };
+                function openPlacementModal(type) {
+                  document.getElementById('placement-modal-title').textContent = placementModalTitles[type] || 'Configure placement';
+                  const overlay = document.getElementById('placement-modal-overlay');
+                  overlay.style.display = 'flex';
+                }
+                function closePlacementModal() {
+                  document.getElementById('placement-modal-overlay').style.display = 'none';
+                }
+                document.getElementById('placement-modal-overlay').addEventListener('click', function(e) {
+                  if (e.target === this) closePlacementModal();
+                });
+              </script>
+
               <!-- Placement Configuration Content -->
               <div>
-                  <!-- Common Placements Section -->
+                  <!-- Placement Matrix -->
+                  <div class="form-field" style="margin-bottom:16px; max-width:220px; position:relative;">
+                    <label class="form-field__label">Preview platform</label>
+                    <button class="meta-bar__status" id="platform-btn" onclick="togglePlatformMenu()" style="width:100%; justify-content:space-between;">
+                      <span id="platform-label">iOS</span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="meta-bar__status-menu" id="platform-menu" style="left:0; right:auto; min-width:100%;">
+                      <button class="meta-bar__status-option selected" onclick="selectPlatform('iOS', this)">iOS</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Android', this)">Android</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Desktop Web', this)">Desktop Web</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Mobile Web', this)">Mobile Web</button>
+                    </div>
+                  </div>
+                  <script>
+                    function togglePlatformMenu() {
+                      document.getElementById('platform-menu').classList.toggle('open');
+                    }
+                    function selectPlatform(value, el) {
+                      document.getElementById('platform-label').textContent = value;
+                      document.querySelectorAll('#platform-menu .meta-bar__status-option').forEach(b => b.classList.remove('selected'));
+                      el.classList.add('selected');
+                      document.getElementById('platform-menu').classList.remove('open');
+                    }
+                    document.addEventListener('click', function(e) {
+                      if (!document.getElementById('platform-btn').contains(e.target) &&
+                          !document.getElementById('platform-menu').contains(e.target)) {
+                        document.getElementById('platform-menu').classList.remove('open');
+                      }
+                    });
+                  </script>
+
+                  <div class="placement-matrix-wrap">
+                    <table class="table placement-matrix">
+                      <thead>
+                        <tr>
+                          <th>Campaign</th>
+                          <th>Spotlight</th>
+                          <th>Store banner</th>
+                          <th>USI</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Parent Campaign</td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 1</td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 2</td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 3</td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn">+ Create</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+
+              <!-- OLD Common Placements Section (hidden) -->
+              <div style="display:none">
                   <div class="placement-section">
                     <h2 class="placement-section-header">Common placements</h2>
                     <p class="placement-section-subtitle">These placements apply to all campaigns.</p>
@@ -1761,7 +1987,7 @@
             </div><!-- end template-selection-content -->
 
             <!-- Right: AI Chat -->
-            <div class="ts-confirm-col" id="ts-confirm-col-promotion">
+            <div class="ts-confirm-col" id="ts-confirm-col-promotion" style="display:none">
               <div class="ts-chat-content">
                 <div class="ts-chat-conversation">
                   <div class="ts-chat-message">
