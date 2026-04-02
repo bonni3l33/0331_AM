@@ -805,6 +805,20 @@
       font-weight: var(--font-semibold);
       color: var(--color-text);
     }
+    .customized-field-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .customized-field-label input[type="checkbox"] {
+      cursor: pointer;
+    }
+    .customized-field-label span {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+    }
     /* Table cells use Prism form-field__input from programs-styles.css */
     .customized-table .form-field__input,
     .customized-table select {
@@ -4509,7 +4523,12 @@
 
     // Data rows - one per field
     customizedFields.forEach(fieldId => {
-      tableHTML += `<tr><td class="customized-table-field">${fieldConfig[fieldId].label}</td>`;
+      tableHTML += `<tr><td class="customized-table-field">`;
+      tableHTML += `<label class="customized-field-label">`;
+      tableHTML += `<input type="checkbox" class="prism-checkbox" data-field="${fieldId}" onchange="handleCustomizedFieldToggle(this)" checked>`;
+      tableHTML += `<span>${fieldConfig[fieldId].label}</span>`;
+      tableHTML += `</label>`;
+      tableHTML += `</td>`;
       childCampaigns.forEach(campaign => {
         tableHTML += `<td>${createFieldInput(fieldId)}</td>`;
       });
@@ -4518,6 +4537,30 @@
 
     tableHTML += '</tbody></table>';
     customizedList.innerHTML = tableHTML;
+  }
+
+  // Handle moving field from customized back to common
+  function handleCustomizedFieldToggle(checkbox) {
+    const fieldId = checkbox.getAttribute('data-field');
+
+    if (!checkbox.checked) {
+      // Remove from customized fields
+      customizedFields = customizedFields.filter(f => f !== fieldId);
+
+      // Find and check the corresponding checkbox in common settings
+      const commonCheckbox = document.querySelector(`.common-settings-table input[data-field="${fieldId}"]`);
+      if (commonCheckbox) {
+        commonCheckbox.checked = true;
+        const row = commonCheckbox.closest('tr');
+        if (row) row.classList.add('checked');
+      }
+
+      // Rebuild customized table
+      buildCustomizedTable();
+
+      // Update common settings empty state
+      updateCommonSettingsEmptyState();
+    }
   }
 
   // Handle field toggle between common and customized
