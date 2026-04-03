@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Option B with Multi-Select Dropdown</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F5F5F5;
+      padding: 40px 20px;
+    }
+    .exploration-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .exploration-header {
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #606060;
+    }
+    .option-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .option-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .option-description {
+      font-size: 14px;
+      color: #606060;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .mock-modal {
+      display: flex;
+      gap: 1px;
+      background: #E7E7E7;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 600px;
+    }
+    .mock-column {
+      background: #fff;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .mock-left {
+      flex: 1;
+    }
+    .mock-right {
+      width: 280px;
+      flex-shrink: 0;
+      background: #F9FAFB;
+    }
+    .section-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E7E7E7;
+    }
+
+    /* Field Row - Two Column Layout */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    .field-input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111318;
+    }
+    .field-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .apply-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .apply-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #606060;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Dropdown Component */
+    .dropdown-wrapper {
+      position: relative;
+    }
+    .dropdown-trigger {
+      width: 100%;
+      padding: 8px 12px;
+      background: #fff;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s;
+      min-height: 38px;
+    }
+    .dropdown-trigger:hover {
+      border-color: #10B981;
+      background: #F9FAFB;
+    }
+    .dropdown-trigger.open {
+      border-color: #10B981;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .dropdown-value {
+      flex: 1;
+      color: #111318;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dropdown-icon {
+      margin-left: 8px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .dropdown-icon.open {
+      transform: rotate(180deg);
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #10B981;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 12px;
+      z-index: 100;
+      display: none;
+    }
+    .dropdown-menu.open {
+      display: block;
+    }
+
+    /* Dropdown Content Styles */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E7E7E7;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .radio-option:hover {
+      background: #F9FAFB;
+    }
+    .radio-input {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .radio-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #111318;
+    }
+
+    /* Campaign Selection */
+    .campaign-selection {
+      display: none;
+    }
+    .campaign-selection.visible {
+      display: block;
+    }
+    .selection-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #606060;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .campaign-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .campaign-chip {
+      padding: 5px 10px;
+      background: #fff;
+      border: 1.5px solid #D3D6D9;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #111318;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .campaign-chip:hover {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .campaign-chip.selected {
+      background: #E8F4F2;
+      border-color: #10B981;
+      color: #047857;
+      font-weight: 600;
+    }
+
+    /* Checkbox List Style */
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .checkbox-option:hover {
+      background: #F9FAFB;
+    }
+    .checkbox-input {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .checkbox-label {
+      font-size: 13px;
+      color: #111318;
+    }
+
+    /* Summary Badge */
+    .summary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111318;
+    }
+    .badge-count {
+      background: #10B981;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 18px;
+      text-align: center;
+    }
+    .campaign-names {
+      font-size: 12px;
+      color: #606060;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-box {
+      background: #fff;
+      border: 1px solid #E7E7E7;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      color: #606060;
+      text-align: center;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .quick-btn {
+      flex: 1;
+      padding: 5px 10px;
+      background: #F9FAFB;
+      border: 1px solid #D3D6D9;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #606060;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quick-btn:hover {
+      background: #F0FDF4;
+      border-color: #10B981;
+      color: #047857;
+    }
+  </style>
+</head>
+<body>
+  <div class="exploration-container">
+    <div class="exploration-header">
+      <h1>Option B: Side-by-Side with Multi-Select Dropdown</h1>
+      <p class="subtitle">Exploring different dropdown variations for campaign selection</p>
+    </div>
+
+    <!-- Variation 1: Dropdown with Chips -->
+    <div class="option-section">
+      <div class="option-title">Variation 1: Dropdown with Chip Selector</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Dropdown shows summary (e.g., "All campaigns" or "3 selected"). Opens to reveal radio buttons + chip multi-select.<br>
+        <strong>Best for:</strong> Visual feedback, easy toggling, compact when closed.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Homepage USI Text</div>
+              <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger open">
+                  <span class="dropdown-value">
+                    <span class="summary-badge">
+                      Specific
+                      <span class="badge-count">3</span>
+                    </span>
+                  </span>
+                  <svg class="dropdown-icon open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu open">
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="rule-1" class="radio-input">
+                      <span class="radio-label">All campaigns</span>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="rule-1" class="radio-input" checked>
+                      <span class="radio-label">Specific campaigns</span>
+                    </label>
+                  </div>
+                  <div class="campaign-selection visible">
+                    <div class="selection-label">Select campaigns</div>
+                    <div class="campaign-chips">
+                      <div class="campaign-chip selected">Parent</div>
+                      <div class="campaign-chip selected">Child 1</div>
+                      <div class="campaign-chip">Child 2</div>
+                      <div class="campaign-chip selected">Child 3</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Alternative Title Text</div>
+              <input type="text" class="field-input" placeholder="Enter alternative text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Description</div>
+              <input type="text" class="field-input" value="Description" placeholder="Enter description">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Action Url</div>
+              <select class="field-input">
+                <option>No Action Url</option>
+                <option>Store Page</option>
+              </select>
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variation 2: Dropdown with Checkboxes -->
+    <div class="option-section">
+      <div class="option-title">Variation 2: Dropdown with Checkbox List</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Dropdown opens to show radio buttons + checkbox list for campaigns.<br>
+        <strong>Best for:</strong> Accessibility, explicit selection, works better with screen readers.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Homepage USI Text</div>
+              <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger open">
+                  <span class="dropdown-value">
+                    <span class="summary-badge">
+                      Specific
+                      <span class="badge-count">3</span>
+                    </span>
+                  </span>
+                  <svg class="dropdown-icon open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu open">
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="rule-2" class="radio-input">
+                      <span class="radio-label">All campaigns</span>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="rule-2" class="radio-input" checked>
+                      <span class="radio-label">Specific campaigns</span>
+                    </label>
+                  </div>
+                  <div class="campaign-selection visible">
+                    <div class="selection-label">Select campaigns</div>
+                    <div class="checkbox-list">
+                      <label class="checkbox-option">
+                        <input type="checkbox" class="checkbox-input" checked>
+                        <span class="checkbox-label">Parent</span>
+                      </label>
+                      <label class="checkbox-option">
+                        <input type="checkbox" class="checkbox-input" checked>
+                        <span class="checkbox-label">Child 1</span>
+                      </label>
+                      <label class="checkbox-option">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="checkbox-label">Child 2</span>
+                      </label>
+                      <label class="checkbox-option">
+                        <input type="checkbox" class="checkbox-input" checked>
+                        <span class="checkbox-label">Child 3</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Alternative Title Text</div>
+              <input type="text" class="field-input" placeholder="Enter alternative text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variation 3: Dropdown with Quick Actions -->
+    <div class="option-section">
+      <div class="option-title">Variation 3: Dropdown with Quick Actions + Chips</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Dropdown includes "Select all" / "Clear" buttons for quick bulk actions, plus chip multi-select.<br>
+        <strong>Best for:</strong> Power users, when bulk selection is common.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Homepage USI Text</div>
+              <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger open">
+                  <span class="dropdown-value">
+                    <span class="summary-badge">
+                      Specific
+                      <span class="badge-count">4</span>
+                    </span>
+                  </span>
+                  <svg class="dropdown-icon open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu open">
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="rule-3" class="radio-input">
+                      <span class="radio-label">All campaigns</span>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="rule-3" class="radio-input" checked>
+                      <span class="radio-label">Specific campaigns</span>
+                    </label>
+                  </div>
+                  <div class="campaign-selection visible">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                      <div class="selection-label" style="margin-bottom: 0;">Select campaigns</div>
+                      <div class="quick-actions" style="margin-bottom: 0;">
+                        <button class="quick-btn">Select all</button>
+                        <button class="quick-btn">Clear</button>
+                      </div>
+                    </div>
+                    <div class="campaign-chips">
+                      <div class="campaign-chip selected">Parent</div>
+                      <div class="campaign-chip selected">Child 1</div>
+                      <div class="campaign-chip selected">Child 2</div>
+                      <div class="campaign-chip selected">Child 3</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Alternative Title Text</div>
+              <input type="text" class="field-input" placeholder="Enter alternative text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variation 4: Dropdown with Campaign Names in Trigger -->
+    <div class="option-section">
+      <div class="option-title">Variation 4: Dropdown Showing Selected Campaign Names</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Dropdown trigger shows actual campaign names (e.g., "Parent, Child 1, Child 3...") instead of just count.<br>
+        <strong>Best for:</strong> When users need to see exactly which campaigns are selected without opening dropdown.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Homepage USI Text</div>
+              <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger open" style="flex-direction: column; align-items: flex-start; padding: 6px 12px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <span class="summary-badge">
+                      Specific
+                      <span class="badge-count">3</span>
+                    </span>
+                    <svg class="dropdown-icon open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="campaign-names">Parent, Child 1, Child 3</div>
+                </button>
+                <div class="dropdown-menu open">
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="rule-4" class="radio-input">
+                      <span class="radio-label">All campaigns</span>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="rule-4" class="radio-input" checked>
+                      <span class="radio-label">Specific campaigns</span>
+                    </label>
+                  </div>
+                  <div class="campaign-selection visible">
+                    <div class="selection-label">Select campaigns</div>
+                    <div class="campaign-chips">
+                      <div class="campaign-chip selected">Parent</div>
+                      <div class="campaign-chip selected">Child 1</div>
+                      <div class="campaign-chip">Child 2</div>
+                      <div class="campaign-chip selected">Child 3</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-input-wrapper">
+              <div class="field-label">Alternative Title Text</div>
+              <input type="text" class="field-input" placeholder="Enter alternative text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <div class="dropdown-wrapper">
+                <button class="dropdown-trigger">
+                  <span class="dropdown-value">All campaigns</span>
+                  <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="option-section" style="background: #F9FAFB; border: 2px solid #E7E7E7;">
+      <div class="option-title" style="margin-bottom: 16px;">Recommendation for Option B Layout</div>
+
+      <div style="padding: 16px; background: #fff; border-radius: 8px; border: 2px solid #10B981; margin-bottom: 16px;">
+        <div style="font-weight: 700; margin-bottom: 8px; color: #111318; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">💡</span>
+          <span>Recommended: Variation 1 (Chips)</span>
+        </div>
+        <div style="font-size: 14px; color: #111318; line-height: 1.6;">
+          <strong>Best fit for Option B's side-by-side layout:</strong>
+          <ul style="margin: 8px 0 0 20px; color: #606060;">
+            <li>Compact dropdown keeps the 220px "Apply to" column clean</li>
+            <li>Shows summary when closed ("All" or "Specific + count")</li>
+            <li>Opens to reveal radio + chips for easy selection</li>
+            <li>Chips are more visual and easier to toggle than checkboxes</li>
+            <li>Works well in the constrained horizontal space</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">Alternative: Variation 2</div>
+          <div style="font-size: 13px; color: #606060;">Checkboxes if accessibility is a priority or you have 6+ campaigns.</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">Alternative: Variation 3</div>
+          <div style="font-size: 13px; color: #606060;">Quick actions if users frequently select all/none.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

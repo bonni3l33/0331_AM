@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USI Multi-Select Campaign Rules - UI Explorations</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F5F5F5;
+      padding: 40px 20px;
+    }
+    .exploration-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .exploration-header {
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #606060;
+    }
+    .option-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .option-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .option-description {
+      font-size: 14px;
+      color: #606060;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .demo-box {
+      background: #FAFAFA;
+      border: 1px solid #E7E7E7;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 500px;
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111318;
+      margin-bottom: 6px;
+    }
+    .field-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: 1px solid transparent;
+    }
+    .radio-option:hover {
+      background: #F9FAFB;
+    }
+    .radio-option.selected {
+      background: #F9FAFB;
+      border-color: #10B981;
+    }
+    .radio-input {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .radio-content {
+      flex: 1;
+    }
+    .radio-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111318;
+      margin-bottom: 4px;
+    }
+    .radio-description {
+      font-size: 12px;
+      color: #606060;
+      line-height: 1.4;
+    }
+
+    /* Campaign Chips */
+    .campaign-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 12px;
+      background: #fff;
+      border-radius: 6px;
+    }
+    .campaign-chip {
+      padding: 6px 12px;
+      background: #fff;
+      border: 1.5px solid #D3D6D9;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111318;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .campaign-chip:hover {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .campaign-chip.selected {
+      background: #E8F4F2;
+      border-color: #10B981;
+      color: #047857;
+      font-weight: 600;
+    }
+
+    /* Checkbox List */
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 12px;
+      background: #fff;
+      border-radius: 6px;
+    }
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .checkbox-option:hover {
+      background: #F9FAFB;
+    }
+    .checkbox-input {
+      width: 18px;
+      height: 18px;
+    }
+    .checkbox-label {
+      font-size: 14px;
+      color: #111318;
+    }
+
+    /* Dropdown with Popover */
+    .dropdown-wrapper {
+      position: relative;
+    }
+    .dropdown-trigger {
+      width: 100%;
+      padding: 8px 12px;
+      background: #fff;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s;
+    }
+    .dropdown-trigger:hover {
+      border-color: #10B981;
+      background: #F9FAFB;
+    }
+    .dropdown-value {
+      flex: 1;
+      color: #111318;
+    }
+    .dropdown-value.placeholder {
+      color: #606060;
+    }
+    .dropdown-icon {
+      margin-left: 8px;
+    }
+    .dropdown-popover {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #E7E7E7;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 12px;
+      z-index: 100;
+      display: none;
+    }
+    .dropdown-popover.open {
+      display: block;
+    }
+    .popover-section {
+      margin-bottom: 12px;
+    }
+    .popover-section:last-child {
+      margin-bottom: 0;
+    }
+    .popover-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #606060;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Segmented Control */
+    .segmented-control {
+      display: inline-flex;
+      background: #F0F0F0;
+      border-radius: 6px;
+      padding: 2px;
+      margin-bottom: 12px;
+    }
+    .segment-option {
+      padding: 6px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #606060;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .segment-option:hover {
+      color: #111318;
+    }
+    .segment-option.active {
+      background: #fff;
+      color: #111318;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Inline Expandable */
+    .inline-rule {
+      padding: 12px;
+      background: #F9FAFB;
+      border: 1px solid #E7E7E7;
+      border-radius: 6px;
+    }
+    .inline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .inline-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #606060;
+    }
+    .quick-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .quick-toggle-btn {
+      padding: 4px 10px;
+      background: #fff;
+      border: 1px solid #D3D6D9;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #111318;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quick-toggle-btn:hover {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .quick-toggle-btn.active {
+      background: #E8F4F2;
+      border-color: #10B981;
+      color: #047857;
+    }
+
+    /* Summary Badge */
+    .summary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #E8F4F2;
+      border: 1px solid #10B981;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #047857;
+    }
+    .badge-count {
+      background: #10B981;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      min-width: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="exploration-container">
+    <div class="exploration-header">
+      <h1>USI Multi-Select Campaign Rules - UI Explorations</h1>
+      <p class="subtitle">Supporting "All Campaigns" vs "Specific Campaigns" with multi-select</p>
+    </div>
+
+    <!-- OPTION 1: Radio + Chip Selector -->
+    <div class="option-section">
+      <div class="option-title">Option 1: Radio Buttons + Chip Multi-Select</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Radio buttons for "All" vs "Specific", with chip selector appearing inline when "Specific" is selected.<br>
+        <strong>Best for:</strong> Visual clarity, easy to understand, good for 2-6 options.<br>
+        <strong>Interaction:</strong> Click chips to toggle selection. Selected chips change color/border.
+      </p>
+      <div class="demo-box">
+        <div class="field-label">Homepage USI Text</div>
+        <input type="text" class="field-input" value="Title" placeholder="Enter text">
+
+        <div class="inline-rule">
+          <div class="inline-label" style="margin-bottom: 12px;">Apply to</div>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="apply-1" class="radio-input">
+              <div class="radio-content">
+                <div class="radio-label">All campaigns</div>
+                <div class="radio-description">Apply to Parent, Child 1, Child 2, and Child 3</div>
+              </div>
+            </label>
+            <label class="radio-option selected">
+              <input type="radio" name="apply-1" class="radio-input" checked>
+              <div class="radio-content">
+                <div class="radio-label">Specific campaigns</div>
+                <div class="radio-description">Choose which campaigns to apply</div>
+              </div>
+            </label>
+          </div>
+          <div class="campaign-chips">
+            <div class="campaign-chip selected">Parent</div>
+            <div class="campaign-chip selected">Child 1</div>
+            <div class="campaign-chip">Child 2</div>
+            <div class="campaign-chip selected">Child 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 2: Radio + Checkbox List -->
+    <div class="option-section">
+      <div class="option-title">Option 2: Radio Buttons + Checkbox List</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Radio buttons for "All" vs "Specific", with checkbox list appearing when "Specific" is selected.<br>
+        <strong>Best for:</strong> Precision, accessibility, when you have many options (6+).<br>
+        <strong>Interaction:</strong> Check/uncheck boxes. More explicit than chips, better for screen readers.
+      </p>
+      <div class="demo-box">
+        <div class="field-label">Homepage USI Text</div>
+        <input type="text" class="field-input" value="Title" placeholder="Enter text">
+
+        <div class="inline-rule">
+          <div class="inline-label" style="margin-bottom: 12px;">Apply to</div>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="apply-2" class="radio-input">
+              <div class="radio-content">
+                <div class="radio-label">All campaigns</div>
+              </div>
+            </label>
+            <label class="radio-option selected">
+              <input type="radio" name="apply-2" class="radio-input" checked>
+              <div class="radio-content">
+                <div class="radio-label">Specific campaigns</div>
+              </div>
+            </label>
+          </div>
+          <div class="checkbox-list">
+            <label class="checkbox-option">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-label">Parent</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-label">Child 1</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" class="checkbox-input">
+              <span class="checkbox-label">Child 2</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" class="checkbox-input" checked>
+              <span class="checkbox-label">Child 3</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 3: Dropdown with Popover -->
+    <div class="option-section">
+      <div class="option-title">Option 3: Dropdown with Popover Multi-Select</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Single dropdown showing current selection summary. Click to open popover with radio + chips/checkboxes.<br>
+        <strong>Best for:</strong> Space efficiency, when you have limited vertical space.<br>
+        <strong>Interaction:</strong> Dropdown shows "All campaigns" or "3 selected". Opens popover with full options.
+      </p>
+      <div class="demo-box">
+        <div class="field-label">Homepage USI Text</div>
+        <input type="text" class="field-input" value="Title" placeholder="Enter text">
+
+        <div class="inline-rule">
+          <div class="inline-label" style="margin-bottom: 8px;">Apply to</div>
+          <div class="dropdown-wrapper">
+            <button class="dropdown-trigger">
+              <span class="dropdown-value">
+                <span class="summary-badge">
+                  <span>Specific campaigns</span>
+                  <span class="badge-count">3</span>
+                </span>
+              </span>
+              <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <div class="dropdown-popover open">
+              <div class="popover-section">
+                <div class="radio-group" style="margin-bottom: 0;">
+                  <label class="radio-option" style="padding: 8px;">
+                    <input type="radio" name="apply-3" class="radio-input">
+                    <span class="radio-label" style="margin-bottom: 0;">All campaigns</span>
+                  </label>
+                  <label class="radio-option selected" style="padding: 8px;">
+                    <input type="radio" name="apply-3" class="radio-input" checked>
+                    <span class="radio-label" style="margin-bottom: 0;">Specific campaigns</span>
+                  </label>
+                </div>
+              </div>
+              <div class="popover-section">
+                <div class="popover-label">Select campaigns</div>
+                <div class="campaign-chips" style="margin-top: 0; padding: 0;">
+                  <div class="campaign-chip selected">Parent</div>
+                  <div class="campaign-chip selected">Child 1</div>
+                  <div class="campaign-chip">Child 2</div>
+                  <div class="campaign-chip selected">Child 3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 4: Segmented Control + Chips -->
+    <div class="option-section">
+      <div class="option-title">Option 4: Segmented Control + Chip Selector</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> iOS-style segmented control for "All" vs "Specific", with chip selector appearing below.<br>
+        <strong>Best for:</strong> Modern, compact, when you want a cleaner visual hierarchy.<br>
+        <strong>Interaction:</strong> Toggle between segments, chips appear for "Specific" mode.
+      </p>
+      <div class="demo-box">
+        <div class="field-label">Homepage USI Text</div>
+        <input type="text" class="field-input" value="Title" placeholder="Enter text">
+
+        <div class="inline-rule">
+          <div class="inline-label" style="margin-bottom: 10px;">Apply to</div>
+          <div class="segmented-control">
+            <button class="segment-option">All campaigns</button>
+            <button class="segment-option active">Specific campaigns</button>
+          </div>
+          <div class="campaign-chips" style="margin-top: 8px;">
+            <div class="campaign-chip selected">Parent</div>
+            <div class="campaign-chip selected">Child 1</div>
+            <div class="campaign-chip">Child 2</div>
+            <div class="campaign-chip selected">Child 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 5: Inline with Quick Actions -->
+    <div class="option-section">
+      <div class="option-title">Option 5: Inline Radio + Quick Action Buttons</div>
+      <p class="option-description">
+        <strong>Pattern:</strong> Radio buttons with "Select all" / "Clear all" quick action buttons next to "Specific campaigns" option.<br>
+        <strong>Best for:</strong> Power users, when bulk selection is common.<br>
+        <strong>Interaction:</strong> Quick actions for common patterns (all, none), plus individual chip selection.
+      </p>
+      <div class="demo-box">
+        <div class="field-label">Homepage USI Text</div>
+        <input type="text" class="field-input" value="Title" placeholder="Enter text">
+
+        <div class="inline-rule">
+          <div class="inline-label" style="margin-bottom: 12px;">Apply to</div>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="apply-5" class="radio-input">
+              <div class="radio-content">
+                <div class="radio-label">All campaigns</div>
+              </div>
+            </label>
+            <label class="radio-option selected">
+              <input type="radio" name="apply-5" class="radio-input" checked>
+              <div class="radio-content">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                  <div class="radio-label" style="margin-bottom: 0;">Specific campaigns</div>
+                  <div class="quick-toggle">
+                    <button class="quick-toggle-btn active">Select all</button>
+                    <button class="quick-toggle-btn">Clear</button>
+                  </div>
+                </div>
+                <div class="campaign-chips" style="margin-top: 8px; padding: 8px 0;">
+                  <div class="campaign-chip selected">Parent</div>
+                  <div class="campaign-chip selected">Child 1</div>
+                  <div class="campaign-chip selected">Child 2</div>
+                  <div class="campaign-chip selected">Child 3</div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="option-section" style="background: #F9FAFB; border: 2px solid #E7E7E7;">
+      <div class="option-title" style="margin-bottom: 16px;">Recommendation Summary</div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px;">
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Best Overall</div>
+          <div style="font-size: 14px; color: #111318; margin-bottom: 8px;"><strong>Option 1: Radio + Chips</strong></div>
+          <div style="font-size: 13px; color: #606060;">Most intuitive, visual, easy to scan. Chips are self-explanatory and work well for 2-6 options. Good balance of clarity and compactness.</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Best for Accessibility</div>
+          <div style="font-size: 14px; color: #111318; margin-bottom: 8px;"><strong>Option 2: Radio + Checkboxes</strong></div>
+          <div style="font-size: 13px; color: #606060;">Explicit, accessible, works with screen readers. Better for many options or when precision matters.</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Best for Space</div>
+          <div style="font-size: 14px; color: #111318; margin-bottom: 8px;"><strong>Option 3: Dropdown Popover</strong></div>
+          <div style="font-size: 13px; color: #606060;">Most compact. Shows summary, expands on demand. Good when vertical space is tight.</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Best for Modern UI</div>
+          <div style="font-size: 14px; color: #111318; margin-bottom: 8px;"><strong>Option 4: Segmented Control</strong></div>
+          <div style="font-size: 13px; color: #606060;">Clean, iOS-style. Good visual hierarchy. Works well in mobile-first designs.</div>
+        </div>
+      </div>
+
+      <div style="padding: 16px; background: #fff; border-radius: 8px; border: 2px solid #10B981;">
+        <div style="font-weight: 700; margin-bottom: 8px; color: #111318; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">💡</span>
+          <span>Recommended Direction</span>
+        </div>
+        <div style="font-size: 14px; color: #111318; line-height: 1.6;">
+          <strong>Option 1 (Radio + Chips)</strong> is the strongest choice for your use case. The chips provide:
+          <ul style="margin: 8px 0 8px 20px; color: #606060;">
+            <li>Clear visual feedback of selection state</li>
+            <li>Easy toggle interaction (click to select/deselect)</li>
+            <li>Good for 2-6 campaigns (scales well)</li>
+            <li>Doesn't require scrolling or expansion</li>
+            <li>Matches Prism design patterns</li>
+          </ul>
+          <strong>Alternative:</strong> If you need more space efficiency later, Option 3 (Dropdown Popover) is a good fallback.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

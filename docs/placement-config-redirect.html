@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promotion | Promo and Merch Manager</title>
+  <title>Placement | Promo and Merch Manager</title>
   <link rel="stylesheet" href="styles.css?v=43">
   <link rel="stylesheet" href="programs-styles.css?v=202603315">
   <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
@@ -237,12 +237,6 @@
     .summary-chat-step {
       display: flex;
       gap: var(--space-5);
-    }
-    a.summary-chat-step {
-      transition: opacity 0.15s;
-    }
-    a.summary-chat-step:hover {
-      opacity: 0.7;
     }
     .summary-chat-step__track {
       display: flex;
@@ -771,6 +765,319 @@
       font-style: italic;
     }
 
+    /* Apply-to campaign chips */
+    .campaign-chip {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text);
+      background: #fff;
+      border: 1.5px solid var(--color-border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .campaign-chip:hover {
+      border-color: #111318;
+    }
+    .campaign-chip.selected {
+      background: #111318;
+      color: #fff;
+      border-color: #111318;
+    }
+    .apply-rule-section {
+      padding: 24px 32px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .apply-rule-section__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .apply-rule-section__desc {
+      font-size: 12px;
+      color: var(--color-text-subdued);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* Remove width constraint for placement config page only */
+    #targeting-config-view {
+      flex: 1 1 auto !important;
+      max-width: none !important;
+      width: 100% !important;
+    }
+    #template-selection-view .template-selection-container {
+      max-width: none !important;
+    }
+
+    /* Placement Configuration */
+    .placement-section {
+      margin-bottom: var(--space-6);
+    }
+    .placement-section-header {
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+      line-height: 1.4;
+    }
+    .placement-section-subtitle {
+      font-size: var(--text-sm);
+      color: var(--color-text-subdued);
+      margin-bottom: var(--space-4);
+      line-height: 1.5;
+    }
+    #placement-shared-body {
+      margin-bottom: 0;
+    }
+    .placement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .placement-item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+    .placement-item__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .placement-item:not(.checked) .placement-item__header {
+      border-radius: var(--radius-md);
+    }
+    .placement-item__name {
+      user-select: none;
+    }
+    .placement-item__settings {
+      display: none;
+      padding: 16px;
+      gap: 16px;
+      flex-direction: column;
+      border-top: 1px solid var(--color-border);
+    }
+    .placement-item.checked .placement-item__settings {
+      display: flex;
+    }
+    .placement-setting-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .placement-setting-label {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+      min-width: 100px;
+      white-space: nowrap;
+    }
+    .placement-id-input {
+      flex: 1;
+      max-width: 400px;
+    }
+    .placement-toggles {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-left: 112px;
+    }
+    .placement-toggle-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #111318;
+    }
+    .placement-toggle-item span {
+      user-select: none;
+    }
+    .placement-empty-state {
+      font-size: 12px;
+      color: var(--color-text-subdued);
+      font-style: italic;
+    }
+
+    /* Placement Matrix */
+    .placement-matrix-wrap {
+      margin-top: 8px;
+    }
+    .placement-matrix td {
+      text-align: center;
+      padding: 0;
+      vertical-align: middle;
+    }
+    .placement-matrix td:not(:first-child) {
+      padding: 8px;
+    }
+    .placement-matrix th:first-child {
+      width: 140px;
+    }
+    .placement-matrix td:first-child {
+      text-align: center;
+    }
+    .placement-matrix__create-btn {
+      display: inline-block;
+    }
+
+    /* Creative card (matrix cell) */
+    .matrix-creative-card {
+      background: #fff;
+      border: 1px solid #e9eaec;
+      border-radius: 7px;
+      padding: 6px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      box-shadow: 0 1px 6px 0 rgba(207,222,255,0.3);
+    }
+    .matrix-creative-card__header {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .matrix-creative-card__title {
+      font-size: 10px;
+      font-weight: 600;
+      color: #51545d;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .matrix-creative-card__image {
+      border-radius: 4px;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .matrix-creative-card__image img {
+      width: 100%;
+      height: 36px;
+      object-fit: cover;
+      display: block;
+    }
+    .matrix-creative-card__notif {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .matrix-creative-card-wrap {
+      position: relative;
+      cursor: pointer;
+    }
+    .matrix-creative-card-wrap__overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.82);
+      border-radius: 7px;
+      align-items: center;
+      justify-content: center;
+    }
+    .matrix-creative-card-wrap:hover .matrix-creative-card-wrap__overlay {
+      display: flex;
+    }
+
+    /* Placement Customized Section */
+    #placement-customized-body {
+      margin-bottom: 0;
+    }
+    .placement-customized-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .placement-campaign-section {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+    .placement-campaign-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .placement-campaign-section:not(.expanded) .placement-campaign-header {
+      border-radius: var(--radius-md);
+    }
+    .placement-campaign-name {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+    }
+    .placement-campaign-toggle {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .placement-campaign-section.expanded .placement-campaign-toggle {
+      transform: rotate(180deg);
+    }
+    .placement-campaign-body {
+      display: none;
+      padding: 16px;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .placement-campaign-section.expanded .placement-campaign-body {
+      display: flex;
+    }
+    .placement-customized-item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+    .placement-customized-item__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-text);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .placement-customized-item:not(.checked) .placement-customized-item__header {
+      border-radius: var(--radius-md);
+    }
+    .placement-customized-item__settings {
+      display: none;
+      padding: 16px;
+      gap: 16px;
+      flex-direction: column;
+      border-top: 1px solid var(--color-border);
+    }
+    .placement-customized-item.checked .placement-customized-item__settings {
+      display: flex;
+    }
+
     /* Customized fields section */
     .customized-fields-list {
       padding: 14px 16px;
@@ -806,21 +1113,7 @@
     .customized-table tr:last-child td {
       border-bottom: none;
     }
-    .customized-table-field {
-      font-size: var(--text-xs);
-      font-weight: var(--font-semibold);
-      color: var(--color-text);
-    }
-    .customized-field-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-    .customized-field-label input[type="checkbox"] {
-      cursor: pointer;
-    }
-    .customized-field-label span {
+    .customized-table-campaign {
       font-size: var(--text-xs);
       font-weight: var(--font-semibold);
       color: var(--color-text);
@@ -1198,7 +1491,7 @@
 
           <div class="meta-bar__separator"></div>
 
-          <button class="btn btn--sm btn--primary">Save</button>
+          <button class="btn btn--sm btn--secondary">Save</button>
         </div>
       </div>
 
@@ -1206,7 +1499,7 @@
       <!-- Workflow Steps Navigator -->
       <div class="workflow-steps">
         <!-- Step 1 - Completed -->
-        <a href="get-started.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <div class="summary-chat-step">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--completed">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -1218,10 +1511,10 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Get started</div>
           </div>
-        </a>
+        </div>
 
         <!-- Step 2 - Completed -->
-        <a href="campaign-config-standalone.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <div class="summary-chat-step">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--completed">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -1233,10 +1526,10 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Program Setup</div>
           </div>
-        </a>
+        </div>
 
         <!-- Step 3 - Completed -->
-        <a href="targeting-config.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <div class="summary-chat-step">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--completed">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -1248,40 +1541,43 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Targeting</div>
           </div>
-        </a>
+        </div>
 
-        <!-- Step 4 - Active -->
-        <a href="promotion-config.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <!-- Step 4 - Completed -->
+        <div class="summary-chat-step">
           <div class="summary-chat-step__track">
-            <div class="summary-chat-step__circle summary-chat-step__circle--active">4</div>
+            <div class="summary-chat-step__circle summary-chat-step__circle--completed">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <div class="summary-chat-step__line"></div>
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Promotion</div>
           </div>
-        </a>
+        </div>
 
-        <!-- Step 5 -->
-        <a href="placement-config.html" class="summary-chat-step summary-chat-step--clickable" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <!-- Step 5 - Active -->
+        <div class="summary-chat-step">
           <div class="summary-chat-step__track">
-            <div class="summary-chat-step__circle">5</div>
+            <div class="summary-chat-step__circle summary-chat-step__circle--active">5</div>
             <div class="summary-chat-step__line"></div>
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Placement</div>
-            <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
-        </a>
+        </div>
 
         <!-- Step 6 - Last -->
-        <a href="#section-content" class="summary-chat-step summary-chat-step--last" style="text-decoration:none; color:inherit; cursor:pointer;">
+        <div class="summary-chat-step summary-chat-step--last">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle">6</div>
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">CRM</div>
           </div>
-        </a>
+        </div>
       </div>
 
       <!-- Main Content -->
@@ -1397,119 +1693,1484 @@
           <div class="template-selection-container">
             <div class="template-selection-content" id="targeting-config-view">
 
-              <h1 class="template-selection-header">Promotion</h1>
+              <h1 class="template-selection-header">Placement</h1>
 
-              <!-- Promotion Configuration Content -->
-              <div>
-                  <div class="shared-card" id="shared-card">
-                    <div class="shared-card__header">
-                      <div>
-                        <div class="shared-card__title">Common settings</div>
-                        <div class="shared-card__subtitle">These values apply identically to all campaigns.</div>
+              <!-- 1. Create placement templates -->
+              <div class="placement-section">
+                <h2 class="placement-section-header">1. Create placement templates</h2>
+                <p class="placement-section-subtitle">Set up default templates for each placement type. These will be used across campaigns.</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+                  <!-- Spotlight card -->
+                  <div id="card-wrapper-spotlight">
+                    <div class="placement-template-card" onclick="openRedirectModal('spotlight')">
+                      <span class="placement-template-card__name">Spotlight</span>
+                      <button class="btn btn--sm btn--secondary" onclick="event.stopPropagation(); openRedirectModal('spotlight')" style="flex-shrink:0;">+ Create</button>
+                    </div>
+                  </div>
+
+                  <!-- USI card -->
+                  <div id="card-wrapper-store-banner">
+                    <div class="placement-template-card" onclick="openRedirectModal('store-banner')">
+                      <span class="placement-template-card__name">USI</span>
+                      <button class="btn btn--sm btn--secondary" onclick="event.stopPropagation(); openRedirectModal('store-banner')" style="flex-shrink:0;">+ Create</button>
+                    </div>
+                  </div>
+
+                  <!-- Notification hub card -->
+                  <div id="card-wrapper-notification-hub">
+                    <div class="placement-template-card" onclick="openRedirectModal('notification-hub')">
+                      <span class="placement-template-card__name">Notification hub</span>
+                      <button class="btn btn--sm btn--secondary" onclick="event.stopPropagation(); openRedirectModal('notification-hub')" style="flex-shrink:0;">+ Create</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Placement config modal -->
+              <div id="placement-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; padding:24px;">
+                <div id="placement-modal-dialog" style="background:#fff; border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.2); width:100%; max-width:1100px; height:calc(100vh - 48px); display:flex; flex-direction:column; overflow:hidden;">
+
+                  <!-- Header -->
+                  <div class="preview-modal-header">
+                    <h3 id="placement-modal-title" style="font-size:18px; font-weight:600; margin:0;">Configure Spotlight</h3>
+                    <button class="btn--icon btn--ghost" onclick="closePlacementModal()">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                  </div>
+
+                  <!-- Two-column body -->
+                  <div style="display:flex; flex:1; overflow:hidden;">
+
+                    <!-- Left: fields -->
+                    <div style="width:380px; flex-shrink:0; border-right:1px solid var(--color-border); overflow-y:auto; display:flex; flex-direction:column;">
+
+                      <!-- USI-only: Platform/Language Section -->
+                      <div id="usi-platform-language-section" style="display:none; padding:28px 32px; flex-direction:column; gap:24px;">
+                        <!-- Platform/Language Header -->
+                        <div style="display:flex; flex-direction:column; gap:16px;">
+                          <!-- Mobile App -->
+                          <div>
+                            <div style="font-size:14px; font-weight:600; color:var(--color-text); margin-bottom:8px;">Mobile App</div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                              <span style="font-size:14px; color:var(--color-text);">English</span>
+                              <button class="btn--icon btn--ghost" style="margin-left:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Website -->
+                          <div>
+                            <div style="font-size:14px; font-weight:600; color:var(--color-text); margin-bottom:8px;">Website</div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                              <span style="font-size:14px; color:var(--color-text);">English</span>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" style="margin-left:auto;"><path d="M20 6L9 17l-5-5"/></svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Edit Content Header -->
+                        <div style="border-top:1px solid var(--color-border); padding-top:24px;">
+                          <div style="font-size:16px; font-weight:600; color:var(--color-text); margin-bottom:16px;">Edit Content</div>
+
+                          <!-- Homepage USI Text -->
+                          <div class="form-field" style="margin-bottom:16px;">
+                            <label class="form-field__label">Homepage USI Text</label>
+                            <div style="position:relative;">
+                              <input type="text" class="form-field__input" id="usi-homepage-text" placeholder="Enter text" value="Summer Sale - Get $10 off your order">
+                              <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%); display:flex; gap:4px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h8m-8 4h4"/></svg>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Alternative Title Text -->
+                          <div class="form-field" style="margin-bottom:16px;">
+                            <label class="form-field__label">Alternative Title Text (if dynamic content is unavailable)</label>
+                            <input type="text" class="form-field__input" id="usi-alt-title" placeholder="Enter alternative text" style="border-color:#EF4444;">
+                            <div style="color:#EF4444; font-size:12px; margin-top:4px;">must have a value</div>
+                          </div>
+
+                          <!-- Description -->
+                          <div class="form-field" style="margin-bottom:16px;">
+                            <label class="form-field__label">Description</label>
+                            <input type="text" class="form-field__input" id="usi-description" placeholder="Homepage USI description">
+                          </div>
+
+                          <!-- Action Url -->
+                          <div class="form-field">
+                            <label class="form-field__label">Action Url</label>
+                            <div class="pf-dropdown" id="dd-usi-action-url">
+                              <button class="pf-dropdown__trigger" onclick="togglePfDropdown('dd-usi-action-url')">
+                                <span class="pf-dropdown__value">No Action Url</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                              </button>
+                              <div class="meta-bar__status-menu pf-dropdown__menu">
+                                <button class="meta-bar__status-option selected" onclick="selectPfOption('dd-usi-action-url', 'No Action Url', this)">No Action Url</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-usi-action-url', 'Store Page', this)">Store Page</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-usi-action-url', 'Custom URL', this)">Custom URL</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Tabs -->
+                      <div id="placement-tabs" style="display:flex; border-bottom:1px solid var(--color-border); padding:0 32px; flex-shrink:0;">
+                        <button id="tab-mobile" onclick="switchPlacementTab('mobile')" style="padding:14px 16px 12px; font-size:14px; font-weight:600; color:var(--color-primary); border:none; border-bottom:2px solid var(--color-primary); background:none; cursor:pointer; margin-bottom:-1px;">Mobile</button>
+                        <button id="tab-web" onclick="switchPlacementTab('web')" style="padding:14px 16px 12px; font-size:14px; font-weight:500; color:var(--color-text-subdued); border:none; border-bottom:2px solid transparent; background:none; cursor:pointer; margin-bottom:-1px;">Web</button>
+                      </div>
+
+                      <!-- Use template section (child rows only) -->
+                      <div id="use-template-section" style="display:none; padding:16px 32px; border-bottom:1px solid var(--color-border); background:var(--color-bg-secondary);">
+                        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:600; color:var(--color-text);">
+                          <input type="checkbox" id="use-template-checkbox" checked onchange="toggleUseTemplate(this.checked)" class="prism-checkbox">
+                          Use template
+                        </label>
+                        <div id="template-selector" style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                          <!-- template cards injected here -->
+                        </div>
+                      </div>
+
+                      <!-- Mobile fields -->
+                      <div id="tab-content-mobile" style="padding:28px 32px; display:flex; flex-direction:column; gap:20px;">
+
+                      <!-- Spotlight-only fields -->
+                      <div id="fields-spotlight-only">
+                        <div style="display:flex; flex-direction:column; gap:20px;">
+                          <div class="form-field">
+                            <label class="form-field__label">Title</label>
+                            <input type="text" class="form-field__input" id="modal-title" value="Spotlight Unit Header" oninput="
+                              document.getElementById('preview-header-text').textContent = this.value;
+                              if(document.getElementById('preview-notif-title')) document.getElementById('preview-notif-title').textContent = this.value;
+                            ">
+                          </div>
+                          <div class="form-field">
+                            <label class="form-field__label">Description</label>
+                            <input type="text" class="form-field__input" id="modal-description" value="Spotlight Unit Description" oninput="
+                              document.getElementById('preview-desc-text').textContent = this.value;
+                              if(document.getElementById('preview-notif-desc')) document.getElementById('preview-notif-desc').textContent = this.value;
+                            ">
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Media: Spotlight (dropdown + image/video upload) -->
+                      <div id="media-field-spotlight" class="form-field">
+                        <label class="form-field__label">Media</label>
+                        <div class="pf-dropdown" id="dd-media">
+                          <button class="pf-dropdown__trigger" onclick="togglePfDropdown('dd-media')">
+                            <span class="pf-dropdown__value">Image</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                          <div class="meta-bar__status-menu pf-dropdown__menu">
+                            <button class="meta-bar__status-option selected" onclick="selectPfOption('dd-media', 'Image', this); handleMediaTypeChange('image')">Image</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-media', 'Video', this); handleMediaTypeChange('video')">Video</button>
+                          </div>
+                        </div>
+                        <div id="modal-image-upload-field" style="margin-top:8px;">
+                          <input type="file" id="modal-image-input" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none;" onchange="handleImageUpload(this)">
+                          <button type="button" class="btn btn--secondary btn--sm" onclick="document.getElementById('modal-image-input').click()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                            Upload
+                          </button>
+                        </div>
+                        <div id="modal-video-upload-field" style="display:none; margin-top:8px; gap:8px; flex-wrap:wrap;">
+                          <button type="button" class="btn btn--secondary btn--sm">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                            Upload Video
+                          </button>
+                          <button type="button" class="btn btn--secondary btn--sm">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                            Upload Thumbnail
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Media: image-only upload (notification hub only) -->
+                      <div id="media-field-image-only" class="form-field" style="display:none;">
+                        <label class="form-field__label">Media</label>
+                        <div style="margin-top:8px;">
+                        <input type="file" id="modal-image-input-simple" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none;" onchange="handleImageUpload(this)">
+                        <button type="button" class="btn btn--secondary btn--sm" onclick="document.getElementById('modal-image-input-simple').click()">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                          Upload
+                        </button>
+                        </div>
+                      </div>
+
+                      <!-- USI-specific fields -->
+                      <div id="usi-fields-only" style="display:none;">
+                        <div style="display:flex; flex-direction:column; gap:20px;">
+                          <!-- Homepage USI Text -->
+                          <div class="form-field">
+                            <label class="form-field__label">Homepage USI Text</label>
+                            <input type="text" class="form-field__input" id="usi-homepage-text-inline" placeholder="Enter text" value="Title" oninput="document.getElementById('preview-usi-title').textContent = this.value">
+                          </div>
+
+                          <!-- Alternative Title Text -->
+                          <div class="form-field">
+                            <label class="form-field__label">Alternative Title Text (if dynamic content is unavailable)</label>
+                            <input type="text" class="form-field__input" id="usi-alt-title-inline" placeholder="Enter alternative text">
+                          </div>
+
+                          <!-- Description -->
+                          <div class="form-field">
+                            <label class="form-field__label">Description</label>
+                            <input type="text" class="form-field__input" id="usi-description-inline" placeholder="Homepage USI description" value="Description" oninput="document.getElementById('preview-usi-desc').textContent = this.value">
+                          </div>
+
+                          <!-- Action Url -->
+                          <div class="form-field">
+                            <label class="form-field__label">Action Url</label>
+                            <div class="pf-dropdown" id="dd-usi-action-url-inline">
+                              <button class="pf-dropdown__trigger" onclick="togglePfDropdown('dd-usi-action-url-inline')">
+                                <span class="pf-dropdown__value">No Action Url</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                              </button>
+                              <div class="meta-bar__status-menu pf-dropdown__menu">
+                                <button class="meta-bar__status-option selected" onclick="selectPfOption('dd-usi-action-url-inline', 'No Action Url', this)">No Action Url</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-usi-action-url-inline', 'Store Page', this)">Store Page</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-usi-action-url-inline', 'Custom URL', this)">Custom URL</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Spotlight/Notif Action URL -->
+                      <div id="action-url-field" class="form-field">
+                        <label class="form-field__label">Action URL (on Banner Click)</label>
+                        <div class="pf-dropdown" id="dd-action-url">
+                          <button class="pf-dropdown__trigger" onclick="togglePfDropdown('dd-action-url')">
+                            <span class="pf-dropdown__value">No Action Url</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                          <div class="meta-bar__status-menu pf-dropdown__menu">
+                            <button class="meta-bar__status-option selected" onclick="selectPfOption('dd-action-url', 'No Action Url', this)">No Action Url</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Store Page', this)">Store Page</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Store Page with placeholder', this)">Store Page with placeholder</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Convenience Page', this)">Convenience Page</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Convenience Page with placeholder', this)">Convenience Page with placeholder</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Item Page', this)">Item Page</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Carousel', this)">Carousel</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'Static Landing Page (Mobile-only)', this)">Static Landing Page (Mobile-only)</button>
+                            <button class="meta-bar__status-option" onclick="selectPfOption('dd-action-url', 'DashPass Landing Page (Mobile-only)', this)">DashPass Landing Page (Mobile-only)</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Spotlight-only: CTA fields -->
+                      <div id="fields-cta-only">
+                        <div style="display:flex; flex-direction:column; gap:20px;">
+                          <div class="form-field">
+                            <label class="form-field__label">CTA Label</label>
+                            <input type="text" class="form-field__input" id="modal-cta-label" value="Label" oninput="document.getElementById('preview-label-text').textContent = this.value">
+                          </div>
+                          <div class="form-field">
+                            <label class="form-field__label">CTA URL (on Button Click)</label>
+                            <div class="pf-dropdown" id="dd-cta-url">
+                              <button class="pf-dropdown__trigger" onclick="togglePfDropdown('dd-cta-url')">
+                                <span class="pf-dropdown__value">No Action Url</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                              </button>
+                              <div class="meta-bar__status-menu pf-dropdown__menu">
+                                <button class="meta-bar__status-option selected" onclick="selectPfOption('dd-cta-url', 'No Action Url', this)">No Action Url</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Store Page', this)">Store Page</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Store Page with placeholder', this)">Store Page with placeholder</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Convenience Page', this)">Convenience Page</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Convenience Page with placeholder', this)">Convenience Page with placeholder</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Item Page', this)">Item Page</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Carousel', this)">Carousel</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'Static Landing Page (Mobile-only)', this)">Static Landing Page (Mobile-only)</button>
+                                <button class="meta-bar__status-option" onclick="selectPfOption('dd-cta-url', 'DashPass Landing Page (Mobile-only)', this)">DashPass Landing Page (Mobile-only)</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      </div><!-- end tab-content-mobile -->
+
+                      <!-- Web tab content -->
+                      <div id="tab-content-web" style="display:none; padding:28px 32px; flex-direction:column; gap:16px;">
+                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:14px; font-weight:500; color:var(--color-text);">
+                          <input type="checkbox" class="prism-checkbox" id="add-web-checkbox">
+                          Add Web
+                        </label>
+                      </div>
+
+                      <!-- Experimentation -->
+                      <div style="padding:24px 32px; border-top:1px solid var(--color-border); display:flex; flex-direction:column; gap:12px;">
+                        <div style="font-size:14px; font-weight:600; color:var(--color-text);">Experimentation</div>
+                        <div class="promo-radio-group">
+                          <label class="promo-radio-option">
+                            <input type="radio" name="modal-experimentation" value="default" class="promo-radio">
+                            <span class="promo-radio-text">Default</span>
+                          </label>
+                          <label class="promo-radio-option">
+                            <input type="radio" name="modal-experimentation" value="ab-test" class="promo-radio">
+                            <span class="promo-radio-text">A/B Test</span>
+                          </label>
+                          <label class="promo-radio-option">
+                            <input type="radio" name="modal-experimentation" value="no-experiment" checked class="promo-radio">
+                            <span class="promo-radio-text">No Experiment</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Limitations -->
+                      <div style="padding:24px 32px; border-top:1px solid var(--color-border); display:flex; flex-direction:column; gap:16px;">
+                        <div style="font-size:14px; font-weight:600; color:var(--color-text);">Limitations</div>
+
+                        <!-- Frequency Capping -->
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:500; color:var(--color-text);">
+                            <input type="checkbox" id="modal-freq-cap-checkbox" class="prism-checkbox" checked onchange="document.getElementById('modal-freq-cap-fields').style.display = this.checked ? 'grid' : 'none'">
+                            Frequency Capping
+                          </label>
+                          <div id="modal-freq-cap-fields" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; align-items:flex-end;">
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">Max Clicks</label>
+                              <input type="number" class="form-field__input" value="3" min="0" style="padding:8px 10px;">
+                            </div>
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">per days</label>
+                              <input type="number" class="form-field__input" value="7" min="0" style="padding:8px 10px;">
+                            </div>
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">Max Impr.</label>
+                              <input type="number" class="form-field__input" value="5" min="0" style="padding:8px 10px;">
+                            </div>
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">per days</label>
+                              <input type="number" class="form-field__input" value="7" min="0" style="padding:8px 10px;">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Scheduling -->
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:500; color:var(--color-text);">
+                            <input type="checkbox" id="modal-scheduling-checkbox" class="prism-checkbox" checked onchange="document.getElementById('modal-scheduling-fields').style.display = this.checked ? 'grid' : 'none'">
+                            Scheduling
+                          </label>
+                          <div id="modal-scheduling-fields" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">Start Date</label>
+                              <input type="date" class="form-field__input" style="padding:8px 10px;">
+                            </div>
+                            <div class="form-field" style="margin-bottom:0;">
+                              <label class="form-field__label">End Date</label>
+                              <input type="date" class="form-field__input" style="padding:8px 10px;">
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <!-- Option C: Apply to campaigns (section 1 only) -->
+                      <div id="apply-rule-section" class="apply-rule-section">
+                        <div>
+                          <div class="apply-rule-section__title">Apply to campaigns</div>
+                          <div class="apply-rule-section__desc">Auto-fill the placement table when this template is saved.</div>
+                        </div>
+                        <div class="promo-radio-group" style="flex-direction:column; gap:12px;">
+                          <label class="promo-radio-option" style="align-items:flex-start;">
+                            <input type="radio" name="modal-apply-rule" value="all" class="promo-radio" checked onchange="setApplyRule('all')" style="margin-top:2px;">
+                            <div>
+                              <div class="promo-radio-text">All campaigns</div>
+                              <div class="apply-rule-section__desc">Apply to Parent, Child 1, Child 2, and Child 3.</div>
+                            </div>
+                          </label>
+                          <label class="promo-radio-option" style="align-items:flex-start;">
+                            <input type="radio" name="modal-apply-rule" value="specific" class="promo-radio" onchange="setApplyRule('specific')" style="margin-top:2px;">
+                            <div>
+                              <div class="promo-radio-text">Specific campaigns</div>
+                              <div class="apply-rule-section__desc">Choose which rows to auto-fill.</div>
+                            </div>
+                          </label>
+                        </div>
+                        <div id="apply-rule-campaigns" style="display:none; flex-wrap:wrap; gap:8px; padding-left:28px;">
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('parent', this)">Parent</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child1', this)">Child 1</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child2', this)">Child 2</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child3', this)">Child 3</button>
+                        </div>
+                      </div>
+
+                    </div><!-- end left panel -->
+
+                    <!-- Right: preview -->
+                    <div style="flex:1; overflow-y:auto; padding:28px 32px; background:var(--color-bg-secondary); display:flex; flex-direction:column; gap:16px;">
+                      <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <p style="font-size:13px; font-weight:600; color:var(--color-text-subdued); margin:0; text-transform:uppercase; letter-spacing:0.04em;">Preview</p>
+                        <div style="position:relative;">
+                          <button class="meta-bar__status" id="modal-platform-btn" onclick="toggleModalPlatformMenu()" style="justify-content:space-between; gap:8px;">
+                            <span id="modal-platform-label">iOS</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                          <div class="meta-bar__status-menu" id="modal-platform-menu" style="right:0; left:auto; min-width:140px;">
+                            <button class="meta-bar__status-option selected" onclick="selectModalPlatform('iOS', this)">iOS</button>
+                            <button class="meta-bar__status-option" onclick="selectModalPlatform('Android', this)">Android</button>
+                            <button class="meta-bar__status-option" onclick="selectModalPlatform('Desktop Web', this)">Desktop Web</button>
+                            <button class="meta-bar__status-option" onclick="selectModalPlatform('Mobile Web', this)">Mobile Web</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Spotlight preview -->
+                      <div id="preview-spotlight" style="display:flex; align-items:flex-start; justify-content:center; padding:24px 0;">
+                        <div style="background:#fff; border:1px solid #E5E7EB; border-radius:16px; padding:20px; width:340px; display:flex; flex-direction:column; gap:14px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                          <div style="display:flex; flex-direction:column; gap:4px;">
+                            <span id="preview-header-text" style="font-size:22px; font-weight:700; color:#111318; line-height:1.2;">Spotlight Unit Header</span>
+                            <span id="preview-desc-text" style="font-size:15px; font-weight:400; color:#111318; line-height:1.4;">Spotlight Unit Description</span>
+                          </div>
+                          <div id="preview-image-wrap" style="background:#EBF7F7; border-radius:12px; height:220px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img id="preview-image" src="" alt="" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:12px;">
+                          </div>
+                          <div id="preview-cta-btn"
+                            style="background:#F3F4F6; border-radius:999px; padding:14px; text-align:center; cursor:pointer; transition:background 0.15s, transform 0.1s;"
+                            onmouseenter="this.style.background='#E5E7EB'"
+                            onmouseleave="this.style.background='#F3F4F6'; this.style.transform=''"
+                            onmousedown="this.style.background='#D1D5DB'; this.style.transform='scale(0.98)'"
+                            onmouseup="this.style.background='#E5E7EB'; this.style.transform=''">
+                            <span id="preview-label-text" style="font-size:16px; font-weight:600; color:#111318;">Label</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Notification hub preview -->
+                      <div id="preview-notification-hub" style="display:none; align-items:flex-start; justify-content:center; padding:24px 0;">
+                        <div style="width:360px; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.10);">
+                          <!-- Notification cell -->
+                          <div style="display:flex; align-items:flex-start; gap:12px; padding:14px 16px;">
+                            <div id="preview-notif-thumb" style="width:50px; height:50px; border-radius:50%; background:#fff; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                              <img id="preview-notif-image" src="" alt="" style="display:none; width:100%; height:100%; object-fit:cover;">
+                              <!-- DoorDash logo -->
+                              <svg id="preview-notif-icon" width="22" height="12" viewBox="0 0 27 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>
+                            </div>
+                            <div style="flex:1; min-width:0;">
+                              <div id="preview-notif-title" style="font-size:14px; font-weight:700; color:#111318; line-height:1.35;">Title</div>
+                              <div id="preview-notif-desc" style="font-size:13px; color:#374151; margin-top:3px; line-height:1.4;">Description</div>
+                              <div style="font-size:11px; color:#9CA3AF; margin-top:4px;">1 min ago</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- USI preview -->
+                      <div id="preview-store-banner" style="display:none; flex-direction:column; align-items:center; padding:24px;">
+                        <!-- Bottom Sheet Container -->
+                        <div style="width:375px; background:var(--color-bg); border-radius:24px 24px 0 0; box-shadow:0 4px 16px rgba(25,25,25,0.2); overflow:hidden;">
+
+                          <!-- Nav Bar Container with Grabber and Close -->
+                          <div style="position:relative; display:flex; align-items:center; padding:4px;">
+                            <!-- Grabber -->
+                            <div style="position:absolute; left:50%; top:8px; transform:translateX(-50%); width:24px; height:4px; background:var(--color-border-strong); border-radius:200px;"></div>
+                            <!-- Close Button -->
+                            <button class="btn--icon btn--ghost" style="width:40px; height:40px;">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                              </svg>
+                            </button>
+                          </div>
+
+                          <!-- Category Title -->
+                          <div style="background:var(--color-bg); padding:16px;">
+                            <div style="display:flex; flex-direction:column; gap:4px;">
+                              <div style="font-family:'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size:18px; font-weight:700; line-height:22px; color:var(--color-text);">Deals</div>
+                              <div style="font-family:'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size:14px; font-weight:500; line-height:20px; color:var(--color-text-subdued);">Applied at checkout. Limit 1 per order. Terms apply.</div>
+                            </div>
+                          </div>
+
+                          <!-- USI List Cell -->
+                          <div style="padding:0 16px 16px 16px;">
+                            <div style="background:var(--color-bg); border:1px solid var(--color-border); border-radius:12px; height:54px; display:flex; align-items:center; padding:2px; overflow:hidden;">
+                              <div style="display:flex; align-items:center; gap:var(--space-2); padding:4px 8px; flex:1; min-width:0;">
+
+                                <!-- Icon Preview -->
+                                <div style="width:32px; height:32px; background:var(--color-bg); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9998 2H14.4141C13.6184 2 12.8554 2.31607 12.2927 2.87868L3.29274 11.8787C2.12117 13.0503 2.12117 14.9497 3.29274 16.1213L7.87853 20.7071C9.0501 21.8787 10.9496 21.8787 12.1212 20.7071L21.1212 11.7071C21.6838 11.1445 21.9998 10.3814 21.9998 9.58579V5C21.9998 3.34315 20.6567 2 18.9998 2ZM16.4999 9.5C17.6044 9.5 18.4999 8.60457 18.4999 7.5C18.4999 6.39543 17.6044 5.5 16.4999 5.5C15.3953 5.5 14.4999 6.39543 14.4999 7.5C14.4999 8.60457 15.3953 9.5 16.4999 9.5Z" fill="#D91400"/>
+                                  </svg>
+                                </div>
+
+                                <!-- Body Container -->
+                                <div style="display:flex; flex-direction:column; gap:var(--space-1); flex:1; min-width:0; justify-content:center;">
+                                  <div style="font-family:'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size:14px; font-weight:700; line-height:20px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="preview-usi-title">Title</div>
+                                  <div style="font-family:'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size:12px; font-weight:500; line-height:18px; color:var(--color-text-subdued); letter-spacing:-0.01px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="preview-usi-desc">Description</div>
+                                </div>
+
+                                <!-- Chevron Icon Button -->
+                                <div style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="opacity:0.75;">
+                                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Home Indicator -->
+                          <div style="height:34px; position:relative;">
+                            <div style="position:absolute; bottom:9px; left:50%; transform:translateX(-50%); width:134px; height:5px; background:var(--color-text); border-radius:100px;"></div>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
-                    <div id="shared-fields-body">
-                      <table class="common-settings-table">
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Field</th>
-                            <th>Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="checked">
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="discount" onchange="handleFieldToggle(this)" checked>
-                            </td>
-                            <td class="common-settings-label">Discount %</td>
-                            <td class="common-settings-input">
-                              <input type="text" class="form-field__input" value="30">
-                            </td>
-                          </tr>
-                          <tr class="checked">
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="max-cap" onchange="handleFieldToggle(this)" checked>
-                            </td>
-                            <td class="common-settings-label">Max discount cap</td>
-                            <td class="common-settings-input">
-                              <input type="text" class="form-field__input" value="10">
-                            </td>
-                          </tr>
-                          <tr class="checked">
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="min-order" onchange="handleFieldToggle(this)" checked>
-                            </td>
-                            <td class="common-settings-label">Min order value</td>
-                            <td class="common-settings-input">
-                              <input type="text" class="form-field__input" value="15">
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="order-types" onchange="handleFieldToggle(this)">
-                            </td>
-                            <td class="common-settings-label">Order types</td>
-                            <td class="common-settings-input">
-                              <select class="form-field__input">
-                                <option value="all">All</option>
-                                <option value="delivery">Delivery only</option>
-                                <option value="pickup">Pickup only</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="max-redemptions" onchange="handleFieldToggle(this)">
-                            </td>
-                            <td class="common-settings-label">Max redemptions / customer</td>
-                            <td class="common-settings-input">
-                              <input type="text" class="form-field__input">
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="auto-redeem" onchange="handleFieldToggle(this)">
-                            </td>
-                            <td class="common-settings-label">Auto-redeem to cart</td>
-                            <td class="common-settings-input">
-                              <select class="form-field__input">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="common-settings-checkbox">
-                              <input type="checkbox" class="prism-checkbox" data-field="promo-code" onchange="handleFieldToggle(this)">
-                            </td>
-                            <td class="common-settings-label">Requires promo code</td>
-                            <td class="common-settings-input">
-                              <select class="form-field__input">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="common-settings-empty-state" id="common-settings-empty" style="display: none;">
-                        No common settings
+
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="preview-modal-footer">
+                    <button class="btn btn--ghost" onclick="closePlacementModal()">Cancel</button>
+                    <button class="btn btn--primary" id="modal-save-btn" onclick="savePlacementTemplate()">Save template</button>
+                  </div>
+
+                </div>
+              </div>
+
+              <style>
+                /* Prism-style field dropdown */
+                .pf-dropdown {
+                  position: relative;
+                }
+                .pf-dropdown__trigger {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  width: 100%;
+                  height: 40px;
+                  padding: 8px 12px;
+                  border: 1px solid #d3d6d9;
+                  border-radius: 8px;
+                  background: #fff;
+                  font-family: var(--font-primary, Arial, sans-serif);
+                  font-size: 14px;
+                  font-weight: 400;
+                  color: #111318;
+                  cursor: pointer;
+                  text-align: left;
+                  transition: border-color 0.15s;
+                }
+                .pf-dropdown__trigger:hover { border-color: #b0b3b8; }
+                .pf-dropdown__trigger:focus { outline: none; border: 2px solid rgba(25,25,25,0.66); padding: 7px 11px; }
+                .pf-dropdown__menu {
+                  min-width: 100%;
+                  top: calc(100% + 4px);
+                  left: 0;
+                  right: auto;
+                  max-height: 260px;
+                  overflow-y: auto;
+                }
+
+                /* Saved template mini card */
+                .placement-saved-card {
+                  position: relative;
+                  width: 160px;
+                  background: var(--color-bg);
+                  border: 1px solid var(--color-border);
+                  border-radius: var(--radius-md);
+                  overflow: hidden;
+                  cursor: pointer;
+                  transition: box-shadow 0.15s;
+                }
+                .placement-saved-card:hover {
+                  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+                .placement-saved-card__preview {
+                  padding: 10px 10px 0;
+                }
+                .placement-saved-card__info {
+                  padding: 8px 10px 4px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                }
+                .placement-saved-card__title {
+                  font-size: 12px;
+                  font-weight: 600;
+                  color: var(--color-text);
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+                .placement-saved-card__desc {
+                  font-size: 11px;
+                  color: var(--color-text-subdued);
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+                .placement-saved-card__cta-pill {
+                  margin: 6px 10px 10px;
+                  background: #F3F4F6;
+                  border-radius: 999px;
+                  padding: 5px 0;
+                  text-align: center;
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: #111318;
+                }
+                .placement-saved-card__edit-overlay {
+                  display: none;
+                  position: absolute;
+                  inset: 0;
+                  background: rgba(255,255,255,0.8);
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: var(--radius-md);
+                }
+                .placement-saved-card:hover .placement-saved-card__edit-overlay {
+                  display: flex;
+                }
+
+                .placement-template-card {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  justify-content: space-between;
+                  gap: 12px;
+                  padding: 16px 20px;
+                  background: var(--color-bg);
+                  border: 1px solid var(--color-border);
+                  border-radius: var(--radius-md);
+                  cursor: pointer;
+                  text-align: left;
+                  min-width: 240px;
+                  transition: border 0.15s, padding 0.15s, box-shadow 0.15s;
+                }
+                .placement-template-card:hover {
+                  border: 2px solid #000;
+                  padding: 15px 19px;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                }
+                .placement-template-card__icon {
+                  color: var(--color-text-subdued);
+                }
+                .placement-template-card__name {
+                  font-size: var(--text-sm);
+                  font-weight: var(--font-semibold);
+                  color: var(--color-text);
+                }
+              </style>
+
+              <script>
+                const placementModalTitles = {
+                  'spotlight': 'Configure Spotlight',
+                  'store-banner': 'Configure USI',
+                  'notification-hub': 'Configure Notification hub'
+                };
+                function switchPlacementTab(tab) {
+                  const isMobile = tab === 'mobile';
+                  document.getElementById('tab-content-mobile').style.display = isMobile ? 'flex' : 'none';
+                  document.getElementById('tab-content-web').style.display = isMobile ? 'none' : 'flex';
+                  const mobileBtn = document.getElementById('tab-mobile');
+                  const webBtn = document.getElementById('tab-web');
+                  mobileBtn.style.color = isMobile ? 'var(--color-primary)' : 'var(--color-text-subdued)';
+                  mobileBtn.style.borderBottomColor = isMobile ? 'var(--color-primary)' : 'transparent';
+                  mobileBtn.style.fontWeight = isMobile ? '600' : '500';
+                  webBtn.style.color = isMobile ? 'var(--color-text-subdued)' : 'var(--color-primary)';
+                  webBtn.style.borderBottomColor = isMobile ? 'transparent' : 'var(--color-primary)';
+                  webBtn.style.fontWeight = isMobile ? '500' : '600';
+                }
+                function togglePfDropdown(id) {
+                  const dd = document.getElementById(id);
+                  const menu = dd.querySelector('.pf-dropdown__menu');
+                  const isOpen = menu.classList.contains('open');
+                  // close all other pf dropdowns
+                  document.querySelectorAll('.pf-dropdown__menu.open').forEach(m => m.classList.remove('open'));
+                  if (!isOpen) menu.classList.add('open');
+                }
+                function selectPfOption(ddId, value, el) {
+                  const dd = document.getElementById(ddId);
+                  dd.querySelector('.pf-dropdown__value').textContent = value;
+                  dd.querySelectorAll('.meta-bar__status-option').forEach(b => b.classList.remove('selected'));
+                  el.classList.add('selected');
+                  dd.querySelector('.pf-dropdown__menu').classList.remove('open');
+                }
+                document.addEventListener('click', function(e) {
+                  if (!e.target.closest('.pf-dropdown')) {
+                    document.querySelectorAll('.pf-dropdown__menu.open').forEach(m => m.classList.remove('open'));
+                  }
+                });
+                function handleImageUpload(input) {
+                  if (!input.files || !input.files[0]) return;
+                  const url = URL.createObjectURL(input.files[0]);
+                  if (currentModalType === 'notification-hub') {
+                    const img = document.getElementById('preview-notif-image');
+                    img.src = URL.createObjectURL(input.files[0]);
+                    img.style.display = 'block';
+                    document.getElementById('preview-notif-icon').style.display = 'none';
+                    document.getElementById('preview-notif-thumb').style.background = 'transparent';
+                  } else if (currentModalType === 'store-banner') {
+                    const img = document.getElementById('preview-banner-image');
+                    img.src = url;
+                    img.style.display = 'block';
+                    document.getElementById('preview-banner-placeholder').style.display = 'none';
+                    document.getElementById('preview-banner-wrap').style.background = 'transparent';
+                  } else {
+                    const img = document.getElementById('preview-image');
+                    img.src = url;
+                    img.style.display = 'block';
+                    document.getElementById('preview-image-wrap').style.background = 'transparent';
+                  }
+                }
+                function handleMediaTypeChange(value) {
+                  const isVideo = value === 'video';
+                  document.getElementById('modal-image-upload-field').style.display = isVideo ? 'none' : 'block';
+                  document.getElementById('modal-video-upload-field').style.display = isVideo ? 'flex' : 'none';
+                }
+                function toggleModalPlatformMenu() {
+                  document.getElementById('modal-platform-menu').classList.toggle('open');
+                }
+                function selectModalPlatform(value, el) {
+                  document.getElementById('modal-platform-label').textContent = value;
+                  document.querySelectorAll('#modal-platform-menu .meta-bar__status-option').forEach(b => b.classList.remove('selected'));
+                  el.classList.add('selected');
+                  document.getElementById('modal-platform-menu').classList.remove('open');
+                }
+                document.addEventListener('click', function(e) {
+                  const btn = document.getElementById('modal-platform-btn');
+                  const menu = document.getElementById('modal-platform-menu');
+                  if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('open');
+                  }
+                });
+                let currentModalType = null;
+                let currentEditingTemplateIndex = null;
+                let currentModalSource = 'section1'; // 'section1' | 'section2'
+                let currentMatrixCell = null;
+                const savedTemplates = { spotlight: [], 'store-banner': [], 'notification-hub': [] };
+
+                // Apply-to rule state
+                let applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+
+                const campaignCellMap = {
+                  parent: (type) => 'matrix-cell-' + type,
+                  child1: (type) => 'matrix-child1-cell-' + type,
+                  child2: (type) => 'matrix-child2-cell-' + type,
+                  child3: (type) => 'matrix-child3-cell-' + type,
+                };
+
+                function setApplyRule(value) {
+                  const container = document.getElementById('apply-rule-campaigns');
+                  container.style.display = value === 'specific' ? 'flex' : 'none';
+                  if (value === 'all') {
+                    applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+                    container.querySelectorAll('.campaign-chip').forEach(c => c.classList.add('selected'));
+                  }
+                }
+
+                function toggleApplyCampaign(campaign, chip) {
+                  if (applyCampaigns.has(campaign)) {
+                    applyCampaigns.delete(campaign);
+                    chip.classList.remove('selected');
+                  } else {
+                    applyCampaigns.add(campaign);
+                    chip.classList.add('selected');
+                  }
+                }
+
+                function resetApplyRule() {
+                  applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+                  const allRadio = document.querySelector('input[name="modal-apply-rule"][value="all"]');
+                  if (allRadio) allRadio.checked = true;
+                  const container = document.getElementById('apply-rule-campaigns');
+                  if (container) {
+                    container.style.display = 'none';
+                    container.querySelectorAll('.campaign-chip').forEach(c => c.classList.add('selected'));
+                  }
+                }
+
+                function openPlacementModalFromCell(btn, type) {
+                  const cell = btn.closest('td');
+                  openPlacementModal(type);
+                  currentModalSource = 'section2';
+                  currentMatrixCell = cell;
+                  document.getElementById('modal-save-btn').textContent = 'Save';
+                  document.getElementById('apply-rule-section').style.display = 'none';
+                }
+
+                function editSavedTemplate(type, idx) {
+                  openPlacementModal(type);
+                  currentEditingTemplateIndex = idx; // set after openPlacementModal so it isn't reset
+                  const t = savedTemplates[type][idx];
+                  if (!t) return;
+                  if (t.title !== undefined) {
+                    document.getElementById('modal-title').value = t.title;
+                    document.getElementById('preview-header-text').textContent = t.title;
+                    document.getElementById('preview-notif-title').textContent = t.title;
+                  }
+                  if (t.desc !== undefined) {
+                    document.getElementById('modal-description').value = t.desc;
+                    document.getElementById('preview-desc-text').textContent = t.desc;
+                    document.getElementById('preview-notif-desc').textContent = t.desc;
+                  }
+                  if (t.imgSrc) {
+                    if (type === 'notification-hub') {
+                      const img = document.getElementById('preview-notif-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-notif-icon').style.display = 'none';
+                      document.getElementById('preview-notif-thumb').style.background = 'transparent';
+                    } else if (type === 'store-banner') {
+                      const img = document.getElementById('preview-banner-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-banner-placeholder').style.display = 'none';
+                      document.getElementById('preview-banner-wrap').style.background = 'transparent';
+                    } else {
+                      const img = document.getElementById('preview-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-image-wrap').style.background = 'transparent';
+                    }
+                  }
+                }
+
+                function openPlacementModalChild(btn, type) {
+                  const cell = btn.closest('td');
+                  openPlacementModal(type);
+                  currentModalSource = 'section2';
+                  currentMatrixCell = cell;
+                  document.getElementById('modal-save-btn').textContent = 'Save';
+                  document.getElementById('apply-rule-section').style.display = 'none';
+                  const templates = savedTemplates[type] || [];
+                  const section = document.getElementById('use-template-section');
+                  section.style.display = 'block';
+                  const selector = document.getElementById('template-selector');
+                  if (templates.length === 0) {
+                    selector.innerHTML = '<p style="font-size:12px; color:var(--color-text-subdued); margin:0;">No templates saved yet.</p>';
+                    document.getElementById('use-template-checkbox').checked = false;
+                    toggleUseTemplate(false);
+                  } else {
+                    document.getElementById('use-template-checkbox').checked = true;
+                    renderTemplateSelectorCards(type, templates);
+                    applyTemplate(templates[0]);
+                  }
+                }
+
+                function renderTemplateSelectorCards(type, templates) {
+                  const selector = document.getElementById('template-selector');
+                  const ddLogo = `<svg width="11" height="6" viewBox="0 0 27 15" fill="none"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>`;
+                  selector.innerHTML = templates.map((t, i) => {
+                    let preview = '';
+                    if (type === 'notification-hub') {
+                      preview = `<div style="display:flex;align-items:center;gap:6px;">
+                        <div style="width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid #E5E7EB;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                          ${t.imgSrc ? `<img src="${t.imgSrc}" style="width:100%;height:100%;object-fit:cover;">` : ddLogo}
+                        </div>
+                        <div style="flex:1;min-width:0;">
+                          <div style="font-size:10px;font-weight:600;color:#111318;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title||''}</div>
+                          <div style="font-size:9px;color:#6B7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.desc||''}</div>
+                        </div>
+                      </div>`;
+                    } else if (type === 'store-banner') {
+                      preview = t.imgSrc
+                        ? `<img src="${t.imgSrc}" style="width:100%;height:28px;object-fit:cover;border-radius:4px;display:block;">`
+                        : `<div style="background:#D1D5DB;height:28px;border-radius:4px;"></div>`;
+                    } else {
+                      preview = t.imgSrc
+                        ? `<img src="${t.imgSrc}" style="width:100%;height:36px;object-fit:cover;object-position:0 -20px;border-radius:4px;display:block;">`
+                        : `<div style="background:#EBF7F7;height:36px;border-radius:4px;"></div>`;
+                    }
+                    return `<div class="template-selector-card ${i===0?'selected':''}" onclick="selectTemplateCard(this, ${i}, '${type}')" style="border:2px solid ${i===0?'var(--color-primary)':'var(--color-border)'};border-radius:8px;padding:8px;cursor:pointer;background:#fff;">
+                      ${preview}
+                      ${t.title ? `<div style="font-size:10px;font-weight:600;color:#51545d;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title}</div>` : ''}
+                    </div>`;
+                  }).join('');
+                }
+
+                function selectTemplateCard(el, idx, type) {
+                  el.closest('#template-selector').querySelectorAll('.template-selector-card').forEach(c => {
+                    c.style.border = '2px solid var(--color-border)';
+                    c.classList.remove('selected');
+                  });
+                  el.style.border = '2px solid var(--color-primary)';
+                  el.classList.add('selected');
+                  applyTemplate(savedTemplates[type][idx]);
+                }
+
+                function applyTemplate(t) {
+                  if (!t) return;
+                  if (t.title !== undefined) {
+                    document.getElementById('modal-title').value = t.title;
+                    document.getElementById('preview-header-text').textContent = t.title;
+                    document.getElementById('preview-notif-title').textContent = t.title;
+                  }
+                  if (t.desc !== undefined) {
+                    document.getElementById('modal-description').value = t.desc;
+                    document.getElementById('preview-desc-text').textContent = t.desc;
+                    document.getElementById('preview-notif-desc').textContent = t.desc;
+                  }
+                  if (t.imgSrc) {
+                    if (currentModalType === 'notification-hub') {
+                      const img = document.getElementById('preview-notif-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-notif-icon').style.display = 'none';
+                      document.getElementById('preview-notif-thumb').style.background = 'transparent';
+                    } else if (currentModalType === 'store-banner') {
+                      const img = document.getElementById('preview-banner-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-banner-placeholder').style.display = 'none';
+                      document.getElementById('preview-banner-wrap').style.background = 'transparent';
+                    } else {
+                      const img = document.getElementById('preview-image');
+                      img.src = t.imgSrc; img.style.display = 'block';
+                      document.getElementById('preview-image-wrap').style.background = 'transparent';
+                    }
+                  }
+                }
+
+                function toggleUseTemplate(checked) {
+                  document.getElementById('tab-content-mobile').style.opacity = checked ? '0.5' : '1';
+                  document.getElementById('tab-content-mobile').style.pointerEvents = checked ? 'none' : '';
+                  document.getElementById('template-selector').style.display = checked ? 'flex' : 'none';
+                }
+
+                function openPlacementModal(type) {
+                  currentModalType = type;
+                  const isBanner = type === 'store-banner';
+                  const isNotifHub = type === 'notification-hub';
+                  const isSpotlight = type === 'spotlight';
+
+                  document.getElementById('placement-modal-title').textContent = placementModalTitles[type] || 'Configure placement';
+
+                  // Layout structure
+                  document.getElementById('usi-platform-language-section').style.display = 'none';
+                  document.getElementById('placement-tabs').style.display = 'flex';
+                  document.getElementById('tab-content-mobile').style.display = 'flex';
+                  document.getElementById('tab-content-web').style.display = 'none';
+
+                  // Show/hide field groups
+                  document.getElementById('fields-spotlight-only').style.display = (isSpotlight || isNotifHub) ? 'block' : 'none';
+                  document.getElementById('fields-cta-only').style.display = isSpotlight ? 'block' : 'none';
+                  document.getElementById('usi-fields-only').style.display = isBanner ? 'block' : 'none';
+
+                  // Switch media field variant
+                  document.getElementById('media-field-spotlight').style.display = isSpotlight ? 'block' : 'none';
+                  document.getElementById('media-field-image-only').style.display = isNotifHub ? 'block' : 'none';
+                  document.getElementById('action-url-field').style.display = isSpotlight ? 'block' : 'none';
+
+                  // Switch preview
+                  document.getElementById('preview-spotlight').style.display = isSpotlight ? 'flex' : 'none';
+                  document.getElementById('preview-store-banner').style.display = isBanner ? 'flex' : 'none';
+                  document.getElementById('preview-notification-hub').style.display = isNotifHub ? 'flex' : 'none';
+
+                  // Reset shared title/description preview targets
+                  const titleDefault = isNotifHub ? 'Title' : 'Spotlight Unit Header';
+                  const descDefault = isNotifHub ? 'Description' : 'Spotlight Unit Description';
+                  document.getElementById('modal-title').value = titleDefault;
+                  document.getElementById('modal-description').value = descDefault;
+                  if (isNotifHub) {
+                    document.getElementById('preview-notif-title').textContent = titleDefault;
+                    document.getElementById('preview-notif-desc').textContent = descDefault;
+                    document.getElementById('preview-notif-image').style.display = 'none';
+                    document.getElementById('preview-notif-icon').style.display = '';
+                    document.getElementById('preview-notif-thumb').style.background = '#fff';
+                  }
+                  document.getElementById('modal-cta-label').value = 'Label';
+                  document.getElementById('preview-header-text').textContent = 'Spotlight Unit Header';
+                  document.getElementById('preview-desc-text').textContent = 'Spotlight Unit Description';
+                  document.getElementById('preview-label-text').textContent = 'Label';
+                  document.getElementById('preview-image').style.display = 'none';
+                  document.getElementById('preview-image-wrap').style.background = '#EBF7F7';
+
+                  // Reset banner preview
+                  if (isBanner) {
+                    document.getElementById('usi-homepage-text-inline').value = 'Title';
+                    document.getElementById('usi-alt-title-inline').value = '';
+                    document.getElementById('usi-description-inline').value = 'Description';
+                    document.getElementById('preview-usi-title').textContent = 'Title';
+                    document.getElementById('preview-usi-desc').textContent = 'Description';
+                  }
+
+                  // Reset media upload fields
+                  handleMediaTypeChange('image');
+                  selectPfOption('dd-media', 'Image', document.querySelector('#dd-media .meta-bar__status-option:first-child'));
+
+                  switchPlacementTab('mobile');
+                  document.getElementById('add-web-checkbox').checked = false;
+                  // Hide use-template section for parent opens; clear edit state
+                  currentEditingTemplateIndex = null;
+                  currentModalSource = 'section1';
+                  currentMatrixCell = null;
+                  document.getElementById('modal-save-btn').textContent = 'Save template';
+                  document.getElementById('use-template-section').style.display = 'none';
+                  document.getElementById('tab-content-mobile').style.opacity = '1';
+                  document.getElementById('tab-content-mobile').style.pointerEvents = '';
+                  // Show apply-rule section for section 1, reset state
+                  document.getElementById('apply-rule-section').style.display = 'flex';
+                  resetApplyRule();
+                  document.getElementById('placement-modal-overlay').style.display = 'flex';
+                }
+
+                function closePlacementModal() {
+                  document.getElementById('placement-modal-overlay').style.display = 'none';
+                }
+
+                function savePlacementTemplate() {
+                  const type = currentModalType;
+
+                  // Section 2 save: just update the matrix cell, don't touch savedTemplates
+                  if (currentModalSource === 'section2' && currentMatrixCell) {
+                    currentMatrixCell.innerHTML = buildMatrixCellHTML(type);
+                    closePlacementModal(); return;
+                  }
+
+                  const isBanner = type === 'store-banner';
+                  const wrapper = document.getElementById('card-wrapper-' + type);
+                  if (!wrapper) { closePlacementModal(); return; }
+
+                  // Build card HTML for this save
+                  let cardHTML = '';
+                  if (type === 'notification-hub') {
+                    const title = document.getElementById('modal-title').value || 'Title';
+                    const desc = document.getElementById('modal-description').value || 'Description';
+                    const notifImg = document.getElementById('preview-notif-image');
+                    const hasImg = notifImg.style.display !== 'none';
+                    const imgSrc = hasImg ? notifImg.src : '';
+                    const tData = { title, desc, imgSrc };
+                    if (currentEditingTemplateIndex !== null) savedTemplates[type][currentEditingTemplateIndex] = tData;
+                    else savedTemplates[type].push(tData);
+                    cardHTML = `
+                      <div class="placement-saved-card" onclick="editSavedTemplate('notification-hub', ${currentEditingTemplateIndex !== null ? currentEditingTemplateIndex : savedTemplates[type].length - 1})" style="width:220px;">
+                        <div style="display:flex; align-items:center; gap:10px; padding:12px 12px 8px;">
+                          <div style="width:36px; height:36px; border-radius:50%; background:${hasImg ? 'transparent' : '#fff'}; border:1px solid #E5E7EB; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            ${hasImg
+                              ? `<img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover;">`
+                              : `<svg width="18" height="10" viewBox="0 0 27 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>`}
+                          </div>
+                          <div style="flex:1; min-width:0;">
+                            <div style="font-size:12px; font-weight:600; color:#111318; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${title}</div>
+                            <div style="font-size:11px; color:#6B7280; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${desc}</div>
+                          </div>
+                        </div>
+                        <div class="placement-saved-card__edit-overlay">
+                          <button class="btn btn--sm btn--secondary">Edit</button>
+                        </div>
+                      </div>`;
+                  } else if (isBanner) {
+                    const bannerImg = document.getElementById('preview-banner-image');
+                    const hasImg = bannerImg.style.display !== 'none';
+                    const imgSrc = hasImg ? bannerImg.src : '';
+                    const tData = { imgSrc };
+                    if (currentEditingTemplateIndex !== null) savedTemplates[type][currentEditingTemplateIndex] = tData;
+                    else savedTemplates[type].push(tData);
+                    cardHTML = `
+                      <div class="placement-saved-card" onclick="editSavedTemplate('store-banner', ${currentEditingTemplateIndex !== null ? currentEditingTemplateIndex : savedTemplates[type].length - 1})" style="width:200px;">
+                        <div class="placement-saved-card__preview">
+                          ${hasImg
+                            ? `<img src="${imgSrc}" style="width:100%; height:40px; object-fit:cover; border-radius:6px; display:block;">`
+                            : `<div style="background:#D1D5DB; border-radius:6px; height:40px; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px;color:#6B7280;">USI</span></div>`}
+                        </div>
+                        <div class="placement-saved-card__info">
+                          <span class="placement-saved-card__title">USI</span>
+                        </div>
+                        <div class="placement-saved-card__edit-overlay">
+                          <button class="btn btn--sm btn--secondary">Edit</button>
+                        </div>
+                      </div>`;
+                  } else {
+                    const title = document.getElementById('modal-title').value || 'Untitled';
+                    const desc = document.getElementById('modal-description').value;
+                    const ctaLabel = document.getElementById('modal-cta-label').value || 'Label';
+                    const imgEl = document.getElementById('preview-image');
+                    const hasImg = imgEl.style.display !== 'none';
+                    const imgSrc = hasImg ? imgEl.src : '';
+                    const tData = { title, desc, ctaLabel, imgSrc };
+                    if (currentEditingTemplateIndex !== null) savedTemplates[type][currentEditingTemplateIndex] = tData;
+                    else savedTemplates[type].push(tData);
+                    cardHTML = `
+                      <div class="placement-saved-card" onclick="editSavedTemplate('${type}', ${currentEditingTemplateIndex !== null ? currentEditingTemplateIndex : savedTemplates[type].length - 1})">
+                        <div class="placement-saved-card__preview">
+                          ${hasImg
+                            ? `<img src="${imgSrc}" style="width:100%; height:70px; object-fit:cover; border-radius:6px; display:block;">`
+                            : `<div style="background:#EBF7F7; border-radius:6px; height:70px;"></div>`}
+                        </div>
+                        <div class="placement-saved-card__info">
+                          <span class="placement-saved-card__title">${title}</span>
+                          <span class="placement-saved-card__desc">${desc}</span>
+                        </div>
+                        <div class="placement-saved-card__cta-pill">${ctaLabel}</div>
+                        <div class="placement-saved-card__edit-overlay">
+                          <button class="btn btn--sm btn--secondary">Edit</button>
+                        </div>
+                      </div>`;
+                  }
+
+                  // If editing, replace existing card in DOM; if new, append or build fresh
+                  let cardsList = wrapper.querySelector('.placement-cards-list');
+                  if (currentEditingTemplateIndex !== null && cardsList) {
+                    const existing = cardsList.children[currentEditingTemplateIndex];
+                    if (existing) {
+                      const div = document.createElement('div');
+                      div.innerHTML = cardHTML.trim();
+                      cardsList.replaceChild(div.firstElementChild, existing);
+                    }
+                    currentEditingTemplateIndex = null;
+                    closePlacementModal(); return;
+                  } else if (cardsList) {
+                    const div = document.createElement('div');
+                    div.innerHTML = cardHTML.trim();
+                    cardsList.appendChild(div.firstElementChild);
+                  } else {
+                    wrapper.innerHTML = `
+                      <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
+                        <div class="placement-cards-list" style="display:flex; flex-direction:column; gap:8px;">
+                          ${cardHTML}
+                        </div>
+                        <button class="btn btn--sm btn--ghost" onclick="openPlacementModal('${type}')">+ Create more</button>
+                      </div>`;
+                  }
+                  currentEditingTemplateIndex = null;
+
+                  // Auto-apply to matrix cells based on apply-rule selection
+                  const applyAll = document.querySelector('input[name="modal-apply-rule"][value="all"]')?.checked !== false;
+                  const targets = applyAll ? ['parent', 'child1', 'child2', 'child3'] : Array.from(applyCampaigns);
+                  targets.forEach(campaign => {
+                    const cellId = campaignCellMap[campaign]?.(type);
+                    const cell = cellId ? document.getElementById(cellId) : null;
+                    if (cell) cell.innerHTML = buildMatrixCellHTML(type);
+                  });
+
+                  closePlacementModal();
+                }
+
+                function buildMatrixCellHTML(type) {
+                  const ddLogoSvg = `<svg width="11" height="6" viewBox="0 0 27 15" fill="none"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>`;
+                  const phoneSvg = `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#51545d" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="#51545d" stroke="none"/></svg>`;
+
+                  if (type === 'notification-hub') {
+                    const title = document.getElementById('modal-title').value || 'Title';
+                    const desc = document.getElementById('modal-description').value || 'Description';
+                    const notifImg = document.getElementById('preview-notif-image');
+                    const hasImg = notifImg.style.display !== 'none';
+                    const imgSrc = hasImg ? notifImg.src : '';
+                    return `
+                      <div class="matrix-creative-card-wrap" onclick="openPlacementModal('notification-hub')">
+                        <div class="matrix-creative-card" style="gap:0; padding:6px;">
+                          <div class="matrix-creative-card__image" style="padding:5px;">
+                            <div class="matrix-creative-card__notif">
+                              <div style="width:20px; height:20px; border-radius:50%; background:#fff; border:1px solid #E5E7EB; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                                ${hasImg ? `<img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;">` : ddLogoSvg}
+                              </div>
+                              <div style="flex:1; min-width:0;">
+                                <div style="font-size:9px; font-weight:600; color:#111318; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${title}</div>
+                                <div style="font-size:8px; color:#6B7280; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${desc}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit</button></div>
+                      </div>`;
+                  } else if (type === 'store-banner') {
+                    const bannerImg = document.getElementById('preview-banner-image');
+                    const hasImg = bannerImg.style.display !== 'none';
+                    const imgSrc = hasImg ? bannerImg.src : '';
+                    return `
+                      <div class="matrix-creative-card-wrap" onclick="openPlacementModal('store-banner')">
+                        <div class="matrix-creative-card" style="gap:0; padding:6px;">
+                          <div class="matrix-creative-card__image">
+                            ${hasImg
+                              ? `<img src="${imgSrc}" style="width:100%; height:36px; object-fit:cover; object-position:top; display:block;">`
+                              : `<div style="background:#D1D5DB; height:36px;"></div>`}
+                          </div>
+                        </div>
+                        <div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit</button></div>
+                      </div>`;
+                  } else {
+                    const title = document.getElementById('modal-title').value || 'Untitled';
+                    const imgEl = document.getElementById('preview-image');
+                    const hasImg = imgEl.style.display !== 'none';
+                    const imgSrc = hasImg ? imgEl.src : '';
+                    return `
+                      <div class="matrix-creative-card-wrap" onclick="openPlacementModal('spotlight')">
+                        <div class="matrix-creative-card" style="gap:0; padding:6px;">
+                          <div class="matrix-creative-card__image">
+                            ${hasImg
+                              ? `<img src="${imgSrc}" style="width:100%; height:52px; object-fit:cover; object-position:0 -20px; display:block;">`
+                              : `<div style="background:#EBF7F7; height:52px;"></div>`}
+                          </div>
+                        </div>
+                        <div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit</button></div>
+                      </div>`;
+                  }
+                }
+
+                document.getElementById('placement-modal-overlay').addEventListener('click', function(e) {
+                  if (e.target === this) closePlacementModal();
+                });
+              </script>
+
+              <!-- Placement Configuration Content -->
+              <div>
+                  <!-- Placement Matrix -->
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                    <h2 class="placement-section-header" style="margin-bottom:0;">2. Campaign placement</h2>
+                    <div class="form-field" style="margin-bottom:0; width:200px; position:relative;">
+                    <label class="form-field__label">Preview platform</label>
+                    <button class="meta-bar__status" id="platform-btn" onclick="togglePlatformMenu()" style="width:100%; justify-content:space-between;">
+                      <span id="platform-label">iOS</span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="meta-bar__status-menu" id="platform-menu" style="left:0; right:auto; min-width:100%;">
+                      <button class="meta-bar__status-option selected" onclick="selectPlatform('iOS', this)">iOS</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Android', this)">Android</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Desktop Web', this)">Desktop Web</button>
+                      <button class="meta-bar__status-option" onclick="selectPlatform('Mobile Web', this)">Mobile Web</button>
+                    </div>
+                  </div>
+                  </div>
+                  <script>
+                    function togglePlatformMenu() {
+                      document.getElementById('platform-menu').classList.toggle('open');
+                    }
+                    function selectPlatform(value, el) {
+                      document.getElementById('platform-label').textContent = value;
+                      document.querySelectorAll('#platform-menu .meta-bar__status-option').forEach(b => b.classList.remove('selected'));
+                      el.classList.add('selected');
+                      document.getElementById('platform-menu').classList.remove('open');
+                    }
+                    document.addEventListener('click', function(e) {
+                      if (!document.getElementById('platform-btn').contains(e.target) &&
+                          !document.getElementById('platform-menu').contains(e.target)) {
+                        document.getElementById('platform-menu').classList.remove('open');
+                      }
+                    });
+                  </script>
+
+                  <div class="placement-matrix-wrap">
+                    <table class="table placement-matrix">
+                      <thead>
+                        <tr>
+                          <th>Campaign</th>
+                          <th>Spotlight</th>
+                          <th>USI</th>
+                          <th>Notification hub</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Parent</td>
+                          <td id="matrix-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalFromCell(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalFromCell(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalFromCell(this,'notification-hub')">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 1</td>
+                          <td id="matrix-child1-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child1-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child1-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 2</td>
+                          <td id="matrix-child2-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child2-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child2-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                        </tr>
+                        <tr>
+                          <td>Child 3</td>
+                          <td id="matrix-child3-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child3-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child3-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+
+              <!-- OLD Common Placements Section (hidden) -->
+              <div style="display:none">
+                  <div class="placement-section">
+                    <h2 class="placement-section-header">Common placements</h2>
+                    <p class="placement-section-subtitle">These placements apply to all campaigns.</p>
+                    <div id="placement-shared-body">
+                      <div class="placement-list">
+                        <!-- Homepage Hero Banner -->
+                        <div class="placement-item checked" data-placement="homepage-hero">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="homepage-hero" onchange="handlePlacementToggle(this)" checked>
+                            <span class="placement-item__name">Homepage Hero Banner</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox" checked>
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Category Page Banner -->
+                        <div class="placement-item checked" data-placement="category-banner">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="category-banner" onchange="handlePlacementToggle(this)" checked>
+                            <span class="placement-item__name">Category Page Banner</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox" checked>
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Store Page Carousel -->
+                        <div class="placement-item" data-placement="store-carousel">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="store-carousel" onchange="handlePlacementToggle(this)">
+                            <span class="placement-item__name">Store Page Carousel</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Search Results Banner -->
+                        <div class="placement-item" data-placement="search-banner">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="search-banner" onchange="handlePlacementToggle(this)">
+                            <span class="placement-item__name">Search Results Banner</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Checkout Banner -->
+                        <div class="placement-item" data-placement="checkout-banner">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="checkout-banner" onchange="handlePlacementToggle(this)">
+                            <span class="placement-item__name">Checkout Banner</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Cart Summary -->
+                        <div class="placement-item" data-placement="cart-summary">
+                          <label class="placement-item__header">
+                            <input type="checkbox" class="prism-checkbox" data-placement="cart-summary" onchange="handlePlacementToggle(this)">
+                            <span class="placement-item__name">Cart Summary</span>
+                          </label>
+                          <div class="placement-item__settings">
+                            <div class="placement-setting-row">
+                              <label class="placement-setting-label">Placement ID</label>
+                              <input type="text" class="form-field__input placement-id-input">
+                            </div>
+                            <div class="placement-toggles">
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash Wallet</span>
+                              </label>
+                              <label class="placement-toggle-item">
+                                <input type="checkbox" class="prism-checkbox">
+                                <span>Show in Post-Checkout DoubleDash</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="placement-empty-state" id="placement-empty" style="display: none;">
+                        No common placements
                       </div>
                     </div>
                   </div>
 
                   <!-- Customized per campaign section -->
-                  <div class="shared-card" id="customized-card">
-                    <div class="shared-card__header">
-                      <div>
-                        <div class="shared-card__title">Customized per campaign</div>
-                        <div class="shared-card__subtitle">These fields have different values for each campaign.</div>
-                      </div>
-                    </div>
-                    <div id="customized-fields-body">
-                      <div class="customized-fields-list" id="customized-list">
-                        <div class="customized-empty-state">No customized fields yet. Uncheck items above to customize per campaign.</div>
+                  <div class="placement-section">
+                    <h2 class="placement-section-header">Customized per campaign</h2>
+                    <p class="placement-section-subtitle">These placements have different configurations for each campaign.</p>
+                    <div id="placement-customized-body">
+                      <div class="placement-customized-list" id="placement-customized-list">
+                        <div class="customized-empty-state">No customized placements yet. Uncheck items above to customize per campaign.</div>
                       </div>
                     </div>
                   </div>
@@ -1518,7 +3179,7 @@
             </div><!-- end template-selection-content -->
 
             <!-- Right: AI Chat -->
-            <div class="ts-confirm-col" id="ts-confirm-col-promotion">
+            <div class="ts-confirm-col" id="ts-confirm-col-promotion" style="display:none">
               <div class="ts-chat-content">
                 <div class="ts-chat-conversation">
                   <div class="ts-chat-message">
@@ -3772,7 +5433,7 @@
                   </div>
                   <div class="ts-chat-proposed-edit__footer">
                     <button class="btn btn--sm btn--tertiary" id="never-mind-btn">Never mind</button>
-                    <button class="btn btn--sm btn--primary" id="apply-change-btn">Apply this change</button>
+                    <button class="btn btn--sm btn--secondary" id="apply-change-btn">Apply this change</button>
                   </div>
                 </div>
               `;
@@ -4429,231 +6090,496 @@
     });
   </script>
 
-  <!-- Promotion Configuration JavaScript -->
+  <!-- Placement Configuration JavaScript -->
   <script>
   // Campaign variants
   const campaigns = ['Parent', 'Child 1', 'Child 2', 'Child 3'];
 
-  // Field configuration with labels and input types
-  const fieldConfig = {
-    'discount': {
-      label: 'Discount %',
-      type: 'input',
-      inputType: 'text',
-      placeholder: 'e.g., 40'
-    },
-    'max-cap': {
-      label: 'Max discount cap',
-      type: 'input',
-      inputType: 'text',
-      placeholder: 'e.g., $12'
-    },
-    'min-order': {
-      label: 'Min order value',
-      type: 'input',
-      inputType: 'text',
-      placeholder: 'e.g., $12'
-    },
-    'order-types': {
-      label: 'Order types',
-      type: 'select',
-      options: [
-        { value: 'all', label: 'All' },
-        { value: 'delivery', label: 'Delivery only' },
-        { value: 'pickup', label: 'Pickup only' },
-        { value: 'dinein', label: 'Dine-in only' }
-      ]
-    },
-    'max-redemptions': {
-      label: 'Max redemptions / customer',
-      type: 'input',
-      inputType: 'text',
-      placeholder: 'e.g., 1'
-    },
-    'auto-redeem': {
-      label: 'Auto-redeem to cart',
-      type: 'select',
-      options: [
-        { value: 'yes', label: 'Yes' },
-        { value: 'no', label: 'No' }
-      ]
-    },
-    'promo-code': {
-      label: 'Requires promo code',
-      type: 'select',
-      options: [
-        { value: 'yes', label: 'Yes' },
-        { value: 'no', label: 'No' }
-      ]
-    }
+  // Placement configuration
+  const placementConfig = {
+    'homepage-hero': { label: 'Homepage Hero Banner' },
+    'category-banner': { label: 'Category Page Banner' },
+    'store-carousel': { label: 'Store Page Carousel' },
+    'search-banner': { label: 'Search Results Banner' },
+    'checkout-banner': { label: 'Checkout Banner' },
+    'cart-summary': { label: 'Cart Summary' }
   };
 
-  // Track customized fields
-  let customizedFields = [];
+  // Track customized placements
+  let customizedPlacements = [];
 
-  // Create input field HTML based on field type
-  function createFieldInput(fieldId) {
-    const config = fieldConfig[fieldId];
-
-    if (config.type === 'input') {
-      return `<input type="${config.inputType}" class="form-field__input">`;
-    } else if (config.type === 'select') {
-      const options = config.options.map(opt =>
-        `<option value="${opt.value}">${opt.label}</option>`
-      ).join('');
-      return `<select class="form-field__input">${options}</select>`;
-    }
+  // Create placement settings HTML
+  function createPlacementSettings(placementId) {
+    return `
+      <div class="placement-setting-row">
+        <label class="placement-setting-label">Placement ID</label>
+        <input type="text" class="form-field__input placement-id-input">
+      </div>
+      <div class="placement-toggles">
+        <label class="placement-toggle-item">
+          <input type="checkbox" class="prism-checkbox">
+          <span>Show in Wallet</span>
+        </label>
+        <label class="placement-toggle-item">
+          <input type="checkbox" class="prism-checkbox">
+          <span>Show in Post-Checkout DoubleDash Wallet</span>
+        </label>
+        <label class="placement-toggle-item">
+          <input type="checkbox" class="prism-checkbox">
+          <span>Show in Post-Checkout DoubleDash</span>
+        </label>
+      </div>
+    `;
   }
 
-  // Build the customized fields table
-  function buildCustomizedTable() {
-    const customizedList = document.getElementById('customized-list');
+  // Build customized placements section
+  function buildCustomizedPlacements() {
+    const customizedList = document.getElementById('placement-customized-list');
 
-    if (customizedFields.length === 0) {
-      // Show empty state
-      customizedList.innerHTML = '<div class="customized-empty-state">No customized fields yet. Uncheck items above to customize per campaign.</div>';
+    if (customizedPlacements.length === 0) {
+      customizedList.innerHTML = '<div class="customized-empty-state">No customized placements yet. Uncheck items above to customize per campaign.</div>';
       return;
     }
 
     // Only show child campaigns (exclude Parent)
     const childCampaigns = campaigns.filter(c => c !== 'Parent');
 
-    // Build table
-    let tableHTML = '<table class="customized-table"><thead><tr><th>Campaign</th>';
+    let html = '';
+    childCampaigns.forEach((campaign, index) => {
+      html += `
+        <div class="placement-campaign-section ${index === 0 ? 'expanded' : ''}" data-campaign="${campaign}">
+          <div class="placement-campaign-header" onclick="toggleCampaignSection(this)">
+            <div class="placement-campaign-name">${campaign}</div>
+            <div class="placement-campaign-toggle">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="placement-campaign-body">
+      `;
 
-    // Header row - campaign names (children only)
-    childCampaigns.forEach(campaign => {
-      tableHTML += `<th>${campaign}</th>`;
-    });
-    tableHTML += '</tr></thead><tbody>';
-
-    // Data rows - one per field
-    customizedFields.forEach(fieldId => {
-      tableHTML += `<tr><td class="customized-table-field">`;
-      tableHTML += `<label class="customized-field-label">`;
-      tableHTML += `<input type="checkbox" class="prism-checkbox" data-field="${fieldId}" onchange="handleCustomizedFieldToggle(this)" checked>`;
-      tableHTML += `<span>${fieldConfig[fieldId].label}</span>`;
-      tableHTML += `</label>`;
-      tableHTML += `</td>`;
-      childCampaigns.forEach(campaign => {
-        tableHTML += `<td>${createFieldInput(fieldId)}</td>`;
+      customizedPlacements.forEach(placementId => {
+        html += `
+          <div class="placement-customized-item checked" data-placement="${placementId}">
+            <label class="placement-customized-item__header">
+              <input type="checkbox" class="prism-checkbox" checked>
+              <span class="placement-item__name">${placementConfig[placementId].label}</span>
+            </label>
+            <div class="placement-customized-item__settings">
+              ${createPlacementSettings(placementId)}
+            </div>
+          </div>
+        `;
       });
-      tableHTML += '</tr>';
+
+      html += `
+          </div>
+        </div>
+      `;
     });
 
-    tableHTML += '</tbody></table>';
-    customizedList.innerHTML = tableHTML;
+    customizedList.innerHTML = html;
   }
 
-  // Handle moving field from customized back to common
-  function handleCustomizedFieldToggle(checkbox) {
-    const fieldId = checkbox.getAttribute('data-field');
+  // Toggle campaign section in customized
+  function toggleCampaignSection(header) {
+    const section = header.closest('.placement-campaign-section');
+    section.classList.toggle('expanded');
+  }
+
+  // Handle placement toggle between common and customized
+  function handlePlacementToggle(checkbox) {
+    const placementId = checkbox.getAttribute('data-placement');
+    const placementItem = checkbox.closest('.placement-item');
 
     if (!checkbox.checked) {
-      // Remove from customized fields
-      customizedFields = customizedFields.filter(f => f !== fieldId);
+      // Remove "checked" class to hide settings
+      if (placementItem) placementItem.classList.remove('checked');
 
-      // Find and check the corresponding checkbox in common settings
-      const commonCheckbox = document.querySelector(`.common-settings-table input[data-field="${fieldId}"]`);
-      if (commonCheckbox) {
-        commonCheckbox.checked = true;
-        const row = commonCheckbox.closest('tr');
-        if (row) row.classList.add('checked');
-      }
-
-      // Rebuild customized table
-      buildCustomizedTable();
-
-      // Update common settings empty state
-      updateCommonSettingsEmptyState();
-    }
-  }
-
-  // Handle field toggle between common and customized
-  function handleFieldToggle(checkbox) {
-    const fieldId = checkbox.getAttribute('data-field');
-    const row = checkbox.closest('tr');
-
-    if (!checkbox.checked) {
-      // Remove "checked" class to hide the row
-      if (row) row.classList.remove('checked');
-
-      // Add to customized fields
-      if (!customizedFields.includes(fieldId)) {
-        customizedFields.push(fieldId);
+      // Add to customized placements
+      if (!customizedPlacements.includes(placementId)) {
+        customizedPlacements.push(placementId);
       }
     } else {
-      // Add "checked" class to show the row
-      if (row) row.classList.add('checked');
+      // Add "checked" class to show settings
+      if (placementItem) placementItem.classList.add('checked');
 
-      // Remove from customized fields
-      customizedFields = customizedFields.filter(f => f !== fieldId);
+      // Remove from customized placements
+      customizedPlacements = customizedPlacements.filter(p => p !== placementId);
     }
 
-    // Rebuild table
-    buildCustomizedTable();
+    // Rebuild customized section
+    buildCustomizedPlacements();
 
-    // Update common settings empty state
-    updateCommonSettingsEmptyState();
+    // Update common placements empty state
+    updatePlacementEmptyState();
   }
 
-  // Update common settings empty state visibility
-  function updateCommonSettingsEmptyState() {
-    const commonSettingsTable = document.querySelector('.common-settings-table');
-    const commonSettingsEmpty = document.getElementById('common-settings-empty');
-    const checkedRows = document.querySelectorAll('.common-settings-table tr.checked');
+  // Update placement empty state visibility
+  function updatePlacementEmptyState() {
+    const placementList = document.querySelector('.placement-list');
+    const placementEmpty = document.getElementById('placement-empty');
+    const checkedPlacements = document.querySelectorAll('.placement-item.checked');
 
-    if (checkedRows.length === 0) {
-      // All checkboxes unchecked - show empty state, hide table
-      if (commonSettingsTable) commonSettingsTable.style.display = 'none';
-      if (commonSettingsEmpty) commonSettingsEmpty.style.display = 'block';
+    if (checkedPlacements.length === 0) {
+      // All checkboxes unchecked - show empty state, hide list
+      if (placementList) placementList.style.display = 'none';
+      if (placementEmpty) placementEmpty.style.display = 'block';
     } else {
-      // At least one checkbox checked - show table, hide empty state
-      if (commonSettingsTable) commonSettingsTable.style.display = 'table';
-      if (commonSettingsEmpty) commonSettingsEmpty.style.display = 'none';
+      // At least one checkbox checked - show list, hide empty state
+      if (placementList) placementList.style.display = 'flex';
+      if (placementEmpty) placementEmpty.style.display = 'none';
     }
   }
 
   // Initialize on page load
   window.addEventListener('DOMContentLoaded', function() {
-    // Populate customizedFields with unchecked fields
-    const checkboxes = document.querySelectorAll('.prism-checkbox[data-field]');
+    // Populate customizedPlacements with unchecked placements
+    const checkboxes = document.querySelectorAll('.placement-item .prism-checkbox[data-placement]');
     checkboxes.forEach(checkbox => {
       if (!checkbox.checked) {
-        const fieldId = checkbox.getAttribute('data-field');
-        if (!customizedFields.includes(fieldId)) {
-          customizedFields.push(fieldId);
+        const placementId = checkbox.getAttribute('data-placement');
+        if (!customizedPlacements.includes(placementId)) {
+          customizedPlacements.push(placementId);
         }
       }
     });
-    buildCustomizedTable();
-    updateCommonSettingsEmptyState();
+    buildCustomizedPlacements();
+    updatePlacementEmptyState();
   });
   </script>
 
-  <script>
-    // Workflow steps smooth scrolling (only for anchor links on same page)
-    document.querySelectorAll('.workflow-steps a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        // Only prevent default and smooth scroll if it's an anchor link
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          const targetSection = document.querySelector(href);
+  <!-- =============================================
+       REDIRECT MODAL — Create template in Creative Studio
+  ============================================= -->
+  <style>
+    #redirect-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #redirect-modal-overlay.open { display: flex; }
 
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-        // Otherwise, let the link navigate normally to the other page
+    /* Modal — square-ish, centered layout */
+    .rdx-modal {
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      width: 100%;
+      max-width: 400px;
+      overflow: hidden;
+    }
+    .rdx-state {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Shared header */
+    .rdx-header {
+      position: relative;
+      padding: 40px 32px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+    .rdx-header__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: #ecfcfc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+    .rdx-header__body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .rdx-header__title {
+      font-size: 15px;
+      font-weight: var(--font-semibold);
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+    .rdx-header__subtitle {
+      font-size: 13px;
+      color: var(--color-text-subdued);
+      line-height: 1.5;
+    }
+    .rdx-header__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-subdued);
+    }
+    .rdx-header__close:hover { background: var(--color-bg-secondary); }
+
+    /* State 2 progress bar */
+    .rdx-progress {
+      height: 3px;
+      background: var(--color-border-input);
+      overflow: hidden;
+      margin: 28px 60px 0;
+      border-radius: var(--radius-full);
+    }
+    .rdx-progress__bar {
+      height: 100%;
+      background: var(--color-primary);
+      animation: rdx-fill 1.6s ease-in-out infinite;
+    }
+    @keyframes rdx-fill {
+      0%   { width: 0%;   opacity: 1; }
+      70%  { width: 85%;  opacity: 1; }
+      100% { width: 100%; opacity: 0; }
+    }
+
+    /* Shared footer */
+    .rdx-footer {
+      padding: 24px 32px 36px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+  </style>
+
+  <div id="redirect-modal-overlay">
+    <div class="rdx-modal">
+
+      <!-- State 1: Confirmation -->
+      <div id="rdx-state-confirm" class="rdx-state">
+        <div class="rdx-header">
+          <button class="rdx-header__close" onclick="closeRedirectModal()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="rdx-header__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </div>
+          <div class="rdx-header__body">
+            <div class="rdx-header__title" id="rdx-confirm-title">Build Spotlight template</div>
+            <div class="rdx-header__subtitle">You'll be redirected to Creative Studio. Finish your setup there.</div>
+          </div>
+        </div>
+        <div class="rdx-footer">
+          <button class="btn btn--sm btn--secondary" onclick="rdxOpenStudio()">
+            Open Creative Studio
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- State 2: Pending -->
+      <div id="rdx-state-pending" class="rdx-state" style="display:none;">
+        <div class="rdx-header">
+          <button class="rdx-header__close" onclick="closeRedirectModal()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="rdx-header__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </div>
+          <div class="rdx-header__body">
+            <div class="rdx-header__title">Creative Studio opened</div>
+            <div class="rdx-header__subtitle">Finish your setup there — your template will link automatically when you return.</div>
+          </div>
+        </div>
+        <div class="rdx-progress"><div class="rdx-progress__bar"></div></div>
+        <div class="rdx-footer">
+          <button class="btn btn--sm btn--secondary" onclick="closeRedirectModal()">Close</button>
+          <button class="btn btn--sm btn--secondary" onclick="rdxSimulateReturn()">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    var _rdxType = null;
+    var _rdxTypeLabels = { 'spotlight': 'Spotlight', 'store-banner': 'USI', 'notification-hub': 'Notification hub' };
+
+    function openRedirectModal(type) {
+      _rdxType = type;
+      document.getElementById('rdx-state-confirm').style.display = '';
+      document.getElementById('rdx-state-pending').style.display = 'none';
+      var label = _rdxTypeLabels[type] || type;
+      document.getElementById('rdx-confirm-title').textContent = 'Build ' + label + ' template';
+      document.getElementById('redirect-modal-overlay').classList.add('open');
+    }
+
+    function closeRedirectModal() {
+      document.getElementById('redirect-modal-overlay').classList.remove('open');
+    }
+
+    function rdxOpenStudio() {
+      // In prod: window.open(creativeStudioUrl + '?type=' + _rdxType + '&returnUrl=...', '_blank');
+      document.getElementById('rdx-state-confirm').style.display = 'none';
+      document.getElementById('rdx-state-pending').style.display = 'flex';
+    }
+
+    function rdxSimulateReturn() {
+      closeRedirectModal();
+      var type = _rdxType;
+      var wrapper = document.getElementById('card-wrapper-' + type);
+      if (!wrapper) return;
+      var label = _rdxTypeLabels[type] || type;
+
+      var externalLinkBadge = '';
+
+      var cardHTML = '';
+
+      if (type === 'notification-hub') {
+        // Mini version of the notification preview: circle thumb + title + desc + timestamp
+        var ddLogoSvg = '<svg width="22" height="12" viewBox="0 0 27 15" fill="none"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>';
+        cardHTML =
+          '<div class="placement-saved-card" style="width:220px;">'
+          + '<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 12px 8px;">'
+          +   '<div style="width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #E5E7EB;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">' + ddLogoSvg + '</div>'
+          +   '<div style="flex:1;min-width:0;">'
+          +     '<div style="font-size:12px;font-weight:700;color:#111318;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Summer Sale</div>'
+          +     '<div style="font-size:11px;color:#374151;margin-top:2px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Get 20% off your next order</div>'
+          +     '<div style="font-size:10px;color:#9CA3AF;margin-top:3px;">1 min ago</div>'
+          +     externalLinkBadge
+          +   '</div>'
+          + '</div>'
+          + '<div class="placement-saved-card__edit-overlay"><button class="btn btn--sm btn--secondary" onclick="openRedirectModal(\'notification-hub\')">Edit ↗</button></div>'
+          + '</div>';
+
+      } else if (type === 'store-banner') {
+        var redTagSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.9998 2H14.4141C13.6184 2 12.8554 2.31607 12.2927 2.87868L3.29274 11.8787C2.12117 13.0503 2.12117 14.9497 3.29274 16.1213L7.87853 20.7071C9.0501 21.8787 10.9496 21.8787 12.1212 20.7071L21.1212 11.7071C21.6838 11.1445 21.9998 10.3814 21.9998 9.58579V5C21.9998 3.34315 20.6567 2 18.9998 2ZM16.4999 9.5C17.6044 9.5 18.4999 8.60457 18.4999 7.5C18.4999 6.39543 17.6044 5.5 16.4999 5.5C15.3953 5.5 14.4999 6.39543 14.4999 7.5C14.4999 8.60457 15.3953 9.5 16.4999 9.5Z" fill="#D91400"/></svg>';
+        cardHTML =
+          '<div class="placement-saved-card" style="width:200px;">'
+          + '<div class="placement-saved-card__preview">'
+          +   '<div style="background:#fff;border:1px solid #f1f1f1;border-radius:10px;height:48px;display:flex;align-items:center;padding:0 8px;gap:8px;">'
+          +     '<div style="width:28px;height:28px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">' + redTagSvg + '</div>'
+          +     '<div style="flex:1;min-width:0;">'
+          +       '<div style="font-size:12px;font-weight:700;color:#111318;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Summer Sale</div>'
+          +       '<div style="font-size:11px;font-weight:500;color:#606060;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Get 20% off</div>'
+          +     '</div>'
+          +     '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="opacity:0.4;flex-shrink:0;"><path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+          +   '</div>'
+          + '</div>'
+          + '<div class="placement-saved-card__edit-overlay"><button class="btn btn--sm btn--secondary" onclick="openRedirectModal(\'store-banner\')">Edit ↗</button></div>'
+          + '</div>';
+
+      } else {
+        // Spotlight — matches preview modal: white card + teal image area + header/desc + CTA pill
+        // Scale the 340px-wide preview card down to fit the ~140px inner width
+        var spScale = 0.41;
+        var spOrigW = 340;
+        var spOrigH = 390; // padding(40) + header(52) + gap(14) + image(220) + gap(14) + cta(50)
+        var spScaledH = Math.round(spOrigH * spScale);
+        cardHTML =
+          '<div class="placement-saved-card">'
+          + '<div class="placement-saved-card__preview" style="padding:8px 8px 0;">'
+          +   '<div style="overflow:hidden;height:' + spScaledH + 'px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);">'
+          +     '<div style="transform:scale(' + spScale + ');transform-origin:top left;width:' + spOrigW + 'px;background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;">'
+          +       '<div style="display:flex;flex-direction:column;gap:4px;">'
+          +         '<span style="font-size:22px;font-weight:700;color:#111318;line-height:1.2;">Summer Sale</span>'
+          +         '<span style="font-size:15px;font-weight:400;color:#111318;line-height:1.4;">Shop the best deals this season</span>'
+          +       '</div>'
+          +       '<div style="background:#E5E7EB;border-radius:12px;height:220px;"></div>'
+          +       '<div style="background:#F3F4F6;border-radius:999px;padding:14px;text-align:center;">'
+          +         '<span style="font-size:16px;font-weight:600;color:#111318;">Shop now</span>'
+          +       '</div>'
+          +     '</div>'
+          +   '</div>'
+          + '</div>'
+          + '<div class="placement-saved-card__edit-overlay"><button class="btn btn--sm btn--secondary" onclick="openRedirectModal(\'spotlight\')">Edit ↗</button></div>'
+          + '</div>';
+      }
+
+      wrapper.innerHTML =
+        '<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;">'
+        + '<div class="placement-cards-list" style="display:flex;flex-direction:column;gap:8px;">' + cardHTML + '</div>'
+        + '<button class="btn btn--sm btn--ghost" onclick="openRedirectModal(\'' + type + '\')">+ Create more</button>'
+        + '</div>';
+
+      // Fill section 2 table cells for all campaigns
+      var cellPrefixes = ['matrix-cell-', 'matrix-child1-cell-', 'matrix-child2-cell-', 'matrix-child3-cell-'];
+      cellPrefixes.forEach(function(prefix) {
+        var cell = document.getElementById(prefix + type);
+        if (cell) cell.innerHTML = rdxBuildMatrixCellHTML(type);
       });
-    });
+
+      rdxShowToast(label + ' template linked from Creative Studio');
+    }
+
+    function rdxBuildMatrixCellHTML(type) {
+      var ddLogoSvg = '<svg width="11" height="6" viewBox="0 0 27 15" fill="none"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>';
+      if (type === 'notification-hub') {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'notification-hub\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image" style="padding:5px;">'
+          +     '<div class="matrix-creative-card__notif">'
+          +       '<div style="width:20px;height:20px;border-radius:50%;background:#fff;border:1px solid #E5E7EB;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">' + ddLogoSvg + '</div>'
+          +       '<div style="flex:1;min-width:0;">'
+          +         '<div style="font-size:9px;font-weight:600;color:#111318;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Summer Sale</div>'
+          +         '<div style="font-size:8px;color:#6B7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Get 20% off your next order</div>'
+          +       '</div>'
+          +     '</div>'
+          +   '</div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      } else if (type === 'store-banner') {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'store-banner\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image"><div style="background:#D1D5DB;height:36px;"></div></div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      } else {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'spotlight\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image"><div style="background:#E5E7EB;height:52px;"></div></div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      }
+    }
+
+    function rdxShowToast(msg) {
+      var existing = document.getElementById('rdx-toast');
+      if (existing) existing.remove();
+      var t = document.createElement('div');
+      t.id = 'rdx-toast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--color-text);color:#fff;font-size:13px;font-weight:500;padding:10px 16px;border-radius:8px;z-index:2000;display:flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);white-space:nowrap;';
+      t.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>' + msg;
+      document.body.appendChild(t);
+      setTimeout(function() { if (t.parentNode) t.remove(); }, 3500);
+    }
   </script>
 
   <!-- Fixed Confirm Bar -->
   <div class="confirm-bar" id="page-confirm-bar">
     <button class="btn btn--sm btn--secondary" onclick="history.back()">Back</button>
-    <button class="btn btn--sm btn--primary" onclick="window.location.href='placement-config.html'">
+    <button class="btn btn--sm btn--secondary" onclick="window.location.href='targeting-config.html'">
       Confirm &amp; Continue
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
     </button>

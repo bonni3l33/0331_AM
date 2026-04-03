@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USI Combined Edit & Apply - UI Explorations</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DD Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F5F5F5;
+      padding: 40px 20px;
+    }
+    .exploration-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .exploration-header {
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #606060;
+    }
+    .option-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .option-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 8px;
+    }
+    .option-description {
+      font-size: 14px;
+      color: #606060;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .mock-modal {
+      display: flex;
+      gap: 1px;
+      background: #E7E7E7;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 600px;
+    }
+    .mock-column {
+      background: #fff;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .mock-left {
+      flex: 1;
+    }
+    .mock-right {
+      width: 280px;
+      flex-shrink: 0;
+      background: #F9FAFB;
+    }
+    .section-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111318;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E7E7E7;
+    }
+
+    /* Field Group Styles */
+    .field-group {
+      margin-bottom: 24px;
+      padding: 16px;
+      background: #FAFAFA;
+      border: 1px solid #E7E7E7;
+      border-radius: 8px;
+    }
+    .field-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111318;
+    }
+    .field-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    /* Inline Compact Style */
+    .apply-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #F0F0F0;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #606060;
+    }
+    .apply-inline select {
+      flex: 1;
+      padding: 4px 8px;
+      border: 1px solid #D3D6D9;
+      border-radius: 4px;
+      font-size: 13px;
+      background: #fff;
+    }
+
+    /* Two-column Style */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+    }
+    .field-input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .apply-column {
+      min-width: 200px;
+    }
+    .apply-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #606060;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .apply-select {
+      padding: 6px 10px;
+      border: 1px solid #D3D6D9;
+      border-radius: 6px;
+      font-size: 13px;
+      background: #fff;
+      width: 100%;
+    }
+
+    /* Collapsible Rule Style */
+    .field-with-toggle {
+      margin-bottom: 24px;
+    }
+    .toggle-rule-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: transparent;
+      border: 1px solid #D3D6D9;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #606060;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 8px;
+    }
+    .toggle-rule-btn:hover {
+      background: #F9FAFB;
+      border-color: #10B981;
+    }
+    .toggle-chevron {
+      transition: transform 0.2s;
+    }
+    .toggle-chevron.open {
+      transform: rotate(180deg);
+    }
+    .rule-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: #F9FAFB;
+      border: 1px solid #E7E7E7;
+      border-radius: 6px;
+    }
+    .rule-panel.open {
+      display: block;
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .radio-option:hover {
+      background: #F0F0F0;
+    }
+    .radio-input {
+      width: 16px;
+      height: 16px;
+    }
+    .radio-label {
+      font-size: 14px;
+      color: #111318;
+    }
+    .campaign-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .campaign-chip {
+      padding: 4px 10px;
+      background: #F0F0F0;
+      border: 1px solid #D3D6D9;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #111318;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .campaign-chip.selected {
+      background: #E8F4F2;
+      border-color: #10B981;
+      color: #047857;
+    }
+
+    /* Tab Style */
+    .field-tabs {
+      display: flex;
+      gap: 2px;
+      background: #E7E7E7;
+      padding: 2px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .field-tab {
+      flex: 1;
+      padding: 6px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #606060;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .field-tab.active {
+      background: #fff;
+      color: #111318;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Badge Style */
+    .apply-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      background: #E8F4F2;
+      color: #047857;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-edit-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      color: #047857;
+    }
+
+    .preview-box {
+      background: #fff;
+      border: 1px solid #E7E7E7;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      color: #606060;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="exploration-container">
+    <div class="exploration-header">
+      <h1>USI Combined Edit & Apply - UI Explorations</h1>
+      <p class="subtitle">Different approaches for integrating field editing with apply-to-campaigns rules</p>
+    </div>
+
+    <!-- OPTION A: Inline Below Each Field -->
+    <div class="option-section">
+      <div class="option-title">Option A: Compact Inline Below Field</div>
+      <p class="option-description">
+        <strong>Layout:</strong> Single wide column (600-700px) + Preview (280px)<br>
+        <strong>Approach:</strong> Simple dropdown "Apply to" appears directly under each field input. Minimal, clean, keeps everything in one scan path.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div style="margin-bottom: 20px;">
+            <div class="field-label" style="margin-bottom: 6px;">Homepage USI Text</div>
+            <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            <div class="apply-inline">
+              <span>Apply to:</span>
+              <select>
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <div class="field-label" style="margin-bottom: 6px;">Alternative Title Text</div>
+            <input type="text" class="field-input" placeholder="Enter alternative text">
+            <div class="apply-inline">
+              <span>Apply to:</span>
+              <select>
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <div class="field-label" style="margin-bottom: 6px;">Description</div>
+            <input type="text" class="field-input" value="Description" placeholder="Enter description">
+            <div class="apply-inline">
+              <span>Apply to:</span>
+              <select>
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <div class="field-label" style="margin-bottom: 6px;">Action Url</div>
+            <select class="field-input">
+              <option>No Action Url</option>
+              <option>Store Page</option>
+            </select>
+            <div class="apply-inline">
+              <span>Apply to:</span>
+              <select>
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION B: Two-Column Per Field -->
+    <div class="option-section">
+      <div class="option-title">Option B: Side-by-Side Edit & Apply</div>
+      <p class="option-description">
+        <strong>Layout:</strong> Wide column with 2-col grid per field (input + apply rule) + Preview<br>
+        <strong>Approach:</strong> Each field has input on left, "Apply to" selector on right. Clear visual separation, easy to scan both columns.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-row" style="margin-bottom: 20px;">
+            <div class="field-input-wrapper">
+              <div class="field-label">Homepage USI Text</div>
+              <input type="text" class="field-input" style="margin-bottom: 0;" value="Title" placeholder="Enter text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <select class="apply-select">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom: 20px;">
+            <div class="field-input-wrapper">
+              <div class="field-label">Alternative Title Text</div>
+              <input type="text" class="field-input" style="margin-bottom: 0;" placeholder="Enter alternative text">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <select class="apply-select">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom: 20px;">
+            <div class="field-input-wrapper">
+              <div class="field-label">Description</div>
+              <input type="text" class="field-input" style="margin-bottom: 0;" value="Description" placeholder="Enter description">
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <select class="apply-select">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom: 20px;">
+            <div class="field-input-wrapper">
+              <div class="field-label">Action Url</div>
+              <select class="field-input" style="margin-bottom: 0;">
+                <option>No Action Url</option>
+                <option>Store Page</option>
+              </select>
+            </div>
+            <div class="apply-column">
+              <div class="apply-label">Apply to</div>
+              <select class="apply-select">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION C: Expandable/Collapsible -->
+    <div class="option-section">
+      <div class="option-title">Option C: Expandable Rules Panel</div>
+      <p class="option-description">
+        <strong>Layout:</strong> Wide column with expandable rule sections + Preview<br>
+        <strong>Approach:</strong> Fields show current rule as a badge with edit button. Click to expand and see full rule options. Saves space, progressive disclosure.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="section-header">Edit Content & Rules</div>
+
+          <div class="field-with-toggle">
+            <div class="field-group-header">
+              <div class="field-label">Homepage USI Text</div>
+              <span class="apply-badge">
+                All campaigns
+                <button class="badge-edit-btn">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            <button class="toggle-rule-btn">
+              <span>Customize apply rule</span>
+              <svg class="toggle-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <div class="rule-panel">
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="rule-1" class="radio-input" checked>
+                  <span class="radio-label">All campaigns</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="rule-1" class="radio-input">
+                  <span class="radio-label">Specific campaigns</span>
+                </label>
+              </div>
+              <div class="campaign-chips">
+                <div class="campaign-chip selected">Parent</div>
+                <div class="campaign-chip selected">Child 1</div>
+                <div class="campaign-chip selected">Child 2</div>
+                <div class="campaign-chip">Child 3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-with-toggle">
+            <div class="field-group-header">
+              <div class="field-label">Alternative Title Text</div>
+              <span class="apply-badge">
+                All campaigns
+                <button class="badge-edit-btn">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <input type="text" class="field-input" placeholder="Enter alternative text">
+          </div>
+
+          <div class="field-with-toggle">
+            <div class="field-group-header">
+              <div class="field-label">Description</div>
+              <span class="apply-badge">
+                All campaigns
+                <button class="badge-edit-btn">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <input type="text" class="field-input" value="Description" placeholder="Enter description">
+          </div>
+
+          <div class="field-with-toggle">
+            <div class="field-group-header">
+              <div class="field-label">Action Url</div>
+              <span class="apply-badge">
+                All campaigns
+                <button class="badge-edit-btn">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <select class="field-input">
+              <option>No Action Url</option>
+              <option>Store Page</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION D: Tabbed Interface -->
+    <div class="option-section">
+      <div class="option-title">Option D: Tab Between Edit & Apply</div>
+      <p class="option-description">
+        <strong>Layout:</strong> Tabbed interface - switch between "Edit" and "Apply Rules" views + Preview<br>
+        <strong>Approach:</strong> Two modes: Edit all fields first, then switch to Apply tab to set all rules. Separation of concerns.
+      </p>
+      <div class="mock-modal">
+        <div class="mock-column mock-left">
+          <div class="field-tabs">
+            <button class="field-tab active">Edit Content</button>
+            <button class="field-tab">Apply Rules</button>
+          </div>
+
+          <div class="tab-content active">
+            <div style="margin-bottom: 16px;">
+              <div class="field-label" style="margin-bottom: 6px;">Homepage USI Text</div>
+              <input type="text" class="field-input" value="Title" placeholder="Enter text">
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div class="field-label" style="margin-bottom: 6px;">Alternative Title Text</div>
+              <input type="text" class="field-input" placeholder="Enter alternative text">
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div class="field-label" style="margin-bottom: 6px;">Description</div>
+              <input type="text" class="field-input" value="Description" placeholder="Enter description">
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div class="field-label" style="margin-bottom: 6px;">Action Url</div>
+              <select class="field-input">
+                <option>No Action Url</option>
+                <option>Store Page</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <p style="font-size: 13px; color: #606060; margin-bottom: 16px;">Set which campaigns each field applies to</p>
+
+            <div style="margin-bottom: 20px;">
+              <div class="field-label" style="margin-bottom: 8px;">Homepage USI Text</div>
+              <select class="field-input">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <div class="field-label" style="margin-bottom: 8px;">Alternative Title Text</div>
+              <select class="field-input">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <div class="field-label" style="margin-bottom: 8px;">Description</div>
+              <select class="field-input">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <div class="field-label" style="margin-bottom: 8px;">Action Url</div>
+              <select class="field-input">
+                <option>All campaigns</option>
+                <option>Specific campaigns...</option>
+                <option>Parent only</option>
+                <option>Children only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-column mock-right">
+          <div class="section-header">Preview</div>
+          <div class="preview-box">
+            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Mobile Preview</div>
+            <div style="width: 100%; height: 200px; background: #F0F0F0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
+              USI Banner<br>Preview
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="option-section" style="background: #F9FAFB; border: 2px solid #E7E7E7;">
+      <div class="option-title" style="margin-bottom: 16px;">Recommendation Summary</div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Option A: Compact Inline</div>
+          <div style="font-size: 14px; color: #606060; margin-bottom: 12px;"><strong>Best for:</strong> Simplicity, minimal vertical space</div>
+          <div style="font-size: 13px; color: #606060;">Pro: Quick to scan, everything visible<br>Con: Less room for complex rules</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Option B: Side-by-Side</div>
+          <div style="font-size: 14px; color: #606060; margin-bottom: 12px;"><strong>Best for:</strong> Visual clarity, balanced layout</div>
+          <div style="font-size: 13px; color: #606060;">Pro: Clear columns, easy comparison<br>Con: Takes more horizontal space</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 8px;">✅ Option C: Expandable</div>
+          <div style="font-size: 14px; color: #606060; margin-bottom: 12px;"><strong>Best for:</strong> Progressive disclosure, advanced users</div>
+          <div style="font-size: 13px; color: #606060;">Pro: Space-efficient, status badges<br>Con: Requires more clicks</div>
+        </div>
+        <div>
+          <div style="font-weight: 600; margin-badge-bottom: 8px;">✅ Option D: Tabbed</div>
+          <div style="font-size: 14px; color: #606060; margin-bottom: 12px;"><strong>Best for:</strong> Separation of concerns</div>
+          <div style="font-size: 13px; color: #606060;">Pro: Focused workflows<br>Con: Context switching between tabs</div>
+        </div>
+      </div>
+      <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #D3D6D9;">
+        <div style="font-weight: 600; margin-bottom: 8px; color: #111318;">💡 Recommended Direction</div>
+        <div style="font-size: 14px; color: #606060;">
+          <strong>Option A (Compact Inline)</strong> or <strong>Option B (Side-by-Side)</strong> work best for most users - they keep field and rule together without requiring expansion or tab switching. Option B provides better visual hierarchy if you have the space.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
