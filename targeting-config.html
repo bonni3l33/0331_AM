@@ -238,6 +238,12 @@
       display: flex;
       gap: var(--space-5);
     }
+    a.summary-chat-step {
+      transition: opacity 0.15s;
+    }
+    a.summary-chat-step:hover {
+      opacity: 0.7;
+    }
     .summary-chat-step__track {
       display: flex;
       flex-direction: column;
@@ -949,7 +955,7 @@
       <!-- Workflow Steps Navigator -->
       <div class="workflow-steps">
         <!-- Step 1 - Completed -->
-        <div class="summary-chat-step">
+        <a href="get-started.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--completed">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -961,10 +967,10 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Get started</div>
           </div>
-        </div>
+        </a>
 
         <!-- Step 2 - Completed -->
-        <div class="summary-chat-step">
+        <a href="campaign-config-standalone.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--completed">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -976,10 +982,10 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Program Setup</div>
           </div>
-        </div>
+        </a>
 
         <!-- Step 3 - Active -->
-        <div class="summary-chat-step">
+        <a href="targeting-config.html" class="summary-chat-step" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle summary-chat-step__circle--active">3</div>
             <div class="summary-chat-step__line"></div>
@@ -987,10 +993,10 @@
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">Targeting</div>
           </div>
-        </div>
+        </a>
 
         <!-- Step 4 -->
-        <div class="summary-chat-step summary-chat-step--clickable">
+        <a href="promotion-config.html" class="summary-chat-step summary-chat-step--clickable" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle">4</div>
             <div class="summary-chat-step__line"></div>
@@ -999,10 +1005,10 @@
             <div class="summary-chat-step__title">Promotion</div>
             <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
-        </div>
+        </a>
 
         <!-- Step 5 -->
-        <div class="summary-chat-step summary-chat-step--clickable">
+        <a href="placement-config.html" class="summary-chat-step summary-chat-step--clickable" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle">5</div>
             <div class="summary-chat-step__line"></div>
@@ -1011,17 +1017,17 @@
             <div class="summary-chat-step__title">Placement</div>
             <span class="summary-chat-step__action-badge">Action needed</span>
           </div>
-        </div>
+        </a>
 
         <!-- Step 6 - Last -->
-        <div class="summary-chat-step summary-chat-step--last">
+        <a href="#section-content" class="summary-chat-step summary-chat-step--last" style="text-decoration:none; color:inherit; cursor:pointer;">
           <div class="summary-chat-step__track">
             <div class="summary-chat-step__circle">6</div>
           </div>
           <div class="summary-chat-step__content">
             <div class="summary-chat-step__title">CRM</div>
           </div>
-        </div>
+        </a>
       </div>
 
       <!-- Main Content -->
@@ -4303,6 +4309,25 @@
   window.addEventListener('DOMContentLoaded', function() {
     selectOption('existing');
   });
+  </script>
+
+  <script>
+    // Workflow steps smooth scrolling (only for anchor links on same page)
+    document.querySelectorAll('.workflow-steps a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        // Only prevent default and smooth scroll if it's an anchor link
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const targetSection = document.querySelector(href);
+
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        // Otherwise, let the link navigate normally to the other page
+      });
+    });
   </script>
 
   <!-- Fixed Confirm Bar -->
