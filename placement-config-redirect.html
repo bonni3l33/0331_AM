@@ -6520,7 +6520,48 @@
         + '<button class="btn btn--sm btn--ghost" onclick="openRedirectModal(\'' + type + '\')">+ Create more</button>'
         + '</div>';
 
+      // Fill section 2 table cells for all campaigns
+      var cellPrefixes = ['matrix-cell-', 'matrix-child1-cell-', 'matrix-child2-cell-', 'matrix-child3-cell-'];
+      cellPrefixes.forEach(function(prefix) {
+        var cell = document.getElementById(prefix + type);
+        if (cell) cell.innerHTML = rdxBuildMatrixCellHTML(type);
+      });
+
       rdxShowToast(label + ' template linked from Creative Studio');
+    }
+
+    function rdxBuildMatrixCellHTML(type) {
+      var ddLogoSvg = '<svg width="11" height="6" viewBox="0 0 27 15" fill="none"><path d="M25.2674 3.54171C24.1045 1.34796 21.8315 0 19.3735 0H0.634329C0.290734 0 0 0.290738 0 0.660767C0 0.819351 0.0792911 0.977935 0.185013 1.11009L4.25529 5.20684C4.62531 5.57687 5.10106 5.78832 5.60324 5.76189H18.792C19.7435 5.76189 20.51 6.50195 20.51 7.45345C20.51 8.40496 19.7699 9.17145 18.8184 9.17145H9.75281C9.40921 9.17145 9.11848 9.46218 9.11848 9.83221C9.11848 9.9908 9.19777 10.1494 9.30349 10.2815L13.3738 14.3783C13.7438 14.7483 14.2195 14.9333 14.7481 14.9333H18.8713C24.2102 14.9333 28.2541 9.22431 25.2674 3.54171Z" fill="#EB1700"/></svg>';
+      if (type === 'notification-hub') {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'notification-hub\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image" style="padding:5px;">'
+          +     '<div class="matrix-creative-card__notif">'
+          +       '<div style="width:20px;height:20px;border-radius:50%;background:#fff;border:1px solid #E5E7EB;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">' + ddLogoSvg + '</div>'
+          +       '<div style="flex:1;min-width:0;">'
+          +         '<div style="font-size:9px;font-weight:600;color:#111318;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Summer Sale</div>'
+          +         '<div style="font-size:8px;color:#6B7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Get 20% off your next order</div>'
+          +       '</div>'
+          +     '</div>'
+          +   '</div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      } else if (type === 'store-banner') {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'store-banner\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image"><div style="background:#D1D5DB;height:36px;"></div></div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      } else {
+        return '<div class="matrix-creative-card-wrap" onclick="openRedirectModal(\'spotlight\')">'
+          + '<div class="matrix-creative-card" style="gap:0;padding:6px;">'
+          +   '<div class="matrix-creative-card__image"><div style="background:#E5E7EB;height:52px;"></div></div>'
+          + '</div>'
+          + '<div class="matrix-creative-card-wrap__overlay"><button class="btn btn--sm btn--secondary">Edit ↗</button></div>'
+          + '</div>';
+      }
     }
 
     function rdxShowToast(msg) {
