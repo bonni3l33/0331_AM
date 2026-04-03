@@ -1709,10 +1709,10 @@
                     </button>
                   </div>
 
-                  <!-- Store banner card -->
+                  <!-- USI card -->
                   <div id="card-wrapper-store-banner">
                     <button class="placement-template-card" onclick="openPlacementModal('store-banner')">
-                      <span class="placement-template-card__name">Store banner</span>
+                      <span class="placement-template-card__name">USI</span>
                       <span class="placement-template-card__cta">Configure →</span>
                     </button>
                   </div>
@@ -1817,7 +1817,7 @@
                         </div>
                       </div>
 
-                      <!-- Media: image-only upload (store banner + notification hub) -->
+                      <!-- Media: image-only upload (USI + notification hub) -->
                       <div id="media-field-image-only" class="form-field" style="display:none;">
                         <label class="form-field__label">Media</label>
                         <div style="margin-top:8px;">
@@ -2048,7 +2048,7 @@
                         </div>
                       </div>
 
-                      <!-- Store banner preview -->
+                      <!-- USI preview -->
                       <div id="preview-store-banner" style="display:none; align-items:flex-start; justify-content:center; padding:24px 0;">
                         <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
                           <div id="preview-banner-wrap" style="width:375px; height:98px; background:#D1D5DB; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
@@ -2200,7 +2200,7 @@
               <script>
                 const placementModalTitles = {
                   'spotlight': 'Configure Spotlight',
-                  'store-banner': 'Configure Store banner',
+                  'store-banner': 'Configure USI',
                   'notification-hub': 'Configure Notification hub'
                 };
                 function switchPlacementTab(tab) {
@@ -2590,10 +2590,10 @@
                         <div class="placement-saved-card__preview">
                           ${hasImg
                             ? `<img src="${imgSrc}" style="width:100%; height:40px; object-fit:cover; border-radius:6px; display:block;">`
-                            : `<div style="background:#D1D5DB; border-radius:6px; height:40px; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px;color:#6B7280;">Store banner</span></div>`}
+                            : `<div style="background:#D1D5DB; border-radius:6px; height:40px; display:flex; align-items:center; justify-content:center;"><span style="font-size:10px;color:#6B7280;">USI</span></div>`}
                         </div>
                         <div class="placement-saved-card__info">
-                          <span class="placement-saved-card__title">Store banner</span>
+                          <span class="placement-saved-card__title">USI</span>
                         </div>
                         <div class="placement-saved-card__edit-overlay">
                           <button class="btn btn--sm btn--secondary">Edit</button>
@@ -2774,7 +2774,7 @@
                         <tr>
                           <th>Campaign</th>
                           <th>Spotlight</th>
-                          <th>Store banner</th>
+                          <th>USI</th>
                           <th>Notification hub</th>
                         </tr>
                       </thead>
