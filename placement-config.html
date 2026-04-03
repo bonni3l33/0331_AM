@@ -765,6 +765,48 @@
       font-style: italic;
     }
 
+    /* Apply-to campaign chips */
+    .campaign-chip {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text);
+      background: #fff;
+      border: 1.5px solid var(--color-border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .campaign-chip:hover {
+      border-color: #111318;
+    }
+    .campaign-chip.selected {
+      background: #111318;
+      color: #fff;
+      border-color: #111318;
+    }
+    .apply-rule-section {
+      padding: 24px 32px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .apply-rule-section__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .apply-rule-section__desc {
+      font-size: 12px;
+      color: var(--color-text-subdued);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
     /* Remove width constraint for placement config page only */
     #targeting-config-view {
       flex: 1 1 auto !important;
@@ -1917,6 +1959,36 @@
 
                       </div>
 
+                      <!-- Option C: Apply to campaigns (section 1 only) -->
+                      <div id="apply-rule-section" class="apply-rule-section">
+                        <div>
+                          <div class="apply-rule-section__title">Apply to campaigns</div>
+                          <div class="apply-rule-section__desc">Auto-fill the placement table when this template is saved.</div>
+                        </div>
+                        <div class="promo-radio-group" style="flex-direction:column; gap:12px;">
+                          <label class="promo-radio-option" style="align-items:flex-start;">
+                            <input type="radio" name="modal-apply-rule" value="all" class="promo-radio" checked onchange="setApplyRule('all')" style="margin-top:2px;">
+                            <div>
+                              <div class="promo-radio-text">All campaigns</div>
+                              <div class="apply-rule-section__desc">Apply to Parent, Child 1, Child 2, and Child 3.</div>
+                            </div>
+                          </label>
+                          <label class="promo-radio-option" style="align-items:flex-start;">
+                            <input type="radio" name="modal-apply-rule" value="specific" class="promo-radio" onchange="setApplyRule('specific')" style="margin-top:2px;">
+                            <div>
+                              <div class="promo-radio-text">Specific campaigns</div>
+                              <div class="apply-rule-section__desc">Choose which rows to auto-fill.</div>
+                            </div>
+                          </label>
+                        </div>
+                        <div id="apply-rule-campaigns" style="display:none; flex-wrap:wrap; gap:8px; padding-left:28px;">
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('parent', this)">Parent</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child1', this)">Child 1</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child2', this)">Child 2</button>
+                          <button type="button" class="campaign-chip selected" onclick="toggleApplyCampaign('child3', this)">Child 3</button>
+                        </div>
+                      </div>
+
                     </div><!-- end left panel -->
 
                     <!-- Right: preview -->
@@ -2213,12 +2285,53 @@
                 let currentMatrixCell = null;
                 const savedTemplates = { spotlight: [], 'store-banner': [], 'notification-hub': [] };
 
+                // Apply-to rule state
+                let applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+
+                const campaignCellMap = {
+                  parent: (type) => 'matrix-cell-' + type,
+                  child1: (type) => 'matrix-child1-cell-' + type,
+                  child2: (type) => 'matrix-child2-cell-' + type,
+                  child3: (type) => 'matrix-child3-cell-' + type,
+                };
+
+                function setApplyRule(value) {
+                  const container = document.getElementById('apply-rule-campaigns');
+                  container.style.display = value === 'specific' ? 'flex' : 'none';
+                  if (value === 'all') {
+                    applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+                    container.querySelectorAll('.campaign-chip').forEach(c => c.classList.add('selected'));
+                  }
+                }
+
+                function toggleApplyCampaign(campaign, chip) {
+                  if (applyCampaigns.has(campaign)) {
+                    applyCampaigns.delete(campaign);
+                    chip.classList.remove('selected');
+                  } else {
+                    applyCampaigns.add(campaign);
+                    chip.classList.add('selected');
+                  }
+                }
+
+                function resetApplyRule() {
+                  applyCampaigns = new Set(['parent', 'child1', 'child2', 'child3']);
+                  const allRadio = document.querySelector('input[name="modal-apply-rule"][value="all"]');
+                  if (allRadio) allRadio.checked = true;
+                  const container = document.getElementById('apply-rule-campaigns');
+                  if (container) {
+                    container.style.display = 'none';
+                    container.querySelectorAll('.campaign-chip').forEach(c => c.classList.add('selected'));
+                  }
+                }
+
                 function openPlacementModalFromCell(btn, type) {
                   const cell = btn.closest('td');
                   openPlacementModal(type);
                   currentModalSource = 'section2';
                   currentMatrixCell = cell;
                   document.getElementById('modal-save-btn').textContent = 'Save';
+                  document.getElementById('apply-rule-section').style.display = 'none';
                 }
 
                 function editSavedTemplate(type, idx) {
@@ -2261,6 +2374,7 @@
                   currentModalSource = 'section2';
                   currentMatrixCell = cell;
                   document.getElementById('modal-save-btn').textContent = 'Save';
+                  document.getElementById('apply-rule-section').style.display = 'none';
                   const templates = savedTemplates[type] || [];
                   const section = document.getElementById('use-template-section');
                   section.style.display = 'block';
@@ -2413,6 +2527,9 @@
                   document.getElementById('use-template-section').style.display = 'none';
                   document.getElementById('tab-content-mobile').style.opacity = '1';
                   document.getElementById('tab-content-mobile').style.pointerEvents = '';
+                  // Show apply-rule section for section 1, reset state
+                  document.getElementById('apply-rule-section').style.display = 'flex';
+                  resetApplyRule();
                   document.getElementById('placement-modal-overlay').style.display = 'flex';
                 }
 
@@ -2535,11 +2652,15 @@
                       </div>`;
                   }
                   currentEditingTemplateIndex = null;
-                  // Populate Parent Campaign row in matrix on first save
-                  const matrixCell = document.getElementById('matrix-cell-' + type);
-                  if (matrixCell && matrixCell.querySelector('.placement-matrix__create-btn')) {
-                    matrixCell.innerHTML = buildMatrixCellHTML(type);
-                  }
+
+                  // Auto-apply to matrix cells based on apply-rule selection
+                  const applyAll = document.querySelector('input[name="modal-apply-rule"][value="all"]')?.checked !== false;
+                  const targets = applyAll ? ['parent', 'child1', 'child2', 'child3'] : Array.from(applyCampaigns);
+                  targets.forEach(campaign => {
+                    const cellId = campaignCellMap[campaign]?.(type);
+                    const cell = cellId ? document.getElementById(cellId) : null;
+                    if (cell) cell.innerHTML = buildMatrixCellHTML(type);
+                  });
 
                   closePlacementModal();
                 }
@@ -2666,21 +2787,21 @@
                         </tr>
                         <tr>
                           <td>Child 1</td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                          <td id="matrix-child1-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child1-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child1-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
                         </tr>
                         <tr>
                           <td>Child 2</td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                          <td id="matrix-child2-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child2-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child2-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
                         </tr>
                         <tr>
                           <td>Child 3</td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
-                          <td><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
+                          <td id="matrix-child3-cell-spotlight"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'spotlight')">+ Create</button></td>
+                          <td id="matrix-child3-cell-store-banner"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'store-banner')">+ Create</button></td>
+                          <td id="matrix-child3-cell-notification-hub"><button class="btn btn--sm btn--secondary placement-matrix__create-btn" onclick="openPlacementModalChild(this,'notification-hub')">+ Create</button></td>
                         </tr>
                       </tbody>
                     </table>
